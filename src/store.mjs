@@ -1,3 +1,5 @@
+import { mkdirSync } from "node:fs";
+import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 export const STORE_SCHEMA_VERSION = 1;
@@ -152,6 +154,7 @@ class LedgerError extends Error {
 export { LedgerError };
 
 export function openStore(filename) {
+  mkdirSync(dirname(filename), { recursive: true });
   const db = new DatabaseSync(filename);
   migrate(db);
   return {

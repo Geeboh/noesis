@@ -9,7 +9,7 @@ function eventText(event) {
 
 export function normalizeHostEvent(kind, event, defaultActor = "omp") {
   const content = eventText(event);
-  if (!content) return null;
+  if (!content || !content.trim()) return null;
   const explicit = event?.eventId ?? event?.id ?? event?.toolCallId ?? event?.messageId;
   const idempotency_key = explicit
     ? `${kind}:${explicit}`

@@ -307,7 +307,7 @@
       "id": "M1-01",
       "milestone_id": "M1",
       "title": "Implement the persisted evidence and event ledger",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M0-06"
@@ -339,7 +339,7 @@
       "id": "M1-02",
       "milestone_id": "M1",
       "title": "Capture actual OMP sessions and tool outcomes",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M1-01"
@@ -370,7 +370,7 @@
       "id": "M1-03",
       "milestone_id": "M1",
       "title": "Implement scoped recall and evidence inspection",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -401,7 +401,7 @@
       "id": "M1-04",
       "milestone_id": "M1",
       "title": "Implement minimal durable mind_dream Snooze",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -432,7 +432,7 @@
       "id": "M1-05",
       "milestone_id": "M1",
       "title": "Build the working Observatory with LAN startup, QR, pairing, and Pulse",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M1-03",

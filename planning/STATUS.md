@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M0 complete; M1 is the first product milestone and no product release is claimed.
+**Implementation state:** M1 in progress; durable ledger, Snooze, native OMP adapter, LAN startup, pairing, and route/UI paths are implemented. Product release remains unclaimed.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -12,7 +12,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | ID | Milestone | State | Product target | Completion evidence |
 | --- | --- | --- | --- | --- |
 | M0 | Verified foundation | done | No release | `reports/milestone-M0.md` |
-| M1 | Working Mind loop and LAN Observatory | planned | `v0.1.0-alpha.1` | None yet |
+| M1 | Working Mind loop and LAN Observatory | in_progress | `v0.1.0-alpha.1` | `f9426b9806`, `test/observatory.test.mjs`, live startup smoke |
 | M2 | Atlas, Lineage, and Chronicle | planned | `v0.2.0-alpha.1` | None yet |
 | M3 | Attunement and Ebb | planned | `v0.3.0-alpha.1` | None yet |
 | M4 | Full Reverie | planned | `v0.4.0-alpha.1` | None yet |
@@ -21,11 +21,11 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M7 | Native portability and optional adapters | planned | `v0.7.0-beta.1` | None yet |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete with actual environment, toolchain, command-map, and planning evidence. M1–M8 remain planned. The estimate is 59–86 engineering days, roughly 12–18 working weeks under the roadmap assumptions. It is not a promised completion date.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 is in progress with core persistence, native OMP loading, deterministic Snooze, pairing, LAN startup, and real HTTP Observatory evidence. M2–M8 remain planned. The estimate is 59–86 engineering days, roughly 12–18 working weeks under the roadmap assumptions. It is not a promised completion date.
 
 ## Next authorized work
 
-Begin M1-01: implement the durable evidence and event ledger against the M0-06 foundation.
+Continue M1-05 and M1-06: finish route/QR/pairing hardening, browser-capable UI validation, and the alpha report. Physical second-device validation remains unavailable in this environment.
 
 The bootstrap diagnostics are:
 
@@ -59,7 +59,15 @@ Use `templates/MILESTONE-REPORT.md` at milestone closure. Keep absent runtime ch
 
 ## Active work claims
 
-No product implementation task is claimed after the M0 foundation checkpoint. The integration owner remains on `feat/m0-foundation` at `/code/helpers/noesis-bootstrap-v1.0.0`.
+M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/noesis-bootstrap-v1.0.0`.
+
+| Task | Owner | Branch/worktree | Owned paths | Start evidence | State |
+| --- | --- | --- | --- | --- | --- |
+| M1-01 | integration owner | current worktree | `src/store.mjs`, `src/contracts.mjs`, ledger tests | `f9426b9806` | in_progress |
+| M1-02 | integration owner | current worktree | `src/omp-extension.mjs`, `src/omp-events.mjs` | `E25`, `E30` | in_progress |
+| M1-03 | integration owner | current worktree | `src/service.mjs`, recall/inspection tests | `E16`, `E17` | in_progress |
+| M1-04 | integration owner | current worktree | Snooze service/store/tests | `E18`, `E20`, `E21`, `E22` | in_progress |
+| M1-05 | integration owner | current worktree | `src/server.mjs`, `src/lan.mjs`, `src/web-auth.mjs`, Observatory tests | `E33` | in_progress |
 
 ## Evidence log
 
@@ -69,7 +77,9 @@ No product implementation task is claimed after the M0 foundation checkpoint. Th
 | 2026-11-24 | M0-01 | OMP 19.1.1 version/help/config and real extension probe | partial; probe loaded, print request timed out | `E2`, `scripts/probe_omp.mjs` |
 | 2026-11-24 | M0-03/M0-05 | `npm ci --ignore-scripts && npm run test:m0` | passed scaffold check | `VAL-M0-001`, `reports/validation-M0-scaffold.md` |
 | 2026-11-24 | M0-03 | Toolchain decision and command registry | recorded | `reports/decisions/DEC-0001-m0-toolchain.md`, `validation/registry.json` |
-
+| 2026-11-24 | M1 core | `npm test` | 35 tests passed; real OMP and CLI smoke separately observed | `f9426b9806`, `test/observatory.test.mjs` |
+| 2026-11-24 | M1 LAN | `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start` | actual LAN URL, terminal QR, separate pairing code printed after bind | `E33` |
+| 2026-11-24 | M1 browser | browser daemon could not start because X11 `$DISPLAY` is unavailable | unavailable; HTTP journey remains passed | `E29`, `test/observatory.test.mjs` |
 ## Blockers and forecast changes
 
-No implementation blocker is established. M0 is complete; M1-01 is dependency-ready.
+Browser visual validation is unavailable because the managed Chromium daemon requires X11 `$DISPLAY`; real HTTP Observatory and startup evidence remain available. No implementation blocker is established for the next M1 route checks.

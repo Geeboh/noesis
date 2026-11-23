@@ -21,6 +21,10 @@ test("interrupted events keep interrupted status", () => {
   assert.equal(normalized.status, "interrupted");
   assert.equal(normalized.idempotency_key, "tool_execution_end:event-2");
 });
+test("empty host payloads are ignored", () => {
+  assert.equal(normalizeHostEvent("message_end", ""), null);
+  assert.equal(normalizeHostEvent("message_end", undefined), null);
+});
 test("normalized repeated host event persists one canonical observation", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-omp-events-"));
   const service = openService(join(directory, "mind.sqlite"));

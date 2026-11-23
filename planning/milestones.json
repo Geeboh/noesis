@@ -120,7 +120,7 @@
     {
       "id": "M1",
       "title": "Working Mind loop",
-      "status": "planned",
+ "status": "in_progress",
       "release_target": "v0.1.0-alpha.1",
       "depends_on": [
         "M0"
