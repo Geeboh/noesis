@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M1 through M6 done. M6 Forge and Blueprints is closed with explicit model, remote-write, browser, device, and release limitations.
+**Implementation state:** M1 through M7 done. M7 native portability is closed; optional MCP adapters are explicitly deferred and unavailable.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -18,14 +18,14 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M4 | Full Reverie | done | `v0.4.0-alpha.1` | `reports/milestone-M4.md`, `reports/validation-M4.md`, `reports/release-notes-v0.4.0-alpha.1.md` |
 | M5 | Lore living wiki | done | `v0.5.0-beta.1` | `reports/milestone-M5.md`, `reports/validation-M5.md`, `reports/release-notes-v0.5.0-beta.1.md` |
 | M6 | Forge and Blueprints | done | `v0.6.0-beta.1` | `reports/milestone-M6.md`, `reports/validation-M6.md`, `reports/release-notes-v0.6.0-beta.1.md` |
-| M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
+| M7 | Native portability and optional adapters | done | `v0.7.0-beta.1` | `reports/milestone-M7.md`, `reports/validation-M7.md`, `reports/release-notes-v0.7.0-beta.1.md`, `reports/decisions/DEC-0002-m7-optional-adapters.md` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 through M6 are complete. M7 native portability and optional-adapter integration, plus M8 hardening, remain open.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 through M7 are complete. M8 hardening and stable release remain open.
 
 ## Next authorized work
 
-Continue M7 required native archive, integrity, and restore work. Keep optional adapters individually deferred or selected with explicit compatibility evidence.
+Continue M8 hardening: exercise installation, migration, backup/restore, operational recovery, load, and final release reproducibility.
 
 The bootstrap diagnostics are:
 
@@ -99,6 +99,12 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | M6-04 | integration owner | current worktree | Blueprint full/delta export | `4408fc6` | done |
 | M6-05 | integration owner | current worktree | privacy and baseline compatibility | `4408fc6` | done |
 | M6-06 | integration owner | current worktree | Forge UI, M6 reports, release notes | current candidate validation | done |
+| M7-01 | integration owner | current worktree | native archive contract and optional dispositions | `d292e7a` | done |
+| M7-02 | integration owner | current worktree | optional MCP access | DEC-0002 scoped deferral | deferred |
+| M7-03 | integration owner | current worktree | optional transport parity | DEC-0002 scoped deferral | deferred |
+| M7-04 | integration owner | current worktree | `src/archive.mjs`, archive tests | `d292e7a` | done |
+| M7-05 | integration owner | current worktree | native portability and restore validation | `d292e7a` | done |
+| M7-06 | integration owner | current worktree | M7 reports, decision, release notes | current candidate validation | done |
 ## Evidence log
 
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
@@ -129,5 +135,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M6 core | `npm test` | 55 tests passed; Forge, Blueprint, privacy, delta, and baseline checks passed | `reports/validation-M6.md` |
 | 2026-11-24 | M6 Observatory | authenticated plugin/project Forge and Blueprint journey | resource attribution, focused dream, and incompatible baseline checks passed | `reports/validation-M6.md` |
 | 2026-11-24 | M6 browser | `playwright_fast capture` at 1280x720 and 390x844 | Forge and Blueprint controls rendered with no page errors; capture is visual evidence only | `reports/validation-M6.md` |
+| 2026-11-24 | M7 native | `npm test`; archive tamper and clean-store restore tests | 56 tests passed; native archive integrity and restore passed | `reports/validation-M7.md` |
+| 2026-11-24 | M7 optional adapters | DEC-0002 | MCP tasks explicitly deferred and unavailable; no external backend selected | `reports/decisions/DEC-0002-m7-optional-adapters.md` |
 ## Blockers and forecast changes
-M1 through M6 are complete. Model enrichment, remote patching/publication, interactive browser control, physical second-device LAN validation, and M8 release reproducibility remain unavailable. M7 integration is next.
+M1 through M7 are complete. Optional MCP/external backends remain unavailable by decision. M8 hardening, operational checks, and stable-release reproducibility are next.

@@ -419,7 +419,7 @@
     {
       "id": "M7",
       "title": "Native portability and optional adapters",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.7.0-beta.1",
       "depends_on": [
         "M2",
@@ -490,7 +490,7 @@
           "selection_policy": "Adopt only for measured benefit and acceptable cost; native portability must work without one."
         }
       ],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M7.md", "reports/validation-M7.md", "reports/release-notes-v0.7.0-beta.1.md", "reports/decisions/DEC-0002-m7-optional-adapters.md", "npm test"]
     },
     {
       "id": "M8",

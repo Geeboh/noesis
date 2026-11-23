@@ -1495,7 +1495,7 @@
       "id": "M7-01",
       "milestone_id": "M7",
       "title": "Specify required native portability and optional adapter boundaries",
-      "status": "in_progress",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-06",
@@ -1521,13 +1521,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/archive.mjs", "reports/decisions/DEC-0002-m7-optional-adapters.md", "reports/validation-M7.md"]
     },
     {
       "id": "M7-02",
       "milestone_id": "M7",
       "title": "Implement optional MCP access to shared core capabilities",
-      "status": "planned",
+"status": "deferred",
       "priority": "P0",
       "depends_on": [
         "M7-01",
@@ -1554,13 +1554,13 @@
       "required_for_v1": false,
       "optional_group": "mcp_adapter",
       "deferral_policy": "May be explicitly deferred with a scoped decision if costly; do not mark implemented. Required native archive/integrity/restore work still proceeds.",
-      "completion_evidence": []
+"completion_evidence": ["reports/decisions/DEC-0002-m7-optional-adapters.md"]
     },
     {
       "id": "M7-03",
       "milestone_id": "M7",
       "title": "Preserve identity, scope, and cancellation across transport",
-      "status": "planned",
+"status": "deferred",
       "priority": "P0",
       "depends_on": [
         "M7-02",
@@ -1588,13 +1588,13 @@
       "required_for_v1": false,
       "optional_group": "mcp_adapter",
       "deferral_policy": "May be explicitly deferred with a scoped decision if costly; do not mark implemented. Required native archive/integrity/restore work still proceeds.",
-      "completion_evidence": []
+"completion_evidence": ["reports/decisions/DEC-0002-m7-optional-adapters.md"]
     },
     {
       "id": "M7-04",
       "milestone_id": "M7",
       "title": "Implement native archive integrity verification and restore",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M7-01",
@@ -1635,13 +1635,13 @@
           "rule": "Implement only if selected; preserve native archive as the required baseline and report actual mapping losses."
         }
       ],
-      "completion_evidence": []
+"completion_evidence": ["src/archive.mjs", "test/archive.test.mjs", "reports/validation-M7.md", "npm test"]
     },
     {
       "id": "M7-05",
       "milestone_id": "M7",
       "title": "Validate native portability and selected optional integrations",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M7-01",
@@ -1677,13 +1677,13 @@
           "when": "MCP adapter is selected for the candidate release"
         }
       ],
-      "completion_evidence": []
+"completion_evidence": ["src/archive.mjs", "src/operations.mjs", "test/archive.test.mjs", "test/operations.test.mjs", "reports/validation-M7.md"]
     },
     {
       "id": "M7-06",
       "milestone_id": "M7",
       "title": "Prepare the native portability beta and optional-adapter dispositions",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M7-01",
@@ -1721,7 +1721,7 @@
           "when": "MCP adapter is selected for the candidate release"
         }
       ],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M7.md", "reports/validation-M7.md", "reports/release-notes-v0.7.0-beta.1.md", "reports/decisions/DEC-0002-m7-optional-adapters.md"]
     },
     {
       "id": "M8-01",
