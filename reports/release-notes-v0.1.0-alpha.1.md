@@ -1,7 +1,7 @@
 # NOESIS v0.1.0-alpha.1 local candidate notes
 
 **Status:** local candidate preparation, not released.
-**Candidate:** `72733625ce83d23da04b58dbe1e9fae0f003a4f1`
+**Candidate:** `85712e4c57816537179a2ec4e17be1e4d719add3`
 
 ## Implemented
 
