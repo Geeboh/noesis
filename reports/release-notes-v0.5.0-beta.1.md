@@ -1,7 +1,7 @@
 # NOESIS v0.5.0-beta.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `226fecb`
+**Status:** released to private GitHub repository.
+**Candidate:** `937e62e`
 
 ## Implemented
 
@@ -23,4 +23,4 @@
 - Interactive browser editing and physical second-device LAN validation remain unverified.
 - M6 Forge and Blueprints integration remains next.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
