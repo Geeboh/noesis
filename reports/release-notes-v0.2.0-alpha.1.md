@@ -1,7 +1,7 @@
 # NOESIS v0.2.0-alpha.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `7b385b9`
+**Status:** released to private GitHub repository.
+**Candidate:** `b9b4d46`
 
 ## Implemented
 
@@ -23,4 +23,4 @@
 - Physical second-device LAN validation remains an M8 check.
 - M3 Attunement and Ebb integration remains in progress.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
