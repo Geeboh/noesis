@@ -15,13 +15,13 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M1 | Working Mind loop and LAN Observatory | in_progress | `v0.1.0-alpha.1` | `f9426b9806`, `test/observatory.test.mjs`, live startup smoke |
 | M2 | Atlas, Lineage, and Chronicle | in_progress | `v0.2.0-alpha.1` | `e5643fc79a`, `test/atlas.test.mjs` |
 | M3 | Attunement and Ebb | in_progress | `v0.3.0-alpha.1` | `e6b8649813`, `test/adaptation.test.mjs` |
-| M4 | Full Reverie | planned | `v0.4.0-alpha.1` | None yet |
-| M5 | Lore living wiki | planned | `v0.5.0-beta.1` | None yet |
-| M6 | Forge and Blueprints | planned | `v0.6.0-beta.1` | None yet |
-| M7 | Native portability and optional adapters | planned | `v0.7.0-beta.1` | None yet |
+| M4 | Full Reverie | in_progress | `v0.4.0-alpha.1` | `02f7b6bd99`, `test/reverie.test.mjs` |
+| M5 | Lore living wiki | in_progress | `v0.5.0-beta.1` | `02f7b6bd99`, `test/lore.test.mjs` |
+| M6 | Forge and Blueprints | in_progress | `v0.6.0-beta.1` | `02f7b6bd99`, `test/forge.test.mjs` |
+| M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 remains open for alpha closure. M2 resource identity/snapshot/lineage core and M3 Attunement/Ebb policy core are implemented with deterministic tests; M2/M3 web views and release reports remain. M4–M8 are planned.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 remains open for alpha closure. M2/M3 core policies and M4–M7 contract cores now have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
 
 ## Next authorized work
 
