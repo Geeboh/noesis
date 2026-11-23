@@ -219,7 +219,7 @@
     {
       "id": "M3",
       "title": "Attunement and Ebb",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.3.0-alpha.1",
       "depends_on": [
         "M1"
@@ -263,7 +263,7 @@
         "M3-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M3.md", "reports/validation-M3.md", "reports/release-notes-v0.3.0-alpha.1.md", "npm test"]
     },
     {
       "id": "M4",
