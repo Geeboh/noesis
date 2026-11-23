@@ -79,9 +79,9 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M0-03 | Toolchain decision and command registry | recorded | `reports/decisions/DEC-0001-m0-toolchain.md`, `validation/registry.json` |
 | 2026-11-24 | M1 core | `npm test` | 35 tests passed; real OMP and CLI smoke separately observed | `f9426b9806`, `test/observatory.test.mjs` |
 | 2026-11-24 | M1 LAN | `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start` | actual LAN URL, terminal QR, separate pairing code printed after bind | `E33` |
-| 2026-11-24 | M1 browser | browser daemon could not start because X11 `$DISPLAY` is unavailable | unavailable; HTTP journey remains passed | `E29`, `test/observatory.test.mjs` |
+| 2026-11-24 | M1 browser | `npx playwright screenshot --browser=chromium http://127.0.0.1:17339/ /tmp/noesis-playwright.png` | passed headless Chromium screenshot at 1280x720 | `reports/validation-M1.md` |
 | 2026-11-24 | M2 core | `npm test` | Atlas aliases, snapshots, independent states, lineage, Chronicle passed | `e5643fc79a`, `test/atlas.test.mjs` |
 | 2026-11-24 | M3 core | `npm test` | Attunement correction/support and anchored Ebb/forgetment passed | `e6b8649813`, `test/adaptation.test.mjs` |
 ## Blockers and forecast changes
 
-Browser visual validation is unavailable because the managed Chromium daemon requires X11 `$DISPLAY`; real HTTP Observatory and startup evidence remain available. No implementation blocker is established for the next M1 route checks.
+Headless Playwright visual validation passed. Interactive pairing flow and physical second-device LAN validation remain unavailable; managed X11 browser is no longer a blocker.

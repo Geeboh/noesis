@@ -29,11 +29,11 @@
 
 | Target | Exact command or procedure | Result | Limitation |
 | --- | --- | --- | --- |
-| `contracts.schema` | `npm test` | passed, 37 tests | application correctness, not visual browser proof |
+| `contracts.schema` | `npm test` | passed, 46 tests | application correctness; Playwright visual check separate |
 | `ledger.integrity` | `npm test` | passed | covered restart, idempotency, revisions, sources, retry state |
 | `omp.capture-recall` | real OMP `mind_note` and fresh-session `mind_recall` probes against `/tmp/noesis-omp-live` | passed | print probe did not emit before_agent_start payload; capability gap recorded |
 | `dream.resilience` | `npm test` | passed | deterministic M1 Snooze only; M4 modes remain unavailable |
-| `observatory.journeys` | `npm test` `test/observatory.test.mjs`; `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start` | passed HTTP/startup; browser visual unavailable | managed Chromium failed because X11 `$DISPLAY` is unavailable |
+| `observatory.journeys` | `npm test` `test/observatory.test.mjs`; `NOESIS_PORT=17339 NOESIS_DATA_DIR=/tmp/noesis-playwright-proof npm start`; `npx playwright screenshot --browser=chromium http://127.0.0.1:17339/ /tmp/noesis-playwright.png` | passed HTTP/startup and Playwright screenshot | interactive Playwright pairing flow not run; physical second-device unavailable |
 
 ## LAN and pairing detail
 
@@ -41,4 +41,4 @@ The CLI smoke bound `0.0.0.0:17337`, then printed actual address `http://192.168
 
 ## Limitations and next action
 
-The browser daemon could not launch on this headless Linux session because no X11 `$DISPLAY` exists. HTTP and service integration evidence remain valid. M1-06 needs the alpha report and release notes after the remaining acceptance review. Physical second-device LAN validation is unavailable.
+Playwright headless Chromium captured `/tmp/noesis-playwright.png` at 1280x720. The managed browser daemon's X11 limitation does not apply to this check. Interactive browser pairing and physical second-device validation remain unavailable.
