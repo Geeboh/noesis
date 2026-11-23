@@ -24,9 +24,13 @@ function authorizedScopeIds(store, principal, scope_ids) {
 export function createService(store) {
   return {
     store,
-    mindNote({ principal, scope, content, producer_id, idempotency_key, source = null, actor_id = producer_id }) {
+    mindNote({ principal, scope, content, producer_id, idempotency_key, source = null, actor_id = producer_id, resource_id = null }) {
       if (!scopeAllows(principal, scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "scope is not available");
       const statement = requireNote(content);
+      if (resource_id) {
+        const resource = store.getResource(resource_id);
+        if (!resource || !scopeAllows(principal, resource.scope) || resource.scope.scope_id !== scope.scope_id) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "resource is not available");
+      }
       if (!producer_id || !idempotency_key) throw new LedgerError("INVALID_ARGUMENT", "producer_id and idempotency_key are required");
       const record = makeRecord({
         record_type: "observation",
@@ -39,7 +43,7 @@ export function createService(store) {
           capture_idempotency_key: idempotency_key,
           transformation: null,
         },
-        payload: { statement },
+        payload: { statement, ...(resource_id ? { resource_id } : {}) },
       });
       const event = makeEvent({
         event_type: "mind_note",
@@ -48,7 +52,7 @@ export function createService(store) {
         object_revision: record.revision,
         payload: { record_id: record.record_id, statement_kind: "observation" },
       });
-      return store.capture({ producer_id, operation: "mind_note", idempotency_key, request: { content: statement, source_id: source?.source_id ?? null, scope_id: scope.scope_id }, record, event, source });
+      return store.capture({ producer_id, operation: "mind_note", idempotency_key, request: { content: statement, source_id: source?.source_id ?? null, scope_id: scope.scope_id, resource_id }, record, event, source });
     },
     mindRecall({ principal, query = "", scope_ids = [], max_items = 8, max_chars = 12000 }) {
       if (!Number.isInteger(max_items) || max_items < 1 || max_items > 100 || !Number.isInteger(max_chars) || max_chars < 1) throw new LedgerError("INVALID_ARGUMENT", "invalid recall budget");
@@ -146,7 +150,7 @@ export function createService(store) {
       if (!saved || saved.kind !== "dream") throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "job is not available");
       const job = saved.payload;
       authorizedScopeIds(store, principal, job.scope_ids);
-      return { job_id, state: saved.state === "pending" ? "queued" : saved.state, checkpoint: saved.checkpoint, progress: { completed: saved.checkpoint.completed_steps, total: saved.checkpoint.total_steps, remaining: Math.max(0, (saved.checkpoint.total_steps ?? 0) - saved.checkpoint.completed_steps) }, budget: job.budget, usage: job.usage, outputs: job.outputs };
+      return { job_id, level: job.level, modes: job.modes, focus: job.focus, execution_kind: job.execution_kind, state: saved.state === "pending" ? "queued" : saved.state, checkpoint: saved.checkpoint, progress: { completed: saved.checkpoint.completed_steps, total: saved.checkpoint.total_steps, remaining: Math.max(0, (saved.checkpoint.total_steps ?? 0) - saved.checkpoint.completed_steps) }, budget: job.budget, usage: job.usage, outputs: job.outputs };
     },
     close() {
       store.close();

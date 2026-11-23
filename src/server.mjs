@@ -5,6 +5,7 @@ import { PairingManager } from "./web-auth.mjs";
 import { createAtlas } from "./atlas.mjs";
 import { createAdaptation } from "./adaptation.mjs";
 import { buildLorePage, diffLorePages, editManualSection, invalidateLorePage, refreshLorePage } from "./lore.mjs";
+import { buildForgeView, exportBlueprint } from "./forge.mjs";
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
   const port = Number(env.NOESIS_PORT ?? 7337);
@@ -40,7 +41,7 @@ ul{padding-left:1.25rem}.muted{color:#5b6773}
 <section id="atlas" aria-labelledby="atlas-title"><h2 id="atlas-title">Atlas</h2><p>Browse real resources, snapshots, independent evidence states, and history.</p><button id="atlas-button">Load resources</button><ul id="atlas-results"></ul><div id="atlas-detail" aria-live="polite"></div></section>
 <section id="attunement" aria-labelledby="attunement-title"><h2 id="attunement-title">Attunement</h2><p>Explicit corrections override inferred preferences. Silence does not confirm a preference.</p><form id="preference-form"><label for="preference-origin">Origin</label><select id="preference-origin" name="origin"><option value="explicit">Stated preference</option><option value="inferred">Inferred candidate</option></select><label for="preference-statement">Preference</label><input id="preference-statement" name="statement" required><button>Create preference</button></form><button id="preferences-button" type="button">Load preferences</button><ul id="preference-results"></ul><p id="preference-status" role="status"></p></section>
 <section id="ebb" aria-labelledby="ebb-title"><h2 id="ebb-title">Ebb</h2><p>Activation fades separately from truth, validity, and retention. Revival is reversible.</p><form id="ebb-form"><label for="ebb-record-id">Record ID</label><input id="ebb-record-id" name="record_id" required><button>Evaluate activation</button><button id="revive-button" type="button">Revive</button></form><form id="forget-form"><label for="forget-record-id">Forget record ID</label><input id="forget-record-id" name="target_id" required><label for="forget-reason">Reason</label><input id="forget-reason" name="reason" required><button>Record explicit forgetting</button></form><p id="ebb-status" role="status"></p></section>
-<section id="forge" aria-labelledby="forge-title"><h2 id="forge-title">Forge</h2><p>Choose a resource in Atlas to inspect attributable findings and export a Blueprint.</p></section>
+<section id="forge" aria-labelledby="forge-title"><h2 id="forge-title">Forge</h2><p>Filter one resource and version. Observations, lessons, hypotheses, evidence, and omissions stay separate.</p><form id="forge-form"><label for="forge-resource-id">Resource ID</label><input id="forge-resource-id" name="resource_id" required><label for="forge-privacy">Privacy</label><select id="forge-privacy" name="privacy"><option value="standard">Standard</option><option value="redacted">Redacted</option></select><label for="forge-since">Delta cutoff</label><input id="forge-since" name="since" placeholder="ISO timestamp"><button>Load Forge</button></form><button id="forge-blueprint-button" type="button">Export Blueprint</button><button id="forge-dream-button" type="button">Dream about resource</button><pre id="forge-results"></pre><p id="forge-status" role="status"></p></section>
 <section id="lore" aria-labelledby="lore-title"><h2 id="lore-title">Lore</h2><p>Read sourced generated sections, edit authored sections, inspect diffs, and refresh invalidated content.</p><form id="lore-load-form"><label for="lore-resource-id">Resource ID</label><input id="lore-resource-id" name="resource_id" required><button>Load Lore</button></form><form id="lore-manual-form"><label for="lore-section-id">Manual section ID</label><input id="lore-section-id" name="section_id" value="manual-note" required><label for="lore-content">Manual content</label><textarea id="lore-content" name="content" required></textarea><input id="lore-revision" name="expected_revision" type="hidden"><button>Save manual section</button></form><button id="lore-refresh-button" type="button">Refresh generated sections</button><div id="lore-results" aria-live="polite"></div><p id="lore-status" role="status"></p></section>
 </main>
 <script>
@@ -62,6 +63,10 @@ let activeLoreResource=null;const renderLore=page=>{activeLoreResource=page.page
 document.getElementById('lore-load-form').addEventListener('submit',async event=>{event.preventDefault();try{await loadLore();status('lore-status','Lore loaded.')}catch(error){status('lore-status',error.message)}});
 document.getElementById('lore-manual-form').addEventListener('submit',async event=>{event.preventDefault();try{if(!activeLoreResource)await loadLore();const body=await api('/api/lore/'+encodeURIComponent(activeLoreResource)+'/manual',{method:'POST',body:JSON.stringify({section_id:event.target.section_id.value,content:event.target.content.value,expected_revision:Number(event.target.expected_revision.value)})});renderLore(body.page);status('lore-status','Manual section saved.')}catch(error){status('lore-status',error.message)}});
 document.getElementById('lore-refresh-button').addEventListener('click',async()=>{try{if(!activeLoreResource)await loadLore();const body=await api('/api/lore/'+encodeURIComponent(activeLoreResource)+'/refresh',{method:'POST',body:'{}'});renderLore(body.page);status('lore-status','Generated sections refreshed.')}catch(error){status('lore-status',error.message)}});
+let activeForgeResource=null;const loadForge=async()=>{const form=document.getElementById('forge-form');const id=form.resource_id.value;if(!id)throw new Error('resource id is required');activeForgeResource=id;const body=await api('/api/forge/'+encodeURIComponent(id));document.getElementById('forge-results').textContent=JSON.stringify({resource_id:body.resource_id,version:body.version,findings:body.findings.length,lessons:body.lessons.length,hypotheses:body.hypotheses.length,reproduction_cases:body.reproduction_cases.length,coverage:body.coverage},null,2)};
+document.getElementById('forge-form').addEventListener('submit',async event=>{event.preventDefault();try{await loadForge();status('forge-status','Forge view loaded.')}catch(error){status('forge-status',error.message)}});
+document.getElementById('forge-blueprint-button').addEventListener('click',async()=>{try{if(!activeForgeResource)await loadForge();const privacy=document.getElementById('forge-privacy').value;const since=document.getElementById('forge-since').value;const query=new URLSearchParams({privacy});if(since)query.set('since',since);const body=await api('/api/blueprint/'+encodeURIComponent(activeForgeResource)+'?'+query);document.getElementById('forge-results').textContent=body.markdown;status('forge-status','Blueprint exported without patching the resource.')}catch(error){status('forge-status',error.message)}});
+document.getElementById('forge-dream-button').addEventListener('click',async()=>{try{if(!activeForgeResource)await loadForge();const body=await api('/api/dream',{method:'POST',body:JSON.stringify({level:'dream',modes:['consolidate'],focus:{resource_id:activeForgeResource}})});status('forge-status','Focused dream '+body.job_id+' queued.')}catch(error){status('forge-status',error.message)}});
 </script>
 </body>
 </html>`;
@@ -208,12 +213,14 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       if (url.pathname.startsWith("/api/forge/") && request.method === "GET") {
         const resource_id = decodeURIComponent(url.pathname.slice("/api/forge/".length));
         const resource = atlas.inspect({ principal, resource_id });
-        return sendJson(response, 200, buildForgeView({ resource, records: service.store.listRecords() }));
+        return sendJson(response, 200, buildForgeView({ resource, records: service.store.listRecords(), version: url.searchParams.get("version") || null }));
       }
       if (url.pathname.startsWith("/api/blueprint/") && request.method === "GET") {
         const resource_id = decodeURIComponent(url.pathname.slice("/api/blueprint/".length));
         const resource = atlas.inspect({ principal, resource_id });
-        return sendJson(response, 200, exportBlueprint({ forge: buildForgeView({ resource, records: service.store.listRecords() }), target: resource.display_name }));
+        const forge = buildForgeView({ resource, records: service.store.listRecords(), version: url.searchParams.get("version") || null });
+        const baseline = url.searchParams.get("baseline_target") ? { target: url.searchParams.get("baseline_target"), scope: url.searchParams.get("baseline_scope"), version: url.searchParams.get("baseline_version") || null } : null;
+        return sendJson(response, 200, exportBlueprint({ forge, target: resource.display_name, previous_cutoff: url.searchParams.get("since") || null, privacy: url.searchParams.get("privacy") || "standard", baseline }));
       }
       if (url.pathname === "/api/recall" && request.method === "GET") return sendJson(response, 200, service.mindRecall({ principal, query: url.searchParams.get("query") ?? "", max_items: 8, max_chars: 12000 }));
       if (url.pathname.startsWith("/api/inspect/") && request.method === "GET") {
@@ -222,7 +229,7 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       }
       if (url.pathname === "/api/note" && request.method === "POST") {
         const body = await readBody(request);
-        return sendJson(response, 200, service.mindNote({ principal, scope: { scope_id: "local", owner_id: "local", kind: "project", project_id: "local", session_id: null, task_id: null }, content: body.content, producer_id: "dashboard", idempotency_key: body.idempotency_key ?? `dashboard:${Date.now()}` }));
+        return sendJson(response, 200, service.mindNote({ principal, scope: { scope_id: "local", owner_id: "local", kind: "project", project_id: "local", session_id: null, task_id: null }, content: body.content, resource_id: body.resource_id ?? null, producer_id: "dashboard", idempotency_key: body.idempotency_key ?? `dashboard:${Date.now()}` }));
       }
       if (url.pathname === "/api/dream" && request.method === "POST") {
         const body = await readBody(request);

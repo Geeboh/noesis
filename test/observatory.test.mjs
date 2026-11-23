@@ -162,3 +162,32 @@ test("Lore persists authored sections across refresh and restart", async () => {
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("Forge and Blueprint routes stay scoped for plugin and project resources", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-forge-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  const pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const register = async (kind, name) => (await (await fetch(`${base}/api/resources`, { method: "POST", headers, body: JSON.stringify({ kind, origin_facet: "local", display_name: name, aliases: [{ value: `file:///${name}`, kind: "path" }] }) })).json());
+  const plugin = await register("plugin", "plugin-a");
+  const project = await register("project", "project-a");
+  await fetch(`${base}/api/note`, { method: "POST", headers, body: JSON.stringify({ content: "plugin friction", resource_id: plugin.resource_id }) });
+  await fetch(`${base}/api/note`, { method: "POST", headers, body: JSON.stringify({ content: "project friction", resource_id: project.resource_id }) });
+  const pluginForge = await (await fetch(`${base}/api/forge/${plugin.resource_id}`, { headers: { cookie } })).json();
+  const projectForge = await (await fetch(`${base}/api/forge/${project.resource_id}`, { headers: { cookie } })).json();
+  assert.equal(pluginForge.findings.length, 1);
+  assert.equal(projectForge.findings.length, 1);
+  const blueprint = await (await fetch(`${base}/api/blueprint/${plugin.resource_id}?privacy=redacted`, { headers: { cookie } })).json();
+  assert.equal(blueprint.json.scope, "local");
+  assert.equal(blueprint.json.reproduction_cases.length, 1);
+  const dream = await (await fetch(`${base}/api/dream`, { method: "POST", headers, body: JSON.stringify({ level: "dream", modes: ["consolidate"], focus: { resource_id: plugin.resource_id } }) })).json();
+  const dreamStatus = await (await fetch(`${base}/api/dream/${dream.job_id}`, { headers: { cookie } })).json();
+  assert.equal(dreamStatus.focus.resource_id, plugin.resource_id);
+  const incompatible = await fetch(`${base}/api/blueprint/${plugin.resource_id}?baseline_target=other&baseline_scope=local`, { headers: { cookie } });
+  assert.equal(incompatible.status, 400);
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});

@@ -1,21 +1,56 @@
-export function buildForgeView({ resource, records }) {
-  const selected = records.filter((record) => record.scope.scope_id === resource.scope.scope_id && (record.payload.resource_id === resource.resource_id || record.provenance?.source_refs?.includes(resource.resource_id)));
-  return { resource_id: resource.resource_id, version: resource.metadata.version ?? null, findings: selected.filter((record) => record.record_type === "observation"), lessons: selected.filter((record) => record.record_type === "lesson"), hypotheses: selected.filter((record) => record.record_type === "hypothesis"), coverage: { considered: selected.length, scope_id: resource.scope.scope_id } };
+function redactText(value, privacy) {
+  if (privacy !== "redacted" || typeof value !== "string") return value;
+  return value
+    .replace(/(?:\/home\/|\/Users\/)[^\s/]+/g, "<path>")
+    .replace(/Bearer\s+[A-Za-z0-9._-]+/gi, "Bearer <redacted>");
 }
 
-export function exportBlueprint({ forge, target, previous_cutoff = null, privacy = "standard" }) {
+function scopedRecords({ resource, records }) {
+  return records.filter((record) => record.scope.scope_id === resource.scope.scope_id && (record.payload.resource_id === resource.resource_id || record.provenance?.source_refs?.includes(resource.resource_id)));
+}
+
+export function buildForgeView({ resource, records, version = null }) {
+  const selected = scopedRecords({ resource, records });
+  const snapshot = (resource.snapshots ?? []).find((candidate) => candidate.version === version) ?? (resource.snapshots ?? [])[0] ?? null;
+  const findings = selected.filter((record) => record.record_type === "observation");
+  const lessons = selected.filter((record) => record.record_type === "lesson");
+  const hypotheses = selected.filter((record) => record.record_type === "hypothesis");
+  return {
+    resource_id: resource.resource_id,
+    target: resource.display_name,
+    version: version ?? snapshot?.version ?? resource.metadata.version ?? null,
+    scope: resource.scope.scope_id,
+    findings,
+    lessons,
+    hypotheses,
+    reproduction_cases: findings.map((record) => ({ record_id: record.record_id, statement: record.payload.statement ?? "", scope_id: record.scope.scope_id })),
+    evidence: findings.map((record) => ({ record_id: record.record_id, source_refs: record.provenance.source_refs, origin: record.provenance.origin })),
+    coverage: { considered: selected.length, scope_id: resource.scope.scope_id, version: version ?? snapshot?.version ?? null, omissions: [] },
+  };
+}
+
+export function exportBlueprint({ forge, target = forge.target, previous_cutoff = null, privacy = "standard", baseline = null }) {
+  if (baseline && (baseline.target !== target || baseline.scope !== forge.coverage.scope_id || (baseline.version ?? null) !== (forge.version ?? null))) throw new Error("INCOMPATIBLE_BASELINE");
   const records = previous_cutoff ? forge.findings.filter((record) => record.updated_at > previous_cutoff) : forge.findings;
-  const redacted = (value) => privacy === "redacted" ? String(value).replace(/(?:\/home\/|\/Users\/)[^\s/]+/g, "<path>") : value;
+  const findings = records.map((record) => ({ record_id: record.record_id, statement: redactText(record.payload.statement ?? "", privacy), provenance: record.provenance, version: forge.version }));
+  const reproduction_cases = records.map((record) => ({ record_id: record.record_id, statement: redactText(record.payload.statement ?? "", privacy), scope_id: forge.coverage.scope_id }));
   const document = {
     schema_version: "0.1.0",
     target,
     scope: forge.coverage.scope_id,
-    findings: records.map((record) => ({ record_id: record.record_id, statement: redacted(record.payload.statement ?? ""), provenance: record.provenance })),
+    version: forge.version,
+    findings,
+    evidence: forge.evidence,
     lessons: forge.lessons,
+    suggestions: forge.lessons,
     hypotheses: forge.hypotheses,
-    limitations: ["Export does not patch or publish the target."],
+    reproduction_cases,
+    omissions: forge.coverage.omissions ?? [],
+    limitations: ["Export does not patch or publish the target.", "Hypotheses are proposals and are not verified fixes."],
     coverage: forge.coverage,
     delta_since: previous_cutoff,
+    baseline: baseline ?? null,
+    delta: previous_cutoff ? { added_record_ids: records.map((record) => record.record_id), invalidated_record_ids: [], deletion_markers: [] } : null,
   };
-  return { json: document, markdown: `# Blueprint for ${target}\n\n${document.findings.map((finding) => `- ${finding.statement}`).join("\n")}\n\nLimitations: ${document.limitations.join(" ")}` };
+  return { json: document, markdown: `# Blueprint for ${target}\n\nVersion: ${document.version ?? "unknown"}\n\n## Observed findings\n\n${document.findings.map((finding) => `- ${finding.statement}`).join("\n") || "- None recorded."}\n\n## Suggestions\n\n${document.suggestions.map((lesson) => `- ${redactText(lesson.payload?.statement ?? "", privacy)}`).join("\n") || "- None recorded."}\n\n## Hypotheses\n\n${document.hypotheses.map((hypothesis) => `- ${redactText(hypothesis.payload?.statement ?? "", privacy)} (hypothesis)`).join("\n") || "- None recorded."}\n\n## Limitations\n\n- ${document.limitations.join("\n- ")}` };
 }
