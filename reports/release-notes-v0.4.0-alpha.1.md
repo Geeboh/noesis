@@ -1,7 +1,7 @@
 # NOESIS v0.4.0-alpha.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `c45f4d6`
+**Status:** released to private GitHub repository.
+**Candidate:** `3842608`
 
 ## Implemented
 
@@ -24,4 +24,4 @@
 - Physical second-device LAN validation remains an M8 check.
 - M5 Lore integration remains next.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
