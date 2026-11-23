@@ -79,3 +79,32 @@ test("Observatory exposes bounded Atlas resources, snapshots, and Chronicle hist
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("Observatory exposes scoped Attunement correction, Ebb revival, and forgetting", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-adaptation-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  const landing = await fetch(`${base}/`);
+  const landingHtml = await landing.text();
+  assert.match(landingHtml, /Attunement/);
+  assert.match(landingHtml, /Ebb/);
+  const pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const createdPreference = await fetch(`${base}/api/preferences`, { method: "POST", headers, body: JSON.stringify({ origin: "inferred", statement: "show progress", support_context_id: "incident-1" }) });
+  const preference = await createdPreference.json();
+  const corrected = await fetch(`${base}/api/preferences/${preference.preference_id}/correct`, { method: "POST", headers, body: JSON.stringify({ statement: "show progress during long work" }) });
+  assert.equal((await corrected.json()).origin, "explicit");
+  const note = await fetch(`${base}/api/note`, { method: "POST", headers, body: JSON.stringify({ content: "M3 activation target" }) });
+  const record_id = (await note.json()).receipt.record_id;
+  await fetch(`${base}/api/ebb/${record_id}/evaluate`, { method: "POST", headers, body: JSON.stringify({ now: "2026-01-01T00:00:00.000Z" }) });
+  const faded = await (await fetch(`${base}/api/ebb/${record_id}/evaluate`, { method: "POST", headers, body: JSON.stringify({ now: "2026-01-02T00:00:00.000Z" }) })).json();
+  assert.ok(faded.score < 1);
+  const revived = await (await fetch(`${base}/api/ebb/${record_id}/revive`, { method: "POST", headers, body: JSON.stringify({ score: 1 }) })).json();
+  assert.equal(revived.score, 1);
+  const forgetment = await fetch(`${base}/api/forget`, { method: "POST", headers, body: JSON.stringify({ target_id: record_id, reason: "explicit user request" }) });
+  assert.equal((await forgetment.json()).affected_ids[0], record_id);
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});

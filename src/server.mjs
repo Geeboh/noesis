@@ -3,7 +3,7 @@ import { basename, join } from "node:path";
 import { openService } from "./service.mjs";
 import { PairingManager } from "./web-auth.mjs";
 import { createAtlas } from "./atlas.mjs";
-import { buildLorePage } from "./lore.mjs";
+import { createAdaptation } from "./adaptation.mjs";
 import { buildForgeView, exportBlueprint } from "./forge.mjs";
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
@@ -38,6 +38,8 @@ ul{padding-left:1.25rem}.muted{color:#5b6773}
 <section aria-labelledby="recall-title"><h2 id="recall-title">Recall</h2><form id="recall-form"><label for="recall-query">Query</label><input id="recall-query"><button>Recall</button></form><ul id="recall-results"></ul></section>
 <section id="reverie" aria-labelledby="dream-title"><h2 id="dream-title">Reverie</h2><button id="dream-button">Start Snooze</button><p id="dream-status" role="status"></p></section>
 <section id="atlas" aria-labelledby="atlas-title"><h2 id="atlas-title">Atlas</h2><p>Browse real resources, snapshots, independent evidence states, and history.</p><button id="atlas-button">Load resources</button><ul id="atlas-results"></ul><div id="atlas-detail" aria-live="polite"></div></section>
+<section id="attunement" aria-labelledby="attunement-title"><h2 id="attunement-title">Attunement</h2><p>Explicit corrections override inferred preferences. Silence does not confirm a preference.</p><form id="preference-form"><label for="preference-origin">Origin</label><select id="preference-origin" name="origin"><option value="explicit">Stated preference</option><option value="inferred">Inferred candidate</option></select><label for="preference-statement">Preference</label><input id="preference-statement" name="statement" required><button>Create preference</button></form><button id="preferences-button" type="button">Load preferences</button><ul id="preference-results"></ul><p id="preference-status" role="status"></p></section>
+<section id="ebb" aria-labelledby="ebb-title"><h2 id="ebb-title">Ebb</h2><p>Activation fades separately from truth, validity, and retention. Revival is reversible.</p><form id="ebb-form"><label for="ebb-record-id">Record ID</label><input id="ebb-record-id" name="record_id" required><button>Evaluate activation</button><button id="revive-button" type="button">Revive</button></form><form id="forget-form"><label for="forget-record-id">Forget record ID</label><input id="forget-record-id" name="target_id" required><label for="forget-reason">Reason</label><input id="forget-reason" name="reason" required><button>Record explicit forgetting</button></form><p id="ebb-status" role="status"></p></section>
 <section id="forge" aria-labelledby="forge-title"><h2 id="forge-title">Forge</h2><p>Choose a resource in Atlas to inspect attributable findings and export a Blueprint.</p></section>
 </main>
 <script>
@@ -48,6 +50,12 @@ document.getElementById('note-form').addEventListener('submit',async event=>{eve
 document.getElementById('recall-form').addEventListener('submit',async event=>{event.preventDefault();try{const body=await api('/api/recall?query='+encodeURIComponent(event.target.query.value));const list=document.getElementById('recall-results');list.replaceChildren(...(body.data||[]).map(hit=>{const item=document.createElement('li');item.textContent=hit.statement+' ['+hit.record_id+'@'+hit.revision+']';return item}))}catch(error){status('pair-status',error.message)}});
 document.getElementById('dream-button').addEventListener('click',async()=>{try{const body=await api('/api/dream',{method:'POST',body:'{}'});status('dream-status','Snooze '+body.job_id+' queued.')}catch(error){status('dream-status',error.message)}});
 const showResource=async resource=>{const [detail,trace]=await Promise.all([api('/api/resources/'+encodeURIComponent(resource.resource_id)),api('/api/trace/'+encodeURIComponent(resource.resource_id))]);const target=document.getElementById('atlas-detail');target.replaceChildren();const heading=document.createElement('h3');heading.textContent=detail.display_name+' ['+detail.kind+']';target.append(heading);const summary=document.createElement('p');summary.textContent='Snapshots: '+detail.snapshots.length+'; states: '+detail.states.map(state=>state.state_kind+'='+state.state).join(', ')+'; history: '+trace.chronicle.length+' events.';target.append(summary);const list=document.createElement('ul');list.append(...detail.snapshots.map(snapshot=>{const item=document.createElement('li');item.textContent=(snapshot.version||'unknown version')+' '+(snapshot.digest||'no digest')+' ['+snapshot.status+']';return item}));target.append(list)};
+const loadPreferences=async()=>{const body=await api('/api/preferences');const list=document.getElementById('preference-results');list.replaceChildren(...(body.data||[]).map(preference=>{const item=document.createElement('li');item.textContent=preference.origin+' ['+preference.state+']: '+preference.statement;const form=document.createElement('form');const input=document.createElement('input');input.name='statement';input.required=true;input.value=preference.statement;const button=document.createElement('button');button.textContent='Correct';form.append(input,button);form.addEventListener('submit',async event=>{event.preventDefault();try{await api('/api/preferences/'+encodeURIComponent(preference.preference_id)+'/correct',{method:'POST',body:JSON.stringify({statement:input.value})});status('preference-status','Preference corrected.');await loadPreferences()}catch(error){status('preference-status',error.message)}});item.append(form);return item}))};
+document.getElementById('preference-form').addEventListener('submit',async event=>{event.preventDefault();try{await api('/api/preferences',{method:'POST',body:JSON.stringify({origin:event.target.origin.value,statement:event.target.statement.value})});event.target.reset();status('preference-status','Preference recorded.');await loadPreferences()}catch(error){status('preference-status',error.message)}});
+document.getElementById('preferences-button').addEventListener('click',()=>loadPreferences().catch(error=>status('preference-status',error.message)));
+document.getElementById('ebb-form').addEventListener('submit',async event=>{event.preventDefault();try{const body=await api('/api/ebb/'+encodeURIComponent(event.target.record_id.value)+'/evaluate',{method:'POST',body:JSON.stringify({now:new Date().toISOString()})});status('ebb-status','Activation evaluated at '+body.score+'.')}catch(error){status('ebb-status',error.message)}});
+document.getElementById('revive-button').addEventListener('click',async()=>{const record_id=document.getElementById('ebb-record-id').value;try{const body=await api('/api/ebb/'+encodeURIComponent(record_id)+'/revive',{method:'POST',body:JSON.stringify({score:1})});status('ebb-status','Record revived at '+body.score+'.')}catch(error){status('ebb-status',error.message)}});
+document.getElementById('forget-form').addEventListener('submit',async event=>{event.preventDefault();try{const body=await api('/api/forget',{method:'POST',body:JSON.stringify({target_id:event.target.target_id.value,reason:event.target.reason.value})});status('ebb-status','Forgetting recorded for '+body.target_id+'.')}catch(error){status('ebb-status',error.message)}});
 document.getElementById('atlas-button').addEventListener('click',async()=>{try{const body=await api('/api/resources?limit=100');const list=document.getElementById('atlas-results');list.replaceChildren(...(body.data||[]).map(resource=>{const item=document.createElement('li');const button=document.createElement('button');button.type='button';button.textContent=resource.display_name+' ['+resource.kind+' / '+resource.origin_facet+']';button.addEventListener('click',()=>showResource(resource).catch(error=>status('pair-status',error.message)));item.append(button);return item}))}catch(error){status('pair-status',error.message)}});
 </script>
 </body>
@@ -93,7 +101,7 @@ function ensureDashboardResource(atlas) {
   });
 }
 
-export function createRequestHandler({ service, pairing, atlas = createAtlas(service.store) }) {
+export function createRequestHandler({ service, pairing, atlas = createAtlas(service.store), adaptation = createAdaptation(service.store) }) {
   const principal = { owner_id: "local", scope_ids: [] };
   return (request, response) => {
     void (async () => {
@@ -113,6 +121,37 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       if (!pairing.isAuthenticated(request)) return sendJson(response, 401, { error: "pairing required" });
       if (request.method === "POST" && !pairing.originAllowed(request.headers.origin, request.headers.host)) return sendJson(response, 403, { error: "origin rejected" });
       if (url.pathname === "/api/capabilities" && request.method === "GET") return sendJson(response, 200, service.mindCapabilities());
+      if (url.pathname === "/api/preferences" && request.method === "GET") return sendJson(response, 200, { data: adaptation.applicablePreferences({ scope_id: "local" }) });
+      if (url.pathname === "/api/preferences" && request.method === "POST") {
+        const body = await readBody(request);
+        if (!["explicit", "inferred"].includes(body.origin) || !body.statement) return sendJson(response, 400, { error: "origin and statement are required" });
+        return sendJson(response, 200, adaptation.recordPreference({ scope_id: "local", origin: body.origin, statement: body.statement, context: body.context ?? {}, support_context_id: body.support_context_id ?? null, counterevidence: body.counterevidence ?? [] }));
+      }
+      if (url.pathname.startsWith("/api/preferences/") && url.pathname.endsWith("/correct") && request.method === "POST") {
+        const preference_id = decodeURIComponent(url.pathname.slice("/api/preferences/".length, -"/correct".length));
+        const body = await readBody(request);
+        return sendJson(response, 200, adaptation.correctPreference({ preference_id, scope_id: "local", statement: body.statement, context: body.context ?? {} }));
+      }
+      if (url.pathname === "/api/ebb" && request.method === "GET") {
+        const data = service.store.listActivations().filter((activation) => {
+          try { service.mindInspect({ principal, record_id: activation.record_id }); return true; } catch { return false; }
+        });
+        return sendJson(response, 200, { data });
+      }
+      const ebbAction = url.pathname.match(/^\/api\/ebb\/([^/]+)\/(evaluate|revive)$/);
+      if (ebbAction && request.method === "POST") {
+        const record_id = decodeURIComponent(ebbAction[1]);
+        service.mindInspect({ principal, record_id });
+        const body = await readBody(request);
+        const operation = ebbAction[2] === "evaluate" ? "evaluateEbb" : "revive";
+        return sendJson(response, 200, adaptation[operation]({ record_id, now: body.now ?? new Date().toISOString(), ...(body.score === undefined ? {} : { score: body.score }) }));
+      }
+      if (url.pathname === "/api/forget" && request.method === "POST") {
+        const body = await readBody(request);
+        const affected_ids = body.affected_ids ?? [body.target_id];
+        for (const record_id of affected_ids) service.mindInspect({ principal, record_id });
+        return sendJson(response, 200, adaptation.forget({ target_id: body.target_id, scope_id: "local", reason: body.reason, affected_ids }));
+      }
       if (url.pathname === "/api/resources" && request.method === "GET") return sendJson(response, 200, atlas.listPage({ principal, kind: url.searchParams.get("kind"), origin_facet: url.searchParams.get("origin_facet"), limit: Number(url.searchParams.get("limit") ?? 100), offset: Number(url.searchParams.get("offset") ?? 0) }));
       if (url.pathname === "/api/resources" && request.method === "POST") {
         const body = await readBody(request);

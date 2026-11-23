@@ -426,6 +426,9 @@ export function openStore(filename) {
     if (!row) return null;
     return { ...row, context: JSON.parse(row.context_json), support_contexts: JSON.parse(row.support_contexts_json), counterevidence: JSON.parse(row.counterevidence_json) };
   },
+  listPreferences(scope_id) {
+    return db.prepare("SELECT preference_id FROM preferences WHERE scope_id = ? ORDER BY updated_at DESC, preference_id").all(scope_id).map((row) => this.getPreference(row.preference_id));
+  },
   updatePreference(preference_id, changes, now = new Date().toISOString()) {
     const current = this.getPreference(preference_id);
     if (!current) return null;
@@ -439,6 +442,9 @@ export function openStore(filename) {
   },
   getActivation(record_id) {
     return db.prepare("SELECT record_id, score, anchor_score, anchor_at, opportunities, last_evaluated_at, protected_minimum, policy_version FROM activation_states WHERE record_id = ?").get(record_id) ?? null;
+  },
+  listActivations() {
+    return db.prepare("SELECT record_id, score, anchor_score, anchor_at, opportunities, last_evaluated_at, protected_minimum, policy_version FROM activation_states ORDER BY record_id").all();
   },
   updateActivation(record_id, state) {
     db.prepare("UPDATE activation_states SET score=?, opportunities=?, last_evaluated_at=? WHERE record_id=?").run(state.score, state.opportunities, state.last_evaluated_at, record_id);

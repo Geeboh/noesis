@@ -13,6 +13,7 @@ test("Attunement separates explicit corrections from inferred support", () => {
   const inferred = adaptation.recordPreference({ preference_id: "preference-1", scope_id: "scope-1", origin: "inferred", statement: "show progress", support_context_id: "incident-1" });
   adaptation.supportPreference({ preference_id: inferred.preference_id, support_context_id: "incident-1" });
   adaptation.supportPreference({ preference_id: inferred.preference_id, support_context_id: "incident-2" });
+  adaptation.recordPreference({ preference_id: "preference-2", scope_id: "scope-1", origin: "inferred", statement: "show progress always", support_context_id: "incident-3" });
   const corrected = adaptation.correctPreference({ preference_id: inferred.preference_id, scope_id: "scope-1", statement: "show progress during long work" });
   assert.equal(corrected.origin, "explicit");
   assert.equal(corrected.support_contexts.length, 2);

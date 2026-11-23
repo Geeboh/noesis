@@ -20,7 +20,7 @@ export function createAdaptation(store) {
       return store.updatePreference(preference_id, { origin: "explicit", statement, context, state: "current" });
     },
     applicablePreferences({ scope_id, context = {} }) {
-      return ["current", "candidate"].flatMap((state) => store.db.prepare("SELECT preference_id FROM preferences WHERE scope_id = ? AND state = ? ORDER BY origin DESC, updated_at DESC").all(scope_id, state).map((row) => store.getPreference(row.preference_id))).filter((preference) => Object.entries(preference.context).every(([key, value]) => context[key] === value));
+      return ["current", "candidate"].flatMap((state) => store.db.prepare("SELECT preference_id FROM preferences WHERE scope_id = ? AND state = ? ORDER BY CASE origin WHEN 'explicit' THEN 0 ELSE 1 END, updated_at DESC").all(scope_id, state).map((row) => store.getPreference(row.preference_id))).filter((preference) => Object.entries(preference.context).every(([key, value]) => context[key] === value));
     },
     evaluateEbb({ record_id, now, lambda_time = 0.1, lambda_opportunity = 0.05 }) {
       const current = store.getActivation(record_id) ?? store.createActivation({ record_id, anchor_at: now });
