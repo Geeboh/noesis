@@ -120,7 +120,7 @@
     {
       "id": "M1",
       "title": "Working Mind loop",
- "status": "in_progress",
+"status": "done",
       "release_target": "v0.1.0-alpha.1",
       "depends_on": [
         "M0"
@@ -165,7 +165,7 @@
         "M1-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M1.md", "reports/validation-M1.md", "reports/release-notes-v0.1.0-alpha.1.md", "32ec123"]
     },
     {
       "id": "M2",

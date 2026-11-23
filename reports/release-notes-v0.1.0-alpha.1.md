@@ -1,7 +1,7 @@
 # NOESIS v0.1.0-alpha.1 local candidate notes
 
 **Status:** local candidate preparation, not released.
-**Candidate:** `85712e4c57816537179a2ec4e17be1e4d719add3`
+**Candidate:** `32ec123`
 
 ## Implemented
 
@@ -17,16 +17,16 @@
 
 ## Validation
 
-`npm run release:check` is the reproducible local gate. The latest observed run passed 46 tests, bootstrap validation, and CLI/server syntax checks.
+`npm run release:check` is the reproducible local gate. The current M1 validation run passed 46 application tests, bootstrap validation, Node syntax checks, real OMP capture/recall, SQLite reopen persistence, and CLI/server readiness checks.
 
-Real OMP capture returned a durable `mind_note` receipt and fresh OMP recall returned the stored record ID. The HTTP Observatory journey covered denied access, pairing, reuse rejection, note, recall, inspection, and Snooze status. CLI smoke printed an actual LAN URL and QR after bind.
+Headless Chromium captured the pairing page at 1280x720 and 390x844 with no page errors. Interactive pairing and physical second-device LAN validation remain unverified.
 
 ## Open gates
 
-- M1 alpha closure and release artifact review remain open.
-- Browser visual automation is unavailable because the managed Chromium daemon requires X11 `$DISPLAY`.
+- M1 alpha closure and release artifact review are complete locally.
+- Interactive browser pairing is not run; captures are visual evidence only.
 - Physical second-device LAN validation is unavailable.
-- M2/M3 web controls and M4–M7 integration workflows remain in progress.
+- M2/M3 web controls and M4-M7 integration workflows remain in progress.
 - Stable v1.0 hardening, migration/backup/restore release checks, and final release notes remain open.
 
 No package was published, deployed, pushed, or exposed to the Internet.

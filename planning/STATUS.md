@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M2 and M3 core policies are in progress; M1 remains open for alpha closure, browser limitation, and release notes.
+**Implementation state:** M1 done; M2 and M3 core policies are in progress. M1 alpha closure is recorded with known browser and physical-device limitations.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -12,7 +12,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | ID | Milestone | State | Product target | Completion evidence |
 | --- | --- | --- | --- | --- |
 | M0 | Verified foundation | done | No release | `reports/milestone-M0.md` |
-| M1 | Working Mind loop and LAN Observatory | in_progress | `v0.1.0-alpha.1` | `f9426b9806`, `test/observatory.test.mjs`, live startup smoke |
+| M1 | Working Mind loop and LAN Observatory | done | `v0.1.0-alpha.1` | `reports/milestone-M1.md`, `reports/validation-M1.md`, `reports/release-notes-v0.1.0-alpha.1.md` |
 | M2 | Atlas, Lineage, and Chronicle | in_progress | `v0.2.0-alpha.1` | `e5643fc79a`, `test/atlas.test.mjs` |
 | M3 | Attunement and Ebb | in_progress | `v0.3.0-alpha.1` | `e6b8649813`, `test/adaptation.test.mjs` |
 | M4 | Full Reverie | in_progress | `v0.4.0-alpha.1` | `02f7b6bd99`, `test/reverie.test.mjs` |
@@ -21,7 +21,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 remains open for alpha closure. M2/M3 core policies and M4–M7 contract cores now have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 and M1 are complete. M2/M3 core policies and M4-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
 
 ## Next authorized work
 
@@ -63,12 +63,12 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 
 | Task | Owner | Branch/worktree | Owned paths | Start evidence | State |
 | --- | --- | --- | --- | --- | --- |
-| M1-01 | integration owner | current worktree | `src/store.mjs`, `src/contracts.mjs`, ledger tests | `f9426b9806` | in_progress |
-| M1-02 | integration owner | current worktree | `src/omp-extension.mjs`, `src/omp-events.mjs` | `E25`, `E30` | in_progress |
-| M1-03 | integration owner | current worktree | `src/service.mjs`, recall/inspection tests | `E16`, `E17` | in_progress |
-| M1-04 | integration owner | current worktree | Snooze service/store/tests | `E18`, `E20`, `E21`, `E22` | in_progress |
-| M1-05 | integration owner | current worktree | `src/server.mjs`, `src/lan.mjs`, `src/web-auth.mjs`, Observatory tests | `E33` | in_progress |
-
+| M1-01 | integration owner | current worktree | `src/store.mjs`, `src/contracts.mjs`, ledger tests | `f9426b9806` | done |
+| M1-02 | integration owner | current worktree | `src/omp-extension.mjs`, `src/omp-events.mjs` | `E25`, `E30` | done |
+| M1-03 | integration owner | current worktree | `src/service.mjs`, recall/inspection tests | `E16`, `E17` | done |
+| M1-04 | integration owner | current worktree | Snooze service/store/tests | `E18`, `E20`, `E21`, `E22` | done |
+| M1-05 | integration owner | current worktree | `src/server.mjs`, `src/lan.mjs`, `src/web-auth.mjs`, Observatory tests | `E33` | done |
+| M1-06 | integration owner | current worktree | M1 reports, validation registry, release notes | current candidate validation | done |
 ## Evidence log
 
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
@@ -77,11 +77,11 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M0-01 | OMP 19.1.1 version/help/config and real extension probe | partial; probe loaded, print request timed out | `E2`, `scripts/probe_omp.mjs` |
 | 2026-11-24 | M0-03/M0-05 | `npm ci --ignore-scripts && npm run test:m0` | passed scaffold check | `VAL-M0-001`, `reports/validation-M0-scaffold.md` |
 | 2026-11-24 | M0-03 | Toolchain decision and command registry | recorded | `reports/decisions/DEC-0001-m0-toolchain.md`, `validation/registry.json` |
-| 2026-11-24 | M1 core | `npm test` | 35 tests passed; real OMP and CLI smoke separately observed | `f9426b9806`, `test/observatory.test.mjs` |
-| 2026-11-24 | M1 LAN | `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start` | actual LAN URL, terminal QR, separate pairing code printed after bind | `E33` |
-| 2026-11-24 | M1 browser | `npx playwright screenshot --browser=chromium http://127.0.0.1:17339/ /tmp/noesis-playwright.png` | passed headless Chromium screenshot at 1280x720 | `reports/validation-M1.md` |
+| 2026-11-24 | M1 core | `npm test` | 46 tests passed; current candidate verified | `reports/validation-M1.md` |
+| 2026-11-24 | M1 OMP | `NOESIS_PROBE=1 omp ... --extension ./src/omp-extension.mjs`; real `mind_note` and fresh `mind_recall`; SQLite reopen | tool advertisement, capture, recall, and exact-note persistence passed | `reports/validation-M1.md` |
+| 2026-11-24 | M1 LAN | `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start`; `curl /healthz` | actual LAN URL, separate pairing code, and ready health response observed | `reports/validation-M1.md` |
+| 2026-11-24 | M1 browser | `playwright_fast capture` at 1280x720 and 390x844 | page rendered with no page errors; capture is visual evidence only | `reports/validation-M1.md` |
 | 2026-11-24 | M2 core | `npm test` | Atlas aliases, snapshots, independent states, lineage, Chronicle passed | `e5643fc79a`, `test/atlas.test.mjs` |
 | 2026-11-24 | M3 core | `npm test` | Attunement correction/support and anchored Ebb/forgetment passed | `e6b8649813`, `test/adaptation.test.mjs` |
 ## Blockers and forecast changes
-
-Headless Playwright visual validation passed. Interactive pairing flow and physical second-device LAN validation remain unavailable; managed X11 browser is no longer a blocker.
+M1 is complete. Interactive browser pairing, physical second-device LAN validation, and live `before_agent_start` delivery remain unavailable and are recorded as limitations, not passed checks.
