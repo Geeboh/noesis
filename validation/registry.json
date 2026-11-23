@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "candidate": "0.1.0-alpha.1",
+  "environment": {
+    "os": "Linux x86_64",
+    "node": "24.22.3",
+    "npm": "11.19.1",
+    "sqlite": "3.45.1",
+    "omp": "19.1.1",
+    "package_manager": "npm",
+    "database": "node:sqlite DatabaseSync",
+    "application_commands": {
+      "bootstrap": "python3 scripts/validate_bootstrap.py",
+      "m0": "npm run test:m0",
+      "all": "npm test",
+      "omp_probe": "npm run probe:omp",
+      "start": "npm start"
+    }
+  },
+  "targets": [
+    {"id":"bootstrap.integrity","owner":"M0-02","command":"python3 scripts/validate_bootstrap.py","status":"passed-by-bootstrap-only","evidence":"reports/bootstrap-validation.json"},
+    {"id":"environment.compatibility","owner":"M0-01","command":"python3 scripts/doctor.py && omp --version && omp --help && omp config --help && npm run probe:omp","status":"pending","evidence":null},
+    {"id":"contracts.schema","owner":"M0-03","command":"npm run test:m0","status":"pending","evidence":null},
+    {"id":"ledger.integrity","owner":"M1-01","command":null,"status":"pending","condition":"Bound after the durable ledger exists."},
+    {"id":"omp.capture-recall","owner":"M1-02","command":null,"status":"pending","condition":"Bound after the native extension and service round trip exists."},
+    {"id":"dream.resilience","owner":"M1-03","command":null,"status":"pending","condition":"Bound after durable Snooze jobs exist."},
+    {"id":"observatory.journeys","owner":"M1-04","command":null,"status":"pending","condition":"Bound after the real dashboard and pairing flow exists."},
+    {"id":"atlas.provenance","owner":"M2-01","command":null,"status":"pending","condition":"Bound after Atlas resource and lineage paths exist."},
+    {"id":"attunement.corrections","owner":"M3-01","command":null,"status":"pending","condition":"Bound after preference inference and correction paths exist."},
+    {"id":"ebb.lifecycle","owner":"M3-02","command":null,"status":"pending","condition":"Bound after activation fading and forgetting paths exist."},
+    {"id":"reverie.quality","owner":"M4-01","command":null,"status":"pending","condition":"Bound after all dream levels and modes exist."},
+    {"id":"lore.integrity","owner":"M5-01","command":null,"status":"pending","condition":"Bound after sourced Lore rebuilds and manual sections exist."},
+    {"id":"blueprints.portability","owner":"M6-01","command":null,"status":"pending","condition":"Bound after scoped Blueprint exports exist."},
+    {"id":"mcp.parity","owner":"M7-02","command":null,"status":"deferred-unselected","condition":"Optional; no MCP adapter selected for the first supported release."},
+    {"id":"system.hardening","owner":"M8-01","command":null,"status":"pending","condition":"Bound after the supported workflows and security controls exist."},
+    {"id":"release.reproducibility","owner":"M8-06","command":null,"status":"pending","condition":"Bound after packaging, clean install, and release artifacts exist."}
+  ]
+}

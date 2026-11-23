@@ -117,7 +117,7 @@
       "id": "M0-01",
       "milestone_id": "M0",
       "title": "Verify the OMP environment and integration surface",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [],
       "outputs": [
@@ -146,7 +146,7 @@
       "id": "M0-02",
       "milestone_id": "M0",
       "title": "Establish repository ownership and safe bootstrap integration",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [],
       "outputs": [
@@ -175,7 +175,7 @@
       "id": "M0-03",
       "milestone_id": "M0",
       "title": "Define core contracts and a lightweight candidate architecture",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M0-01",
@@ -238,7 +238,7 @@
       "id": "M0-05",
       "milestone_id": "M0",
       "title": "Bind validation targets and establish application CI",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M0-01",

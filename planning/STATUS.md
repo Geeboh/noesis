@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** not started; all milestones and tasks are planned.
+**Implementation state:** M0 in progress; selected toolchain and initial scaffold are verified, product runtime is not implemented.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -11,7 +11,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 
 | ID | Milestone | State | Product target | Completion evidence |
 | --- | --- | --- | --- | --- |
-| M0 | Verified foundation | planned | No release | None yet |
+| M0 | Verified foundation | in_progress | No release | `reports/milestone-M0.md` |
 | M1 | Working Mind loop and LAN Observatory | planned | `v0.1.0-alpha.1` | None yet |
 | M2 | Atlas, Lineage, and Chronicle | planned | `v0.2.0-alpha.1` | None yet |
 | M3 | Attunement and Ebb | planned | `v0.3.0-alpha.1` | None yet |
@@ -25,7 +25,7 @@ The machine-readable baseline is `planning/milestones.json` and `planning/backlo
 
 ## Next authorized work
 
-Begin M0-01 and M0-02: verify the actual OMP/environment contract and establish repository isolation/ownership. Independent inspection can proceed together; mutations of shared files and integration remain serialized. Do not substitute an imagined OMP API or guessed app command for this discovery.
+Begin M0-03, M0-04, M0-05, and M0-06 after the selected toolchain. M1-01 is the next dependency-ready product task once M0 closes.
 
 The bootstrap diagnostics are:
 
@@ -57,22 +57,26 @@ Keep task and milestone IDs stable so history and traceability remain valid. Cha
 
 Use `templates/MILESTONE-REPORT.md` at milestone closure. Keep absent runtime checks as **not run**, failed checks as **failed**, and unavailable checks as **unavailable** with their reason. A physical cross-device LAN check is passed only if actually observed from another device; otherwise state the narrow limitation without replacing it with a mandatory human QA ceremony.
 
-## Active work claims
+# Active work claims
 
-No implementation tasks are claimed in this delivery snapshot.
+M0 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/noesis-bootstrap-v1.0.0`.
 
 | Task | Owner | Branch/worktree | Owned paths | Start evidence | State |
 | --- | --- | --- | --- | --- | --- |
-| — | — | — | — | — | — |
+| M0-01 | integration owner | `feat/m0-foundation` / current worktree | OMP probe and environment reports | `E1`, `E2` | in_progress |
+| M0-02 | integration owner | `feat/m0-foundation` / current worktree | planning and repository records | `E1` | in_progress |
+| M0-03 | integration owner | `feat/m0-foundation` / current worktree | package manifest, scaffold, decision record | `E3`, `VAL-M0-001` | in_progress |
+| M0-05 | integration owner | `feat/m0-foundation` / current worktree | validation registry and application checks | `VAL-M0-001` | in_progress |
 
 ## Evidence log
 
-No product runtime evidence is claimed in this delivery snapshot. Record bootstrap packaging checks separately from future product validation.
-
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
 | --- | --- | --- | --- | --- |
-| — | — | — | Not run | — |
+| 2026-11-24 | M0-01/M0-02 | `python3 scripts/doctor.py`; `python3 scripts/validate_bootstrap.py` | passed bootstrap prerequisites | `E1` |
+| 2026-11-24 | M0-01 | OMP 19.1.1 version/help/config and real extension probe | partial; probe loaded, print request timed out | `E2`, `scripts/probe_omp.mjs` |
+| 2026-11-24 | M0-03/M0-05 | `npm ci --ignore-scripts && npm run test:m0` | passed scaffold check | `VAL-M0-001`, `reports/validation-M0-scaffold.md` |
+| 2026-11-24 | M0-03 | Toolchain decision and command registry | recorded | `reports/decisions/DEC-0001-m0-toolchain.md`, `validation/registry.json` |
 
 ## Blockers and forecast changes
 
-No observed implementation blocker has been established yet. M0 discovery questions are planned work rather than claims that the environment is broken. Add a blocker only with its concrete cause, affected tasks, next resolving action, and resulting forecast effect.
+No implementation blocker is established. M0 remains open until policy checks, CI binding, and final planning evidence are integrated.
