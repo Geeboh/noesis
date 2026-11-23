@@ -1,6 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createArchive, restoreArchive, verifyArchive } from "../src/archive.mjs";
+import { createArchive, createStoreArchive, restoreArchive, restoreStoreArchive, verifyArchive } from "../src/archive.mjs";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { createAtlas } from "../src/atlas.mjs";
+import { openService } from "../src/service.mjs";
 
 test("native archive verifies integrity and restores identities and lineage", () => {
   const archive = createArchive({ records: [{ record_id: "record-1" }], resources: [{ resource_id: "resource-1" }], lineage: [{ from_id: "record-1", to_id: "resource-1" }], omitted: ["raw_blob"] });
@@ -12,4 +17,27 @@ test("native archive verifies integrity and restores identities and lineage", ()
   const tampered = Buffer.from(archive);
   tampered[tampered.length - 2] ^= 1;
   assert.throws(() => verifyArchive(tampered), /integrity check failed|JSON/);
+});
+
+test("native store archive restores records, resources, scopes, and lineage into a clean store", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-archive-store-"));
+  const source = join(directory, "source.sqlite");
+  const destination = join(directory, "restored.sqlite");
+  const service = openService(source);
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const scope = { scope_id: "archive-scope", owner_id: "operator", kind: "project", project_id: "archive-project", session_id: null, task_id: null };
+  const note = service.mindNote({ principal, scope, content: "portable record", producer_id: "archive-test", idempotency_key: "archive-note" });
+  const atlas = createAtlas(service.store);
+  const resource = atlas.register({ principal, resource: { resource_id: "archive-resource", kind: "project", origin_facet: "local", display_name: "Archive project", scope, aliases: [{ value: "file:///archive-project", kind: "path" }], metadata: { version: "1" } } });
+  atlas.attachRecord({ principal, record_id: note.receipt.record_id, resource_id: resource.resource_id, edge_kind: "observed_in" });
+  const archive = createStoreArchive(service.store, { omitted: ["external_copies"] });
+  service.close();
+  const restored = restoreStoreArchive(archive, destination);
+  const reopened = openService(destination);
+  assert.equal(reopened.store.getRecord(note.receipt.record_id).payload.statement, "portable record");
+  assert.equal(reopened.store.getResource(resource.resource_id).display_name, "Archive project");
+  assert.equal(reopened.store.listLineage(resource.resource_id)[0].from_id, note.receipt.record_id);
+  assert.equal(restored.omitted[0], "external_copies");
+  reopened.close();
+  rmSync(directory, { recursive: true, force: true });
 });
