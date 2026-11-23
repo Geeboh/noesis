@@ -307,7 +307,7 @@
       "id": "M1-01",
       "milestone_id": "M1",
       "title": "Implement the persisted evidence and event ledger",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M0-06"
@@ -333,13 +333,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/store.mjs", "test/ledger.test.mjs", "test/processing.test.mjs", "reports/validation-M1.md", "6be8aec197695e24374a88559cb96327e2e7a153"]
     },
     {
       "id": "M1-02",
       "milestone_id": "M1",
       "title": "Capture actual OMP sessions and tool outcomes",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-01"
@@ -364,13 +364,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/omp-extension.mjs", "test/omp-events.test.mjs", "test/omp-recall.test.mjs", "E34", "E35", "6be8aec197695e24374a88559cb96327e2e7a153"]
     },
     {
       "id": "M1-03",
       "milestone_id": "M1",
       "title": "Implement scoped recall and evidence inspection",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -395,13 +395,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/service.mjs", "test/service.test.mjs", "test/observatory.test.mjs", "6be8aec197695e24374a88559cb96327e2e7a153"]
     },
     {
       "id": "M1-04",
       "milestone_id": "M1",
       "title": "Implement minimal durable mind_dream Snooze",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -426,13 +426,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/service.mjs", "test/service.test.mjs", "test/processing.test.mjs", "6be8aec197695e24374a88559cb96327e2e7a153"]
     },
     {
       "id": "M1-05",
       "milestone_id": "M1",
       "title": "Build the working Observatory with LAN startup, QR, pairing, and Pulse",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-03",
@@ -464,13 +464,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/server.mjs", "src/lan.mjs", "src/web-auth.mjs", "test/observatory.test.mjs", "test/server.test.mjs", "test/lan.test.mjs", "E33", "6be8aec197695e24374a88559cb96327e2e7a153"]
     },
     {
       "id": "M1-06",
       "milestone_id": "M1",
       "title": "Verify and prepare the first working alpha",
-      "status": "planned",
+ "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M1-01",
