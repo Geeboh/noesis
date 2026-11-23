@@ -150,3 +150,23 @@ test("full dream levels do not create unsupported jobs", () => {
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("bounded Reverie resumes partial work and preserves hypothesis output", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const notes = [];
+  for (const id of ["dream-input-1", "dream-input-2", "dream-input-3"]) notes.push(service.mindNote({ principal, scope, content: id, producer_id: "omp-session", idempotency_key: id }));
+  const accepted = service.mindDream({ principal, scope_ids: [scope.scope_id], level: "dream", modes: ["mixed"], focus: { query: "dream" }, producer_id: "omp-session", idempotency_key: "dream-partial" });
+  const partial = service.runDream({ principal, job_id: accepted.job_id, max_records: 1 });
+  assert.equal(partial.state, "paused");
+  assert.equal(partial.progress.remaining, 2);
+  assert.equal(partial.outputs.some((output) => output.payload?.epistemic_status === "hypothesis"), true);
+  const completed = service.runDream({ principal, job_id: accepted.job_id, max_records: 10 });
+  assert.equal(completed.state, "completed");
+  assert.equal(completed.progress.remaining, 0);
+  const review = service.mindRetrospect({ principal, observation_ids: [notes[0].receipt.record_id] });
+  assert.equal(review.observations[0].epistemic_status, "observed");
+  service.close();
+  rmSync(directory, { recursive: true, force: true });
+});

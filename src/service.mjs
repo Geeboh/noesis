@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { CONTRACT_VERSION, makeEvent, makeRecord } from "./contracts.mjs";
 import { LedgerError, openStore } from "./store.mjs";
-import { createDreamSpec, makeHypothesis } from "./reverie.mjs";
+import { createDreamSpec, evaluatePolicy, makeHypothesis, retrospect } from "./reverie.mjs";
 import { makeRecallHit, scopeAllows } from "./service-contracts.mjs";
 
 const MAX_NOTE_CHARS = 16_000;
@@ -103,14 +103,34 @@ export function createService(store) {
       const job = saved.payload;
       authorizedScopeIds(store, principal, job.scope_ids);
       if (saved.state === "cancelled" || saved.state === "completed") return this.mindDreamStatus({ principal, job_id });
-      const records = store.listRecords().filter((record) => job.scope_ids.includes(record.scope.scope_id)).slice(0, max_records);
-      const checkpoint = { cursor: records.length, completed_steps: records.length, total_steps: records.length };
-      const outputs = job.modes.includes("consolidate")
-        ? [{ type: "maintenance_receipt", status: "no_change", reason: "bounded deterministic consolidation", record_ids: records.map((record) => record.record_id) }]
-        : job.modes.map((mode) => makeHypothesis({ job_id, kind: mode, statement: `bounded ${mode} proposal over ${records.length} authorized records`, source_refs: records.map((record) => record.record_id), validation_needed: ["authorized real-world validation"] }));
-      const updated = { ...job, state: "completed", checkpoint, outputs };
-      store.updateProcessingJob(job_id, "completed", { payload: updated, checkpoint });
+      const startedAt = Date.now();
+      const allRecords = store.listRecords().filter((record) => job.scope_ids.includes(record.scope.scope_id));
+      const totalSteps = Math.min(allRecords.length, job.budget.max_records);
+      const cursor = Math.min(saved.checkpoint.cursor ?? 0, totalSteps);
+      const workLimit = Math.min(max_records, totalSteps - cursor);
+      const records = allRecords.slice(cursor, cursor + workLimit);
+      const outputs = records.length === 0 ? [] : [
+        ...(job.modes.includes("consolidate") ? [{ type: "maintenance_receipt", status: "no_change", reason: "bounded deterministic consolidation", record_ids: records.map((record) => record.record_id) }] : []),
+        ...job.modes.filter((mode) => mode !== "consolidate").map((mode) => makeHypothesis({ job_id, kind: mode, statement: `bounded ${mode} proposal over ${records.length} authorized records`, source_refs: records.map((record) => record.record_id), validation_needed: ["authorized real-world validation"] })),
+      ];
+      const nextCursor = cursor + records.length;
+      const checkpoint = { cursor: nextCursor, completed_steps: nextCursor, total_steps: totalSteps };
+      const updated = {
+        ...job,
+        state: nextCursor >= totalSteps ? "completed" : "paused",
+        checkpoint,
+        outputs: [...(job.outputs ?? []), ...outputs].slice(0, job.budget.max_output_records),
+        usage: { ...job.usage, duration_ms: (job.usage.duration_ms ?? 0) + (Date.now() - startedAt) },
+      };
+      store.updateProcessingJob(job_id, updated.state, { payload: updated, checkpoint });
       return this.mindDreamStatus({ principal, job_id });
+    },
+    mindRetrospect({ principal, observation_ids = [], outcome_ids = [], hypothesis_ids = [] }) {
+      const load = (ids) => ids.map((record_id) => this.mindInspect({ principal, record_id }).record);
+      return retrospect({ observations: load(observation_ids), outcomes: load(outcome_ids), hypotheses: load(hypothesis_ids) });
+    },
+    mindPolicyEvaluate(args) {
+      return evaluatePolicy(args);
     },
     mindDreamCancel({ principal, job_id }) {
       const saved = store.getProcessingJob(job_id);
@@ -126,7 +146,7 @@ export function createService(store) {
       if (!saved || saved.kind !== "dream") throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "job is not available");
       const job = saved.payload;
       authorizedScopeIds(store, principal, job.scope_ids);
-      return { job_id, state: saved.state === "pending" ? "queued" : saved.state, checkpoint: saved.checkpoint, budget: job.budget, usage: job.usage, outputs: job.outputs };
+      return { job_id, state: saved.state === "pending" ? "queued" : saved.state, checkpoint: saved.checkpoint, progress: { completed: saved.checkpoint.completed_steps, total: saved.checkpoint.total_steps, remaining: Math.max(0, (saved.checkpoint.total_steps ?? 0) - saved.checkpoint.completed_steps) }, budget: job.budget, usage: job.usage, outputs: job.outputs };
     },
     close() {
       store.close();

@@ -108,3 +108,31 @@ test("Observatory exposes scoped Attunement correction, Ebb revival, and forgett
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("Observatory runs bounded Reverie levels, modes, focus, and retrospection", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-reverie-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  const landing = await (await fetch(`${base}/`)).text();
+  assert.match(landing, /Queue dream/);
+  assert.match(landing, /Rehearse/);
+  const pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const note = await fetch(`${base}/api/note`, { method: "POST", headers, body: JSON.stringify({ content: "Reverie observation" }) });
+  const record_id = (await note.json()).receipt.record_id;
+  const dream = await (await fetch(`${base}/api/dream`, { method: "POST", headers, body: JSON.stringify({ level: "dream", modes: ["mixed"], focus: { query: "Reverie" } }) })).json();
+  assert.equal(dream.state, "queued");
+  assert.deepEqual(dream.budget.max_model_tokens, 40_000);
+  const run = await (await fetch(`${base}/api/dream/${dream.job_id}/run`, { method: "POST", headers, body: JSON.stringify({ max_records: 1 }) })).json();
+  assert.equal(run.state, "completed");
+  assert.equal(run.outputs.some((output) => output.payload?.epistemic_status === "hypothesis"), true);
+  const retrospective = await fetch(`${base}/api/retrospect`, { method: "POST", headers, body: JSON.stringify({ observation_ids: [record_id] }) });
+  assert.equal((await retrospective.json()).observations[0].epistemic_status, "observed");
+  const cancelledDream = await (await fetch(`${base}/api/dream`, { method: "POST", headers, body: JSON.stringify({ level: "deep_sleep", modes: ["rehearse"], focus: { query: "risk" } }) })).json();
+  const cancelled = await (await fetch(`${base}/api/dream/${cancelledDream.job_id}/cancel`, { method: "POST", headers, body: "{}" })).json();
+  assert.equal(cancelled.state, "cancelled");
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});
