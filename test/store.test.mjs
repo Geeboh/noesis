@@ -17,7 +17,7 @@ test("store migration is durable and idempotent across reopen", () => {
   const row = second.db.prepare("SELECT scope_id, owner_id FROM scopes").get();
   assert.equal(row.scope_id, "scope-1");
   assert.equal(row.owner_id, "operator");
-  assert.equal(second.db.prepare("SELECT count(*) AS count FROM schema_migrations").get().count, 2);
+  assert.equal(second.db.prepare("SELECT count(*) AS count FROM schema_migrations").get().count, 3);
   second.close();
   rmSync(directory, { recursive: true, force: true });
 });

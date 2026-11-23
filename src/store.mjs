@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
-export const STORE_SCHEMA_VERSION = 2;
+export const STORE_SCHEMA_VERSION = 3;
 
 const MIGRATIONS = [
   {
@@ -146,6 +146,41 @@ const MIGRATIONS = [
       CREATE INDEX IF NOT EXISTS resource_alias_lookup ON resource_aliases(alias);
       CREATE INDEX IF NOT EXISTS resource_snapshot_history ON resource_snapshots(resource_id, retrieved_at DESC);
       CREATE INDEX IF NOT EXISTS chronicle_subject_time ON chronicle_events(subject_id, observed_at DESC);
+    `,
+  },
+  {
+    version: 3,
+    sql: `
+      CREATE TABLE IF NOT EXISTS preferences (
+        preference_id TEXT PRIMARY KEY,
+        scope_id TEXT NOT NULL REFERENCES scopes(scope_id),
+        origin TEXT NOT NULL,
+        statement TEXT NOT NULL,
+        context_json TEXT NOT NULL,
+        support_contexts_json TEXT NOT NULL,
+        counterevidence_json TEXT NOT NULL,
+        state TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS activation_states (
+        record_id TEXT PRIMARY KEY,
+        score REAL NOT NULL,
+        anchor_score REAL NOT NULL,
+        anchor_at TEXT NOT NULL,
+        opportunities INTEGER NOT NULL,
+        last_evaluated_at TEXT,
+        protected_minimum REAL NOT NULL,
+        policy_version TEXT NOT NULL
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS forgetments (
+        forgetment_id TEXT PRIMARY KEY,
+        target_id TEXT NOT NULL,
+        scope_id TEXT NOT NULL,
+        reason TEXT NOT NULL,
+        affected_ids_json TEXT NOT NULL,
+        created_at TEXT NOT NULL
+      ) STRICT;
     `,
   },
 ];
@@ -362,6 +397,38 @@ export function openStore(filename) {
   },
   listChronicle(subject_id) {
     return db.prepare("SELECT chronicle_id, subject_id, event_kind, observed_at, before_json, after_json, metadata_json FROM chronicle_events WHERE subject_id = ? ORDER BY observed_at").all(subject_id).map((event) => ({ ...event, before: event.before_json ? JSON.parse(event.before_json) : null, after: event.after_json ? JSON.parse(event.after_json) : null, metadata: JSON.parse(event.metadata_json) }));
+  },
+  createPreference({ preference_id, scope_id, origin, statement, context = {}, support_contexts = [], counterevidence = [], state = "candidate", now = new Date().toISOString() }) {
+    db.prepare("INSERT OR IGNORE INTO scopes(scope_id, owner_id, kind) VALUES (?, 'local', 'project')").run(scope_id);
+    db.prepare("INSERT INTO preferences(preference_id, scope_id, origin, statement, context_json, support_contexts_json, counterevidence_json, state, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").run(preference_id, scope_id, origin, statement, JSON.stringify(context), JSON.stringify(support_contexts), JSON.stringify(counterevidence), state, now, now);
+    return this.getPreference(preference_id);
+  },
+  getPreference(preference_id) {
+    const row = db.prepare("SELECT preference_id, scope_id, origin, statement, context_json, support_contexts_json, counterevidence_json, state, created_at, updated_at FROM preferences WHERE preference_id = ?").get(preference_id);
+    if (!row) return null;
+    return { ...row, context: JSON.parse(row.context_json), support_contexts: JSON.parse(row.support_contexts_json), counterevidence: JSON.parse(row.counterevidence_json) };
+  },
+  updatePreference(preference_id, changes, now = new Date().toISOString()) {
+    const current = this.getPreference(preference_id);
+    if (!current) return null;
+    const next = { ...current, ...changes, updated_at: now };
+    db.prepare("UPDATE preferences SET origin=?, statement=?, context_json=?, support_contexts_json=?, counterevidence_json=?, state=?, updated_at=? WHERE preference_id=?").run(next.origin, next.statement, JSON.stringify(next.context), JSON.stringify(next.support_contexts), JSON.stringify(next.counterevidence), next.state, now, preference_id);
+    return this.getPreference(preference_id);
+  },
+  createActivation({ record_id, score = 1, anchor_score = score, anchor_at = new Date().toISOString(), opportunities = 0, protected_minimum = 0, policy_version = "ebb-0" }) {
+    db.prepare("INSERT INTO activation_states(record_id, score, anchor_score, anchor_at, opportunities, last_evaluated_at, protected_minimum, policy_version) VALUES (?, ?, ?, ?, ?, NULL, ?, ?) ON CONFLICT(record_id) DO UPDATE SET score=excluded.score, anchor_score=excluded.anchor_score, anchor_at=excluded.anchor_at, opportunities=excluded.opportunities, protected_minimum=excluded.protected_minimum, policy_version=excluded.policy_version").run(record_id, score, anchor_score, anchor_at, opportunities, protected_minimum, policy_version);
+    return this.getActivation(record_id);
+  },
+  getActivation(record_id) {
+    return db.prepare("SELECT record_id, score, anchor_score, anchor_at, opportunities, last_evaluated_at, protected_minimum, policy_version FROM activation_states WHERE record_id = ?").get(record_id) ?? null;
+  },
+  updateActivation(record_id, state) {
+    db.prepare("UPDATE activation_states SET score=?, opportunities=?, last_evaluated_at=? WHERE record_id=?").run(state.score, state.opportunities, state.last_evaluated_at, record_id);
+    return this.getActivation(record_id);
+  },
+  createForgetment({ forgetment_id, target_id, scope_id, reason, affected_ids = [], created_at = new Date().toISOString() }) {
+    db.prepare("INSERT INTO forgetments(forgetment_id, target_id, scope_id, reason, affected_ids_json, created_at) VALUES (?, ?, ?, ?, ?, ?)").run(forgetment_id, target_id, scope_id, reason, JSON.stringify(affected_ids), created_at);
+    return { forgetment_id, target_id, scope_id, reason, affected_ids, created_at };
   },
     close() {
       db.close();
