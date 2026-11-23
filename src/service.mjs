@@ -22,6 +22,7 @@ function authorizedScopeIds(store, principal, scope_ids) {
 
 export function createService(store) {
   return {
+    store,
     mindNote({ principal, scope, content, producer_id, idempotency_key, source = null, actor_id = producer_id }) {
       if (!scopeAllows(principal, scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "scope is not available");
       const statement = requireNote(content);

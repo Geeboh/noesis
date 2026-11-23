@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
-export const STORE_SCHEMA_VERSION = 1;
+export const STORE_SCHEMA_VERSION = 2;
 
 const MIGRATIONS = [
   {
@@ -84,6 +84,68 @@ const MIGRATIONS = [
       CREATE INDEX IF NOT EXISTS records_scope_updated ON records(scope_id, updated_at DESC);
       CREATE INDEX IF NOT EXISTS events_scope_observed ON events(scope_id, observed_at DESC);
       CREATE INDEX IF NOT EXISTS sources_scope_captured ON sources(scope_id, captured_at DESC);
+    `,
+  },
+  {
+    version: 2,
+    sql: `
+      CREATE TABLE IF NOT EXISTS resources (
+        resource_id TEXT PRIMARY KEY,
+        kind TEXT NOT NULL,
+        origin_facet TEXT NOT NULL,
+        display_name TEXT NOT NULL,
+        description TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        scope_id TEXT NOT NULL REFERENCES scopes(scope_id),
+        metadata_json TEXT NOT NULL
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS resource_aliases (
+        resource_id TEXT NOT NULL REFERENCES resources(resource_id),
+        alias TEXT NOT NULL,
+        alias_kind TEXT NOT NULL,
+        PRIMARY KEY (resource_id, alias)
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS resource_snapshots (
+        snapshot_id TEXT PRIMARY KEY,
+        resource_id TEXT NOT NULL REFERENCES resources(resource_id),
+        locator TEXT NOT NULL,
+        version TEXT,
+        digest TEXT,
+        retrieved_at TEXT NOT NULL,
+        status TEXT NOT NULL,
+        content_json TEXT NOT NULL
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS resource_states (
+        resource_id TEXT NOT NULL REFERENCES resources(resource_id),
+        state_kind TEXT NOT NULL,
+        state TEXT NOT NULL,
+        evidence_refs_json TEXT NOT NULL,
+        observed_at TEXT NOT NULL,
+        PRIMARY KEY (resource_id, state_kind)
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS lineage_edges (
+        edge_id TEXT PRIMARY KEY,
+        from_id TEXT NOT NULL,
+        from_revision INTEGER,
+        to_id TEXT NOT NULL,
+        to_revision INTEGER,
+        edge_kind TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        metadata_json TEXT NOT NULL
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS chronicle_events (
+        chronicle_id TEXT PRIMARY KEY,
+        subject_id TEXT NOT NULL,
+        event_kind TEXT NOT NULL,
+        observed_at TEXT NOT NULL,
+        before_json TEXT,
+        after_json TEXT,
+        metadata_json TEXT NOT NULL
+      ) STRICT;
+      CREATE INDEX IF NOT EXISTS resource_alias_lookup ON resource_aliases(alias);
+      CREATE INDEX IF NOT EXISTS resource_snapshot_history ON resource_snapshots(resource_id, retrieved_at DESC);
+      CREATE INDEX IF NOT EXISTS chronicle_subject_time ON chronicle_events(subject_id, observed_at DESC);
     `,
   },
 ];
@@ -255,6 +317,51 @@ export function openStore(filename) {
       const scope = db.prepare("SELECT scope_id, owner_id, kind, project_id, session_id, task_id FROM scopes WHERE scope_id = ?").get(row.scope_id);
       return parseRecord(row, scope);
     });
+  },
+  createResource({ resource_id, kind, origin_facet, display_name, description = null, scope, metadata = {}, aliases = [], now = new Date().toISOString() }) {
+    db.prepare("INSERT OR IGNORE INTO scopes(scope_id, owner_id, kind, project_id, session_id, task_id) VALUES (?, ?, ?, ?, ?, ?)").run(scope.scope_id, scope.owner_id, scope.kind, scope.project_id, scope.session_id, scope.task_id);
+    db.prepare("INSERT INTO resources(resource_id, kind, origin_facet, display_name, description, created_at, updated_at, scope_id, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)").run(resource_id, kind, origin_facet, display_name, description, now, now, scope.scope_id, JSON.stringify(metadata));
+    for (const alias of aliases) db.prepare("INSERT INTO resource_aliases(resource_id, alias, alias_kind) VALUES (?, ?, ?)").run(resource_id, alias.value, alias.kind);
+    return this.getResource(resource_id);
+  },
+  addResourceSnapshot({ snapshot_id, resource_id, locator, version = null, digest = null, retrieved_at = new Date().toISOString(), status = "observed", content = {} }) {
+    db.prepare("INSERT INTO resource_snapshots(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, content_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, JSON.stringify(content));
+    return this.getResource(resource_id);
+  },
+  setResourceState({ resource_id, state_kind, state, evidence_refs = [], observed_at = new Date().toISOString() }) {
+    db.prepare("INSERT INTO resource_states(resource_id, state_kind, state, evidence_refs_json, observed_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(resource_id, state_kind) DO UPDATE SET state=excluded.state, evidence_refs_json=excluded.evidence_refs_json, observed_at=excluded.observed_at").run(resource_id, state_kind, state, JSON.stringify(evidence_refs), observed_at);
+    return this.getResource(resource_id);
+  },
+  getResource(resource_id) {
+    const row = db.prepare("SELECT resource_id, kind, origin_facet, display_name, description, created_at, updated_at, scope_id, metadata_json FROM resources WHERE resource_id = ?").get(resource_id);
+    if (!row) return null;
+    const scope = db.prepare("SELECT scope_id, owner_id, kind, project_id, session_id, task_id FROM scopes WHERE scope_id = ?").get(row.scope_id);
+    return {
+      ...row,
+      scope,
+      metadata: JSON.parse(row.metadata_json),
+      aliases: db.prepare("SELECT alias, alias_kind FROM resource_aliases WHERE resource_id = ?").all(resource_id),
+      snapshots: db.prepare("SELECT snapshot_id, locator, version, digest, retrieved_at, status, content_json FROM resource_snapshots WHERE resource_id = ? ORDER BY retrieved_at DESC").all(resource_id).map((snapshot) => ({ ...snapshot, content: JSON.parse(snapshot.content_json) })),
+      states: db.prepare("SELECT state_kind, state, evidence_refs_json, observed_at FROM resource_states WHERE resource_id = ?").all(resource_id).map((state) => ({ ...state, evidence_refs: JSON.parse(state.evidence_refs_json) })),
+    };
+  },
+  listResources(scope_ids = []) {
+    const rows = db.prepare("SELECT resource_id FROM resources ORDER BY updated_at DESC").all();
+    return rows.map((row) => this.getResource(row.resource_id)).filter((resource) => !scope_ids.length || scope_ids.includes(resource.scope.scope_id));
+  },
+  addLineageEdge({ edge_id, from_id, from_revision = null, to_id, to_revision = null, edge_kind, metadata = {}, created_at = new Date().toISOString() }) {
+    db.prepare("INSERT INTO lineage_edges(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, JSON.stringify(metadata));
+    return { edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata };
+  },
+  listLineage(id) {
+    return db.prepare("SELECT edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata_json FROM lineage_edges WHERE from_id = ? OR to_id = ? ORDER BY created_at").all(id, id).map((edge) => ({ ...edge, metadata: JSON.parse(edge.metadata_json) }));
+  },
+  addChronicleEvent({ chronicle_id, subject_id, event_kind, observed_at = new Date().toISOString(), before = null, after = null, metadata = {} }) {
+    db.prepare("INSERT INTO chronicle_events(chronicle_id, subject_id, event_kind, observed_at, before_json, after_json, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?)").run(chronicle_id, subject_id, event_kind, observed_at, before === null ? null : JSON.stringify(before), after === null ? null : JSON.stringify(after), JSON.stringify(metadata));
+    return { chronicle_id, subject_id, event_kind, observed_at, before, after, metadata };
+  },
+  listChronicle(subject_id) {
+    return db.prepare("SELECT chronicle_id, subject_id, event_kind, observed_at, before_json, after_json, metadata_json FROM chronicle_events WHERE subject_id = ? ORDER BY observed_at").all(subject_id).map((event) => ({ ...event, before: event.before_json ? JSON.parse(event.before_json) : null, after: event.after_json ? JSON.parse(event.after_json) : null, metadata: JSON.parse(event.metadata_json) }));
   },
     close() {
       db.close();

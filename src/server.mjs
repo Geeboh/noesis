@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { join } from "node:path";
 import { openService } from "./service.mjs";
 import { PairingManager } from "./web-auth.mjs";
+import { createAtlas } from "./atlas.mjs";
 
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
@@ -66,7 +67,7 @@ function readBody(request) {
   });
 }
 
-export function createRequestHandler({ service, pairing }) {
+export function createRequestHandler({ service, pairing, atlas = createAtlas(service.store) }) {
   const principal = { owner_id: "local", scope_ids: [] };
   return (request, response) => {
     void (async () => {
@@ -86,6 +87,9 @@ export function createRequestHandler({ service, pairing }) {
       if (!pairing.isAuthenticated(request)) return sendJson(response, 401, { error: "pairing required" });
       if (request.method === "POST" && !pairing.originAllowed(request.headers.origin, request.headers.host)) return sendJson(response, 403, { error: "origin rejected" });
       if (url.pathname === "/api/capabilities" && request.method === "GET") return sendJson(response, 200, service.mindCapabilities());
+      if (url.pathname === "/api/resources" && request.method === "GET") return sendJson(response, 200, { data: atlas.list({ principal }) });
+      if (url.pathname.startsWith("/api/resources/") && request.method === "GET") return sendJson(response, 200, atlas.inspect({ principal, resource_id: decodeURIComponent(url.pathname.slice("/api/resources/".length)) }));
+      if (url.pathname.startsWith("/api/trace/") && request.method === "GET") return sendJson(response, 200, atlas.trace({ principal, id: decodeURIComponent(url.pathname.slice("/api/trace/".length)) }));
       if (url.pathname === "/api/recall" && request.method === "GET") return sendJson(response, 200, service.mindRecall({ principal, query: url.searchParams.get("query") ?? "", max_items: 8, max_chars: 12000 }));
       if (url.pathname.startsWith("/api/inspect/") && request.method === "GET") {
         const record_id = decodeURIComponent(url.pathname.slice("/api/inspect/".length));
