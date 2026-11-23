@@ -369,7 +369,7 @@
     {
       "id": "M6",
       "title": "Forge and Blueprints",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.6.0-beta.1",
       "depends_on": [
         "M4",
@@ -414,7 +414,7 @@
         "M6-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M6.md", "reports/validation-M6.md", "reports/release-notes-v0.6.0-beta.1.md", "npm test"]
     },
     {
       "id": "M7",

@@ -1297,7 +1297,7 @@
       "id": "M6-01",
       "milestone_id": "M6",
       "title": "Define Forge resource and version selection",
-      "status": "in_progress",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-05",
@@ -1324,13 +1324,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/forge.mjs", "test/forge.test.mjs", "reports/validation-M6.md", "npm test"]
     },
     {
       "id": "M6-02",
       "milestone_id": "M6",
       "title": "Analyze resource-specific friction and successful patterns",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-01",
@@ -1355,13 +1355,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/forge.mjs", "test/forge.test.mjs", "reports/validation-M6.md"]
     },
     {
       "id": "M6-03",
       "milestone_id": "M6",
       "title": "Launch bounded focused dreams from Forge",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-01",
@@ -1387,13 +1387,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/server.mjs", "test/observatory.test.mjs", "reports/validation-M6.md"]
     },
     {
       "id": "M6-04",
       "milestone_id": "M6",
       "title": "Define and implement Blueprints improvement packs",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-02",
@@ -1421,13 +1421,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/forge.mjs", "test/forge.test.mjs", "reports/validation-M6.md"]
     },
     {
       "id": "M6-05",
       "milestone_id": "M6",
       "title": "Implement safe portable export and import",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-04",
@@ -1454,13 +1454,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/forge.mjs", "src/archive.mjs", "reports/validation-M6.md"]
     },
     {
       "id": "M6-06",
       "milestone_id": "M6",
       "title": "Complete Forge UI and release portable improvement guides",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-01",
@@ -1489,7 +1489,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/server.mjs", "test/observatory.test.mjs", "reports/milestone-M6.md", "reports/validation-M6.md"]
     },
     {
       "id": "M7-01",
