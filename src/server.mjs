@@ -30,12 +30,14 @@ ul{padding-left:1.25rem}.muted{color:#5b6773}
 </style>
 </head>
 <body>
-<header><h1>NOESIS Observatory</h1><p class="muted">Local-first evidence, recall, and durable work.</p></header>
+<header><h1>NOESIS Observatory</h1><p class="muted">Local-first evidence, recall, and durable work.</p><nav aria-label="Primary"><a href="#atlas">Atlas</a> · <a href="#reverie">Reverie</a> · <a href="#forge">Forge</a></nav></header>
 <main>
 <section aria-labelledby="pair-title"><h2 id="pair-title">Pair this browser</h2><p>Enter the short-lived code printed by the local operator.</p><form id="pair-form"><label for="pair-code">Pairing code</label><input id="pair-code" name="code" inputmode="numeric" autocomplete="one-time-code" required pattern="[0-9]{8}"><button>Pair</button></form><p id="pair-status" role="status"></p></section>
 <section aria-labelledby="note-title"><h2 id="note-title">Capture an observation</h2><form id="note-form"><label for="note-content">Observation</label><textarea id="note-content" required></textarea><button>Save note</button></form><p id="note-status" role="status"></p></section>
 <section aria-labelledby="recall-title"><h2 id="recall-title">Recall</h2><form id="recall-form"><label for="recall-query">Query</label><input id="recall-query"><button>Recall</button></form><ul id="recall-results"></ul></section>
-<section aria-labelledby="dream-title"><h2 id="dream-title">Reverie</h2><button id="dream-button">Start Snooze</button><p id="dream-status" role="status"></p></section>
+<section id="reverie" aria-labelledby="dream-title"><h2 id="dream-title">Reverie</h2><button id="dream-button">Start Snooze</button><p id="dream-status" role="status"></p></section>
+<section id="atlas" aria-labelledby="atlas-title"><h2 id="atlas-title">Atlas</h2><button id="atlas-button">Load resources</button><ul id="atlas-results"></ul></section>
+<section id="forge" aria-labelledby="forge-title"><h2 id="forge-title">Forge</h2><p>Choose a resource in Atlas to inspect attributable findings and export a Blueprint.</p></section>
 </main>
 <script>
 const status=(id,text)=>{document.getElementById(id).textContent=text};
@@ -44,6 +46,7 @@ document.getElementById('pair-form').addEventListener('submit',async event=>{eve
 document.getElementById('note-form').addEventListener('submit',async event=>{event.preventDefault();try{await api('/api/note',{method:'POST',body:JSON.stringify({content:event.target.content.value})});event.target.reset();status('note-status','Saved.')}catch(error){status('note-status',error.message)}});
 document.getElementById('recall-form').addEventListener('submit',async event=>{event.preventDefault();try{const body=await api('/api/recall?query='+encodeURIComponent(event.target.query.value));const list=document.getElementById('recall-results');list.replaceChildren(...(body.data||[]).map(hit=>{const item=document.createElement('li');item.textContent=hit.statement+' ['+hit.record_id+'@'+hit.revision+']';return item}))}catch(error){status('pair-status',error.message)}});
 document.getElementById('dream-button').addEventListener('click',async()=>{try{const body=await api('/api/dream',{method:'POST',body:'{}'});status('dream-status','Snooze '+body.job_id+' queued.')}catch(error){status('dream-status',error.message)}});
+document.getElementById('atlas-button').addEventListener('click',async()=>{try{const body=await api('/api/resources');const list=document.getElementById('atlas-results');list.replaceChildren(...(body.data||[]).map(resource=>{const item=document.createElement('li');item.textContent=resource.display_name+' ['+resource.kind+']';return item}))}catch(error){status('pair-status',error.message)}});
 </script>
 </body>
 </html>`;
