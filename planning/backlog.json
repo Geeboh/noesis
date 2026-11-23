@@ -1106,7 +1106,7 @@
       "id": "M5-01",
       "milestone_id": "M5",
       "title": "Define Lore pages and source-aware sections",
-      "status": "in_progress",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-04",
@@ -1131,13 +1131,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/lore.mjs", "test/lore.test.mjs", "reports/validation-M5.md", "npm test"]
     },
     {
       "id": "M5-02",
       "milestone_id": "M5",
       "title": "Generate and update sourced Lore pages",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M5-01"
@@ -1161,13 +1161,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/server.mjs", "src/store.mjs", "reports/validation-M5.md", "npm test"]
     },
     {
       "id": "M5-03",
       "milestone_id": "M5",
       "title": "Invalidate and refresh Lore dependencies",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M5-02",
@@ -1192,13 +1192,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/lore.mjs", "test/lore.test.mjs", "test/observatory.test.mjs", "reports/validation-M5.md"]
     },
     {
       "id": "M5-04",
       "milestone_id": "M5",
       "title": "Build Lore reading, editing, diffs, and backlinks",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M5-02",
@@ -1224,13 +1224,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/server.mjs", "test/observatory.test.mjs", "reports/validation-M5.md"]
     },
     {
       "id": "M5-05",
       "milestone_id": "M5",
       "title": "Make Lore persistence and reconstruction reliable",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M5-03"
@@ -1255,13 +1255,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/store.mjs", "test/store.test.mjs", "test/operations.test.mjs", "reports/validation-M5.md"]
     },
     {
       "id": "M5-06",
       "milestone_id": "M5",
       "title": "Verify the living wiki and prepare beta",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M5-01",
@@ -1291,7 +1291,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M5.md", "reports/validation-M5.md", "reports/release-notes-v0.5.0-beta.1.md", "npm test"]
     },
     {
       "id": "M6-01",

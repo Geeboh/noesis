@@ -29,7 +29,7 @@
     {"id":"attunement.corrections","owner":"M3-01","command":"npm test; authenticated preference correction journey","status":"passed","evidence":"reports/validation-M3.md"},
     {"id":"ebb.lifecycle","owner":"M3-02","command":"npm test; authenticated activation evaluate/revive/forget journey","status":"passed","evidence":"reports/validation-M3.md"},
     {"id":"reverie.quality","owner":"M4-01","command":"npm test; held-out policy evaluation and authenticated Reverie journey","status":"passed","evidence":"reports/validation-M4.md"},
-    {"id":"lore.integrity","owner":"M5-01","command":null,"status":"pending","condition":"Bound after sourced Lore rebuilds and manual sections exist."},
+    {"id":"lore.integrity","owner":"M5-01","command":"npm test; authenticated Lore read/edit/refresh/restart journey","status":"passed","evidence":"reports/validation-M5.md"},
     {"id":"blueprints.portability","owner":"M6-01","command":null,"status":"pending","condition":"Bound after scoped Blueprint exports exist."},
     {"id":"mcp.parity","owner":"M7-02","command":null,"status":"deferred-unselected","condition":"Optional; no MCP adapter selected for the first supported release."},
     {"id":"system.hardening","owner":"M8-01","command":null,"status":"pending","condition":"Bound after the supported workflows and security controls exist."},

@@ -319,7 +319,7 @@
     {
       "id": "M5",
       "title": "Lore living wiki",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.5.0-beta.1",
       "depends_on": [
         "M2",
@@ -364,7 +364,7 @@
         "M5-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M5.md", "reports/validation-M5.md", "reports/release-notes-v0.5.0-beta.1.md", "npm test"]
     },
     {
       "id": "M6",

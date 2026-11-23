@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M1, M2, M3, and M4 done. M4 Full Reverie is closed with deterministic bounded execution and explicit provider/browser limitations.
+**Implementation state:** M1, M2, M3, M4, and M5 done. M5 Lore is closed with deterministic sourced-page behavior and explicit crawling/browser/device limitations.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -16,16 +16,16 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M2 | Atlas, Lineage, and Chronicle | done | `v0.2.0-alpha.1` | `reports/milestone-M2.md`, `reports/validation-M2.md`, `reports/release-notes-v0.2.0-alpha.1.md` |
 | M3 | Attunement and Ebb | done | `v0.3.0-alpha.1` | `reports/milestone-M3.md`, `reports/validation-M3.md`, `reports/release-notes-v0.3.0-alpha.1.md` |
 | M4 | Full Reverie | done | `v0.4.0-alpha.1` | `reports/milestone-M4.md`, `reports/validation-M4.md`, `reports/release-notes-v0.4.0-alpha.1.md` |
-| M5 | Lore living wiki | in_progress | `v0.5.0-beta.1` | `02f7b6bd99`, `test/lore.test.mjs` |
+| M5 | Lore living wiki | done | `v0.5.0-beta.1` | `reports/milestone-M5.md`, `reports/validation-M5.md`, `reports/release-notes-v0.5.0-beta.1.md` |
 | M6 | Forge and Blueprints | in_progress | `v0.6.0-beta.1` | `02f7b6bd99`, `test/forge.test.mjs` |
 | M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0, M1, M2, M3, and M4 are complete. M5-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 through M5 are complete. M6 and M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
 
 ## Next authorized work
 
-Continue M5 Lore integration: wire sourced pages, authored sections, and dependency invalidation into the Observatory before recording the M5 report.
+Continue M6 Forge and Blueprints integration: wire scoped improvement views and evidence-backed exports into the Observatory before recording the M6 report.
 
 The bootstrap diagnostics are:
 
@@ -87,6 +87,12 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | M4-04 | integration owner | current worktree | hypothesis output tests | `c45f4d6` | done |
 | M4-05 | integration owner | current worktree | rehearsal and validation status | `c45f4d6` | done |
 | M4-06 | integration owner | current worktree | Reverie UI, M4 reports, release notes | current candidate validation | done |
+| M5-01 | integration owner | current worktree | `src/lore.mjs`, Lore tests | `226fecb` | done |
+| M5-02 | integration owner | current worktree | `src/server.mjs`, `src/store.mjs` | `226fecb` | done |
+| M5-03 | integration owner | current worktree | invalidation and refresh tests | `226fecb` | done |
+| M5-04 | integration owner | current worktree | Lore web routes and Observatory tests | `226fecb` | done |
+| M5-05 | integration owner | current worktree | schema migration and restart tests | `226fecb` | done |
+| M5-06 | integration owner | current worktree | M5 reports and release notes | current candidate validation | done |
 ## Evidence log
 
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
@@ -111,5 +117,8 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M4 core | `npm test` | 52 tests passed; bounded levels, modes, pause/resume, hypotheses, retrospection, and policy evaluation passed | `reports/validation-M4.md` |
 | 2026-11-24 | M4 Observatory | authenticated queue/run/cancel/retrospect journey | budgets, focus, hypothesis outputs, cancellation, and retrospection passed | `reports/validation-M4.md` |
 | 2026-11-24 | M4 browser | `playwright_fast capture` at 1280x720 and 390x844 | Reverie controls rendered with no page errors; capture is visual evidence only | `reports/validation-M4.md` |
+| 2026-11-24 | M5 core | `npm test` | 53 tests passed; Lore ownership, invalidation, refresh, diffs, and restart passed | `reports/validation-M5.md` |
+| 2026-11-24 | M5 Observatory | authenticated Lore read/edit/refresh/restart journey | manual section preserved across refresh and restart | `reports/validation-M5.md` |
+| 2026-11-24 | M5 browser | `playwright_fast capture` at 1280x720 and 390x844 | Lore controls rendered with no page errors; capture is visual evidence only | `reports/validation-M5.md` |
 ## Blockers and forecast changes
-M1, M2, M3, and M4 are complete. Provider-backed model calls, interactive browser control, physical second-device LAN validation, and M8 release reproducibility remain unavailable. M5 integration is next.
+M1 through M5 are complete. Automatic crawling, interactive browser editing, physical second-device LAN validation, and uncontrolled external-copy deletion remain unavailable. M6 integration is next.
