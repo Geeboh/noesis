@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M1 in progress; durable ledger, Snooze, native OMP adapter, LAN startup, pairing, and route/UI paths are implemented. Product release remains unclaimed.
+**Implementation state:** M2 and M3 core policies are in progress; M1 remains open for alpha closure, browser limitation, and release notes.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -13,19 +13,19 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | --- | --- | --- | --- | --- |
 | M0 | Verified foundation | done | No release | `reports/milestone-M0.md` |
 | M1 | Working Mind loop and LAN Observatory | in_progress | `v0.1.0-alpha.1` | `f9426b9806`, `test/observatory.test.mjs`, live startup smoke |
-| M2 | Atlas, Lineage, and Chronicle | planned | `v0.2.0-alpha.1` | None yet |
-| M3 | Attunement and Ebb | planned | `v0.3.0-alpha.1` | None yet |
+| M2 | Atlas, Lineage, and Chronicle | in_progress | `v0.2.0-alpha.1` | `e5643fc79a`, `test/atlas.test.mjs` |
+| M3 | Attunement and Ebb | in_progress | `v0.3.0-alpha.1` | `e6b8649813`, `test/adaptation.test.mjs` |
 | M4 | Full Reverie | planned | `v0.4.0-alpha.1` | None yet |
 | M5 | Lore living wiki | planned | `v0.5.0-beta.1` | None yet |
 | M6 | Forge and Blueprints | planned | `v0.6.0-beta.1` | None yet |
 | M7 | Native portability and optional adapters | planned | `v0.7.0-beta.1` | None yet |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 is in progress with core persistence, native OMP loading, deterministic Snooze, pairing, LAN startup, and real HTTP Observatory evidence. M2–M8 remain planned. The estimate is 59–86 engineering days, roughly 12–18 working weeks under the roadmap assumptions. It is not a promised completion date.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete. M1 remains open for alpha closure. M2 resource identity/snapshot/lineage core and M3 Attunement/Ebb policy core are implemented with deterministic tests; M2/M3 web views and release reports remain. M4–M8 are planned.
 
 ## Next authorized work
 
-Continue M1-05 and M1-06: finish route/QR/pairing hardening, browser-capable UI validation, and the alpha report. Physical second-device validation remains unavailable in this environment.
+Continue M2-02/M2-05 and M3-05/M3-06: wire actual Atlas population and adaptation controls into the Observatory, then record milestone reports before moving to M4.
 
 The bootstrap diagnostics are:
 
@@ -80,6 +80,8 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M1 core | `npm test` | 35 tests passed; real OMP and CLI smoke separately observed | `f9426b9806`, `test/observatory.test.mjs` |
 | 2026-11-24 | M1 LAN | `NOESIS_PORT=17337 NOESIS_DATA_DIR=/tmp/noesis-cli-smoke npm start` | actual LAN URL, terminal QR, separate pairing code printed after bind | `E33` |
 | 2026-11-24 | M1 browser | browser daemon could not start because X11 `$DISPLAY` is unavailable | unavailable; HTTP journey remains passed | `E29`, `test/observatory.test.mjs` |
+| 2026-11-24 | M2 core | `npm test` | Atlas aliases, snapshots, independent states, lineage, Chronicle passed | `e5643fc79a`, `test/atlas.test.mjs` |
+| 2026-11-24 | M3 core | `npm test` | Attunement correction/support and anchored Ebb/forgetment passed | `e6b8649813`, `test/adaptation.test.mjs` |
 ## Blockers and forecast changes
 
 Browser visual validation is unavailable because the managed Chromium daemon requires X11 `$DISPLAY`; real HTTP Observatory and startup evidence remain available. No implementation blocker is established for the next M1 route checks.

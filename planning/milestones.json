@@ -170,7 +170,7 @@
     {
       "id": "M2",
       "title": "Atlas, Lineage, and Chronicle",
-      "status": "planned",
+      "status": "in_progress",
       "release_target": "v0.2.0-alpha.1",
       "depends_on": [
         "M1"
@@ -219,7 +219,7 @@
     {
       "id": "M3",
       "title": "Attunement and Ebb",
-      "status": "planned",
+      "status": "in_progress",
       "release_target": "v0.3.0-alpha.1",
       "depends_on": [
         "M1"

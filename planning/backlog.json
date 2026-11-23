@@ -508,7 +508,7 @@
       "id": "M2-01",
       "milestone_id": "M2",
       "title": "Model universal resources, identity, aliases, and evidence states",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -535,13 +535,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/store.mjs", "test/atlas.test.mjs", "e5643fc79ada1d0fb736fa97b30e6979fea22ba9"]
     },
     {
       "id": "M2-02",
       "milestone_id": "M2",
       "title": "Populate Atlas from actual work and permitted sources",
-      "status": "planned",
+      "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M2-01",
@@ -573,7 +573,7 @@
       "id": "M2-03",
       "milestone_id": "M2",
       "title": "Preserve immutable source snapshots and refresh history",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-01",
@@ -598,13 +598,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/store.mjs", "test/atlas.test.mjs", "e5643fc79ada1d0fb736fa97b30e6979fea22ba9"]
     },
     {
       "id": "M2-04",
       "milestone_id": "M2",
       "title": "Implement Lineage and Chronicle",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-02",
@@ -632,13 +632,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/store.mjs", "test/atlas.test.mjs", "e5643fc79ada1d0fb736fa97b30e6979fea22ba9"]
     },
     {
       "id": "M2-05",
       "milestone_id": "M2",
       "title": "Add Atlas, Lineage, and Chronicle web views",
-      "status": "planned",
+      "status": "in_progress",
       "priority": "P0",
       "depends_on": [
         "M2-04",
@@ -706,7 +706,7 @@
       "id": "M3-01",
       "milestone_id": "M3",
       "title": "Define preference evidence and reversible activation states",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M1-01",
@@ -732,13 +732,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/store.mjs", "test/adaptation.test.mjs", "e6b86498134c6a1919392adb708f648b4e609543"]
     },
     {
       "id": "M3-02",
       "milestone_id": "M3",
       "title": "Implement correctable Attunement",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M3-01",
@@ -763,13 +763,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/adaptation.mjs", "test/adaptation.test.mjs", "e6b86498134c6a1919392adb708f648b4e609543"]
     },
     {
       "id": "M3-03",
       "milestone_id": "M3",
       "title": "Implement Ebb activation policies",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M3-01",
@@ -796,13 +796,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/adaptation.mjs", "test/adaptation.test.mjs", "e6b86498134c6a1919392adb708f648b4e609543"]
     },
     {
       "id": "M3-04",
       "milestone_id": "M3",
       "title": "Implement explicit forgetting and dependent-state handling",
-      "status": "planned",
+      "status": "done",
       "priority": "P0",
       "depends_on": [
         "M3-03",
@@ -829,7 +829,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+      "completion_evidence": ["src/adaptation.mjs", "test/adaptation.test.mjs", "e6b86498134c6a1919392adb708f648b4e609543"]
     },
     {
       "id": "M3-05",
