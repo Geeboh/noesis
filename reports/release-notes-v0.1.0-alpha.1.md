@@ -1,7 +1,7 @@
-# NOESIS v0.1.0-alpha.1 local candidate notes
+# NOESIS v0.1.0-alpha.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `32ec123`
+**Status:** released to private GitHub repository.
+**Candidate:** `72f5291`
 
 ## Implemented
 
@@ -29,4 +29,4 @@ Headless Chromium captured the pairing page at 1280x720 and 390x844 with no page
 - M2/M3 web controls and M4-M7 integration workflows remain in progress.
 - Stable v1.0 hardening, migration/backup/restore release checks, and final release notes remain open.
 
-No package was published, deployed, pushed, or exposed to the Internet.
+Released as a private GitHub release. No package was published, deployed, or exposed to the public Internet.
