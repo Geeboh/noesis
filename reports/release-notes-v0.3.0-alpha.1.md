@@ -1,7 +1,7 @@
 # NOESIS v0.3.0-alpha.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `9b5a77a`
+**Status:** released to private GitHub repository.
+**Candidate:** `1f9ec40`
 
 ## Implemented
 
@@ -23,4 +23,4 @@
 - Forgetting cannot recall uncontrolled external copies.
 - M4 Full Reverie remains in progress.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
