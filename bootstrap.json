@@ -1,0 +1,15 @@
+{
+  "package": "noesis-omp-bootstrap",
+  "bootstrap_version": "1.0.0",
+  "prepared_date": "2026-11-24",
+  "timezone": "Australia/Hobart",
+  "product_version": "unreleased",
+  "application_implemented": false,
+  "minimum_bootstrap_python": "3.10",
+  "manifest": "MANIFEST.json",
+  "entrypoint": "START-HERE.md",
+  "operator_playbook": "docs/13-OPERATOR-PLAYBOOK.md",
+  "initial_prompt": "prompts/01-BOOTSTRAP-OMP.md",
+  "package_root": "noesis-bootstrap-v1.0.0",
+  "manifest_file_count": 84
+}

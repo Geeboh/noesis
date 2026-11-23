@@ -1,0 +1,552 @@
+{
+  "schema_version": "1.0.0",
+  "bootstrap_version": "1.0.0",
+  "product_version": "unreleased",
+  "assumptions": [
+    "One primary contributor, approximately five engineering days per working week, with bounded independent assistance and one integration owner.",
+    "Estimates include review and relevant validation but not unpredictable external provisioning, upstream breakage, major migration surprises, or lengthy interruptions.",
+    "The first supported runtime, OMP version, package manager, platform, and application validation commands are verified in M0.",
+    "A local-first lightweight architecture is preferred; no mandatory dependency on LangChain memory, SimpleMem, Cognee, or a graph database is implied.",
+    "M1 includes a real working LAN-accessible dashboard, text QR startup, private-data pairing, and durable Snooze rather than a static mockup.",
+    "Parallel agents do not remove shared-file, integration, or review constraints; the calendar envelope is not a delivery promise.",
+    "Re-estimate after M0 and M1 using actual throughput and measured workload costs; requested scope changes are recorded explicitly."
+  ],
+  "timeline": {
+    "unit": "engineering_days",
+    "total_effort_days": {
+      "min": 59,
+      "max": 86
+    },
+    "calendar_envelope_weeks": {
+      "min": 12,
+      "max": 18
+    },
+    "critical_path": [
+      "M0",
+      "M1",
+      "M2",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8"
+    ],
+    "critical_path_note": "The path includes required M7 native archive/integrity/restore, not an obligation to ship costly optional adapters. M3 is required before M4 and may become critical. Effort includes M3 and does not assume unlimited contributor capacity.",
+    "parallel_lanes": [
+      {
+        "name": "Core and OMP adapter",
+        "starts_after": [
+          "M0"
+        ],
+        "constraint": "Separate worktrees; serialize schema/lockfile changes and integration."
+      },
+      {
+        "name": "Observatory views",
+        "starts_after": [
+          "M0"
+        ],
+        "constraint": "Start each view only after its stable contracts and real data path; acceptance must use the runtime."
+      },
+      {
+        "name": "Attunement and Ebb",
+        "starts_after": [
+          "M1"
+        ],
+        "constraint": "Can overlap M2 with sufficient capacity; reconcile identity/scoping before M4."
+      },
+      {
+        "name": "Native portability and optional MCP contract spike",
+        "starts_after": [
+          "M2"
+        ],
+        "constraint": "Native contracts can start after M2; restore acceptance requires M6. MCP work starts only if selected and does not gate native portability."
+      },
+      {
+        "name": "Evaluation and documentation",
+        "starts_after": [
+          "M0"
+        ],
+        "constraint": "Prepare checks with concrete behavior; never claim unimplemented runtime checks passed."
+      }
+    ]
+  },
+  "milestones": [
+    {
+      "id": "M0",
+      "title": "Verified foundation",
+      "status": "planned",
+      "release_target": null,
+      "depends_on": [],
+      "effort_days": {
+        "min": 3,
+        "max": 5
+      },
+      "goal": "Verify the environment, contracts, and implementation plan before building the product.",
+      "release_goals": [
+        "Verified OMP/runtime/toolchain contracts",
+        "Lightweight candidate architecture and ownership",
+        "Bound application validation targets; no product release"
+      ],
+      "exit_criteria": [
+        "Environment and OMP integration evidence are recorded.",
+        "Core/scoping/LAN-pairing contracts and shared ownership are accepted.",
+        "Application command map and CI exist separately from bootstrap CI; later behavior remains pending."
+      ],
+      "task_ids": [
+        "M0-01",
+        "M0-02",
+        "M0-03",
+        "M0-04",
+        "M0-05",
+        "M0-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M0-01",
+        "M0-02",
+        "M0-03",
+        "M0-04",
+        "M0-05",
+        "M0-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M1",
+      "title": "Working Mind loop",
+      "status": "planned",
+      "release_target": "v0.1.0-alpha.1",
+      "depends_on": [
+        "M0"
+      ],
+      "effort_days": {
+        "min": 10,
+        "max": 14
+      },
+      "goal": "Ship real capture, recall, evidence inspection, a working Observatory, and durable Snooze.",
+      "release_goals": [
+        "Event ledger and native OMP capture",
+        "Scoped recall and provenance inspector",
+        "LAN-accessible Observatory with terminal text QR, pairing, and Pulse",
+        "Minimal durable mind_dream Snooze"
+      ],
+      "exit_criteria": [
+        "Actual OMP work produces durable inspectable records.",
+        "Real web journeys exercise recall and Snooze; interruption preserves pending work.",
+        "Default 0.0.0.0:7337 listener advertises an actual post-listen address, supports interface selection, and emits a secret-free text QR URL.",
+        "Unpaired clients cannot access private Mind data; startup/QR/pairing behavior has integration evidence."
+      ],
+      "task_ids": [
+        "M1-01",
+        "M1-02",
+        "M1-03",
+        "M1-04",
+        "M1-05",
+        "M1-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M1-01",
+        "M1-02",
+        "M1-03",
+        "M1-04",
+        "M1-05",
+        "M1-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M2",
+      "title": "Atlas, Lineage, and Chronicle",
+      "status": "planned",
+      "release_target": "v0.2.0-alpha.1",
+      "depends_on": [
+        "M1"
+      ],
+      "effort_days": {
+        "min": 7,
+        "max": 10
+      },
+      "goal": "Catalog universal resources and preserve the evidence and history behind learning.",
+      "release_goals": [
+        "Universal local/external/mixed resource catalog",
+        "Independent referenced/examined/available/installed/used/evaluated properties",
+        "Immutable source snapshots, versions, aliases, and history",
+        "Source, derivation, and application traces"
+      ],
+      "exit_criteria": [
+        "Local resources and external webpages have stable identities and inspectable snapshots.",
+        "Changed sources preserve old evidence and mark dependent state appropriately.",
+        "Atlas and provenance/history views use real data and enforce scope."
+      ],
+      "task_ids": [
+        "M2-01",
+        "M2-02",
+        "M2-03",
+        "M2-04",
+        "M2-05",
+        "M2-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M2-01",
+        "M2-02",
+        "M2-03",
+        "M2-04",
+        "M2-05",
+        "M2-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M3",
+      "title": "Attunement and Ebb",
+      "status": "planned",
+      "release_target": "v0.3.0-alpha.1",
+      "depends_on": [
+        "M1"
+      ],
+      "effort_days": {
+        "min": 5,
+        "max": 7
+      },
+      "goal": "Adapt to supported preferences and fade activation reversibly without changing truth.",
+      "release_goals": [
+        "Stated versus independently supported inferred preferences",
+        "User correction precedence and explanations",
+        "Active/quiet/dormant activation separate from validity and retention",
+        "Explicit forgetting lifecycle and UI controls"
+      ],
+      "exit_criteria": [
+        "Corrections override inferences; silence and derived repetition do not confirm preferences.",
+        "Activation is reversible and independent of truth, validity, and retention.",
+        "Explicit forgetting and dependent-state behavior are tested and visible."
+      ],
+      "task_ids": [
+        "M3-01",
+        "M3-02",
+        "M3-03",
+        "M3-04",
+        "M3-05",
+        "M3-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M3-01",
+        "M3-02",
+        "M3-03",
+        "M3-04",
+        "M3-05",
+        "M3-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M4",
+      "title": "Full Reverie",
+      "status": "planned",
+      "release_target": "v0.4.0-alpha.1",
+      "depends_on": [
+        "M2",
+        "M3"
+      ],
+      "effort_days": {
+        "min": 9,
+        "max": 13
+      },
+      "goal": "Complete bounded dreaming and Retrospection while preserving evidence semantics.",
+      "release_goals": [
+        "Snooze, Nap, Dream, and Deep Sleep profiles",
+        "Five concrete modes with a mixed preset expanding to unique job.modes entries",
+        "Independent scope and lucid focus",
+        "Retrospection, hypothesis handling, rehearsal, and Reverie/Pulse UI"
+      ],
+      "exit_criteria": [
+        "Every level/mode is supported and observable with finite limits.",
+        "Interrupted jobs retain pending work and recover safely.",
+        "Creative hypotheses never self-confirm; simulation and actual experiment outcomes are distinct.",
+        "Real UI journeys expose scope, focus, costs, evidence, and outputs."
+      ],
+      "task_ids": [
+        "M4-01",
+        "M4-02",
+        "M4-03",
+        "M4-04",
+        "M4-05",
+        "M4-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M4-01",
+        "M4-02",
+        "M4-03",
+        "M4-04",
+        "M4-05",
+        "M4-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M5",
+      "title": "Lore living wiki",
+      "status": "planned",
+      "release_target": "v0.5.0-beta.1",
+      "depends_on": [
+        "M2",
+        "M4"
+      ],
+      "effort_days": {
+        "min": 6,
+        "max": 9
+      },
+      "goal": "Create a sourced living wiki that preserves human edits and exposes change.",
+      "release_goals": [
+        "Sourced pages and manual sections",
+        "Diffs, backlinks, and history",
+        "Dependency invalidation and bounded refresh",
+        "Working wiki editor/reader and reliable reconstruction"
+      ],
+      "exit_criteria": [
+        "Source changes affect the correct generated sections without erasing manual work.",
+        "Pages retain provenance and cannot recursively confirm their own derived claims.",
+        "Reading, editing, refresh, and recovery have observed end-to-end evidence."
+      ],
+      "task_ids": [
+        "M5-01",
+        "M5-02",
+        "M5-03",
+        "M5-04",
+        "M5-05",
+        "M5-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M5-01",
+        "M5-02",
+        "M5-03",
+        "M5-04",
+        "M5-05",
+        "M5-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M6",
+      "title": "Forge and Blueprints",
+      "status": "planned",
+      "release_target": "v0.6.0-beta.1",
+      "depends_on": [
+        "M4",
+        "M5"
+      ],
+      "effort_days": {
+        "min": 7,
+        "max": 10
+      },
+      "goal": "Export resource-specific learning as concrete portable improvement guides.",
+      "release_goals": [
+        "Selected-resource improvement view",
+        "Bounded focused dreams using Reverie",
+        "Readable and structured Blueprints with evidence, suggestions, reproduction cases, versions, omissions",
+        "Integrity-aware export/import without automatic source patching"
+      ],
+      "exit_criteria": [
+        "A plugin/tool and a non-plugin resource each produce a useful evidence-backed guide.",
+        "Observed learning and dream hypotheses remain distinct with version/scope limits.",
+        "Round trips preserve provenance meaning, check integrity, and disclose omissions without automatic trust promotion."
+      ],
+      "task_ids": [
+        "M6-01",
+        "M6-02",
+        "M6-03",
+        "M6-04",
+        "M6-05",
+        "M6-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M6-01",
+        "M6-02",
+        "M6-03",
+        "M6-04",
+        "M6-05",
+        "M6-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    },
+    {
+      "id": "M7",
+      "title": "Native portability and optional adapters",
+      "status": "planned",
+      "release_target": "v0.7.0-beta.1",
+      "depends_on": [
+        "M2",
+        "M6"
+      ],
+      "effort_days": {
+        "min": 4,
+        "max": 6
+      },
+      "goal": "Make native memory portable and restorable, with optional adapters that preserve the same policies.",
+      "release_goals": [
+        "Required portable native archive with schema/hash integrity and clean-store restore",
+        "Explicit coverage and loss reporting without automatic trust promotion",
+        "Optional MCP and selected external format/backend adapters with faithful policy semantics",
+        "Native-only operation remains complete"
+      ],
+      "exit_criteria": [
+        "Native archive, integrity verification, and restore meet their required gates independently of MCP or external backends.",
+        "Required tasks are complete; selected optional adapter tasks have applicable evidence, and unselected optional tasks have explicit scoped deferral decisions.",
+        "Native OMP works without MCP; advertised capabilities match what is actually implemented.",
+        "Optional external formats report mapping losses when used; no imported record silently gains scope, authority, or verification."
+      ],
+      "task_ids": [
+        "M7-01",
+        "M7-02",
+        "M7-03",
+        "M7-04",
+        "M7-05",
+        "M7-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M7-01",
+        "M7-04",
+        "M7-05",
+        "M7-06"
+      ],
+      "optional_task_ids": [
+        "M7-02",
+        "M7-03"
+      ],
+      "completion_policy": "Complete required_task_ids; complete selected optional_task_ids and record scoped deferral decisions for unselected optional tasks. Required native portability is never optional.",
+      "optional_extensions": [
+        {
+          "id": "mcp_adapter",
+          "task_ids": [
+            "M7-02",
+            "M7-03"
+          ],
+          "required_for_v1": false
+        },
+        {
+          "id": "external_formats",
+          "examples": [
+            "COGX"
+          ],
+          "required_for_v1": false,
+          "selection_policy": "Create a bounded implementation task only if selected; native archive and integrity/restore remain mandatory."
+        },
+        {
+          "id": "external_backends",
+          "required_for_v1": false,
+          "selection_policy": "Adopt only for measured benefit and acceptable cost; native portability must work without one."
+        }
+      ],
+      "completion_evidence": []
+    },
+    {
+      "id": "M8",
+      "title": "Hardening and stable release",
+      "status": "planned",
+      "release_target": "v1.0.0",
+      "depends_on": [
+        "M6",
+        "M7"
+      ],
+      "effort_days": {
+        "min": 8,
+        "max": 12
+      },
+      "goal": "Prepare a reproducible stable product for the declared supported workflows.",
+      "release_goals": [
+        "Measured operating budgets and supported environment matrix",
+        "Failure recovery, migration, backup/restore, privacy, and explicit forgetting",
+        "Reproducible release candidate then stable artifact",
+        "Full journeys and conditional actual cross-device LAN verification"
+      ],
+      "exit_criteria": [
+        "Required supported workflows meet their agreed gates with candidate-specific evidence.",
+        "A clean install and restore work; critical defects are resolved with bounded retesting.",
+        "Actual cross-device access is recorded when available, otherwise the exact validation limitation is stated.",
+        "Stable local artifact and truthful release notes exist; publishing remains separately authorized.",
+        "Required M7 native portability is complete; only explicitly scoped-out optional adapters can be absent."
+      ],
+      "task_ids": [
+        "M8-01",
+        "M8-02",
+        "M8-03",
+        "M8-04",
+        "M8-05",
+        "M8-06"
+      ],
+      "evidence_required": [
+        "Candidate-specific outputs and observed applicable validation results",
+        "Completed milestone report with source/artifact identifiers, limitations, and explicit unavailable checks"
+      ],
+      "release_sequence": [
+        "v1.0.0-rc.1",
+        "v1.0.0"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "required_task_ids": [
+        "M8-01",
+        "M8-02",
+        "M8-03",
+        "M8-04",
+        "M8-05",
+        "M8-06"
+      ],
+      "optional_task_ids": [],
+      "completion_evidence": []
+    }
+  ]
+}

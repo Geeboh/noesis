@@ -1,0 +1,754 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "blueprint_id": {
+      "type": "string",
+      "pattern": "^bp_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "component_improvement",
+        "design_proposal",
+        "research_plan",
+        "procedure_proposal"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scope": {
+      "$ref": "record.schema.json#/$defs/scope"
+    },
+    "provenance": {
+      "$ref": "record.schema.json#/$defs/provenance"
+    },
+    "target_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/record_ref"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "target_version_constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/compatibility"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 12000
+    },
+    "coverage": {
+      "$ref": "record.schema.json#/$defs/coverage"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      },
+      "minItems": 1,
+      "maxItems": 200
+    },
+    "proposed_changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/change"
+      },
+      "minItems": 0,
+      "maxItems": 200
+    },
+    "validation_cases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/validation_case"
+      },
+      "minItems": 0,
+      "maxItems": 200
+    },
+    "adoption": {
+      "$ref": "record.schema.json#/$defs/adoption"
+    },
+    "dream_origin_job_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^job_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "risk_limits": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "follow_up": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/followup"
+      },
+      "minItems": 0,
+      "maxItems": 100
+    },
+    "export_manifest": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/export_manifest"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "blueprint_id",
+    "revision",
+    "title",
+    "purpose",
+    "created_at",
+    "updated_at",
+    "scope",
+    "provenance",
+    "target_refs",
+    "target_version_constraints",
+    "summary",
+    "coverage",
+    "findings",
+    "proposed_changes",
+    "validation_cases",
+    "adoption",
+    "dream_origin_job_id",
+    "risk_limits",
+    "follow_up",
+    "export_manifest"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.noesis.invalid/v0.1.0/blueprint.schema.json",
+  "title": "NOESIS Blueprint candidate contract 0.1.0",
+  "description": "Portable evidence-linked component improvement or design proposal. Observed findings, inferred explanations, dreamed ideas, proposed changes, and executed validation retain distinct statuses. Runtime validates references, privacy, source truth, and authority.",
+  "$defs": {
+    "attribution": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": [
+            "component",
+            "usage",
+            "configuration",
+            "host",
+            "dependency",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "assessment": {
+          "type": "string",
+          "enum": [
+            "unassessed",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        }
+      },
+      "required": [
+        "category",
+        "assessment",
+        "rationale",
+        "evidence_refs"
+      ],
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "observed_finding",
+            "inferred_explanation",
+            "dreamed_idea"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "hypothesis_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "attribution": {
+          "$ref": "#/$defs/attribution"
+        },
+        "affected_versions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 400
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "version_coverage": {
+          "type": "string",
+          "enum": [
+            "known",
+            "partial",
+            "unknown"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "minItems": 0,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "finding_id",
+        "status",
+        "summary",
+        "evidence_refs",
+        "hypothesis_refs",
+        "attribution",
+        "affected_versions",
+        "version_coverage",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "observed_finding"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_refs": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "dreamed_idea"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "hypothesis_refs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "change": {
+      "type": "object",
+      "properties": {
+        "change_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12000
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "selected",
+            "implemented",
+            "rejected",
+            "retired"
+          ]
+        },
+        "expected_benefit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "implementation_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "rollback": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      },
+      "required": [
+        "change_id",
+        "title",
+        "description",
+        "finding_ids",
+        "status",
+        "expected_benefit",
+        "risks",
+        "implementation_refs",
+        "rollback"
+      ],
+      "additionalProperties": false
+    },
+    "validation_case": {
+      "type": "object",
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "change_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "regression",
+            "comparison",
+            "reproduction",
+            "usability",
+            "exploratory"
+          ]
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "procedure": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "minItems": 1,
+          "maxItems": 100
+        },
+        "expected_result": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "executed",
+            "blocked"
+          ]
+        },
+        "observed_result": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "portability": {
+          "type": "string",
+          "enum": [
+            "self_contained",
+            "requires_redacted_fixture",
+            "requires_original_environment",
+            "incomplete"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "minItems": 0,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "case_id",
+        "title",
+        "finding_ids",
+        "change_ids",
+        "kind",
+        "context",
+        "procedure",
+        "expected_result",
+        "status",
+        "observed_result",
+        "evidence_refs",
+        "portability",
+        "limitations"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "executed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "evidence_refs": {
+                "minItems": 1
+              },
+              "observed_result": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8000
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "proposed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "observed_result": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "redaction": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": [
+            "credential",
+            "personal_data",
+            "private_path",
+            "private_content",
+            "scope_restriction",
+            "media",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "affected_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "reproducibility_impact": {
+          "type": "string",
+          "enum": [
+            "none",
+            "reduced",
+            "blocked",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "category",
+        "description",
+        "affected_refs",
+        "reproducibility_impact"
+      ],
+      "additionalProperties": false
+    },
+    "export_manifest": {
+      "type": "object",
+      "properties": {
+        "exported_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "privacy_policy_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "redactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/redaction"
+          },
+          "minItems": 0,
+          "maxItems": 500
+        },
+        "withheld_reference_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage": {
+          "$ref": "record.schema.json#/$defs/coverage"
+        },
+        "residual_limits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "minItems": 0,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "exported_at",
+        "source_refs",
+        "artifacts",
+        "privacy_policy_id",
+        "redactions",
+        "withheld_reference_count",
+        "coverage",
+        "residual_limits"
+      ],
+      "additionalProperties": false
+    },
+    "followup": {
+      "type": "object",
+      "properties": {
+        "trigger": {
+          "type": "string",
+          "enum": [
+            "component_upgrade",
+            "change_implemented",
+            "new_evidence",
+            "scheduled_review",
+            "manual"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "validation_case_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "scheduled",
+            "completed",
+            "cancelled"
+          ]
+        },
+        "outcome_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        }
+      },
+      "required": [
+        "trigger",
+        "description",
+        "validation_case_ids",
+        "status",
+        "outcome_refs"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,427 @@
+{
+  "format_version": "1.0.0",
+  "package": "noesis-omp-bootstrap",
+  "bootstrap_version": "1.0.0",
+  "files": [
+    {
+      "path": ".editorconfig",
+      "size_bytes": 139,
+      "sha256": "0236baaa876eef2fbe3d4a9b01aac87d148b925fac3f58e1bc0cc9819ed88dab"
+    },
+    {
+      "path": ".gitattributes",
+      "size_bytes": 73,
+      "sha256": "7f6c430037b3fcde9a34589ffd9174cf4a1aba066ec3cc91f291ce73c89695b5"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug.yml",
+      "size_bytes": 2086,
+      "sha256": "91eb5dd7af1fed04f34528f5dab767bff710cb01dcfbd1c4d3bf38d687ced08b"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature.yml",
+      "size_bytes": 1778,
+      "sha256": "2f35a23aad0338812e0ccbfd2065c2ea700c82a87178d9de318decce5b4a0395"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "size_bytes": 1619,
+      "sha256": "ad2deaa2d9c715e16f12fe77ba59777310e6aa74398518a5d45021cd03b30a3d"
+    },
+    {
+      "path": ".github/workflows/bootstrap-checks.yml",
+      "size_bytes": 1250,
+      "sha256": "4869998d913412fe8ee65f8031e5dfc04da9bd74e4fccbb7629d36f1a6212916"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 199,
+      "sha256": "4cbaa395825bc84748ab6a256847021923d7856327b3e6c5fa9003e7374efd6d"
+    },
+    {
+      "path": "AGENTS.md",
+      "size_bytes": 7992,
+      "sha256": "4acde2ad6e4a80a66ca6d98fc4bae13fdb1be9da616ffd21fe9561e7be7961a9"
+    },
+    {
+      "path": "BOOTSTRAP-VALIDATION.md",
+      "size_bytes": 2810,
+      "sha256": "55f9708265d44482cab745a46454f65758f24f077256c7d748de0c45d0f2d11d"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "size_bytes": 641,
+      "sha256": "43d06a4357f9c557acbaad6428fb3e9de80d0d570c9e44da4fbd249cf5eac8c3"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "size_bytes": 1085,
+      "sha256": "a31f2f3dcc7d23081f43de0b168d41a882da95ca2f00dc6d88b5cf1f35e7aa43"
+    },
+    {
+      "path": "LICENSE-DECISION.md",
+      "size_bytes": 408,
+      "sha256": "8012d7f841f891ab4cbb87b0f13715639e0bb6a08d1375140282c3d643aa356c"
+    },
+    {
+      "path": "PACKAGE-INDEX.md",
+      "size_bytes": 6224,
+      "sha256": "3279ae2a42bbef045df86c2969507918fae9efac0095ac9644609b29fe2fcb6a"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 5418,
+      "sha256": "9e551d4cd46d20e83b0575867e39282c06c74bb771a9730ecd2e6b045c5fa7d6"
+    },
+    {
+      "path": "START-HERE.md",
+      "size_bytes": 5280,
+      "sha256": "069c3da59b921c767aab0e5449bf54e021af199edb661a1444045c41e3099c9a"
+    },
+    {
+      "path": "apps/observatory/README.md",
+      "size_bytes": 254,
+      "sha256": "ca7694200f614c34acbe4191ffd802335ead54af78119c6ab9a96ab6f9ef1b8e"
+    },
+    {
+      "path": "apps/service/README.md",
+      "size_bytes": 299,
+      "sha256": "43e056b368c0bd7a7a20063b149babce9d7e29752a3a84ee92033704f9046f0e"
+    },
+    {
+      "path": "bootstrap.json",
+      "size_bytes": 492,
+      "sha256": "dcb1c46502363d4547dfc43bd2d186030a8a6c5caa01cac7897bbdaca07c7aca"
+    },
+    {
+      "path": "config/noesis.example.json",
+      "size_bytes": 2804,
+      "sha256": "1c1876f2e4ed18dc839f3283092d3fecaa3ac9e897d175ba728ce4aea0a2aef8"
+    },
+    {
+      "path": "docs/01-PRODUCT-SPEC.md",
+      "size_bytes": 8970,
+      "sha256": "deb326524daa5ce6445724c274981f328c00ccdb3de5cb5be4b3d4a605f0f7d6"
+    },
+    {
+      "path": "docs/02-ARCHITECTURE.md",
+      "size_bytes": 15613,
+      "sha256": "254151ea4705a5f60fd30949a21ccd77dab0c4ad249143ba423e793c886fca27"
+    },
+    {
+      "path": "docs/03-DATA-MODEL.md",
+      "size_bytes": 16130,
+      "sha256": "dc0b8fe7a4f2fce045e8344608388d1994c7bb8be24b9620d88ffabc0a2f7ac6"
+    },
+    {
+      "path": "docs/04-AGENT-AND-SERVICE-CONTRACTS.md",
+      "size_bytes": 19633,
+      "sha256": "41eaae09b032d436b2ed043ec2e2d4760f3fba33e1e293cf3aaa91fe554b1e8a"
+    },
+    {
+      "path": "docs/05-LEARNING-AND-DREAMING.md",
+      "size_bytes": 18068,
+      "sha256": "31f31f588479ca311702843770847603a4e6fcb326bb5b15c288ad45f7e7883a"
+    },
+    {
+      "path": "docs/06-OMP-INTEGRATION.md",
+      "size_bytes": 22310,
+      "sha256": "b795b25b528b3b2ae31b422f63b36ee4628500e851966a9cc7ab3e0992304347"
+    },
+    {
+      "path": "docs/07-DASHBOARD-AND-LORE.md",
+      "size_bytes": 10468,
+      "sha256": "ea4a3781cd6afc38ed9717791b2111ff2f601f005c5eaeea6366033cbf5b55b5"
+    },
+    {
+      "path": "docs/08-GIT-WORKFLOW.md",
+      "size_bytes": 9538,
+      "sha256": "b8889d1535dceecd93307581ebe0fca3a0fdcff243400b34ffc9ac275533013b"
+    },
+    {
+      "path": "docs/09-ROADMAP-AND-RELEASES.md",
+      "size_bytes": 16463,
+      "sha256": "ce93d5fe7e824860135fbc6b1677361984198988533710221f701565555acc6d"
+    },
+    {
+      "path": "docs/10-VALIDATION-AND-EVALUATION.md",
+      "size_bytes": 9020,
+      "sha256": "cbdba99d57f78f09a9e725b347bd8861f3526e0bdf67d58e84e9ddbb6e4ba0c9"
+    },
+    {
+      "path": "docs/11-OPERATIONS-AND-BUDGETS.md",
+      "size_bytes": 9296,
+      "sha256": "52a094f77e77765683c673c8c34017f76845bef65f76582479c242abeca3283e"
+    },
+    {
+      "path": "docs/12-REFERENCES-AND-ADOPTION.md",
+      "size_bytes": 13866,
+      "sha256": "d1a477224a13d615abe5ca09994b8f4054ad28c52a977582f037e60865e7dcaf"
+    },
+    {
+      "path": "docs/13-OPERATOR-PLAYBOOK.md",
+      "size_bytes": 14633,
+      "sha256": "bee12bacdf04281f99e609b8b79ee0f6e68e65d4a9130603fd0f873ceae9507b"
+    },
+    {
+      "path": "docs/14-REQUIREMENTS-TRACEABILITY.md",
+      "size_bytes": 14060,
+      "sha256": "759a88771efdc09be646ac43ea679baa3e481845c459dc4282360be065d8cb36"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "size_bytes": 443,
+      "sha256": "e1cc011ab64568cb6b7ad2d73413a949f1b8f803a14b28d6ba19023db067d10b"
+    },
+    {
+      "path": "docs/contracts/blueprint.schema.json",
+      "size_bytes": 17169,
+      "sha256": "585767e49fd795fab8c79ab5fea8444cffb18f88816c316c8edda9b634ed0641"
+    },
+    {
+      "path": "docs/contracts/dream-job.schema.json",
+      "size_bytes": 19412,
+      "sha256": "ea33d719ec753bc16b57b2211298714fab5999531312499b28238bb38409fdab"
+    },
+    {
+      "path": "docs/contracts/examples/blueprint-component-improvement.json",
+      "size_bytes": 7048,
+      "sha256": "3524f8ae4be3a08c53a0cfc0f57b5750b119ada655609820dd84e65fbc57e425"
+    },
+    {
+      "path": "docs/contracts/examples/dream-job-creative.json",
+      "size_bytes": 3156,
+      "sha256": "52cf70f9a4661a113eef41d8012d79e8caced5b45766832286632050c9fee9a1"
+    },
+    {
+      "path": "docs/contracts/examples/dream-job-snooze.json",
+      "size_bytes": 2037,
+      "sha256": "798f9edc6f5bae815435a81d7387f74f2437bfe83cc0d984f6e35e446ce5207d"
+    },
+    {
+      "path": "docs/contracts/examples/record-application.json",
+      "size_bytes": 2117,
+      "sha256": "633f3a1358eb4f374080d6a1777905af4c4ee407e439d752532a21a90dc87b23"
+    },
+    {
+      "path": "docs/contracts/examples/record-evidence.json",
+      "size_bytes": 2875,
+      "sha256": "51b43a72484ac88081ae7ab2c364fa89899373b7001f9610b3e886c5e185db81"
+    },
+    {
+      "path": "docs/contracts/examples/record-hypothesis.json",
+      "size_bytes": 2612,
+      "sha256": "89dbca16da508aa331dba3eb6a3255a12ec4fe482d382cf527f53fc7add3b53a"
+    },
+    {
+      "path": "docs/contracts/examples/record-lesson.json",
+      "size_bytes": 2968,
+      "sha256": "86828a50d87a5e69c04d3bac23678d148b9fc9768654d557f62b763c0e3db3e7"
+    },
+    {
+      "path": "docs/contracts/examples/record-lore-page.json",
+      "size_bytes": 3424,
+      "sha256": "157a420050bc06909b6b72b883bdd92744f46e0b203f90d75f98387af40f002c"
+    },
+    {
+      "path": "docs/contracts/examples/record-memory.json",
+      "size_bytes": 2329,
+      "sha256": "0933a1e62fcbe5979ee72556d6c81fd763488ac25802c1fe4d217b4fd94a453c"
+    },
+    {
+      "path": "docs/contracts/examples/record-observation-user.json",
+      "size_bytes": 1988,
+      "sha256": "f902492953591cb3a013ce3f5055e1668af3957e303973bc08f110eab7fdb3a9"
+    },
+    {
+      "path": "docs/contracts/examples/record-observation.json",
+      "size_bytes": 2428,
+      "sha256": "19015b753d27690b5d4232a15ff403641ea6c47045d7053ff42ccd61c110ea7a"
+    },
+    {
+      "path": "docs/contracts/examples/record-outcome.json",
+      "size_bytes": 2112,
+      "sha256": "8665bf2b489fdd4d6df258ef0986b996d03437d11142d5282dd3820e786b4428"
+    },
+    {
+      "path": "docs/contracts/examples/record-preference.json",
+      "size_bytes": 2156,
+      "sha256": "d1a037621812ba1d399527521a9843ef6f5453c40b2c5f4842782e81cc27ffe5"
+    },
+    {
+      "path": "docs/contracts/examples/record-relation.json",
+      "size_bytes": 2076,
+      "sha256": "c42e247d44be2dff5488b762f3aaec05545637445f3cb10fc833e127b37188a9"
+    },
+    {
+      "path": "docs/contracts/examples/record-resource-component.json",
+      "size_bytes": 2045,
+      "sha256": "fede9a4a1570410e83b31f0f14f185125795847d9620aeb5c69680aae27f96a4"
+    },
+    {
+      "path": "docs/contracts/examples/record-resource-git.json",
+      "size_bytes": 2067,
+      "sha256": "3231f91d571cda6d6d6ccc77c8615ff20bb1f23b1846c9a52483f930445d2b27"
+    },
+    {
+      "path": "docs/contracts/examples/record-resource-local.json",
+      "size_bytes": 2040,
+      "sha256": "5f9ffb72b8b36ea234ae563564f38dd7c450e4f3cfef068553a92e90f151f5ce"
+    },
+    {
+      "path": "docs/contracts/examples/record-resource-project.json",
+      "size_bytes": 2022,
+      "sha256": "96c136b1d407a8fe9892858072a9f79effc248f11fd2ecd89f088f12ed6d6b29"
+    },
+    {
+      "path": "docs/contracts/examples/record-resource-url.json",
+      "size_bytes": 2137,
+      "sha256": "1d7658503ca30f6d311347145feefb6d1f35f4085fd8876950cf62306909267d"
+    },
+    {
+      "path": "docs/contracts/examples/record-source.json",
+      "size_bytes": 2934,
+      "sha256": "c7e313d3cdce622e6105830d300202a0b7d51d0663000cef80f6b303f4ed6bfa"
+    },
+    {
+      "path": "docs/contracts/examples/record-tombstone.json",
+      "size_bytes": 2121,
+      "sha256": "85b76d72f86c1bbce4b708a650acdfecfdf54a141b9c2a7a68c2d75f24ddfd20"
+    },
+    {
+      "path": "docs/contracts/record.schema.json",
+      "size_bytes": 60086,
+      "sha256": "7b8d83b6d5322e0c6e4702c83980d1f83be2e4ff9c488c789b255a44f806459c"
+    },
+    {
+      "path": "fixtures/README.md",
+      "size_bytes": 241,
+      "sha256": "c462fa03e82c713660652b4d065001d08b0d65c62fbbffb5d1504c86813466c0"
+    },
+    {
+      "path": "packages/contracts/README.md",
+      "size_bytes": 285,
+      "sha256": "b7e90699bd782712b7c2ba4dc17ed1d978701a1e952c19450fa9ef0e4502df32"
+    },
+    {
+      "path": "packages/core/README.md",
+      "size_bytes": 245,
+      "sha256": "75855aa5b199122b61e7e05d1208b909194c3e7512518cb5e55a005c52337a8d"
+    },
+    {
+      "path": "packages/evaluations/README.md",
+      "size_bytes": 289,
+      "sha256": "5abc69ff05f2812836a9afc0ecc1d4fadcf8babcbfe31dc4a5938fc62fc5df2a"
+    },
+    {
+      "path": "packages/mcp-adapter/README.md",
+      "size_bytes": 252,
+      "sha256": "297680a7fe6eed80b302f7d2d23eff46f88111298e15b57b78325c118f2d9824"
+    },
+    {
+      "path": "packages/omp-adapter/README.md",
+      "size_bytes": 282,
+      "sha256": "e20f512a2148f75a720458ee70ab6e136624864ab2774d3cb8645878f478d6f6"
+    },
+    {
+      "path": "packages/storage-sqlite/README.md",
+      "size_bytes": 280,
+      "sha256": "46dbaeecacbd258dc60cca0d118c604c6c339fab0e1c0e077667df0600ac59e9"
+    },
+    {
+      "path": "planning/STATUS.md",
+      "size_bytes": 6893,
+      "sha256": "5fbb8bebc5b5faaeedd5b4bddbdc3366e59e5abd701467f55ee18f78bdc27208"
+    },
+    {
+      "path": "planning/backlog.json",
+      "size_bytes": 74105,
+      "sha256": "fb21e2820103be62138fa75f3c28ef9c08536c44c6bad82b800421933269c696"
+    },
+    {
+      "path": "planning/milestones.json",
+      "size_bytes": 18926,
+      "sha256": "781ae36fe3bd252fefc22b24e93b040d59978c6a934e94b263a0d9465303042d"
+    },
+    {
+      "path": "prompts/01-BOOTSTRAP-OMP.md",
+      "size_bytes": 7604,
+      "sha256": "d110615ee882c5315924512d0e33109b9c8d65af051b198963bddc7b0fa7fa32"
+    },
+    {
+      "path": "prompts/02-IMPLEMENT-MILESTONE.md",
+      "size_bytes": 4735,
+      "sha256": "3034c11af53daab2c7268a6bedaa99f2b891e3dff45e29c90e1a67832d87431c"
+    },
+    {
+      "path": "prompts/03-RESUME.md",
+      "size_bytes": 3749,
+      "sha256": "6cc07aa24181c904379bf1b214abde596b2ea9ae069e3c43673ca9e2f4cebe7f"
+    },
+    {
+      "path": "prompts/04-REVIEW-RELEASE.md",
+      "size_bytes": 4895,
+      "sha256": "5caa6baf239a15097c3ad502ef80c19bb8da0420957877c72039a76ac749eb88"
+    },
+    {
+      "path": "reports/bootstrap-validation.json",
+      "size_bytes": 2801,
+      "sha256": "85ee7776e6b1e23180c32a041eaddf1b674348122bd6f2c48ed6d80f36e5819e"
+    },
+    {
+      "path": "requirements-validation.txt",
+      "size_bytes": 343,
+      "sha256": "725cb657a35276affb4dd9b00ad2221fb3788f1bbd0068e8b8e0894c9b8cf402"
+    },
+    {
+      "path": "scripts/doctor.py",
+      "size_bytes": 2874,
+      "sha256": "4372e47a024c23c35f38fa8302441f34a876f2d8c75f369d09959f6fc298b803"
+    },
+    {
+      "path": "scripts/init_repo.py",
+      "size_bytes": 5161,
+      "sha256": "f80d3b81c781dbbb44814e7b7d39fd3ba9c95513e028213f3f98d48eeb69b980"
+    },
+    {
+      "path": "scripts/lan_qr.py",
+      "size_bytes": 4311,
+      "sha256": "1a6f99e5ff93ba623666aafad8e4548f8fadb153d4273d9d889a464de8a1bf66"
+    },
+    {
+      "path": "scripts/pack_bootstrap.py",
+      "size_bytes": 3094,
+      "sha256": "87b72f830add6cfbad791ad7ae5f1769bd1cae7f978137bf96239a76227075ce"
+    },
+    {
+      "path": "scripts/validate_bootstrap.py",
+      "size_bytes": 14341,
+      "sha256": "0096e56939462668d61f3e0fc2947290dc4a61242fa8a4505acf2f98e287b8cb"
+    },
+    {
+      "path": "templates/DECISION.md",
+      "size_bytes": 2055,
+      "sha256": "f518f1f1cdc83b917254e86cf4b23b990d252916c726ce6c634b9f42eb81a0b9"
+    },
+    {
+      "path": "templates/MILESTONE-REPORT.md",
+      "size_bytes": 3580,
+      "sha256": "ce846aaf5655b08b6a5f98847c8b56adcf549716cd57af84c6e47d97ca60b16b"
+    },
+    {
+      "path": "templates/RELEASE-NOTES.md",
+      "size_bytes": 2699,
+      "sha256": "0869ff4920ab4edb99bb741f242036aaf4db2a7d995fd87849bb31e4baa24c06"
+    },
+    {
+      "path": "templates/VALIDATION-REPORT.md",
+      "size_bytes": 4932,
+      "sha256": "fa7123ac2f589306477440cce24e402df31b592e5f6862611564210be2fdf7d5"
+    },
+    {
+      "path": "tests/bootstrap/test_helpers.py",
+      "size_bytes": 14134,
+      "sha256": "233391e9477902d0ac2f1bdbab5af6ee051926d0200c86bebbfb527a3290edf1"
+    }
+  ]
+}

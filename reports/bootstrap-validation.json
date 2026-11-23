@@ -1,0 +1,85 @@
+{
+  "report_kind": "bootstrap-validation",
+  "date": "2026-11-24",
+  "timezone": "Australia/Hobart",
+  "bootstrap_version": "1.0.0",
+  "product_version": "unreleased",
+  "environment": {
+    "os": "Linux",
+    "python": "3.12.14",
+    "git": "2.56.1",
+    "omp_available": false,
+    "bun_available": false
+  },
+  "results": [
+    {
+      "check": "bootstrap integrity, references, planning DAGs and original hashes",
+      "status": "passed",
+      "command": "python scripts/validate_bootstrap.py --delivery-snapshot --strict-schemas --json",
+      "exit_code": 0,
+      "observed": {
+        "milestones": 9,
+        "tasks": 54,
+        "required_tasks": 52,
+        "optional_tasks": 2,
+        "validation_targets": 16,
+        "schemas": 3,
+        "schema_examples": 21
+      }
+    },
+    {
+      "check": "bootstrap utility regression tests",
+      "status": "passed",
+      "command": "python -m unittest discover -s tests/bootstrap -v",
+      "exit_code": 0,
+      "observed": {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "duration_seconds": 5.366
+      }
+    },
+    {
+      "check": "optional validation dependency consistency",
+      "status": "passed",
+      "command": "python -m pip check",
+      "exit_code": 0
+    },
+    {
+      "check": "text QR rendering and data preservation",
+      "status": "passed",
+      "observed": "Unicode, inverted Unicode and ASCII rendering preserve the encoder matrix; explicit example URL rendered. No phone scan or running server claimed."
+    },
+    {
+      "check": "reproducible archive and allowlisted contents",
+      "status": "passed",
+      "observed": "Two test archives byte-identical; unlisted private fixture excluded; overwrite refused; ZIP integrity passes."
+    },
+    {
+      "check": "fresh Git initialization",
+      "status": "passed",
+      "observed": "Temporary repositories: explicit initial commit, selected branch, unlisted file preserved, nested/existing repository refusal, missing identity no mutation, explicit identity local only, inherited index override refused."
+    },
+    {
+      "check": "GitHub workflow and issue YAML syntax",
+      "status": "passed",
+      "observed": "Three YAML files parsed; workflow not executed on GitHub."
+    },
+    {
+      "check": "real OMP integration",
+      "status": "not_run",
+      "reason": "OMP is not installed in this packaging environment; assigned to M0/M1."
+    },
+    {
+      "check": "NOESIS application runtime",
+      "status": "not_run",
+      "reason": "This is an implementation bootstrap; application milestones are planned."
+    },
+    {
+      "check": "physical LAN/device pairing",
+      "status": "not_run",
+      "reason": "No NOESIS server or second device was available; assigned to M1/M8."
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "job_id": "job_snooze_example",
+  "revision": 1,
+  "parent_job_id": null,
+  "root_job_id": "job_snooze_example",
+  "requested_by": {
+    "actor_kind": "service",
+    "actor_id": "svc_example_noesis"
+  },
+  "request_origin": "autonomous",
+  "idempotency_key": "fixture:snooze:1",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "level": "snooze",
+  "modes": [
+    "consolidate"
+  ],
+  "focus": {
+    "kind": "open",
+    "query": null,
+    "target_refs": []
+  },
+  "scopes": [
+    {
+      "scope_id": "scp_project_example",
+      "owner_id": "usr_example_owner",
+      "kind": "project",
+      "project_id": "prj_example_documents",
+      "task_id": null,
+      "session_id": null,
+      "environment_id": null,
+      "sharing": "private"
+    }
+  ],
+  "input_refs": [],
+  "execution_kind": "deterministic",
+  "status": "queued",
+  "budget": {
+    "policy_id": "dream_snooze_fixture_v1",
+    "currency": null,
+    "max_cost": 0,
+    "max_wall_seconds": 30,
+    "max_step_seconds": 30,
+    "max_model_calls": 0,
+    "max_input_tokens": 0,
+    "max_output_tokens": 0,
+    "max_total_tokens": 0,
+    "max_source_records": 100,
+    "max_output_records": 100,
+    "max_child_jobs": 0,
+    "max_concurrency": 1
+  },
+  "usage": {
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0,
+    "wall_seconds": 0,
+    "cost": 0,
+    "reserved_cost": 0,
+    "reserved_total_tokens": 0,
+    "price_status": "known",
+    "measurement_completeness": "complete",
+    "aggregate_includes_children": true,
+    "provider_receipt_refs": []
+  },
+  "lease": null,
+  "checkpoint": null,
+  "steps": [],
+  "cancel_requested_at": null,
+  "finished_at": null,
+  "child_job_ids": [],
+  "output_record_refs": [],
+  "blueprint_refs": [],
+  "coverage": {
+    "status": "unknown",
+    "unit": "records",
+    "processed": null,
+    "total": null,
+    "ranges": [],
+    "omissions": [],
+    "description": "Synthetic queued job; no work has run."
+  },
+  "failure": null
+}

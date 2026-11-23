@@ -1,0 +1,78 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_prefnote_0001",
+  "revision": 1,
+  "record_type": "observation",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_user_example",
+    "owner_id": "usr_example_owner",
+    "kind": "user",
+    "project_id": null,
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "direct_user",
+    "creator": {
+      "actor_kind": "user",
+      "actor_id": "usr_example_owner"
+    },
+    "source_refs": [],
+    "derived_from": [],
+    "capture_idempotency_key": "fixture:prefnote:1",
+    "transformation": null,
+    "dream_job_id": null
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "unassessed",
+    "basis": null,
+    "evidence_refs": []
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "not_applicable",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "event_name": "example.user.preference",
+    "external_event_id": "fixture-event-2",
+    "correlation_id": null,
+    "occurred_at": null,
+    "summary": "Synthetic direct-user statement: preserve appendix titles when formatting documents.",
+    "operation": "user_statement",
+    "resource_refs": [],
+    "artifacts": [],
+    "outcome_hint": "unknown",
+    "metrics": []
+  }
+}

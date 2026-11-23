@@ -1,0 +1,136 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_lorepage_0001",
+  "revision": 1,
+  "record_type": "lore_page",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "agent_derivation",
+    "creator": {
+      "actor_kind": "service",
+      "actor_id": "svc_example_noesis"
+    },
+    "source_refs": [],
+    "derived_from": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      },
+      {
+        "record_id": "rec_hypothes_0001",
+        "revision": 1
+      }
+    ],
+    "capture_idempotency_key": "fixture:lorepage:1",
+    "transformation": null,
+    "dream_job_id": null
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "unassessed",
+    "basis": null,
+    "evidence_refs": []
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "not_applicable",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "title": "Example document workflow",
+    "slug": "example-document-workflow",
+    "sections": [
+      {
+        "section_id": "sec_manual_context",
+        "title": "Purpose",
+        "ownership": "manual",
+        "content_ref": {
+          "artifact_id": "art_manual_section_0001",
+          "media_type": "text/markdown",
+          "locator": null,
+          "sha256": null,
+          "size_bytes": null
+        },
+        "source_refs": [],
+        "verified_at": null,
+        "transformation": null
+      },
+      {
+        "section_id": "sec_generated_notes",
+        "title": "Observed limitations and candidate ideas",
+        "ownership": "generated",
+        "content_ref": {
+          "artifact_id": "art_generated_section_0001",
+          "media_type": "text/markdown",
+          "locator": null,
+          "sha256": null,
+          "size_bytes": null
+        },
+        "source_refs": [
+          {
+            "record_id": "rec_evidence_0001",
+            "revision": 1
+          },
+          {
+            "record_id": "rec_hypothes_0001",
+            "revision": 1
+          }
+        ],
+        "verified_at": null,
+        "transformation": {
+          "name": "fixture_lore_generator",
+          "version": null,
+          "configuration_digest": null
+        }
+      }
+    ],
+    "coverage": {
+      "status": "partial",
+      "unit": "records",
+      "processed": 2,
+      "total": null,
+      "ranges": [],
+      "omissions": [
+        "No independent validation of candidate ideas."
+      ],
+      "description": "Synthetic page with partial evidence."
+    },
+    "conflict_refs": []
+  }
+}

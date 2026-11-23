@@ -1,0 +1,1928 @@
+{
+  "schema_version": "1.0.0",
+  "bootstrap_version": "1.0.0",
+  "product_version": "unreleased",
+  "validation_policy": {
+    "target_definition_milestone": "M0",
+    "target_definition_task": "M0-05",
+    "initial_state": "All tasks are planned. No application validation command is bound or reported as passed by this package.",
+    "commands_policy": "M0 binds application targets to verified executable commands after inspecting the runtime and package manager. Empty command lists are intentional. Bootstrap helpers do not prove product behavior.",
+    "gate_policy": "Use meaningful checks for concrete invariants and risks. Do not require manual human QA, repeat implementation-shaped tests, or expand gates without a material reason.",
+    "evidence_policy": "A done status requires observed evidence tied to the candidate commit or artifact. Record unavailable checks as limitations, never passes.",
+    "target_registry": [
+      {
+        "id": "bootstrap.integrity",
+        "defined_by_task": "M0-02",
+        "purpose": "Validate package structure, cross-references, and the initial delivery snapshot without claiming runtime behavior.",
+        "commands": [
+          "python3 scripts/validate_bootstrap.py"
+        ]
+      },
+      {
+        "id": "environment.compatibility",
+        "defined_by_task": "M0-05",
+        "purpose": "Verify the chosen runtime, package manager, OMP version, hook surface, and supported operating environment.",
+        "commands": []
+      },
+      {
+        "id": "contracts.schema",
+        "defined_by_task": "M0-05",
+        "purpose": "Check core, adapter, persisted schema, migration, and version compatibility contracts.",
+        "commands": []
+      },
+      {
+        "id": "ledger.integrity",
+        "defined_by_task": "M0-05",
+        "purpose": "Check persistence, source attribution, idempotency, transactional behavior, and recovery.",
+        "commands": []
+      },
+      {
+        "id": "omp.capture-recall",
+        "defined_by_task": "M0-05",
+        "purpose": "Exercise actual OMP capture, scoped recall, tool outcomes, and explanations.",
+        "commands": []
+      },
+      {
+        "id": "dream.resilience",
+        "defined_by_task": "M0-05",
+        "purpose": "Exercise durable job admission, budgets, cancellation, restart, retries, and pending work.",
+        "commands": []
+      },
+      {
+        "id": "observatory.journeys",
+        "defined_by_task": "M0-05",
+        "purpose": "Exercise real web journeys plus LAN startup, textual QR addresses, pairing, and private-data access.",
+        "commands": []
+      },
+      {
+        "id": "atlas.provenance",
+        "defined_by_task": "M0-05",
+        "purpose": "Check resource identity, source snapshots, evidence states, lineage, history, and invalidation.",
+        "commands": []
+      },
+      {
+        "id": "attunement.corrections",
+        "defined_by_task": "M0-05",
+        "purpose": "Check preference origins, independent support, correction precedence, and explanation.",
+        "commands": []
+      },
+      {
+        "id": "ebb.lifecycle",
+        "defined_by_task": "M0-05",
+        "purpose": "Check reversible activation, separate validity and retention, and explicit forgetting.",
+        "commands": []
+      },
+      {
+        "id": "reverie.quality",
+        "defined_by_task": "M0-05",
+        "purpose": "Check dream modes, hypothesis labels, evidence fidelity, and rehearsal outcome distinctions.",
+        "commands": []
+      },
+      {
+        "id": "lore.integrity",
+        "defined_by_task": "M0-05",
+        "purpose": "Check sourced pages, manual content preservation, diffs, dependencies, and circular confirmation.",
+        "commands": []
+      },
+      {
+        "id": "blueprints.portability",
+        "defined_by_task": "M0-05",
+        "purpose": "Check scoped guides, versions, evidence, reproductions, omissions, integrity, and round trips.",
+        "commands": []
+      },
+      {
+        "id": "mcp.parity",
+        "defined_by_task": "M0-05",
+        "purpose": "Check optional MCP transport, identity, policy parity, cancellation, and capability negotiation.",
+        "commands": []
+      },
+      {
+        "id": "system.hardening",
+        "defined_by_task": "M0-05",
+        "purpose": "Check supported-platform security boundaries, reliability, privacy, performance, and restore.",
+        "commands": []
+      },
+      {
+        "id": "release.reproducibility",
+        "defined_by_task": "M0-05",
+        "purpose": "Check clean installation, reproducible packaging, version metadata, and release evidence.",
+        "commands": []
+      }
+    ],
+    "optional_work_policy": "Required tasks must be done. Optional adapter tasks may be deferred only with an explicit scoped decision and must remain unavailable. A milestone may close when required and selected optional work is evidenced and all unselected optional work has a recorded disposition. Never skip native M7 archive/integrity/restore.",
+    "completion_policy": "Task and milestone IDs remain stable. Planned evidence/evidence_required fields describe obligations; actual completion_evidence references are separate and must be nonempty before status done. Amend acceptance criteria only through an explicit recorded decision, never to disguise a failure."
+  },
+  "tasks": [
+    {
+      "id": "M0-01",
+      "milestone_id": "M0",
+      "title": "Verify the OMP environment and integration surface",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [],
+      "outputs": [
+        "Environment report with actual OMP revision, runtime, package manager, operating system, and supported hook/tool references",
+        "Compatibility assumptions and bounded unknowns"
+      ],
+      "acceptance": [
+        "Inspect current OMP contracts before choosing APIs; distinguish observed support from proposed behavior.",
+        "Choose one supported first-release environment and record how to reproduce it."
+      ],
+      "evidence": [
+        "Observed environment output and primary OMP source references",
+        "Recorded compatibility decision with unresolved questions"
+      ],
+      "validation_commands": [
+        "python3 scripts/doctor.py"
+      ],
+      "validation_targets": [
+        "environment.compatibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M0-02",
+      "milestone_id": "M0",
+      "title": "Establish repository ownership and safe bootstrap integration",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [],
+      "outputs": [
+        "Isolated implementation branch/worktree plan and integration-owner assignment",
+        "Repository ignore rules, dependency/lockfile ownership, and license decision status"
+      ],
+      "acceptance": [
+        "Preserve existing work and instructions; create no remote, push, publication, or guessed license.",
+        "Bootstrap checks pass for the actual candidate; identify product as unreleased and milestones as planned."
+      ],
+      "evidence": [
+        "Reviewed repository diff and bootstrap validator output",
+        "Ownership record and local Git status; actual commit ID only if committed"
+      ],
+      "validation_commands": [
+        "python3 scripts/validate_bootstrap.py"
+      ],
+      "validation_targets": [
+        "bootstrap.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M0-03",
+      "milestone_id": "M0",
+      "title": "Define core contracts and a lightweight candidate architecture",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M0-01",
+        "M0-02"
+      ],
+      "outputs": [
+        "Architecture decision for reusable core, native adapter, persistence, web boundary, and optional MCP",
+        "Typed contracts for observations, attempts, outcomes, resources, provenance, memory states, jobs, and exports",
+        "Initial implementation scaffold and schema/versioning conventions"
+      ],
+      "acceptance": [
+        "Keep framework adoption optional and justify dependencies with a bounded experiment or concrete requirement.",
+        "Separate evidence origin, inference, temporal validity, activation, retention, scope, and validation; reserve hypothesis types."
+      ],
+      "evidence": [
+        "Accepted decision record and contract examples spanning coding and non-coding work",
+        "Schema review including version evolution and adapter boundaries"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M0-04",
+      "milestone_id": "M0",
+      "title": "Define scope, privacy, LAN pairing, and external-action boundaries",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M0-03"
+      ],
+      "outputs": [
+        "Policy contracts for scope authorization, untrusted resources, secret handling, retention, and explicit forgetting",
+        "LAN dashboard/pairing contract: same-origin service, actual advertised address, no URL secrets, and private access after pairing"
+      ],
+      "acceptance": [
+        "Resource text and recalled memories cannot expand tool authority or count as trusted instructions.",
+        "Default LAN reachability is paired access to private Mind data; define allowed origins, pairing expiry, session handling, and denied-access responses.",
+        "External mutation and real rehearsal actions follow existing user authorization; no new blanket approval ritual is introduced."
+      ],
+      "evidence": [
+        "Threat-boundary examples and expected allow/deny outcomes",
+        "Review of source-to-derivation and session-to-scope policy cases"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "system.hardening",
+        "observatory.journeys"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M0-05",
+      "milestone_id": "M0",
+      "title": "Bind validation targets and establish application CI",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M0-01",
+        "M0-03",
+        "M0-04"
+      ],
+      "outputs": [
+        "Executable command map for every validation target in the registry",
+        "Application CI with the verified toolchain, distinct from supplied bootstrap-only CI",
+        "Small synthetic acceptance corpus spanning user correction, tool failure, external source change, and non-coding work"
+      ],
+      "acceptance": [
+        "Every target has an owner, purpose, reproducible command or explicit applicability condition, and expected evidence location.",
+        "Initial application checks run against real scaffolding; later behavior targets remain explicitly pending until implemented.",
+        "Define LAN/QR/pairing tests and a conditional cross-device check without fabricating access to a second device."
+      ],
+      "evidence": [
+        "Observed application CI/scaffold results and command map",
+        "Reviewed fixture provenance and criteria-to-target mapping"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "environment.compatibility",
+        "contracts.schema",
+        "bootstrap.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M0-06",
+      "milestone_id": "M0",
+      "title": "Close foundation decisions and baseline the implementation forecast",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M0-01",
+        "M0-02",
+        "M0-03",
+        "M0-04",
+        "M0-05"
+      ],
+      "outputs": [
+        "M0 milestone report with accepted contracts and remaining bounded decisions",
+        "Updated effort forecast, task ownership, and integration sequence"
+      ],
+      "acceptance": [
+        "Resolve architecture blockers needed for M1 or record a concrete fallback with a bounded validation step.",
+        "Do not claim a product release or completion of any runtime feature; preserve all later task states honestly."
+      ],
+      "evidence": [
+        "Completed M0 report pointing to observed candidate evidence",
+        "Review record and re-estimated timeline assumptions"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "environment.compatibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-01",
+      "milestone_id": "M1",
+      "title": "Implement the persisted evidence and event ledger",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M0-06"
+      ],
+      "outputs": [
+        "Real local persistence, migrations, transactions, stable record IDs, and scoped source references",
+        "Queries for attempts, outcomes, observations, and job events"
+      ],
+      "acceptance": [
+        "Replayed capture is idempotent and restart does not lose committed records.",
+        "Source identity and observation/inference distinctions survive persistence and retrieval.",
+        "Typed memories retain revision history and the source/event lineage that supported each revision.",
+        "A failed extraction/transform remains retryable and distinguishable from a successful empty result; its original source stays inspectable."
+      ],
+      "evidence": [
+        "Observed ledger integrity and migration results",
+        "Inspectable records from synthetic and authorized real capture"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "ledger.integrity",
+        "contracts.schema"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-02",
+      "milestone_id": "M1",
+      "title": "Capture actual OMP sessions and tool outcomes",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01"
+      ],
+      "outputs": [
+        "Native OMP adapter using verified hooks and shared core contracts",
+        "Structured capture of session context, tool attempts, outcomes, corrections, and cancellation"
+      ],
+      "acceptance": [
+        "An actual OMP session produces durable records with source, time, scope, and tool/version context when available.",
+        "Missing or interrupted outcomes remain unknown or interrupted rather than successful.",
+        "The adapter works with native OMP memory disabled and registers and advertises the actual supported Mind tools."
+      ],
+      "evidence": [
+        "Reproducible OMP capture trace and resulting ledger references",
+        "Adapter contract results for success, failure, and cancellation"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "omp.capture-recall",
+        "ledger.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-03",
+      "milestone_id": "M1",
+      "title": "Implement scoped recall and evidence inspection",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01",
+        "M1-02"
+      ],
+      "outputs": [
+        "Useful minimal retrieval over persisted observations and lessons",
+        "Evidence inspector exposing source, scope, origin, and applicability"
+      ],
+      "acceptance": [
+        "Recall returns relevant evidence within the allowed scope and explains why it was selected.",
+        "Low-confidence inferences and stale/unknown applicability remain visibly distinct from observations."
+      ],
+      "evidence": [
+        "Recall cases with expected source references and denied-scope cases",
+        "Observed inspector output on actual captured records"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "omp.capture-recall",
+        "contracts.schema"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-04",
+      "milestone_id": "M1",
+      "title": "Implement minimal durable mind_dream Snooze",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01",
+        "M0-04"
+      ],
+      "outputs": [
+        "Persistent dream-job queue with bounded Snooze consolidation",
+        "Job admission, progress, cancellation, restart recovery, and unprocessed backlog tracking"
+      ],
+      "acceptance": [
+        "Snooze processes a finite scope and work budget, checkpoints safely, and is idempotent on retry.",
+        "Interruption preserves pending work; generated consolidation does not acquire independent verification status."
+      ],
+      "evidence": [
+        "Observed interrupted-and-resumed job with ledger/job references",
+        "Budget-exhaustion, duplicate-admission, and retry results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "dream.resilience",
+        "ledger.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-05",
+      "milestone_id": "M1",
+      "title": "Build the working Observatory with LAN startup, QR, pairing, and Pulse",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-03",
+        "M1-04",
+        "M0-04"
+      ],
+      "outputs": [
+        "Small functional web application with capture/history, recall, evidence inspection, and live job state",
+        "Same-origin UI/API listening on default 0.0.0.0:7337 with explicit configuration overrides",
+        "Terminal text QR and address selection after a successful listener start",
+        "Short-lived console pairing code and authenticated private Mind access"
+      ],
+      "acceptance": [
+        "The web application displays real persisted records and real Snooze jobs, not a static mockup.",
+        "Advertise an actual reachable interface address after listen succeeds; never put 0.0.0.0 or a secret in the QR URL.",
+        "List multiple suitable interfaces and support choosing the advertised address; report port/bind failures accurately.",
+        "Unpaired clients cannot read or change private Mind data; pairing is short-lived and does not place secrets in URLs.",
+        "Primary journeys work with keyboard navigation and legible empty, error, loading, and disconnected states."
+      ],
+      "evidence": [
+        "Observed real web journey and startup/QR output with secrets excluded",
+        "Integration results for bind failure, address selection, pairing expiry, unauthorized access, and job updates"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "observatory.journeys",
+        "dream.resilience",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M1-06",
+      "milestone_id": "M1",
+      "title": "Verify and prepare the first working alpha",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01",
+        "M1-02",
+        "M1-03",
+        "M1-04",
+        "M1-05"
+      ],
+      "outputs": [
+        "End-to-end capture-to-recall-to-Snooze-to-Observatory demonstration",
+        "M1 report and local v0.1.0-alpha.1 artifact/release notes"
+      ],
+      "acceptance": [
+        "A clean supported setup exercises the real loop with documented commands and observed evidence.",
+        "LAN startup, text QR address correctness, pairing, scoped recall, and durable Snooze pass their applicable integration cases.",
+        "Record remaining limitations; do not equate automated LAN tests with an unperformed physical cross-device check.",
+        "Real-host acceptance includes native OMP memory disabled, actual tool advertisement, and capture/recall across a fresh session."
+      ],
+      "evidence": [
+        "Candidate commit/artifact identifier and applicable target results",
+        "Milestone report, release notes, and actual user journey evidence"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "omp.capture-recall",
+        "dream.resilience",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-01",
+      "milestone_id": "M2",
+      "title": "Model universal resources, identity, aliases, and evidence states",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01",
+        "M0-03"
+      ],
+      "outputs": [
+        "Atlas resource schema and identity/alias/version rules",
+        "Kinds for plugins, tools, skills, MCP, webpages, websites, repositories, projects, workflows, APIs, documents, and datasets",
+        "Independent properties for referenced, examined, available, installed, used, and evaluated, each with its own supporting evidence"
+      ],
+      "acceptance": [
+        "Local, external, and mixed are facets independent of resource kind.",
+        "Referenced, examined, available, installed, used, and evaluated each require their own evidence; a mention cannot imply any other property and an evaluation need not establish success or verification.",
+        "Resource availability, installation, reference, examination, use, and evaluation are independent properties, not a single linear maturity score. An evaluated resource is not automatically a successful or verified one."
+      ],
+      "evidence": [
+        "Contract cases for aliases, versions, mixed resources, and evidence-state transitions",
+        "Reviewed resource records spanning a plugin, project, and webpage"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-02",
+      "milestone_id": "M2",
+      "title": "Populate Atlas from actual work and permitted sources",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-01",
+        "M1-02"
+      ],
+      "outputs": [
+        "Resource discovery from OMP definitions, captured use, projects, and explicit external references",
+        "Scoped catalog updates and resource-to-experience links"
+      ],
+      "acceptance": [
+        "Discovery records what is actually known without claiming referenced material was examined or used.",
+        "Local/external resource content remains untrusted data and follows the same scope rules.",
+        "Where evidence exists, catalog available/installed components separately from referenced/examined/used/evaluated resources; do not infer installation from a URL or use from availability."
+      ],
+      "evidence": [
+        "Observed catalog populated from a real session and authorized resources",
+        "Identity/deduplication and scope-boundary results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "atlas.provenance",
+        "omp.capture-recall"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-03",
+      "milestone_id": "M2",
+      "title": "Preserve immutable source snapshots and refresh history",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-01",
+        "M0-04"
+      ],
+      "outputs": [
+        "Content-addressed snapshots with retrieval time, original locator, and available version metadata",
+        "Refresh comparison and source-change events for local artifacts and external webpages"
+      ],
+      "acceptance": [
+        "A new webpage/file version creates a new snapshot without rewriting the evidence previously used.",
+        "Unavailable, omitted, or inaccessible source content is represented explicitly rather than fabricated."
+      ],
+      "evidence": [
+        "Two-version local and external source cases with hashes and timestamps",
+        "Snapshot recovery and changed-source comparison results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "atlas.provenance",
+        "ledger.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-04",
+      "milestone_id": "M2",
+      "title": "Implement Lineage and Chronicle",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-02",
+        "M2-03"
+      ],
+      "outputs": [
+        "Source, derivation, and application traces linked to stable evidence IDs",
+        "Chronological resource/memory history and dependent-record invalidation markers",
+        "Separate retrieval, context-inclusion, application, and outcome traces; unknown application remains unknown"
+      ],
+      "acceptance": [
+        "An inspected claim can be traced to its actual source and the run that derived or applied it.",
+        "History preserves previous states and missing-source markers; association is not silently described as causation.",
+        "Retrieving or inserting a memory into context is not proof it was applied, and a positive outcome does not validate every retrieved item.",
+        "Chronicle preserves explicit corrections, rejected interpretations, and unresolved disputes rather than replacing their history."
+      ],
+      "evidence": [
+        "Complete trace across source, lesson, application, and changed source",
+        "History and invalidation cases with observed records"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "atlas.provenance",
+        "ledger.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-05",
+      "milestone_id": "M2",
+      "title": "Add Atlas, Lineage, and Chronicle web views",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-04",
+        "M1-05"
+      ],
+      "outputs": [
+        "Resource catalog with kind and local/external/mixed filters",
+        "Resource detail, evidence-state badges, history, and navigable provenance",
+        "Bounded search/list/graph/timeline exploration with pagination, non-graph alternatives, and access to dormant records when present"
+      ],
+      "acceptance": [
+        "Views show real catalog/history data and distinguish reference from verified use.",
+        "A user can follow a source snapshot to derived guidance and its application without losing scope/version context.",
+        "Graph expansion and timeline/list pagination enforce the same scope and output limits; merely exploring a record does not confirm or reactivate it."
+      ],
+      "evidence": [
+        "Observed plugin, project, and external-page journeys in the web application",
+        "Relevant UI and authorization results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "observatory.journeys",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M2-06",
+      "milestone_id": "M2",
+      "title": "Verify universal resource/history workflows and release alpha",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-01",
+        "M2-02",
+        "M2-03",
+        "M2-04",
+        "M2-05"
+      ],
+      "outputs": [
+        "M2 acceptance report with local and external resource examples",
+        "Local v0.2.0-alpha.1 candidate and release notes"
+      ],
+      "acceptance": [
+        "Aliases, versions, changed pages, unavailable sources, provenance, and scope boundaries meet documented contracts.",
+        "A resource mention never becomes proof of use or verification through an intermediate derived record."
+      ],
+      "evidence": [
+        "Candidate-specific validation results and source-change demonstration",
+        "Milestone/release records including limitations"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "atlas.provenance",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-01",
+      "milestone_id": "M3",
+      "title": "Define preference evidence and reversible activation states",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-01",
+        "M0-03"
+      ],
+      "outputs": [
+        "Attunement preference records with stated/inferred origins and independent-context support",
+        "Ebb activation state model separate from validity, truth, and retention"
+      ],
+      "acceptance": [
+        "Repeated copies or summaries of one source count as one support context.",
+        "Active, quiet, and dormant transitions do not change the underlying truth or erase evidence."
+      ],
+      "evidence": [
+        "Schema cases for independent support, correction, and lifecycle separation",
+        "Reviewed state-transition examples"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "attunement.corrections",
+        "ebb.lifecycle"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-02",
+      "milestone_id": "M3",
+      "title": "Implement correctable Attunement",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M3-01",
+        "M1-03"
+      ],
+      "outputs": [
+        "Preference extraction/application with evidence-linked explanations",
+        "User correction, override, retirement, and conflict handling"
+      ],
+      "acceptance": [
+        "Explicit corrections override inferred preferences within their applicable scope.",
+        "Silence is not confirmation; inferences remain distinguishable and reversible."
+      ],
+      "evidence": [
+        "Observed cases across independent contexts and explicit correction",
+        "Retrieval/application evidence showing preference precedence"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "attunement.corrections",
+        "omp.capture-recall"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-03",
+      "milestone_id": "M3",
+      "title": "Implement Ebb activation policies",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M3-01",
+        "M1-03"
+      ],
+      "outputs": [
+        "Configurable reversible activation fading and reactivation",
+        "Recall policies that account for activation without rewriting evidence"
+      ],
+      "acceptance": [
+        "Known inputs produce explainable activation transitions and allow recovery of dormant material.",
+        "Relevance fading does not silently invalidate a fact, delete a source, or invent a retention deadline.",
+        "Applicable explicit constraints and open commitments remain available to guidance despite inactivity; revival preserves recorded rejection reasons and counterevidence.",
+        "Two maintenance runs at the same effective time do not double activation decay, and merely reading a record does not create confirming evidence."
+      ],
+      "evidence": [
+        "Deterministic lifecycle cases and reactivation demonstration",
+        "Recall comparisons for active and dormant records"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "ebb.lifecycle",
+        "omp.capture-recall"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-04",
+      "milestone_id": "M3",
+      "title": "Implement explicit forgetting and dependent-state handling",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M3-03",
+        "M0-04"
+      ],
+      "outputs": [
+        "Explicit scoped forgetting operations and retention behavior",
+        "Dependent-guidance invalidation and history behavior for removed sources"
+      ],
+      "acceptance": [
+        "Forgetting is an explicit policy/action distinct from activation fading and records the actual scope affected.",
+        "Derived records cannot keep presenting removed private evidence as available or independently verified.",
+        "Explicit deletion reconciles controlled indexes, generated dependent content, and caches; report any coverage limitations instead of promising deletion outside controlled storage."
+      ],
+      "evidence": [
+        "Observed forget/restore-where-supported cases and retained-history semantics",
+        "Private-data and dependent-record checks"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "ebb.lifecycle",
+        "ledger.integrity",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-05",
+      "milestone_id": "M3",
+      "title": "Expose adaptation and lifecycle controls in the Observatory",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M3-02",
+        "M3-03",
+        "M3-04",
+        "M1-05"
+      ],
+      "outputs": [
+        "Preference explanations, correction controls, and activation history",
+        "Clear independent displays for activation, validity, and retention"
+      ],
+      "acceptance": [
+        "A user can correct a preference and reactivate dormant knowledge through real UI actions.",
+        "The UI communicates exactly what a forget action affects using the agreed policy, without treating every reversible edit as an approval ceremony."
+      ],
+      "evidence": [
+        "Observed correction/reactivation/forget journeys",
+        "Relevant accessibility and denied-scope checks"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "observatory.journeys",
+        "attunement.corrections",
+        "ebb.lifecycle"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M3-06",
+      "milestone_id": "M3",
+      "title": "Verify adaptive behavior and prepare alpha",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M3-01",
+        "M3-02",
+        "M3-03",
+        "M3-04",
+        "M3-05"
+      ],
+      "outputs": [
+        "M3 report and local v0.3.0-alpha.1 candidate",
+        "Regression cases for correction precedence and false confirmation"
+      ],
+      "acceptance": [
+        "Corrections, support independence, fading, reactivation, and explicit forgetting behave according to the accepted contracts.",
+        "No passage of time or repeated generated summary creates new evidence of truth."
+      ],
+      "evidence": [
+        "Candidate-specific correction/lifecycle results",
+        "Release notes with supported policy defaults and limitations"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "attunement.corrections",
+        "ebb.lifecycle",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-01",
+      "milestone_id": "M4",
+      "title": "Extend Reverie to independent levels, modes, scope, and focus",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M1-04",
+        "M2-04",
+        "M3-06"
+      ],
+      "outputs": [
+        "Dream contracts for snooze, nap, dream, and deep_sleep",
+        "Five concrete modes: consolidate, associate, imagine, rehearse, and reframe; mixed UI/tool preset expands to an explicit unique job.modes array with independent scope/focus controls"
+      ],
+      "acceptance": [
+        "Lucid denotes intentional focus and does not introduce a conflicting effort level.",
+        "Mode eligibility respects source scope, activation/validity distinctions, and authority boundaries.",
+        "Persist job.modes as a nonempty unique array of the five concrete mode IDs. Mixed is a preset expansion, never a sixth stored cognitive mode."
+      ],
+      "evidence": [
+        "Contract matrix covering every level/mode and a non-coding scope",
+        "Observed admission results for valid and invalid combinations"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "reverie.quality",
+        "dream.resilience"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-02",
+      "milestone_id": "M4",
+      "title": "Implement bounded scheduling and all dream effort profiles",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M4-01"
+      ],
+      "outputs": [
+        "Finite model/tool/work/time budgets and level profiles",
+        "Persistent checkpoints, progress estimates, cancellation, and deferred-work reporting"
+      ],
+      "acceptance": [
+        "Each level has explicit configurable limits rather than an implied unlimited background run.",
+        "Budget exhaustion and interruption preserve unprocessed work and report actual partial results.",
+        "Child calls, embeddings, retry reservations, and tool work share the run hard limit; unknown prices remain unknown and cannot be counted as zero cost."
+      ],
+      "evidence": [
+        "Observed limits, cancellation, restart, and retry cases",
+        "Measured resource/usage report on the acceptance workload"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "dream.resilience",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-03",
+      "milestone_id": "M4",
+      "title": "Implement Retrospection over experiences and outcomes",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M4-01",
+        "M2-04"
+      ],
+      "outputs": [
+        "Experience-review processor linked to attempts, outcomes, corrections, and environment/version context",
+        "Evidence-backed candidate lessons from both successes and failures",
+        "Versioned candidate learning/retrieval policy proposals with development/evaluation split metadata and rollback references"
+      ],
+      "acceptance": [
+        "An unfinished attempt is not treated as a validated success or a proven failure cause.",
+        "Reviews distinguish observed outcomes from causal hypotheses and work for coding and non-coding experiences.",
+        "Policy proposals retain their starting policy, supporting cases, claimed improvement, and disjoint evaluation data; a model explanation alone cannot authorize promotion."
+      ],
+      "evidence": [
+        "Reviewed learning cases with source and outcome links",
+        "Counterexamples that reject overgeneralized lessons"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "reverie.quality",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-04",
+      "milestone_id": "M4",
+      "title": "Implement association, imagination, and reframing outputs",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M4-01",
+        "M4-03"
+      ],
+      "outputs": [
+        "Clearly typed associations, hypotheses, alternative framings, and proposed experiments",
+        "Links from creative output to inspiring evidence and unresolved questions"
+      ],
+      "acceptance": [
+        "Generated hypotheses cannot promote themselves or their descendants to independently verified evidence.",
+        "A mixed run preserves the origin and verification status of each output instead of flattening them into facts."
+      ],
+      "evidence": [
+        "Observed creative runs with labels and source references",
+        "Unsupported-claim and circular-confirmation rejection cases"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "reverie.quality",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-05",
+      "milestone_id": "M4",
+      "title": "Implement bounded rehearsal with honest outcome reporting",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M4-02",
+        "M4-04",
+        "M0-04"
+      ],
+      "outputs": [
+        "Rehearsal plans and isolated execution where supported and authorized",
+        "Separate records for simulated reasoning, attempted experiments, and observed experiment outcomes"
+      ],
+      "acceptance": [
+        "Real side effects require the existing task authorization and remain within the selected tool/scope/budget.",
+        "Simulation is never reported as a tool test that ran; unavailable experiments remain pending or unsupported."
+      ],
+      "evidence": [
+        "A safe actual rehearsal and a simulation-only case with distinct evidence",
+        "Denied-action, timeout, and cleanup results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "reverie.quality",
+        "dream.resilience",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M4-06",
+      "milestone_id": "M4",
+      "title": "Complete Reverie UI and verify the full dreaming release",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M4-01",
+        "M4-02",
+        "M4-03",
+        "M4-04",
+        "M4-05",
+        "M1-05"
+      ],
+      "outputs": [
+        "Reverie controls, Pulse progress, cancellation/resume, output review, and evidence navigation",
+        "M4 report and local v0.4.0-alpha.1 candidate",
+        "Independent evaluation and reversible promotion/rollback path for candidate learning/retrieval policy changes"
+      ],
+      "acceptance": [
+        "All promised modes and levels are exercised against real jobs with inspectable budgets and outputs.",
+        "Users can identify observations, learned candidates, creative hypotheses, and validated experiments from the UI.",
+        "Tune candidate policies on development cases, evaluate on held-out independent tasks/source families, and promote only under declared criteria with a working rollback to the accepted policy."
+      ],
+      "evidence": [
+        "Candidate-specific mode/level matrix and observed web journeys",
+        "Release notes with measured workload costs and model limitations"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "reverie.quality",
+        "dream.resilience",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-01",
+      "milestone_id": "M5",
+      "title": "Define Lore pages and source-aware sections",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-04",
+        "M4-03"
+      ],
+      "outputs": [
+        "Living-wiki page/section model with stable IDs, sources, manual sections, and backlinks",
+        "Generation and edit ownership rules"
+      ],
+      "acceptance": [
+        "Generated and manual content have distinguishable authorship and update behavior.",
+        "Every generated factual section can retain its original evidence lineage."
+      ],
+      "evidence": [
+        "Page/schema cases for mixed manual and generated content",
+        "Reviewed source-link and edit-ownership examples"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "lore.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-02",
+      "milestone_id": "M5",
+      "title": "Generate and update sourced Lore pages",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M5-01"
+      ],
+      "outputs": [
+        "Incremental page-generation/update pipeline from supported evidence",
+        "Reviewable content diffs and unsupported-content handling"
+      ],
+      "acceptance": [
+        "Pages state uncertainty and provenance rather than hiding unsupported synthesis.",
+        "A page or its descendants cannot serve as independent confirming evidence for its own claims."
+      ],
+      "evidence": [
+        "Generated pages tied to source records",
+        "Circular-confirmation and unsupported-claim cases"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "lore.integrity",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-03",
+      "milestone_id": "M5",
+      "title": "Invalidate and refresh Lore dependencies",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M5-02",
+        "M2-03"
+      ],
+      "outputs": [
+        "Dependency tracking from source versions to generated sections",
+        "Stale-state reporting and bounded refresh jobs"
+      ],
+      "acceptance": [
+        "Changing, superseding, or removing a source marks affected content appropriately.",
+        "Refresh does not overwrite manual sections or silently erase unresolved conflicts."
+      ],
+      "evidence": [
+        "Source-change-to-page-invalidation trace",
+        "Observed refresh and manual-preservation results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "lore.integrity",
+        "dream.resilience"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-04",
+      "milestone_id": "M5",
+      "title": "Build Lore reading, editing, diffs, and backlinks",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M5-02",
+        "M5-03",
+        "M1-05"
+      ],
+      "outputs": [
+        "Working wiki reader/editor in the Observatory",
+        "Section-level sources, history, diffs, backlinks, and stale indicators"
+      ],
+      "acceptance": [
+        "Users can edit manual content, inspect changes, and navigate sources using real persisted pages.",
+        "Conflicting edits or refreshes preserve work and expose the conflict."
+      ],
+      "evidence": [
+        "Observed edit/refresh/backlink journeys",
+        "Relevant accessibility, concurrency, and authorization results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "observatory.journeys",
+        "lore.integrity"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-05",
+      "milestone_id": "M5",
+      "title": "Make Lore persistence and reconstruction reliable",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M5-03"
+      ],
+      "outputs": [
+        "Page persistence, source-linked reconstruction, and portable page snapshots",
+        "Recovery behavior for unavailable sources and interrupted refresh"
+      ],
+      "acceptance": [
+        "A restored wiki retains manual sections, page identity, source references, and stated omissions.",
+        "Rebuilding generated material does not manufacture original evidence that is unavailable."
+      ],
+      "evidence": [
+        "Observed backup/rebuild comparison and interrupted-refresh recovery",
+        "Snapshot manifest with preserved and unavailable fields"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "lore.integrity",
+        "ledger.integrity",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M5-06",
+      "milestone_id": "M5",
+      "title": "Verify the living wiki and prepare beta",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M5-01",
+        "M5-02",
+        "M5-03",
+        "M5-04",
+        "M5-05",
+        "M4-06"
+      ],
+      "outputs": [
+        "M5 report and local v0.5.0-beta.1 candidate",
+        "Documented Lore workflow and limitations"
+      ],
+      "acceptance": [
+        "Sourcing, manual preservation, diffs, backlinks, invalidation, and recovery meet their accepted criteria.",
+        "At least one page integrates evidence across different work types without cross-scope leakage."
+      ],
+      "evidence": [
+        "Candidate-specific Lore/UI results and example source chain",
+        "Release notes identifying supported update behavior"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "lore.integrity",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-01",
+      "milestone_id": "M6",
+      "title": "Define Forge resource and version selection",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-05",
+        "M5-06",
+        "M4-06"
+      ],
+      "outputs": [
+        "Resource-scoped improvement view contracts",
+        "Selection/filter rules for plugins, tools, projects, and web sources with versions and related evidence"
+      ],
+      "acceptance": [
+        "A selected resource is not confused with every resource mentioned in the same session.",
+        "Resource/version boundaries and included related context are explicit and inspectable."
+      ],
+      "evidence": [
+        "Scope-selection cases for a plugin and a non-plugin resource",
+        "Reviewed inclusion/exclusion examples"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "blueprints.portability",
+        "atlas.provenance"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-02",
+      "milestone_id": "M6",
+      "title": "Analyze resource-specific friction and successful patterns",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-01",
+        "M4-03"
+      ],
+      "outputs": [
+        "Evidence-linked observations, recurring issues, successful techniques, and candidate improvements",
+        "Support accounting that distinguishes repeated reports from independent opportunities"
+      ],
+      "acceptance": [
+        "Claims about a problem include observed examples and relevant version/context limitations.",
+        "Frequency, correlation, and suspected cause remain distinct; no invented statistical certainty or tool validation."
+      ],
+      "evidence": [
+        "Observed analysis of representative success and failure records",
+        "Counterexamples and scope-boundary review"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "reverie.quality"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-03",
+      "milestone_id": "M6",
+      "title": "Launch bounded focused dreams from Forge",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-01",
+        "M4-06"
+      ],
+      "outputs": [
+        "Selected-resource dream controls using the shared Reverie engine",
+        "Focused results linked back to Forge evidence and resource versions"
+      ],
+      "acceptance": [
+        "Scope, focus, mode, level, and budget remain independent and visible.",
+        "A Forge dream cannot silently inspect unrelated private resources or activate its own hypotheses as proven fixes."
+      ],
+      "evidence": [
+        "Observed focused dream and output inspection",
+        "Scope-denial and budget/cancellation results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "dream.resilience",
+        "blueprints.portability",
+        "observatory.journeys"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-04",
+      "milestone_id": "M6",
+      "title": "Define and implement Blueprints improvement packs",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-02",
+        "M6-03"
+      ],
+      "outputs": [
+        "Versioned Blueprint schema and readable improvement-guide format",
+        "Evidence, suggestions, reproduction cases, source locators/hashes, resource versions, omissions, and limitations",
+        "Delta-export schema with baseline export identity, scope/version/coverage manifest, and additions, revisions, invalidations, or deletions since that baseline"
+      ],
+      "acceptance": [
+        "Observed learning and dream hypotheses appear in clearly separate sections with source references.",
+        "The pack is useful for improving the selected component but does not automatically patch or publish it.",
+        "Export explicitly reports unavailable/redacted evidence and applicability limits.",
+        "A delta identifies its baseline and selected scope/version; incompatible or unavailable baselines cause an explicit error or declared full-export fallback, never an ambiguous partial pack."
+      ],
+      "evidence": [
+        "A plugin/tool pack and a project or web-source pack",
+        "Schema review, reference integrity, and readable-guide assessment"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "contracts.schema"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-05",
+      "milestone_id": "M6",
+      "title": "Implement safe portable export and import",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-04",
+        "M0-04"
+      ],
+      "outputs": [
+        "Deterministic export with manifest/integrity checks and schema compatibility handling",
+        "Import that preserves provenance and labels without automatic trust promotion"
+      ],
+      "acceptance": [
+        "Round trips retain scope/version/evidence meaning and expose losses or unsupported fields.",
+        "Secrets and unauthorized source contents are excluded; imported advice is not counted as independent corroboration of itself.",
+        "Applying a compatible delta yields the intended scoped snapshot, including invalidation/deletion markers; repeat application is idempotent and does not add independent support.",
+        "Privacy and omission reporting apply equally to full and delta exports."
+      ],
+      "evidence": [
+        "Observed clean-environment round trip and malformed/tampered-pack cases",
+        "Omission/redaction report and compatibility results"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M6-06",
+      "milestone_id": "M6",
+      "title": "Complete Forge UI and release portable improvement guides",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-01",
+        "M6-02",
+        "M6-03",
+        "M6-04",
+        "M6-05"
+      ],
+      "outputs": [
+        "Working selected-resource Forge view and Blueprint export controls",
+        "M6 report and local v0.6.0-beta.1 candidate"
+      ],
+      "acceptance": [
+        "A plugin/tool and a non-plugin resource can each produce an evidence-backed guide through the actual UI.",
+        "Exported guidance supports a concrete improvement investigation with reproducible cases or explicit reproduction limitations."
+      ],
+      "evidence": [
+        "Observed Forge-to-Blueprint journeys and resulting manifests",
+        "Candidate-specific validation and release notes"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "observatory.journeys",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-01",
+      "milestone_id": "M7",
+      "title": "Specify required native portability and optional adapter boundaries",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M2-06",
+        "M0-03"
+      ],
+      "outputs": [
+        "Native archive/service portability contracts covering stable identities, revisions, scope, source snapshots, and lineage",
+        "Explicit optional adapter contracts for MCP and any selected external format/backend; capability and mapping-loss rules"
+      ],
+      "acceptance": [
+        "Native archive, integrity verification, and restore are required for v1 and independent of MCP or external memory services.",
+        "Document the native schema/version contract and what can be restored; unsupported or omitted data is explicit.",
+        "Optional MCP, COGX/other formats, and external backends are selected or deferred individually with a reason, never by skipping M7."
+      ],
+      "evidence": [
+        "Reviewed native portability contract and stable example archives",
+        "Adapter selection/deferral decision and compatibility boundaries"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "contracts.schema",
+        "blueprints.portability"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-02",
+      "milestone_id": "M7",
+      "title": "Implement optional MCP access to shared core capabilities",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M7-01",
+        "M4-06"
+      ],
+      "outputs": [
+        "Optional MCP server/adapter with documented tools and job handling",
+        "Capability discovery and typed error responses"
+      ],
+      "acceptance": [
+        "Calls execute the same core policies and persistence semantics as the native adapter.",
+        "Unsupported capabilities return explicit errors instead of misleading successful placeholders."
+      ],
+      "evidence": [
+        "Observed supported-client calls and core/adapter comparisons",
+        "Contract results for valid and invalid inputs"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "mcp.parity",
+        "dream.resilience"
+      ],
+      "optional": true,
+      "required_for_v1": false,
+      "optional_group": "mcp_adapter",
+      "deferral_policy": "May be explicitly deferred with a scoped decision if costly; do not mark implemented. Required native archive/integrity/restore work still proceeds.",
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-03",
+      "milestone_id": "M7",
+      "title": "Preserve identity, scope, and cancellation across transport",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M7-02",
+        "M0-04"
+      ],
+      "outputs": [
+        "Transport-specific identity/session handling and permission mapping",
+        "Job cancellation/progress behavior without secret leakage"
+      ],
+      "acceptance": [
+        "External clients cannot enlarge scope or authority by changing transport arguments.",
+        "Cancellation, disconnect, retry, and budget limits preserve durable job state."
+      ],
+      "evidence": [
+        "Denied-scope and session-isolation results",
+        "Observed disconnect/retry/cancel job trace"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "mcp.parity",
+        "dream.resilience",
+        "system.hardening"
+      ],
+      "optional": true,
+      "required_for_v1": false,
+      "optional_group": "mcp_adapter",
+      "deferral_policy": "May be explicitly deferred with a scoped decision if costly; do not mark implemented. Required native archive/integrity/restore work still proceeds.",
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-04",
+      "milestone_id": "M7",
+      "title": "Implement native archive integrity verification and restore",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M7-01",
+        "M6-05"
+      ],
+      "outputs": [
+        "Required portable native archive and importer for the supported persisted record families, identities, revisions, scope, evidence, and lineage",
+        "Hash/schema validation, atomic or recoverable restore, and truthful coverage/omission manifests",
+        "Mapping-loss reports for any separately selected external format, including COGX when implemented"
+      ],
+      "acceptance": [
+        "A native archive validates hashes/schema before accepting records and restores supported identities and lineage into a clean store.",
+        "Corrupt, tampered, or unsupported-version input is rejected or handled through an explicit documented migration without partial silent acceptance.",
+        "Native restore works without MCP, COGX, or an external backend; no imported confidence/verification state is silently upgraded.",
+        "Optional format losses are itemized when an optional format is used; absence of that adapter does not weaken native archive guarantees."
+      ],
+      "evidence": [
+        "Observed native clean-store round trip and semantic identity/lineage comparison",
+        "Corrupt/tampered/schema-version and interrupted-restore results",
+        "Actual optional-format loss report only for an implemented selected adapter"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "ledger.integrity",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "optional_extensions": [
+        {
+          "id": "external_formats",
+          "examples": [
+            "COGX"
+          ],
+          "selection": "optional",
+          "required_for_v1": false,
+          "rule": "Implement only if selected; preserve native archive as the required baseline and report actual mapping losses."
+        }
+      ],
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-05",
+      "milestone_id": "M7",
+      "title": "Validate native portability and selected optional integrations",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M7-01",
+        "M7-04"
+      ],
+      "outputs": [
+        "Verified native-only install/export/integrity/restore instructions",
+        "Capability matrix identifying implemented, deferred, and untested optional adapters"
+      ],
+      "acceptance": [
+        "A native-only install exports and restores the supported archive without an MCP service or external memory framework.",
+        "Only selected implemented adapters require transport/client parity evidence; explicitly deferred adapters are unavailable, not reported as passing.",
+        "Document actual tested versions, archive coverage, and omitted/unsupported capabilities."
+      ],
+      "evidence": [
+        "Clean native-only startup/export/restore results",
+        "Optional adapter selection/deferral matrix and actual client results where applicable"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "optional_dependencies": [
+        "M7-02",
+        "M7-03"
+      ],
+      "conditional_validation_targets": [
+        {
+          "target_id": "mcp.parity",
+          "when": "MCP adapter is selected for the candidate release"
+        }
+      ],
+      "completion_evidence": []
+    },
+    {
+      "id": "M7-06",
+      "milestone_id": "M7",
+      "title": "Prepare the native portability beta and optional-adapter dispositions",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M7-01",
+        "M7-04",
+        "M7-05",
+        "M6-06"
+      ],
+      "outputs": [
+        "M7 report and local v0.7.0-beta.1 candidate with required native portability",
+        "Native coverage/restore evidence and explicit optional adapter exclusions or implemented parity evidence"
+      ],
+      "acceptance": [
+        "Required native archive, integrity verification, and restore pass their agreed gates; M7 cannot be skipped as a whole.",
+        "Each optional MCP/external-format/backend capability is implemented with applicable evidence or explicitly excluded by a scoped decision.",
+        "M8 may proceed after required M7 tasks and selected optional tasks are complete and unselected optional tasks are explicitly deferred; publication remains separately authorized."
+      ],
+      "evidence": [
+        "Candidate-specific native portability results and observed restore workflow",
+        "Optional adapter disposition records, release notes, and artifact identity"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "blueprints.portability",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "optional_dependencies": [
+        "M7-02",
+        "M7-03"
+      ],
+      "conditional_validation_targets": [
+        {
+          "target_id": "mcp.parity",
+          "when": "MCP adapter is selected for the candidate release"
+        }
+      ],
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-01",
+      "milestone_id": "M8",
+      "title": "Freeze the supported v1 scope and measure operating budgets",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M6-06",
+        "M7-06"
+      ],
+      "outputs": [
+        "Supported environment/capability matrix and fixed v1 scope",
+        "Measured capture, recall, dream, startup, storage, and UI workload results"
+      ],
+      "acceptance": [
+        "Performance/resource budgets reflect observed representative workloads and declared hardware/model conditions.",
+        "Requested v1 capabilities are accounted for; new features become explicit follow-up scope rather than indefinite hardening.",
+        "Required native M7 portability must be complete; explicitly deferred optional adapters do not block the native stable release and cannot be advertised as implemented."
+      ],
+      "evidence": [
+        "Benchmark method, raw observations, and accepted budget decisions",
+        "Scope-to-task/release traceability review"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "system.hardening",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-02",
+      "milestone_id": "M8",
+      "title": "Exercise failure, migration, backup, privacy, and restoration",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M8-01"
+      ],
+      "outputs": [
+        "Meaningful fault and recovery cases for ledger, jobs, sources, Lore, and Blueprints",
+        "Migration/backup/restore procedure and scope/forgetting verification"
+      ],
+      "acceptance": [
+        "Crash and interrupted-write cases preserve documented invariants and recover without invented completion.",
+        "Scope, pairing, secret handling, source revocation, and explicit forgetting meet their stated policies."
+      ],
+      "evidence": [
+        "Observed fault/migration/restore results tied to the candidate",
+        "Security-boundary review of concrete allow/deny cases"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "system.hardening",
+        "ledger.integrity",
+        "dream.resilience",
+        "ebb.lifecycle"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-03",
+      "milestone_id": "M8",
+      "title": "Build a reproducible release candidate",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M8-01",
+        "M8-02"
+      ],
+      "outputs": [
+        "Local v1.0.0-rc.1 artifact with lockfile/version/provenance metadata",
+        "Clean installation and upgrade instructions",
+        "Verified upgrade and uninstall procedure with explicit data-retention and removal behavior"
+      ],
+      "acceptance": [
+        "A clean supported environment can install and start the candidate using verified commands.",
+        "Artifact contents, version, migrations, and declared dependencies match the candidate source.",
+        "Install, upgrade, and uninstall follow documented supported paths; removing the runtime does not silently delete user memory or imply a separately requested data purge."
+      ],
+      "evidence": [
+        "Observed clean-install/build results and artifact checksum",
+        "Release-candidate notes and source/artifact identifiers"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "release.reproducibility",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-04",
+      "milestone_id": "M8",
+      "title": "Verify complete user journeys and conditional cross-device access",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M8-03"
+      ],
+      "outputs": [
+        "End-to-end journeys spanning Atlas, Attunement, Ebb, Reverie, Lore, Forge, and optional MCP",
+        "LAN startup/QR/pairing journey and cross-device evidence when a second device is available",
+        "Complete onboarding and operational documentation"
+      ],
+      "acceptance": [
+        "Observed UI journeys use real persisted data and cover the documented supported workflows.",
+        "When a second device is available, verify actual LAN access and pairing from it; otherwise record that exact unverified limit while preserving automated address/auth/integration evidence.",
+        "No mandatory human QA ceremony or unrelated new gate is introduced to substitute for an unavailable device.",
+        "Critical journeys support keyboard use, visible focus, handheld layout, and non-graph alternatives; paginated queries and event-stream reconnection stay within measured limits."
+      ],
+      "evidence": [
+        "Observed web journeys, target results, and available device/network conditions",
+        "Explicit cross-device result or limitation, never a fabricated pass"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "observatory.journeys",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "conditional_validation_targets": [
+        {
+          "target_id": "mcp.parity",
+          "when": "MCP adapter is selected for the candidate release"
+        }
+      ],
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-05",
+      "milestone_id": "M8",
+      "title": "Resolve candidate defects with bounded regression checks",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M8-03",
+        "M8-04"
+      ],
+      "outputs": [
+        "Release-blocker disposition and narrowly scoped fixes",
+        "Updated candidate artifact and evidence for affected checks"
+      ],
+      "acceptance": [
+        "Known release blockers are fixed or an explicit supported-scope decision is recorded before stable readiness.",
+        "Rerun affected checks and existing required gates; avoid broad optional testing after risks are resolved."
+      ],
+      "evidence": [
+        "Defect-to-fix-to-result trace and candidate identifiers",
+        "Reviewed residual limitations and compatibility notes"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "system.hardening",
+        "release.reproducibility"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    },
+    {
+      "id": "M8-06",
+      "milestone_id": "M8",
+      "title": "Prepare stable v1 and close the milestone with evidence",
+      "status": "planned",
+      "priority": "P0",
+      "depends_on": [
+        "M8-01",
+        "M8-02",
+        "M8-03",
+        "M8-04",
+        "M8-05"
+      ],
+      "outputs": [
+        "Local v1.0.0 artifact, release notes, and stable readiness report",
+        "Updated milestone/task states backed by observed evidence and follow-up backlog"
+      ],
+      "acceptance": [
+        "All required v1 exit criteria are met for the supported configuration, with honest limits and reproducible evidence.",
+        "Bootstrap version and product version remain distinct; remote publication occurs only under separate explicit authorization."
+      ],
+      "evidence": [
+        "Final candidate commit/artifact/checksum and required target results",
+        "M8 report, release notes, and documented remaining limitations"
+      ],
+      "validation_commands": [],
+      "validation_targets": [
+        "release.reproducibility",
+        "system.hardening"
+      ],
+      "optional": false,
+      "required_for_v1": true,
+      "completion_evidence": []
+    }
+  ]
+}

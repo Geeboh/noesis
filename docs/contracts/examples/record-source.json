@@ -1,0 +1,123 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_sourcexx_0001",
+  "revision": 1,
+  "record_type": "source",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "document_import",
+    "creator": {
+      "actor_kind": "service",
+      "actor_id": "svc_example_noesis"
+    },
+    "source_refs": [
+      {
+        "record_id": "rec_urlsource_0001",
+        "revision": 1
+      }
+    ],
+    "derived_from": [],
+    "capture_idempotency_key": "fixture:sourcexx:1",
+    "transformation": null,
+    "dream_job_id": null
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "unassessed",
+    "basis": null,
+    "evidence_refs": []
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "not_applicable",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "resource_ref": {
+      "record_id": "rec_urlsource_0001",
+      "revision": 1
+    },
+    "content_refs": [
+      {
+        "artifact_id": "art_pdf_source_0001",
+        "media_type": "application/pdf",
+        "locator": null,
+        "sha256": null,
+        "size_bytes": null
+      },
+      {
+        "artifact_id": "art_page_preview_0001",
+        "media_type": "image/png",
+        "locator": null,
+        "sha256": null,
+        "size_bytes": null
+      }
+    ],
+    "captured_at": "2026-11-23T12:00:00Z",
+    "source_published_at": null,
+    "snapshot_status": "partial",
+    "coverage": {
+      "status": "partial",
+      "unit": "pages",
+      "processed": 2,
+      "total": 10,
+      "ranges": [
+        {
+          "unit": "pages",
+          "start": 1,
+          "end": 2
+        }
+      ],
+      "omissions": [
+        "Pages 3\u201310 were not processed."
+      ],
+      "description": "Synthetic PDF fixture: pages 1\u20132 were processed; no bytes are bundled."
+    },
+    "parser": {
+      "name": "fixture_pdf_parser",
+      "version": null,
+      "configuration_digest": null
+    },
+    "media_types": [
+      "application/pdf",
+      "image/png"
+    ],
+    "derived_media_refs": []
+  }
+}

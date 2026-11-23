@@ -1,0 +1,84 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_tombston_0001",
+  "revision": 1,
+  "record_type": "tombstone",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "manual_edit",
+    "creator": {
+      "actor_kind": "service",
+      "actor_id": "svc_example_noesis"
+    },
+    "source_refs": [],
+    "derived_from": [],
+    "capture_idempotency_key": "fixture:tombston:1",
+    "transformation": null,
+    "dream_job_id": null
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "unassessed",
+    "basis": null,
+    "evidence_refs": []
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "not_applicable",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "target_record_id": "rec_removed_example",
+    "target_revisions": [
+      1,
+      2
+    ],
+    "mode": "content_deleted",
+    "requested_by": {
+      "actor_kind": "user",
+      "actor_id": "usr_example_owner"
+    },
+    "reason": "Synthetic deletion receipt without original body content.",
+    "completed_at": "2026-11-23T12:00:00Z",
+    "derivative_job_ids": [],
+    "residual_locations": [
+      "Previously downloaded external copies are outside service control."
+    ]
+  }
+}

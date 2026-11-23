@@ -1,0 +1,100 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_hypothes_0001",
+  "revision": 1,
+  "record_type": "hypothesis",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "dream",
+    "creator": {
+      "actor_kind": "agent",
+      "actor_id": "agt_example_author"
+    },
+    "source_refs": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      }
+    ],
+    "derived_from": [
+      {
+        "record_id": "rec_lessonxx_0001",
+        "revision": 1
+      }
+    ],
+    "capture_idempotency_key": "fixture:hypothes:1",
+    "transformation": null,
+    "dream_job_id": "job_creative_example"
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "unassessed",
+    "basis": null,
+    "evidence_refs": []
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "candidate",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "kind": "concept",
+    "statement": "Offer a structure-only preview before applying document formatting.",
+    "rationale": "A preview might expose heading changes early; this is an imagined product idea.",
+    "assumptions": [
+      "Users can interpret the structural preview.",
+      "The tool can expose changes before writing the final artifact."
+    ],
+    "predicted_outcomes": [
+      "Users may catch unintended heading changes earlier."
+    ],
+    "next_validation": [
+      "Build a small prototype and compare review accuracy on held-out document tasks."
+    ],
+    "evidence_state": "untested",
+    "support_refs": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      }
+    ],
+    "counterevidence_refs": [],
+    "dream_job_id": "job_creative_example"
+  }
+}

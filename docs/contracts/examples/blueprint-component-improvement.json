@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.1.0",
+  "blueprint_id": "bp_example_improvement",
+  "revision": 1,
+  "title": "Structure preview for the example document formatter",
+  "purpose": "component_improvement",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "dream",
+    "creator": {
+      "actor_kind": "agent",
+      "actor_id": "agt_example_author"
+    },
+    "source_refs": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      }
+    ],
+    "derived_from": [
+      {
+        "record_id": "rec_lessonxx_0001",
+        "revision": 1
+      }
+    ],
+    "capture_idempotency_key": "fixture:hypothes:1",
+    "transformation": null,
+    "dream_job_id": "job_creative_example"
+  },
+  "target_refs": [
+    {
+      "record_id": "rec_component_0001",
+      "revision": 1
+    }
+  ],
+  "target_version_constraints": [
+    {
+      "resource_ref": {
+        "record_id": "rec_component_0001",
+        "revision": 1
+      },
+      "version": null,
+      "condition": "Installed version is unknown; verify before treating this as applicable."
+    }
+  ],
+  "summary": "Synthetic improvement pack illustrating evidence boundaries and a creative proposal. No defect, implementation, or measured improvement is established.",
+  "coverage": {
+    "status": "partial",
+    "unit": "pages",
+    "processed": 2,
+    "total": 10,
+    "ranges": [],
+    "omissions": [
+      "No complete source document or exact tool version."
+    ],
+    "description": "Only a synthetic partial preview is represented."
+  },
+  "findings": [
+    {
+      "finding_id": "finding_example_preview",
+      "status": "observed_finding",
+      "summary": "The synthetic partial preview reports a duplicated heading.",
+      "evidence_refs": [
+        {
+          "record_id": "rec_evidence_0001",
+          "revision": 1
+        }
+      ],
+      "hypothesis_refs": [],
+      "attribution": {
+        "category": "unknown",
+        "assessment": "unassessed",
+        "rationale": "The fixture cannot distinguish component behavior from usage, configuration, host, or dependency behavior.",
+        "evidence_refs": [
+          {
+            "record_id": "rec_evidence_0001",
+            "revision": 1
+          }
+        ]
+      },
+      "affected_versions": [],
+      "version_coverage": "unknown",
+      "limitations": [
+        "The real source and tool execution are not included; this is only a contract fixture."
+      ]
+    },
+    {
+      "finding_id": "finding_example_idea",
+      "status": "dreamed_idea",
+      "summary": "A structure-only preview might make unintended changes easier to detect.",
+      "evidence_refs": [],
+      "hypothesis_refs": [
+        {
+          "record_id": "rec_hypothes_0001",
+          "revision": 1
+        }
+      ],
+      "attribution": {
+        "category": "component",
+        "assessment": "low",
+        "rationale": "This is a proposed interface feature, not a proven root cause.",
+        "evidence_refs": []
+      },
+      "affected_versions": [],
+      "version_coverage": "unknown",
+      "limitations": [
+        "User benefit remains untested."
+      ]
+    }
+  ],
+  "proposed_changes": [
+    {
+      "change_id": "change_example_preview",
+      "title": "Prototype a structure preview",
+      "description": "Display the planned heading tree and changed sections before applying a formatting operation.",
+      "finding_ids": [
+        "finding_example_idea"
+      ],
+      "status": "proposed",
+      "expected_benefit": "Users may identify unintended structural changes before committing them.",
+      "risks": [
+        "Extra review effort may outweigh the benefit on simple documents."
+      ],
+      "implementation_refs": [],
+      "rollback": "Disable the optional preview and preserve the existing formatting flow."
+    }
+  ],
+  "validation_cases": [
+    {
+      "case_id": "case_example_review",
+      "title": "Compare detection of unintended heading changes",
+      "finding_ids": [
+        "finding_example_preview",
+        "finding_example_idea"
+      ],
+      "change_ids": [
+        "change_example_preview"
+      ],
+      "kind": "comparison",
+      "context": "Use held-out synthetic documents with known heading changes; record tool version and configuration.",
+      "procedure": [
+        "Prepare distinct held-out documents and known structural changes.",
+        "Compare review with and without the prototype using the same evaluation criteria.",
+        "Record missed changes, review time, user feedback, and total cost."
+      ],
+      "expected_result": "A useful improvement should reduce missed unintended changes without unacceptable review overhead. No numerical improvement is predicted as fact.",
+      "status": "proposed",
+      "observed_result": null,
+      "evidence_refs": [],
+      "portability": "requires_redacted_fixture",
+      "limitations": [
+        "The fixture generator and original source documents are not bundled in this schema example."
+      ]
+    }
+  ],
+  "adoption": {
+    "status": "candidate",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "dream_origin_job_id": "job_creative_example",
+  "risk_limits": [
+    "No automatic publication, plugin modification, or execution of this proposal."
+  ],
+  "follow_up": [
+    {
+      "trigger": "change_implemented",
+      "description": "Rerun the comparison under the new version and record actual outcomes before adopting the improvement.",
+      "validation_case_ids": [
+        "case_example_review"
+      ],
+      "status": "proposed",
+      "outcome_refs": []
+    }
+  ],
+  "export_manifest": {
+    "exported_at": null,
+    "source_refs": [
+      {
+        "record_id": "rec_component_0001",
+        "revision": 1
+      },
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      },
+      {
+        "record_id": "rec_hypothes_0001",
+        "revision": 1
+      }
+    ],
+    "artifacts": [],
+    "privacy_policy_id": "privacy_fixture_redacted",
+    "redactions": [
+      {
+        "category": "private_path",
+        "description": "Local artifact locators are omitted.",
+        "affected_refs": [
+          {
+            "record_id": "rec_sourcexx_0001",
+            "revision": 1
+          }
+        ],
+        "reproducibility_impact": "reduced"
+      }
+    ],
+    "withheld_reference_count": 0,
+    "coverage": {
+      "status": "partial",
+      "unit": "records",
+      "processed": 3,
+      "total": null,
+      "ranges": [],
+      "omissions": [
+        "Content-store artifacts are illustrative references."
+      ],
+      "description": "Synthetic portable manifest; original content is not bundled."
+    },
+    "residual_limits": [
+      "Copies exported outside service control cannot be recalled automatically."
+    ]
+  }
+}

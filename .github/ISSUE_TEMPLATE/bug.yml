@@ -1,0 +1,51 @@
+name: Bug report
+description: Report observed behavior with a reproducible case and environment.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Report what actually happened. Remove credentials, pairing codes, private memory contents, and authenticated URLs from examples and logs. A model's proposed explanation is a hypothesis until supported by evidence.
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior and impact
+      description: State the concrete result and how it affects the task.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Link the contract, guide, or milestone criterion when available.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide a small safe reproduction, input conditions, and whether the issue repeats. If reproduction is unavailable, state that explicitly.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment and candidate
+      description: Include the actual NOESIS version/commit, OMP version, OS, runtime, provider/model if relevant, and native or MCP path. For LAN issues include device/browser types and interface conditions without secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sanitized evidence
+      description: Include relevant error text, source/job IDs, observed state, or screenshots. Distinguish executed checks from unrun suggestions; never upload a private database or transcript by default.
+  - type: textarea
+    id: hypotheses
+    attributes:
+      label: Suspected cause or workaround
+      description: Mark hypotheses clearly and state whether a workaround was actually tried and what happened.
+  - type: input
+    id: related
+    attributes:
+      label: Related task, milestone, or issue
+      placeholder: "For example: M1-05 or M8-02"

@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.1.0",
+  "status": "proposed-policy-not-runtime-config",
+  "service": {
+    "bind_host": "0.0.0.0",
+    "port": 7337,
+    "advertised_host": null,
+    "ipv6_enabled": false,
+    "port_conflict_policy": "fail",
+    "same_origin": true
+  },
+  "onboarding": {
+    "text_qr": true,
+    "qr_url_path": "/pair",
+    "qr_contains_secret": false,
+    "show_alternate_addresses": true,
+    "require_ready_listener": true
+  },
+  "auth": {
+    "mode": "pairing",
+    "anonymous_private_reads": false,
+    "pairing_code_digits": 8,
+    "pairing_code_ttl_seconds": 300,
+    "single_use": true,
+    "per_client_attempts_per_minute": 5,
+    "global_attempts_per_minute": 20,
+    "session_revocation": true
+  },
+  "storage": {
+    "backend": "sqlite",
+    "data_directory": null,
+    "source_blobs_separate": true,
+    "raw_retention_days": null,
+    "retention_policy_required": true
+  },
+  "automatic_learning": {
+    "enabled": true,
+    "default_level": "snooze",
+    "model_assisted_enabled": false,
+    "idle_debounce_seconds": 60
+  },
+  "model_roles": {
+    "extract": null,
+    "synthesize": null,
+    "evaluate": null
+  },
+  "budgets": {
+    "currency": null,
+    "per_job_money_limit": null,
+    "daily_money_limit": null,
+    "unknown_price_policy": "block_when_money_cap_required",
+    "aggregate_children_and_retries": true
+  },
+  "dream_profiles": {
+    "snooze": {
+      "max_source_records": 100,
+      "max_model_calls": 0,
+      "max_model_tokens": 0,
+      "max_wall_seconds": 30,
+      "max_child_jobs": 0,
+      "max_output_records": 100,
+      "max_concurrency": 1
+    },
+    "nap": {
+      "max_source_records": 150,
+      "max_model_calls": 3,
+      "max_model_tokens": 12000,
+      "max_wall_seconds": 90,
+      "max_child_jobs": 1,
+      "max_output_records": 25,
+      "max_concurrency": 1
+    },
+    "dream": {
+      "max_source_records": 400,
+      "max_model_calls": 8,
+      "max_model_tokens": 40000,
+      "max_wall_seconds": 300,
+      "max_child_jobs": 3,
+      "max_output_records": 50,
+      "max_concurrency": 2
+    },
+    "deep_sleep": {
+      "max_source_records": 1200,
+      "max_model_calls": 20,
+      "max_model_tokens": 100000,
+      "max_wall_seconds": 900,
+      "max_child_jobs": 6,
+      "max_output_records": 100,
+      "max_concurrency": 2
+    }
+  },
+  "fading": {
+    "states": [
+      "active",
+      "quiet",
+      "dormant"
+    ],
+    "clock": "elapsed_time_or_relevant_opportunities",
+    "inspection_reinforces": false,
+    "confidence_decays_with_age": false,
+    "protected": [
+      "applicable_explicit_constraints",
+      "open_commitments",
+      "rejection_reasons"
+    ]
+  },
+  "optional_adapters": {
+    "mcp": false,
+    "cognee": false,
+    "graphiti": false,
+    "mem0": false,
+    "simplemem": false,
+    "cogx": false
+  }
+}

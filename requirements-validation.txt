@@ -1,0 +1,10 @@
+# Pinned bootstrap-only dependencies observed in the validation environment.
+# Application dependencies and their authoritative lockfile are resolved in M0.
+attrs==26.1.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+qrcode==8.2
+referencing==0.37.0
+rpds-py==2026.9.1
+typing_extensions==4.16.0
+colorama==0.4.6; sys_platform == "win32"

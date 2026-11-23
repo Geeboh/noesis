@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "rec_lessonxx_0001",
+  "revision": 1,
+  "record_type": "lesson",
+  "created_at": "2026-11-23T12:00:00Z",
+  "updated_at": "2026-11-23T12:00:00Z",
+  "scope": {
+    "scope_id": "scp_project_example",
+    "owner_id": "usr_example_owner",
+    "kind": "project",
+    "project_id": "prj_example_documents",
+    "task_id": null,
+    "session_id": null,
+    "environment_id": null,
+    "sharing": "private"
+  },
+  "provenance": {
+    "origin": "agent_derivation",
+    "creator": {
+      "actor_kind": "service",
+      "actor_id": "svc_example_noesis"
+    },
+    "source_refs": [],
+    "derived_from": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      },
+      {
+        "record_id": "rec_memoryxx_0001",
+        "revision": 1
+      }
+    ],
+    "capture_idempotency_key": "fixture:lessonxx:1",
+    "transformation": null,
+    "dream_job_id": null
+  },
+  "activation": {
+    "anchor_score": 0.5,
+    "score": 0.5,
+    "anchor_at": "2026-11-23T12:00:00Z",
+    "evaluated_at": null,
+    "relevant_opportunities_since_anchor": 0,
+    "protection": "none",
+    "protection_reason": null,
+    "policy_id": "ebb_fixture_v1"
+  },
+  "confidence": {
+    "assessment": "low",
+    "basis": "One incomplete synthetic event; no measured task improvement.",
+    "evidence_refs": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      }
+    ]
+  },
+  "validity": {
+    "status": "unknown",
+    "valid_from": null,
+    "valid_until": null,
+    "compatibility": [
+      {
+        "resource_ref": {
+          "record_id": "rec_component_0001",
+          "revision": 1
+        },
+        "version": null,
+        "condition": "Tool version is unknown; applicability must be checked."
+      }
+    ],
+    "superseded_by": null,
+    "reason": null
+  },
+  "retention": {
+    "policy_id": "retention_fixture_v1",
+    "class": "standard",
+    "eligible_after": null,
+    "review_after": "2027-02-23T12:00:00Z",
+    "reason": "Synthetic contract fixture."
+  },
+  "adoption": {
+    "status": "candidate",
+    "decision_ref": null,
+    "effective_from": null,
+    "adopted_by": null
+  },
+  "payload": {
+    "trigger": "A document-formatting step changes heading structure.",
+    "recommendation": "Check the resulting heading structure before further editing.",
+    "rationale": "Synthetic preview evidence raises a possible issue; the proposed check is reversible and low impact.",
+    "applies_when": [
+      "Formatting changes structural headings."
+    ],
+    "exclusions": [
+      "No heading structure is changed."
+    ],
+    "expected_benefit": "Catch visible structural mistakes sooner; improvement is unmeasured.",
+    "validation_state": "inconclusive",
+    "evidence_refs": [
+      {
+        "record_id": "rec_evidence_0001",
+        "revision": 1
+      }
+    ],
+    "application_refs": [],
+    "retirement_conditions": [
+      "Retire or narrow if controlled use finds no benefit."
+    ]
+  }
+}

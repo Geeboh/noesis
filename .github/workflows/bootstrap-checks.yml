@@ -1,0 +1,33 @@
+name: Bootstrap checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: bootstrap-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  bootstrap:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1; verified 2026-11-24
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0; verified 2026-11-24
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-validation.txt
+      - name: Install bootstrap validation dependencies
+        run: python -m pip install -r requirements-validation.txt
+      - name: Validate bootstrap contracts and plan
+        run: python scripts/validate_bootstrap.py --strict-schemas
+      - name: Check bootstrap helper behavior
+        run: python -m unittest discover -s tests/bootstrap -v
+# This workflow validates the bootstrap. M0 adds real application build/test jobs.
+# It does not publish, tag, deploy, install OMP, or certify a completed NOESIS product.

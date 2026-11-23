@@ -1,0 +1,46 @@
+name: Feature or improvement
+description: Propose a concrete NOESIS behavior and its evidence of success.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the work NOESIS should support. Coding, research, planning, external resources, and other workflows are all in scope. Do not include private transcripts, credentials, pairing codes, or confidential source contents.
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What task is difficult today, and who needs the change?
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Proposed behavior
+      description: Describe the observable outcome, with an example if useful.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and affected capability
+      description: Identify resources, versions, work types, and relevant NOESIS areas. Explain whether this extends or changes an existing milestone.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Evidence of success
+      description: Give concrete acceptance cases and meaningful validation. Separate observed evidence from hypotheses; do not propose broad testing without a specific risk.
+    validations:
+      required: true
+  - type: textarea
+    id: tradeoffs
+    attributes:
+      label: Constraints and tradeoffs
+      description: Note relevant scope, privacy, model cost, local resource use, compatibility, or dependencies. Leave empty if unknown.
+  - type: input
+    id: related
+    attributes:
+      label: Related task, milestone, or decision
+      placeholder: "For example: M4-02, M6, or a decision record"

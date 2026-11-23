@@ -1,0 +1,900 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "job_id": {
+      "type": "string",
+      "pattern": "^job_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "parent_job_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^job_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "root_job_id": {
+      "type": "string",
+      "pattern": "^job_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+    },
+    "requested_by": {
+      "$ref": "record.schema.json#/$defs/actor"
+    },
+    "request_origin": {
+      "type": "string",
+      "enum": [
+        "on_demand",
+        "autonomous"
+      ]
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "level": {
+      "type": "string",
+      "enum": [
+        "snooze",
+        "nap",
+        "dream",
+        "deep_sleep"
+      ]
+    },
+    "modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "consolidate",
+          "associate",
+          "imagine",
+          "rehearse",
+          "reframe"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "description": "The UI/tool shorthand mixed is expanded before acceptance into these concrete modes; it is never an extra unbounded mode."
+    },
+    "focus": {
+      "$ref": "#/$defs/focus"
+    },
+    "scopes": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/scope"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "input_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/record_ref"
+      },
+      "minItems": 0,
+      "maxItems": 10000
+    },
+    "execution_kind": {
+      "type": "string",
+      "enum": [
+        "deterministic",
+        "model_assisted"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "queued",
+        "running",
+        "paused",
+        "completed",
+        "cancelled",
+        "failed",
+        "budget_exhausted"
+      ]
+    },
+    "budget": {
+      "$ref": "#/$defs/budget"
+    },
+    "usage": {
+      "$ref": "#/$defs/usage"
+    },
+    "lease": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/lease"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "checkpoint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/checkpoint"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/plan_step"
+      },
+      "minItems": 0,
+      "maxItems": 5000
+    },
+    "cancel_requested_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "finished_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "child_job_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^job_[A-Za-z0-9][A-Za-z0-9_-]{7,127}$"
+      },
+      "minItems": 0,
+      "maxItems": 1000,
+      "uniqueItems": true
+    },
+    "output_record_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/record_ref"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "blueprint_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "record.schema.json#/$defs/blueprint_ref"
+      },
+      "minItems": 0,
+      "maxItems": 1000
+    },
+    "coverage": {
+      "$ref": "record.schema.json#/$defs/coverage"
+    },
+    "failure": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/error"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "job_id",
+    "revision",
+    "parent_job_id",
+    "root_job_id",
+    "requested_by",
+    "request_origin",
+    "idempotency_key",
+    "created_at",
+    "updated_at",
+    "level",
+    "modes",
+    "focus",
+    "scopes",
+    "input_refs",
+    "execution_kind",
+    "status",
+    "budget",
+    "usage",
+    "lease",
+    "checkpoint",
+    "steps",
+    "cancel_requested_at",
+    "finished_at",
+    "child_job_ids",
+    "output_record_refs",
+    "blueprint_refs",
+    "coverage",
+    "failure"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.noesis.invalid/v0.1.0/dream-job.schema.json",
+  "title": "NOESIS durable dream job candidate contract 0.1.0",
+  "description": "A bounded, resumable dream job. Runtime must enforce reservation atomicity, child aggregation, leases, scope, provenance, and ordered timestamps. Deeper levels confer no truth or authority.",
+  "$defs": {
+    "budget": {
+      "type": "object",
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_cost": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max_wall_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_step_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_model_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_input_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_total_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_source_records": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_output_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_child_jobs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_concurrency": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "policy_id",
+        "currency",
+        "max_cost",
+        "max_wall_seconds",
+        "max_step_seconds",
+        "max_model_calls",
+        "max_input_tokens",
+        "max_output_tokens",
+        "max_total_tokens",
+        "max_source_records",
+        "max_output_records",
+        "max_child_jobs",
+        "max_concurrency"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "max_cost": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              }
+            }
+          }
+        }
+      ],
+      "description": "Finite call/token/time/work limits always apply. A positive monetary cap requires currency. Null monetary settings mean no configured money limit, not zero price; paid dispatch and unknown pricing require separate policy checks."
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "model_calls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_tokens": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wall_seconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "type": "number",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reserved_cost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "reserved_total_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "price_status": {
+          "type": "string",
+          "enum": [
+            "known",
+            "estimated",
+            "unknown"
+          ]
+        },
+        "measurement_completeness": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "unknown"
+          ]
+        },
+        "aggregate_includes_children": {
+          "const": true
+        },
+        "provider_receipt_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        }
+      },
+      "required": [
+        "model_calls",
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "wall_seconds",
+        "cost",
+        "reserved_cost",
+        "reserved_total_tokens",
+        "price_status",
+        "measurement_completeness",
+        "aggregate_includes_children",
+        "provider_receipt_refs"
+      ],
+      "additionalProperties": false
+    },
+    "focus": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "open",
+            "targeted"
+          ]
+        },
+        "query": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        }
+      },
+      "required": [
+        "kind",
+        "query",
+        "target_refs"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "targeted"
+              }
+            }
+          },
+          "then": {
+            "anyOf": [
+              {
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8000
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "target_refs": {
+                    "minItems": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "lease": {
+      "type": "object",
+      "properties": {
+        "owner_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "fencing_token": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "acquired_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "heartbeat_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "owner_id",
+        "fencing_token",
+        "acquired_at",
+        "expires_at",
+        "heartbeat_at"
+      ],
+      "additionalProperties": false
+    },
+    "checkpoint": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "completed_step_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 160,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+          },
+          "minItems": 0,
+          "maxItems": 5000,
+          "uniqueItems": true
+        },
+        "artifact_ref": {
+          "anyOf": [
+            {
+              "$ref": "record.schema.json#/$defs/artifact_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "saved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "step_id",
+        "completed_step_ids",
+        "artifact_ref",
+        "attempt",
+        "saved_at"
+      ],
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "INVALID_ARGUMENT",
+            "CONTRACT_MISMATCH",
+            "NOT_SUPPORTED",
+            "NOT_FOUND_OR_FORBIDDEN",
+            "REVISION_CONFLICT",
+            "IDEMPOTENCY_CONFLICT",
+            "BUDGET_EXHAUSTED",
+            "RATE_LIMITED",
+            "PROVIDER_UNAVAILABLE",
+            "INDEX_PARTIAL",
+            "LEASE_LOST",
+            "CANCELLED",
+            "DEPENDENCY_DELETED",
+            "MIGRATION_REQUIRED",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "retry_after_ms": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "incident_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 160,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "retryable",
+        "retry_after_ms",
+        "incident_id"
+      ],
+      "additionalProperties": false
+    },
+    "plan_step": {
+      "type": "object",
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 160,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]+$"
+        },
+        "activity": {
+          "type": "string",
+          "enum": [
+            "select",
+            "consolidate",
+            "associate",
+            "imagine",
+            "rehearse",
+            "reframe",
+            "critique",
+            "persist",
+            "report"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "running",
+            "completed",
+            "skipped",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "output_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "record.schema.json#/$defs/record_ref"
+          },
+          "minItems": 0,
+          "maxItems": 1000
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "required": [
+        "step_id",
+        "activity",
+        "status",
+        "input_refs",
+        "output_refs",
+        "description"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "execution_kind": {
+            "const": "deterministic"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "level": {
+            "const": "snooze"
+          },
+          "modes": {
+            "const": [
+              "consolidate"
+            ]
+          },
+          "budget": {
+            "properties": {
+              "max_model_calls": {
+                "const": 0
+              },
+              "max_input_tokens": {
+                "const": 0
+              },
+              "max_output_tokens": {
+                "const": 0
+              },
+              "max_total_tokens": {
+                "const": 0
+              },
+              "max_cost": {
+                "const": 0
+              },
+              "max_child_jobs": {
+                "const": 0
+              }
+            }
+          },
+          "usage": {
+            "properties": {
+              "model_calls": {
+                "const": 0
+              },
+              "input_tokens": {
+                "const": 0
+              },
+              "output_tokens": {
+                "const": 0
+              },
+              "total_tokens": {
+                "const": 0
+              },
+              "cost": {
+                "const": 0
+              },
+              "reserved_cost": {
+                "const": 0
+              },
+              "reserved_total_tokens": {
+                "const": 0
+              }
+            }
+          },
+          "child_job_ids": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "running"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "lease": {
+            "$ref": "#/$defs/lease"
+          },
+          "finished_at": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "completed",
+              "cancelled",
+              "failed",
+              "budget_exhausted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "finished_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lease": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "failure": {
+            "$ref": "#/$defs/error"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "failure": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}
