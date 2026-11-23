@@ -58,7 +58,7 @@ test("mind_inspect returns exact revision and source without disclosing forbidde
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
-test("mind_dream admits only durable deterministic Snooze jobs", () => {
+test("mind_dream admits full bounded Reverie levels and modes", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));
   const principal = { owner_id: "operator", scope_ids: [] };
@@ -69,7 +69,9 @@ test("mind_dream admits only durable deterministic Snooze jobs", () => {
   assert.equal(first.state, "queued");
   assert.equal(first.budget.max_model_tokens, 0);
   assert.equal(second.duplicate, true);
-  assert.throws(() => service.mindDream({ principal, scope_ids: [scope.scope_id], level: "dream", producer_id: "omp-session", idempotency_key: "dream-2" }), /only deterministic/);
+  const full = service.mindDream({ principal, scope_ids: [scope.scope_id], level: "dream", modes: ["imagine"], producer_id: "omp-session", idempotency_key: "dream-2" });
+  assert.equal(full.duplicate, false);
+  assert.equal(full.budget.max_model_tokens, 40_000);
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
@@ -127,23 +129,22 @@ test("Snooze cancellation survives close and reopen", () => {
   second.close();
   rmSync(directory, { recursive: true, force: true });
 });
-test("capabilities advertise only implemented M1 dream support", () => {
+test("capabilities advertise full Reverie dream support", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));
   const capabilities = service.mindCapabilities();
-  assert.deepEqual(capabilities.dream.levels, ["snooze"]);
-  assert.deepEqual(capabilities.dream.modes, ["consolidate"]);
-  assert.equal(capabilities.dream.execution_kinds[0], "deterministic");
+  assert.deepEqual(capabilities.dream.levels, ["snooze", "nap", "dream", "deep_sleep"]);
+  assert.deepEqual(capabilities.dream.modes, ["consolidate", "associate", "imagine", "rehearse", "reframe"]);
+  assert.equal(capabilities.dream.execution_kinds[0], "bounded");
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
-test("unsupported dream requests do not create a durable job", () => {
+test("full dream levels do not create unsupported jobs", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));
   const principal = { owner_id: "operator", scope_ids: [] };
   service.mindNote({ principal, scope, content: "unsupported input", producer_id: "omp-session", idempotency_key: "note-unsupported" });
-  assert.throws(() => service.mindDream({ principal, scope_ids: [scope.scope_id], level: "deep_sleep", producer_id: "omp-session", idempotency_key: "unsupported-job" }), /only deterministic/);
-  const supported = service.mindDream({ principal, scope_ids: [scope.scope_id], producer_id: "omp-session", idempotency_key: "unsupported-job" });
+  const supported = service.mindDream({ principal, scope_ids: [scope.scope_id], level: "deep_sleep", modes: ["reframe"], producer_id: "omp-session", idempotency_key: "unsupported-job" });
   assert.equal(supported.duplicate, false);
   assert.equal(supported.state, "queued");
   service.close();

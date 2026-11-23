@@ -27,7 +27,7 @@ test("Observatory denies private data until pairing, then serves real service da
   const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
   const capabilities = await fetch(`${base}/api/capabilities`, { headers: { cookie } });
   assert.equal(capabilities.status, 200);
-  assert.deepEqual((await capabilities.json()).dream.levels, ["snooze"]);
+  assert.deepEqual((await capabilities.json()).dream.levels, ["snooze", "nap", "dream", "deep_sleep"]);
   const note = await fetch(`${base}/api/note`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" }, body: JSON.stringify({ content: "dashboard observation" }) });
   assert.equal(note.status, 200);
   const recall = await fetch(`${base}/api/recall?query=dashboard`, { headers: { cookie } });

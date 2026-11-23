@@ -1,7 +1,8 @@
 import { randomUUID } from "node:crypto";
 import { CONTRACT_VERSION, makeEvent, makeRecord } from "./contracts.mjs";
 import { LedgerError, openStore } from "./store.mjs";
-import { makeDreamJob, makeRecallHit, scopeAllows } from "./service-contracts.mjs";
+import { createDreamSpec, makeHypothesis } from "./reverie.mjs";
+import { makeRecallHit, scopeAllows } from "./service-contracts.mjs";
 
 const MAX_NOTE_CHARS = 16_000;
 
@@ -75,20 +76,11 @@ export function createService(store) {
       return { record, sources };
     },
     mindDream({ principal, scope_ids, level = "snooze", modes = ["consolidate"], focus = null, producer_id, idempotency_key }) {
-      if (level !== "snooze" || modes.length !== 1 || modes[0] !== "consolidate") throw new LedgerError("NOT_SUPPORTED", "only deterministic snooze/consolidate is available");
       if (!producer_id || !idempotency_key) throw new LedgerError("INVALID_ARGUMENT", "producer_id and idempotency_key are required");
       const authorized_scopes = authorizedScopeIds(store, principal, scope_ids);
-      const job = makeDreamJob({ job_id: randomUUID(), level, modes, focus, scope_ids: authorized_scopes });
-      const created = store.createProcessingJob({
-        job_id: job.job_id,
-        kind: "dream",
-        payload: job,
-        checkpoint: job.checkpoint,
-        producer_id,
-        operation: "mind_dream",
-        idempotency_key,
-        request: { level, modes, focus, scope_ids: authorized_scopes },
-      });
+      const spec = createDreamSpec({ job_id: randomUUID(), level, modes, focus, scope_ids: authorized_scopes });
+      const job = { ...spec, state: "queued", checkpoint: { cursor: 0, completed_steps: 0, total_steps: null } };
+      const created = store.createProcessingJob({ job_id: job.job_id, kind: "dream", payload: job, checkpoint: job.checkpoint, producer_id, operation: "mind_dream", idempotency_key, request: { level, modes, focus, scope_ids: authorized_scopes } });
       return { status: "accepted", job_id: created.receipt?.job_id ?? created.job_id, state: "queued", budget: job.budget, usage: job.usage, duplicate: created.duplicate ?? false };
     },
     mindCapabilities() {
@@ -96,13 +88,16 @@ export function createService(store) {
         contract_version: CONTRACT_VERSION,
         capability_revision: 1,
         available_tools: ["mind_note", "mind_recall", "mind_inspect", "mind_dream"],
-        dream: { levels: ["snooze"], modes: ["consolidate"], execution_kinds: ["deterministic"] },
+        dream: { levels: ["snooze", "nap", "dream", "deep_sleep"], modes: ["consolidate", "associate", "imagine", "rehearse", "reframe"], execution_kinds: ["bounded"] },
         retrieval: { full_text: false, lexical: true, vectors: false },
         limits: { max_inline_records: 8, max_inline_chars: 12000 },
       };
     },
-    runSnooze({ principal, job_id, max_records = 100 }) {
-      if (!Number.isInteger(max_records) || max_records < 1 || max_records > 100) throw new LedgerError("INVALID_ARGUMENT", "invalid Snooze record budget");
+    runSnooze(args) {
+      return this.runDream(args);
+    },
+    runDream({ principal, job_id, max_records = 100 }) {
+      if (!Number.isInteger(max_records) || max_records < 1 || max_records > 1200) throw new LedgerError("INVALID_ARGUMENT", "invalid dream record budget");
       const saved = store.getProcessingJob(job_id);
       if (!saved || saved.kind !== "dream") throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "job is not available");
       const job = saved.payload;
@@ -110,8 +105,10 @@ export function createService(store) {
       if (saved.state === "cancelled" || saved.state === "completed") return this.mindDreamStatus({ principal, job_id });
       const records = store.listRecords().filter((record) => job.scope_ids.includes(record.scope.scope_id)).slice(0, max_records);
       const checkpoint = { cursor: records.length, completed_steps: records.length, total_steps: records.length };
-      const output = { type: "maintenance_receipt", status: "no_change", reason: "deterministic Snooze performs bookkeeping only", record_ids: records.map((record) => record.record_id) };
-      const updated = { ...job, state: "completed", checkpoint, outputs: [output] };
+      const outputs = job.modes.includes("consolidate")
+        ? [{ type: "maintenance_receipt", status: "no_change", reason: "bounded deterministic consolidation", record_ids: records.map((record) => record.record_id) }]
+        : job.modes.map((mode) => makeHypothesis({ job_id, kind: mode, statement: `bounded ${mode} proposal over ${records.length} authorized records`, source_refs: records.map((record) => record.record_id), validation_needed: ["authorized real-world validation"] }));
+      const updated = { ...job, state: "completed", checkpoint, outputs };
       store.updateProcessingJob(job_id, "completed", { payload: updated, checkpoint });
       return this.mindDreamStatus({ principal, job_id });
     },
