@@ -1,7 +1,7 @@
 # NOESIS v0.1.0-alpha.1 local candidate notes
 
 **Status:** local candidate preparation, not released.
-**Candidate:** `740d00a4982cc703928db58477ceb2a850bb265b`
+**Candidate:** `72733625ce83d23da04b58dbe1e9fae0f003a4f1`
 
 ## Implemented
 
@@ -13,10 +13,11 @@
 - Atlas resource aliases, snapshots, independent evidence states, lineage, and Chronicle events.
 - Attunement correction/support records, reversible Ebb activation, and explicit forgetment receipts.
 - Lore, Forge/Blueprint, and native archive integrity core modules.
+- M8 native backup/restore and health checks now have deterministic coverage; stable release hardening remains open.
 
 ## Validation
 
-`npm run release:check` is the reproducible local gate. The latest observed run passed 45 tests, bootstrap validation, and syntax checks before the later package script addition.
+`npm run release:check` is the reproducible local gate. The latest observed run passed 46 tests, bootstrap validation, and CLI/server syntax checks.
 
 Real OMP capture returned a durable `mind_note` receipt and fresh OMP recall returned the stored record ID. The HTTP Observatory journey covered denied access, pairing, reuse rejection, note, recall, inspection, and Snooze status. CLI smoke printed an actual LAN URL and QR after bind.
 
