@@ -1,7 +1,7 @@
 # NOESIS v0.7.0-beta.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `d292e7a`
+**Status:** released to private GitHub repository.
+**Candidate:** `e86f6bd`
 
 ## Implemented
 
@@ -25,4 +25,4 @@ MCP tasks M7-02 and M7-03 are explicitly deferred by DEC-0002. MCP and external 
 - Optional adapters require a new selection decision and compatibility evidence.
 - M8 hardening and release reproducibility remain next.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
