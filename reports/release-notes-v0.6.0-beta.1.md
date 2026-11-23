@@ -1,7 +1,7 @@
 # NOESIS v0.6.0-beta.1 release notes
 
-**Status:** local candidate preparation, not released.
-**Candidate:** `4408fc6`
+**Status:** released to private GitHub repository.
+**Candidate:** `9a27dab`
 
 ## Implemented
 
@@ -23,4 +23,4 @@
 - Interactive browser control, physical second-device LAN validation, and M8 release reproducibility remain unverified.
 - M7 native portability is next.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub prerelease. No package was published, deployed, or exposed to the public Internet.
