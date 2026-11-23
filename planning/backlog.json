@@ -117,7 +117,7 @@
       "id": "M0-01",
       "milestone_id": "M0",
       "title": "Verify the OMP environment and integration surface",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [],
       "outputs": [
@@ -140,13 +140,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["reports/validation-M0-scaffold.md", "reports/milestone-M0.md", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M0-02",
       "milestone_id": "M0",
       "title": "Establish repository ownership and safe bootstrap integration",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [],
       "outputs": [
@@ -169,13 +169,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["python3 scripts/doctor.py", "python3 scripts/validate_bootstrap.py", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M0-03",
       "milestone_id": "M0",
       "title": "Define core contracts and a lightweight candidate architecture",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M0-01",
@@ -200,13 +200,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["reports/decisions/DEC-0001-m0-toolchain.md", "reports/validation-M0-scaffold.md", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M0-04",
       "milestone_id": "M0",
       "title": "Define scope, privacy, LAN pairing, and external-action boundaries",
-      "status": "planned",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M0-03"
@@ -232,13 +232,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["config/noesis.example.json", "docs/11-OPERATIONS-AND-BUDGETS.md", "reports/milestone-M0.md"]
     },
     {
       "id": "M0-05",
       "milestone_id": "M0",
       "title": "Bind validation targets and establish application CI",
- "status": "in_progress",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M0-01",
@@ -267,13 +267,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["validation/registry.json", ".github/workflows/application.yml", "reports/validation-M0-scaffold.md", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M0-06",
       "milestone_id": "M0",
       "title": "Close foundation decisions and baseline the implementation forecast",
-      "status": "planned",
+ "status": "done",
       "priority": "P0",
       "depends_on": [
         "M0-01",
@@ -301,7 +301,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+ "completion_evidence": ["reports/milestone-M0.md", "reports/decisions/DEC-0001-m0-toolchain.md", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M1-01",

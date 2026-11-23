@@ -74,7 +74,7 @@
     {
       "id": "M0",
       "title": "Verified foundation",
- "status": "in_progress",
+ "status": "done",
       "release_target": null,
       "depends_on": [],
       "effort_days": {
@@ -115,7 +115,7 @@
         "M0-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+ "completion_evidence": ["reports/milestone-M0.md", "reports/validation-M0-scaffold.md", "17151f48e3ac4e9d58168a30d7f743db570bfd37"]
     },
     {
       "id": "M1",

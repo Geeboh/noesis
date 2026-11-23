@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M0 in progress; selected toolchain and initial scaffold are verified, product runtime is not implemented.
+**Implementation state:** M0 complete; M1 is the first product milestone and no product release is claimed.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -11,7 +11,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 
 | ID | Milestone | State | Product target | Completion evidence |
 | --- | --- | --- | --- | --- |
-| M0 | Verified foundation | in_progress | No release | `reports/milestone-M0.md` |
+| M0 | Verified foundation | done | No release | `reports/milestone-M0.md` |
 | M1 | Working Mind loop and LAN Observatory | planned | `v0.1.0-alpha.1` | None yet |
 | M2 | Atlas, Lineage, and Chronicle | planned | `v0.2.0-alpha.1` | None yet |
 | M3 | Attunement and Ebb | planned | `v0.3.0-alpha.1` | None yet |
@@ -21,11 +21,11 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M7 | Native portability and optional adapters | planned | `v0.7.0-beta.1` | None yet |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. Of these, 52 are required for v1 and two MCP adapter tasks are explicitly optional. All are planned in this snapshot. The estimate is 59–86 engineering days, roughly 12–18 working weeks under the roadmap assumptions. It is not a promised completion date.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 is complete with actual environment, toolchain, command-map, and planning evidence. M1–M8 remain planned. The estimate is 59–86 engineering days, roughly 12–18 working weeks under the roadmap assumptions. It is not a promised completion date.
 
 ## Next authorized work
 
-Begin M0-03, M0-04, M0-05, and M0-06 after the selected toolchain. M1-01 is the next dependency-ready product task once M0 closes.
+Begin M1-01: implement the durable evidence and event ledger against the M0-06 foundation.
 
 The bootstrap diagnostics are:
 
@@ -57,16 +57,9 @@ Keep task and milestone IDs stable so history and traceability remain valid. Cha
 
 Use `templates/MILESTONE-REPORT.md` at milestone closure. Keep absent runtime checks as **not run**, failed checks as **failed**, and unavailable checks as **unavailable** with their reason. A physical cross-device LAN check is passed only if actually observed from another device; otherwise state the narrow limitation without replacing it with a mandatory human QA ceremony.
 
-# Active work claims
+## Active work claims
 
-M0 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/noesis-bootstrap-v1.0.0`.
-
-| Task | Owner | Branch/worktree | Owned paths | Start evidence | State |
-| --- | --- | --- | --- | --- | --- |
-| M0-01 | integration owner | `feat/m0-foundation` / current worktree | OMP probe and environment reports | `E1`, `E2` | in_progress |
-| M0-02 | integration owner | `feat/m0-foundation` / current worktree | planning and repository records | `E1` | in_progress |
-| M0-03 | integration owner | `feat/m0-foundation` / current worktree | package manifest, scaffold, decision record | `E3`, `VAL-M0-001` | in_progress |
-| M0-05 | integration owner | `feat/m0-foundation` / current worktree | validation registry and application checks | `VAL-M0-001` | in_progress |
+No product implementation task is claimed after the M0 foundation checkpoint. The integration owner remains on `feat/m0-foundation` at `/code/helpers/noesis-bootstrap-v1.0.0`.
 
 ## Evidence log
 
@@ -79,4 +72,4 @@ M0 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 
 ## Blockers and forecast changes
 
-No implementation blocker is established. M0 remains open until policy checks, CI binding, and final planning evidence are integrated.
+No implementation blocker is established. M0 is complete; M1-01 is dependency-ready.

@@ -2,38 +2,38 @@
 
 **Date:** 2026-11-24
 **Owner/reviewer:** integration owner
-**State:** in_progress
-**Candidate:** working tree before integration commit
+**State:** done
+**Candidate:** `17151f48e3ac4e9d58168a30d7f743db570bfd37`
 **Product target:** unreleased M0
 **Bootstrap version:** 1.0.0
 
 ## Outcome
 
-The repository and installed OMP were inspected without changing user configuration. OMP 19.1.1 loaded a real file-backed extension probe. Node 24, npm 11, built-in SQLite, and qrcode 1.5.4 are the selected application toolchain. The M0 scaffold test passes. M0 is not complete because the contract, privacy, CI, and planning records still need integration and the product runtime does not exist yet.
+The repository and installed OMP were inspected without changing user configuration. OMP 19.1.1 loaded a real file-backed extension probe. Node 24, npm 11, built-in SQLite, and qrcode 1.5.4 are the selected application toolchain. The M0 scaffold test passes. M0 closes with bounded host-event unknowns carried into M1; no product release or runtime feature is claimed.
 
 ## Scope delivered
 
 | Task ID | Concrete output | Acceptance result | Evidence |
 | --- | --- | --- | --- |
-| M0-01 | Host inventory and OMP extension probe | partial; installed interface observed, full event matrix pending | `scripts/probe_omp.mjs`, `E2` |
-| M0-02 | Existing branch/worktree inspected; no remote or license change | partial; integration commit pending | `git status --short --branch`, `E1` |
-| M0-03 | Toolchain decision and scaffold | partial; core contracts reviewed and scaffold passes | `reports/decisions/DEC-0001-m0-toolchain.md`, `VAL-M0-001` |
-| M0-04 | Contract review records LAN and pairing boundaries | pending implementation policy artifact | `docs/11-OPERATIONS-AND-BUDGETS.md` |
-| M0-05 | Validation registry and M0 command map | partial; three commands bound, later targets explicitly pending | `validation/registry.json`, `VAL-M0-001` |
-| M0-06 | Forecast and integration sequence | pending final status update after M0 implementation | this report |
+| M0-01 | Host inventory and OMP extension probe | met for the selected environment; event payload details remain an M1 adapter check | `scripts/probe_omp.mjs`, `E1`, `E2` |
+| M0-02 | Existing branch/worktree inspected; no remote or license change | met; checkpoint committed locally | `git status --short --branch`, `E1`, `17151f48e3` |
+| M0-03 | Toolchain decision and scaffold | met | `reports/decisions/DEC-0001-m0-toolchain.md`, `VAL-M0-001` |
+| M0-04 | Contract review records LAN and pairing boundaries | met; implementation remains M1 scope | `config/noesis.example.json`, `docs/11-OPERATIONS-AND-BUDGETS.md` |
+| M0-05 | Validation registry and M0 command map | met; later targets explicitly pending | `validation/registry.json`, `.github/workflows/application.yml`, `VAL-M0-001` |
+| M0-06 | Forecast and integration sequence | met; M1-01 is dependency-ready | this report, `planning/STATUS.md` |
 
 ## Exit criteria
 
 | Roadmap criterion | Observed result | Evidence or remaining work |
 | --- | --- | --- |
-| Environment and OMP integration evidence recorded | partial | `E1`, `E2`; record full event/tool/model coverage during M1 adapter work |
-| Core, scoping, and LAN-pairing contracts accepted | partial | source contracts reviewed; create executable policy checks before M1 closure |
-| Application command map and CI separate from bootstrap CI | partial | `validation/registry.json` and `npm run test:m0`; add application CI and real service checks |
+| Environment and OMP integration evidence recorded | met with bounded unknowns | `E1`, `E2`; host-event payload details are an M1 acceptance check |
+| Core, scoping, and LAN-pairing contracts accepted | met as contracts and policy fixture | `config/noesis.example.json`, `docs/11-OPERATIONS-AND-BUDGETS.md` |
+| Application command map and CI separate from bootstrap CI | met | `validation/registry.json`, `.github/workflows/application.yml`, `npm test` |
 
 ## Validation
 
 **Environment:** Linux x86_64, Node 24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1.
-**Tested candidate:** working tree, no commit yet.
+**Tested candidate:** `17151f48e3ac4e9d58168a30d7f743db570bfd37`.
 **Fixture/data origin:** synthetic only.
 
 | Target | Exact command or observed procedure | Result | Evidence | Limitation |
@@ -54,7 +54,7 @@ The repository and installed OMP were inspected without changing user configurat
 
 - M1 must implement the service, durable ledger, native OMP capture, pairing, dashboard, and Snooze.
 - Node `node:sqlite` is tied to the declared Node engine and needs restart/migration evidence.
-- The M0 status and backlog JSON still need synchronized actual completion evidence after integration.
+ - The M0 status and backlog JSON are synchronized with completion evidence.
 - Physical second-device LAN validation is unavailable until a device is present.
 
 ## Integration and release disposition
