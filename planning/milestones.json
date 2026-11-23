@@ -268,7 +268,7 @@
     {
       "id": "M4",
       "title": "Full Reverie",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.4.0-alpha.1",
       "depends_on": [
         "M2",
@@ -314,7 +314,7 @@
         "M4-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M4.md", "reports/validation-M4.md", "reports/release-notes-v0.4.0-alpha.1.md", "npm test"]
     },
     {
       "id": "M5",

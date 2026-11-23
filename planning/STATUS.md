@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M1, M2, and M3 done. M3 Attunement and Ebb integration is closed with explicit browser, physical-device, and external-copy limitations.
+**Implementation state:** M1, M2, M3, and M4 done. M4 Full Reverie is closed with deterministic bounded execution and explicit provider/browser limitations.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -15,17 +15,17 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M1 | Working Mind loop and LAN Observatory | done | `v0.1.0-alpha.1` | `reports/milestone-M1.md`, `reports/validation-M1.md`, `reports/release-notes-v0.1.0-alpha.1.md` |
 | M2 | Atlas, Lineage, and Chronicle | done | `v0.2.0-alpha.1` | `reports/milestone-M2.md`, `reports/validation-M2.md`, `reports/release-notes-v0.2.0-alpha.1.md` |
 | M3 | Attunement and Ebb | done | `v0.3.0-alpha.1` | `reports/milestone-M3.md`, `reports/validation-M3.md`, `reports/release-notes-v0.3.0-alpha.1.md` |
-| M4 | Full Reverie | in_progress | `v0.4.0-alpha.1` | `02f7b6bd99`, `test/reverie.test.mjs` |
+| M4 | Full Reverie | done | `v0.4.0-alpha.1` | `reports/milestone-M4.md`, `reports/validation-M4.md`, `reports/release-notes-v0.4.0-alpha.1.md` |
 | M5 | Lore living wiki | in_progress | `v0.5.0-beta.1` | `02f7b6bd99`, `test/lore.test.mjs` |
 | M6 | Forge and Blueprints | in_progress | `v0.6.0-beta.1` | `02f7b6bd99`, `test/forge.test.mjs` |
 | M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0, M1, M2, and M3 are complete. M4-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0, M1, M2, M3, and M4 are complete. M5-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
 
 ## Next authorized work
 
-Continue M4 integration: validate bounded Full Reverie behavior and its budgets before recording the M4 report.
+Continue M5 Lore integration: wire sourced pages, authored sections, and dependency invalidation into the Observatory before recording the M5 report.
 
 The bootstrap diagnostics are:
 
@@ -81,6 +81,12 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | M3-04 | integration owner | current worktree | forgetting tests and receipts | `e6b8649813` | done |
 | M3-05 | integration owner | current worktree | `src/server.mjs`, Observatory adaptation controls | `9b5a77a` | done |
 | M3-06 | integration owner | current worktree | M3 reports and release notes | current candidate validation | done |
+| M4-01 | integration owner | current worktree | `src/reverie.mjs`, mode/level tests | `c45f4d6` | done |
+| M4-02 | integration owner | current worktree | `src/service.mjs`, bounded job tests | `c45f4d6` | done |
+| M4-03 | integration owner | current worktree | retrospection and policy evaluation | `c45f4d6` | done |
+| M4-04 | integration owner | current worktree | hypothesis output tests | `c45f4d6` | done |
+| M4-05 | integration owner | current worktree | rehearsal and validation status | `c45f4d6` | done |
+| M4-06 | integration owner | current worktree | Reverie UI, M4 reports, release notes | current candidate validation | done |
 ## Evidence log
 
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
@@ -102,5 +108,8 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M3 core | `npm test` | 49 tests passed; correction precedence, Ebb idempotence, revival, and forgetting passed | `reports/validation-M3.md` |
 | 2026-11-24 | M3 Observatory | authenticated preference/Ebb/forget journey | correction, fade, revival, and explicit forgetting passed | `reports/validation-M3.md` |
 | 2026-11-24 | M3 browser | `playwright_fast capture` at 1280x720 and 390x844 | updated controls rendered with no page errors; capture is visual evidence only | `reports/validation-M3.md` |
+| 2026-11-24 | M4 core | `npm test` | 52 tests passed; bounded levels, modes, pause/resume, hypotheses, retrospection, and policy evaluation passed | `reports/validation-M4.md` |
+| 2026-11-24 | M4 Observatory | authenticated queue/run/cancel/retrospect journey | budgets, focus, hypothesis outputs, cancellation, and retrospection passed | `reports/validation-M4.md` |
+| 2026-11-24 | M4 browser | `playwright_fast capture` at 1280x720 and 390x844 | Reverie controls rendered with no page errors; capture is visual evidence only | `reports/validation-M4.md` |
 ## Blockers and forecast changes
-M1, M2, and M3 are complete. Interactive browser control, physical second-device LAN validation, and forgetting outside controlled storage remain unavailable. M4 integration is next.
+M1, M2, M3, and M4 are complete. Provider-backed model calls, interactive browser control, physical second-device LAN validation, and M8 release reproducibility remain unavailable. M5 integration is next.
