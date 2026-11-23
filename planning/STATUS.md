@@ -3,7 +3,7 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
-**Implementation state:** M1 done; M2 and M3 core policies are in progress. M1 alpha closure is recorded with known browser and physical-device limitations.
+**Implementation state:** M1 and M2 done; M3 core policies are in progress. M2 Atlas, Lineage, and Chronicle integration is closed with explicit source and environment limitations.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -12,7 +12,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | ID | Milestone | State | Product target | Completion evidence |
 | --- | --- | --- | --- | --- |
 | M0 | Verified foundation | done | No release | `reports/milestone-M0.md` |
-| M1 | Working Mind loop and LAN Observatory | done | `v0.1.0-alpha.1` | `reports/milestone-M1.md`, `reports/validation-M1.md`, `reports/release-notes-v0.1.0-alpha.1.md` |
+| M2 | Atlas, Lineage, and Chronicle | done | `v0.2.0-alpha.1` | `reports/milestone-M2.md`, `reports/validation-M2.md`, `reports/release-notes-v0.2.0-alpha.1.md` |
 | M2 | Atlas, Lineage, and Chronicle | in_progress | `v0.2.0-alpha.1` | `e5643fc79a`, `test/atlas.test.mjs` |
 | M3 | Attunement and Ebb | in_progress | `v0.3.0-alpha.1` | `e6b8649813`, `test/adaptation.test.mjs` |
 | M4 | Full Reverie | in_progress | `v0.4.0-alpha.1` | `02f7b6bd99`, `test/reverie.test.mjs` |
@@ -21,11 +21,11 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M7 | Native portability and optional adapters | in_progress | `v0.7.0-beta.1` | `02f7b6bd99`, `test/archive.test.mjs` |
 | M8 | Hardening and stable release | planned | `v1.0.0-rc.1` → `v1.0.0` | None yet |
 
-The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 and M1 are complete. M2/M3 core policies and M4-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
+The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0, M1, and M2 are complete. M3 core policies and M4-M7 contract cores have deterministic tests; their integration, UI, reports, and release gates remain open. M8 remains planned.
 
 ## Next authorized work
 
-Continue M2-02/M2-05 and M3-05/M3-06: wire actual Atlas population and adaptation controls into the Observatory, then record milestone reports before moving to M4.
+Continue M3-05/M3-06: wire Attunement and Ebb controls into the Observatory, then record the M3 report before moving to M4.
 
 The bootstrap diagnostics are:
 
@@ -69,6 +69,12 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | M1-04 | integration owner | current worktree | Snooze service/store/tests | `E18`, `E20`, `E21`, `E22` | done |
 | M1-05 | integration owner | current worktree | `src/server.mjs`, `src/lan.mjs`, `src/web-auth.mjs`, Observatory tests | `E33` | done |
 | M1-06 | integration owner | current worktree | M1 reports, validation registry, release notes | current candidate validation | done |
+| M2-01 | integration owner | current worktree | `src/atlas.mjs`, resource tests | `e5643fc79a` | done |
+| M2-02 | integration owner | current worktree | `src/omp-extension.mjs`, OMP resource tests | current OMP Atlas evidence | done |
+| M2-03 | integration owner | current worktree | `src/store.mjs`, snapshot tests | `7b385b9` | done |
+| M2-04 | integration owner | current worktree | `src/atlas.mjs`, lineage/history tests | `7b385b9` | done |
+| M2-05 | integration owner | current worktree | `src/server.mjs`, Observatory tests | `7b385b9` | done |
+| M2-06 | integration owner | current worktree | M2 reports and release notes | current candidate validation | done |
 ## Evidence log
 
 | Date | Task/candidate | Observed check or artifact | Result | Evidence reference |
@@ -83,5 +89,9 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M1 browser | `playwright_fast capture` at 1280x720 and 390x844 | page rendered with no page errors; capture is visual evidence only | `reports/validation-M1.md` |
 | 2026-11-24 | M2 core | `npm test` | Atlas aliases, snapshots, independent states, lineage, Chronicle passed | `e5643fc79a`, `test/atlas.test.mjs` |
 | 2026-11-24 | M3 core | `npm test` | Attunement correction/support and anchored Ebb/forgetment passed | `e6b8649813`, `test/adaptation.test.mjs` |
+| 2026-11-24 | M2 core | `npm test` | 48 tests passed; Atlas identity, snapshots, states, Lineage, and Chronicle checks passed | `reports/validation-M2.md` |
+| 2026-11-24 | M2 OMP | real OMP `mind_note` with Atlas inspection | local project resource, explicit referenced state, lineage links, and Chronicle rows observed | `reports/validation-M2.md` |
+| 2026-11-24 | M2 external source | live `https://example.com` fetch plus two authenticated snapshots | HTTP 200, 577 bytes, distinct digests, preserved first snapshot, and `source_changed` event | `reports/validation-M2.md` |
+| 2026-11-24 | M2 Observatory | authenticated resource registration, filters, detail, state, and trace journey | passed with scope and output limits | `reports/validation-M2.md` |
 ## Blockers and forecast changes
-M1 is complete. Interactive browser pairing, physical second-device LAN validation, and live `before_agent_start` delivery remain unavailable and are recorded as limitations, not passed checks.
+M1 and M2 are complete. Interactive browser pairing, physical second-device LAN validation, and live `before_agent_start` delivery remain unavailable. M2 automatic external crawling remains intentionally unimplemented.

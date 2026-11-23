@@ -541,7 +541,7 @@
       "id": "M2-02",
       "milestone_id": "M2",
       "title": "Populate Atlas from actual work and permitted sources",
-      "status": "in_progress",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-01",
@@ -567,7 +567,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/omp-extension.mjs", "test/omp-events.test.mjs", "reports/validation-M2.md", "npm test"]
     },
     {
       "id": "M2-03",
@@ -638,7 +638,7 @@
       "id": "M2-05",
       "milestone_id": "M2",
       "title": "Add Atlas, Lineage, and Chronicle web views",
-      "status": "in_progress",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-04",
@@ -665,13 +665,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["src/server.mjs", "test/observatory.test.mjs", "reports/validation-M2.md", "npm test"]
     },
     {
       "id": "M2-06",
       "milestone_id": "M2",
       "title": "Verify universal resource/history workflows and release alpha",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M2-01",
@@ -700,7 +700,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M2.md", "reports/validation-M2.md", "reports/release-notes-v0.2.0-alpha.1.md", "npm test"]
     },
     {
       "id": "M3-01",

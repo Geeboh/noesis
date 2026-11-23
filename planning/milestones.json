@@ -170,7 +170,7 @@
     {
       "id": "M2",
       "title": "Atlas, Lineage, and Chronicle",
-      "status": "in_progress",
+"status": "done",
       "release_target": "v0.2.0-alpha.1",
       "depends_on": [
         "M1"
@@ -214,7 +214,7 @@
         "M2-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M2.md", "reports/validation-M2.md", "reports/release-notes-v0.2.0-alpha.1.md", "npm test"]
     },
     {
       "id": "M3",
