@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
-export const STORE_SCHEMA_VERSION = 3;
+export const STORE_SCHEMA_VERSION = 4;
 
 const MIGRATIONS = [
   {
@@ -181,6 +181,26 @@ const MIGRATIONS = [
         affected_ids_json TEXT NOT NULL,
         created_at TEXT NOT NULL
       ) STRICT;
+    `,
+  },
+  {
+    version: 4,
+    sql: `
+      CREATE TABLE IF NOT EXISTS lore_pages (
+        page_id TEXT PRIMARY KEY,
+        page_type TEXT NOT NULL,
+        title TEXT NOT NULL,
+        revision INTEGER NOT NULL,
+        scope_id TEXT NOT NULL REFERENCES scopes(scope_id),
+        sections_json TEXT NOT NULL,
+        source_refs_json TEXT NOT NULL,
+        backlinks_json TEXT NOT NULL,
+        generated_at TEXT NOT NULL,
+        last_verified_at TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      ) STRICT;
+      CREATE INDEX IF NOT EXISTS lore_pages_scope_updated ON lore_pages(scope_id, updated_at DESC);
     `,
   },
 ];
@@ -453,6 +473,21 @@ export function openStore(filename) {
   createForgetment({ forgetment_id, target_id, scope_id, reason, affected_ids = [], created_at = new Date().toISOString() }) {
     db.prepare("INSERT INTO forgetments(forgetment_id, target_id, scope_id, reason, affected_ids_json, created_at) VALUES (?, ?, ?, ?, ?, ?)").run(forgetment_id, target_id, scope_id, reason, JSON.stringify(affected_ids), created_at);
     return { forgetment_id, target_id, scope_id, reason, affected_ids, created_at };
+  },
+  saveLorePage({ page, scope, last_verified_at = page.last_verified_at ?? null, now = new Date().toISOString() }) {
+    db.prepare("INSERT OR IGNORE INTO scopes(scope_id, owner_id, kind, project_id, session_id, task_id) VALUES (?, ?, ?, ?, ?, ?)").run(scope.scope_id, scope.owner_id, scope.kind, scope.project_id, scope.session_id, scope.task_id);
+    db.prepare("INSERT INTO lore_pages(page_id, page_type, title, revision, scope_id, sections_json, source_refs_json, backlinks_json, generated_at, last_verified_at, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(page_id) DO UPDATE SET page_type=excluded.page_type, title=excluded.title, revision=excluded.revision, sections_json=excluded.sections_json, source_refs_json=excluded.source_refs_json, backlinks_json=excluded.backlinks_json, generated_at=excluded.generated_at, last_verified_at=excluded.last_verified_at, updated_at=excluded.updated_at").run(page.page_id, page.page_type, page.title, page.revision, scope.scope_id, JSON.stringify(page.sections), JSON.stringify(page.source_refs ?? []), JSON.stringify(page.backlinks ?? []), page.generated_at, last_verified_at, page.created_at ?? now, now);
+    return this.getLorePage(page.page_id);
+  },
+  getLorePage(page_id) {
+    const row = db.prepare("SELECT page_id, page_type, title, revision, scope_id, sections_json, source_refs_json, backlinks_json, generated_at, last_verified_at, created_at, updated_at FROM lore_pages WHERE page_id = ?").get(page_id);
+    if (!row) return null;
+    const scope = db.prepare("SELECT scope_id, owner_id, kind, project_id, session_id, task_id FROM scopes WHERE scope_id = ?").get(row.scope_id);
+    return { page_id: row.page_id, page_type: row.page_type, title: row.title, revision: row.revision, scope, sections: JSON.parse(row.sections_json), source_refs: JSON.parse(row.source_refs_json), backlinks: JSON.parse(row.backlinks_json), generated_at: row.generated_at, last_verified_at: row.last_verified_at, created_at: row.created_at, updated_at: row.updated_at };
+  },
+  listLorePages(scope_ids = []) {
+    const rows = db.prepare("SELECT page_id FROM lore_pages ORDER BY updated_at DESC, page_id").all();
+    return rows.map((row) => this.getLorePage(row.page_id)).filter((page) => !scope_ids.length || scope_ids.includes(page.scope.scope_id));
   },
     close() {
       db.close();

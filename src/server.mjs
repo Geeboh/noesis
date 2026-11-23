@@ -4,7 +4,7 @@ import { openService } from "./service.mjs";
 import { PairingManager } from "./web-auth.mjs";
 import { createAtlas } from "./atlas.mjs";
 import { createAdaptation } from "./adaptation.mjs";
-import { buildForgeView, exportBlueprint } from "./forge.mjs";
+import { buildLorePage, diffLorePages, editManualSection, invalidateLorePage, refreshLorePage } from "./lore.mjs";
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
   const port = Number(env.NOESIS_PORT ?? 7337);
@@ -41,6 +41,7 @@ ul{padding-left:1.25rem}.muted{color:#5b6773}
 <section id="attunement" aria-labelledby="attunement-title"><h2 id="attunement-title">Attunement</h2><p>Explicit corrections override inferred preferences. Silence does not confirm a preference.</p><form id="preference-form"><label for="preference-origin">Origin</label><select id="preference-origin" name="origin"><option value="explicit">Stated preference</option><option value="inferred">Inferred candidate</option></select><label for="preference-statement">Preference</label><input id="preference-statement" name="statement" required><button>Create preference</button></form><button id="preferences-button" type="button">Load preferences</button><ul id="preference-results"></ul><p id="preference-status" role="status"></p></section>
 <section id="ebb" aria-labelledby="ebb-title"><h2 id="ebb-title">Ebb</h2><p>Activation fades separately from truth, validity, and retention. Revival is reversible.</p><form id="ebb-form"><label for="ebb-record-id">Record ID</label><input id="ebb-record-id" name="record_id" required><button>Evaluate activation</button><button id="revive-button" type="button">Revive</button></form><form id="forget-form"><label for="forget-record-id">Forget record ID</label><input id="forget-record-id" name="target_id" required><label for="forget-reason">Reason</label><input id="forget-reason" name="reason" required><button>Record explicit forgetting</button></form><p id="ebb-status" role="status"></p></section>
 <section id="forge" aria-labelledby="forge-title"><h2 id="forge-title">Forge</h2><p>Choose a resource in Atlas to inspect attributable findings and export a Blueprint.</p></section>
+<section id="lore" aria-labelledby="lore-title"><h2 id="lore-title">Lore</h2><p>Read sourced generated sections, edit authored sections, inspect diffs, and refresh invalidated content.</p><form id="lore-load-form"><label for="lore-resource-id">Resource ID</label><input id="lore-resource-id" name="resource_id" required><button>Load Lore</button></form><form id="lore-manual-form"><label for="lore-section-id">Manual section ID</label><input id="lore-section-id" name="section_id" value="manual-note" required><label for="lore-content">Manual content</label><textarea id="lore-content" name="content" required></textarea><input id="lore-revision" name="expected_revision" type="hidden"><button>Save manual section</button></form><button id="lore-refresh-button" type="button">Refresh generated sections</button><div id="lore-results" aria-live="polite"></div><p id="lore-status" role="status"></p></section>
 </main>
 <script>
 const status=(id,text)=>{document.getElementById(id).textContent=text};
@@ -57,6 +58,10 @@ document.getElementById('ebb-form').addEventListener('submit',async event=>{even
 document.getElementById('revive-button').addEventListener('click',async()=>{const record_id=document.getElementById('ebb-record-id').value;try{const body=await api('/api/ebb/'+encodeURIComponent(record_id)+'/revive',{method:'POST',body:JSON.stringify({score:1})});status('ebb-status','Record revived at '+body.score+'.')}catch(error){status('ebb-status',error.message)}});
 document.getElementById('forget-form').addEventListener('submit',async event=>{event.preventDefault();try{const body=await api('/api/forget',{method:'POST',body:JSON.stringify({target_id:event.target.target_id.value,reason:event.target.reason.value})});status('ebb-status','Forgetting recorded for '+body.target_id+'.')}catch(error){status('ebb-status',error.message)}});
 document.getElementById('atlas-button').addEventListener('click',async()=>{try{const body=await api('/api/resources?limit=100');const list=document.getElementById('atlas-results');list.replaceChildren(...(body.data||[]).map(resource=>{const item=document.createElement('li');const button=document.createElement('button');button.type='button';button.textContent=resource.display_name+' ['+resource.kind+' / '+resource.origin_facet+']';button.addEventListener('click',()=>showResource(resource).catch(error=>status('pair-status',error.message)));item.append(button);return item}))}catch(error){status('pair-status',error.message)}});
+let activeLoreResource=null;const renderLore=page=>{activeLoreResource=page.page_id.slice('resource:'.length);document.getElementById('lore-revision').value=page.revision;const target=document.getElementById('lore-results');target.replaceChildren(...page.sections.map(section=>{const item=document.createElement('article');const heading=document.createElement('h3');heading.textContent=section.section_id+' ['+section.ownership+(section.stale?' / stale':'')+']';const content=document.createElement('p');content.textContent=section.content||'';item.append(heading,content);return item}))};const loadLore=async()=>{const id=document.getElementById('lore-resource-id').value;if(!id)throw new Error('resource id is required');renderLore(await api('/api/lore/'+encodeURIComponent(id)))};
+document.getElementById('lore-load-form').addEventListener('submit',async event=>{event.preventDefault();try{await loadLore();status('lore-status','Lore loaded.')}catch(error){status('lore-status',error.message)}});
+document.getElementById('lore-manual-form').addEventListener('submit',async event=>{event.preventDefault();try{if(!activeLoreResource)await loadLore();const body=await api('/api/lore/'+encodeURIComponent(activeLoreResource)+'/manual',{method:'POST',body:JSON.stringify({section_id:event.target.section_id.value,content:event.target.content.value,expected_revision:Number(event.target.expected_revision.value)})});renderLore(body.page);status('lore-status','Manual section saved.')}catch(error){status('lore-status',error.message)}});
+document.getElementById('lore-refresh-button').addEventListener('click',async()=>{try{if(!activeLoreResource)await loadLore();const body=await api('/api/lore/'+encodeURIComponent(activeLoreResource)+'/refresh',{method:'POST',body:'{}'});renderLore(body.page);status('lore-status','Generated sections refreshed.')}catch(error){status('lore-status',error.message)}});
 </script>
 </body>
 </html>`;
@@ -103,6 +108,16 @@ function ensureDashboardResource(atlas) {
 
 export function createRequestHandler({ service, pairing, atlas = createAtlas(service.store), adaptation = createAdaptation(service.store) }) {
   const principal = { owner_id: "local", scope_ids: [] };
+  const loreState = (resource_id) => {
+    const resource = atlas.inspect({ principal, resource_id });
+    const trace = atlas.trace({ principal, id: resource_id });
+    const linkedRecords = new Set(trace.edges.flatMap((edge) => edge.to_id === resource_id ? [edge.from_id] : []));
+    const claims = service.store.listRecords().filter((record) => record.scope.scope_id === resource.scope.scope_id && (record.provenance.source_refs.includes(resource_id) || linkedRecords.has(record.record_id))).map((record) => ({ statement: record.payload.statement ?? "", source_refs: record.provenance.source_refs }));
+    const saved = service.store.getLorePage(`resource:${resource_id}`);
+    if (saved) return { resource, trace, claims, page: saved };
+    const page = buildLorePage({ page_id: `resource:${resource_id}`, page_type: "resource", title: resource.display_name, claims, backlinks: trace.edges.map((edge) => ({ id: edge.from_id, kind: edge.edge_kind })) });
+    return { resource, trace, claims, page: service.store.saveLorePage({ page, scope: resource.scope }) };
+  };
   return (request, response) => {
     void (async () => {
       const url = new URL(request.url, `http://${request.headers.host ?? "localhost"}`);
@@ -170,11 +185,25 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       }
       if (url.pathname.startsWith("/api/resources/") && request.method === "GET") return sendJson(response, 200, atlas.inspect({ principal, resource_id: decodeURIComponent(url.pathname.slice("/api/resources/".length)) }));
       if (url.pathname.startsWith("/api/trace/") && request.method === "GET") return sendJson(response, 200, atlas.trace({ principal, id: decodeURIComponent(url.pathname.slice("/api/trace/".length)), limit: Number(url.searchParams.get("limit") ?? 100) }));
-      if (url.pathname.startsWith("/api/lore/") && request.method === "GET") {
-        const resource_id = decodeURIComponent(url.pathname.slice("/api/lore/".length));
-        const resource = atlas.inspect({ principal, resource_id });
-        const claims = service.store.listRecords().filter((record) => record.scope.scope_id === resource.scope.scope_id && record.provenance.source_refs.includes(resource_id));
-        return sendJson(response, 200, buildLorePage({ page_id: `resource:${resource_id}`, page_type: "resource", title: resource.display_name, claims: claims.map((record) => ({ statement: record.payload.statement ?? "", source_refs: record.provenance.source_refs })) }));
+      const loreMatch = url.pathname.match(/^\/api\/lore\/([^/]+)(?:\/(manual|refresh|invalidate))?$/);
+      if (loreMatch) {
+        const resource_id = decodeURIComponent(loreMatch[1]);
+        const state = loreState(resource_id);
+        if (request.method === "GET") return sendJson(response, 200, state.page);
+        const body = await readBody(request);
+        const before = state.page;
+        if (loreMatch[2] === "manual") {
+          const page = editManualSection(before, body.section_id, body.content, body.expected_revision ?? before.revision);
+          return sendJson(response, 200, { page: service.store.saveLorePage({ page, scope: state.resource.scope }), diff: diffLorePages(before, page) });
+        }
+        if (loreMatch[2] === "refresh") {
+          const page = refreshLorePage(before, { claims: state.claims });
+          return sendJson(response, 200, { page: service.store.saveLorePage({ page, scope: state.resource.scope }), diff: diffLorePages(before, page) });
+        }
+        if (loreMatch[2] === "invalidate") {
+          const page = invalidateLorePage(before, body.changed_source_ids ?? []);
+          return sendJson(response, 200, { page: service.store.saveLorePage({ page, scope: state.resource.scope }), diff: diffLorePages(before, page) });
+        }
       }
       if (url.pathname.startsWith("/api/forge/") && request.method === "GET") {
         const resource_id = decodeURIComponent(url.pathname.slice("/api/forge/".length));

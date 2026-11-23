@@ -136,3 +136,29 @@ test("Observatory runs bounded Reverie levels, modes, focus, and retrospection",
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("Lore persists authored sections across refresh and restart", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-lore-"));
+  let started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  let address = started.server.address();
+  let base = `http://127.0.0.1:${address.port}`;
+  let pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  let cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  let headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const registered = await (await fetch(`${base}/api/resources`, { method: "POST", headers, body: JSON.stringify({ kind: "project", origin_facet: "local", display_name: "Lore project", aliases: [{ value: "file:///lore-project", kind: "path" }] }) })).json();
+  const first = await (await fetch(`${base}/api/lore/${registered.resource_id}`, { headers: { cookie } })).json();
+  const edited = await (await fetch(`${base}/api/lore/${registered.resource_id}/manual`, { method: "POST", headers, body: JSON.stringify({ section_id: "operator-note", content: "Keep this authored note.", expected_revision: first.revision }) })).json();
+  assert.equal(edited.page.sections.find((section) => section.section_id === "operator-note").ownership, "manual");
+  const refreshed = await (await fetch(`${base}/api/lore/${registered.resource_id}/refresh`, { method: "POST", headers, body: "{}" })).json();
+  assert.equal(refreshed.page.sections.find((section) => section.section_id === "operator-note").content, "Keep this authored note.");
+  await close(started);
+  started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  address = started.server.address();
+  base = `http://127.0.0.1:${address.port}`;
+  pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const restored = await (await fetch(`${base}/api/lore/${registered.resource_id}`, { headers: { cookie } })).json();
+  assert.equal(restored.sections.find((section) => section.section_id === "operator-note").content, "Keep this authored note.");
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});
