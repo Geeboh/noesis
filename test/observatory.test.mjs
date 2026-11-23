@@ -42,3 +42,40 @@ test("Observatory denies private data until pairing, then serves real service da
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });
+
+test("Observatory exposes bounded Atlas resources, snapshots, and Chronicle history", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-atlas-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  const pair = await fetch(`${base}/pair`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" }, body: JSON.stringify({ code: started.pairing_code.code }) });
+  const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const registered = await fetch(`${base}/api/resources`, { method: "POST", headers, body: JSON.stringify({ kind: "webpage", origin_facet: "external", display_name: "Example documentation", aliases: [{ value: "https://example.test/docs", kind: "url" }] }) });
+  assert.equal(registered.status, 200);
+  const resource = await registered.json();
+  for (const snapshot of [
+    { snapshot_id: "web-1", locator: "https://example.test/docs", version: "1", retrieved_at: "2026-11-24T00:00:00.000Z", digest: "web-digest-1", status: "examined", content: { title: "Version one" } },
+    { snapshot_id: "web-2", locator: "https://example.test/docs", version: "2", retrieved_at: "2026-11-24T00:01:00.000Z", digest: "web-digest-2", status: "examined", content: { title: "Version two" } },
+  ]) {
+    const response = await fetch(`${base}/api/resources/${resource.resource_id}/snapshot`, { method: "POST", headers, body: JSON.stringify(snapshot) });
+    assert.equal(response.status, 200);
+  }
+  const stateResponse = await fetch(`${base}/api/resources/${resource.resource_id}/state`, { method: "POST", headers, body: JSON.stringify({ state_kind: "referenced", state: "true", evidence_refs: ["reference-1"] }) });
+  assert.equal(stateResponse.status, 200);
+  const listed = await fetch(`${base}/api/resources?kind=webpage&origin_facet=external&limit=1`, { headers: { cookie } });
+  const page = await listed.json();
+  assert.equal(listed.status, 200);
+  assert.equal(page.data.length, 1);
+  assert.equal(page.coverage.total, 1);
+  const inspected = await fetch(`${base}/api/resources/${resource.resource_id}`, { headers: { cookie } });
+  const detail = await inspected.json();
+  assert.equal(detail.snapshots.length, 2);
+  assert.equal(detail.states.find((state) => state.state_kind === "referenced").state, "true");
+  const trace = await fetch(`${base}/api/trace/${resource.resource_id}?limit=10`, { headers: { cookie } });
+  const traced = await trace.json();
+  assert.equal(trace.status, 200);
+  assert.equal(traced.chronicle.some((event) => event.event_kind === "source_changed"), true);
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});

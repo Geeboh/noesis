@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { basename, dirname, join } from "node:path";
+import { createAtlas } from "./atlas.mjs";
 import { openService } from "./service.mjs";
 import { normalizeHostEvent } from "./omp-events.mjs";
 
@@ -18,12 +19,20 @@ function schema(pi, shape) {
   return pi.zod.object(shape);
 }
 
+function captureNote({ service, atlas, principal, scope, resource_id, content, producer_id, idempotency_key, source = null, actor_id = producer_id }) {
+  const result = service.mindNote({ principal, scope, content, producer_id, idempotency_key, source, actor_id });
+  if (result.receipt?.record_id) {
+    atlas.attachRecord({ principal, record_id: result.receipt.record_id, resource_id, edge_kind: "observed_in", metadata: { producer_id } });
+    atlas.setState({ principal, resource_id, state_kind: "referenced", state: "true", evidence_refs: [result.receipt.record_id] });
+  }
+  return result;
+}
 
-function observeHostEvent(pi, service, principal, scope, name, actor_id = "omp") {
+function observeHostEvent(pi, service, atlas, principal, scope, resource_id, name, actor_id = "omp") {
   pi.on?.(name, (event) => {
     const normalized = normalizeHostEvent(name, event, actor_id);
     if (!normalized) return;
-    service.mindNote({ principal, scope, content: `${normalized.status}: ${normalized.content}`, producer_id: "omp-event", idempotency_key: normalized.idempotency_key, actor_id: normalized.actor_id });
+    captureNote({ service, atlas, principal, scope, resource_id, content: `${normalized.status}: ${normalized.content}`, producer_id: "omp-event", idempotency_key: normalized.idempotency_key, actor_id: normalized.actor_id });
   });
 }
 
@@ -39,6 +48,20 @@ export default function noesisExtension(pi) {
   const service = openService(filename);
   const scope = scopeFor(pi.cwd ?? process.cwd());
   const principal = { owner_id: "local", scope_ids: [] };
+  const atlas = createAtlas(service.store);
+  const projectResource = atlas.register({
+    principal,
+    resource: {
+      resource_id: `project:${createHash("sha256").update(scope.project_id).digest("hex").slice(0, 24)}`,
+      kind: "project",
+      origin_facet: "local",
+      display_name: basename(scope.project_id) || scope.project_id,
+      description: "OMP project workspace discovered by the native adapter",
+      scope,
+      aliases: [{ value: `file://${scope.project_id}`, kind: "path" }],
+      metadata: { root: scope.project_id },
+    },
+  });
   let sequence = 0;
   const key = (prefix) => `${prefix}:${process.pid}:${sequence++}`;
 
@@ -47,7 +70,7 @@ export default function noesisExtension(pi) {
     label: "NOESIS note",
     description: "Persist an observed note with source and scope provenance.",
     parameters: schema(pi, { content: pi.zod.string(), idempotency_key: pi.zod.string().optional() }),
-    execute: async (_toolCallId, params) => textResult(service.mindNote({ principal, scope, content: params.content, producer_id: "omp", idempotency_key: params.idempotency_key ?? key("note") })),
+    execute: async (_toolCallId, params) => textResult(captureNote({ service, atlas, principal, scope, resource_id: projectResource.resource_id, content: params.content, producer_id: "omp", idempotency_key: params.idempotency_key ?? key("note") })),
   });
   pi.registerTool({
     name: "mind_recall",
@@ -79,8 +102,8 @@ export default function noesisExtension(pi) {
     if (!attachment) return;
     return { systemPrompt: `${event?.systemPrompt ?? ""}\n\n<noesis-memory>\n${attachment}\n</noesis-memory>` };
   });
-  observeHostEvent(pi, service, principal, scope, "message_end");
-  observeHostEvent(pi, service, principal, scope, "tool_execution_end");
+  observeHostEvent(pi, service, atlas, principal, scope, projectResource.resource_id, "message_end");
+  observeHostEvent(pi, service, atlas, principal, scope, projectResource.resource_id, "tool_execution_end");
   if (process.env.NOESIS_PROBE === "1") console.error(`NOESIS_EXTENSION_READY ${JSON.stringify(service.mindCapabilities())}`);
   pi.on?.("session_shutdown", () => service.close());
   return {};

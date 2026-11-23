@@ -359,8 +359,26 @@ export function openStore(filename) {
     for (const alias of aliases) db.prepare("INSERT INTO resource_aliases(resource_id, alias, alias_kind) VALUES (?, ?, ?)").run(resource_id, alias.value, alias.kind);
     return this.getResource(resource_id);
   },
+  findResourceByAlias(alias) {
+    const row = db.prepare("SELECT resource_id FROM resource_aliases WHERE alias = ? ORDER BY resource_id LIMIT 1").get(alias);
+    return row ? this.getResource(row.resource_id) : null;
+  },
+  updateResource({ resource_id, display_name, description = null, metadata = {}, aliases = [], now = new Date().toISOString() }) {
+    const current = this.getResource(resource_id);
+    if (!current) return null;
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      db.prepare("UPDATE resources SET display_name = ?, description = ?, updated_at = ?, metadata_json = ? WHERE resource_id = ?").run(display_name, description, now, JSON.stringify(metadata), resource_id);
+      for (const alias of aliases) db.prepare("INSERT OR IGNORE INTO resource_aliases(resource_id, alias, alias_kind) VALUES (?, ?, ?)").run(resource_id, alias.value, alias.kind);
+      db.exec("COMMIT");
+    } catch (error) {
+      try { db.exec("ROLLBACK"); } catch {}
+      throw error;
+    }
+    return this.getResource(resource_id);
+  },
   addResourceSnapshot({ snapshot_id, resource_id, locator, version = null, digest = null, retrieved_at = new Date().toISOString(), status = "observed", content = {} }) {
-    db.prepare("INSERT INTO resource_snapshots(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, content_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, JSON.stringify(content));
+    db.prepare("INSERT OR IGNORE INTO resource_snapshots(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, content_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(snapshot_id, resource_id, locator, version, digest, retrieved_at, status, JSON.stringify(content));
     return this.getResource(resource_id);
   },
   setResourceState({ resource_id, state_kind, state, evidence_refs = [], observed_at = new Date().toISOString() }) {
@@ -385,14 +403,14 @@ export function openStore(filename) {
     return rows.map((row) => this.getResource(row.resource_id)).filter((resource) => !scope_ids.length || scope_ids.includes(resource.scope.scope_id));
   },
   addLineageEdge({ edge_id, from_id, from_revision = null, to_id, to_revision = null, edge_kind, metadata = {}, created_at = new Date().toISOString() }) {
-    db.prepare("INSERT INTO lineage_edges(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, JSON.stringify(metadata));
+    db.prepare("INSERT OR IGNORE INTO lineage_edges(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)").run(edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, JSON.stringify(metadata));
     return { edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata };
   },
   listLineage(id) {
     return db.prepare("SELECT edge_id, from_id, from_revision, to_id, to_revision, edge_kind, created_at, metadata_json FROM lineage_edges WHERE from_id = ? OR to_id = ? ORDER BY created_at").all(id, id).map((edge) => ({ ...edge, metadata: JSON.parse(edge.metadata_json) }));
   },
   addChronicleEvent({ chronicle_id, subject_id, event_kind, observed_at = new Date().toISOString(), before = null, after = null, metadata = {} }) {
-    db.prepare("INSERT INTO chronicle_events(chronicle_id, subject_id, event_kind, observed_at, before_json, after_json, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?)").run(chronicle_id, subject_id, event_kind, observed_at, before === null ? null : JSON.stringify(before), after === null ? null : JSON.stringify(after), JSON.stringify(metadata));
+    db.prepare("INSERT OR IGNORE INTO chronicle_events(chronicle_id, subject_id, event_kind, observed_at, before_json, after_json, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?)").run(chronicle_id, subject_id, event_kind, observed_at, before === null ? null : JSON.stringify(before), after === null ? null : JSON.stringify(after), JSON.stringify(metadata));
     return { chronicle_id, subject_id, event_kind, observed_at, before, after, metadata };
   },
   listChronicle(subject_id) {
