@@ -10,7 +10,8 @@
     "test": "node --test",
     "test:m0": "node --test test/m0.test.mjs",
     "start": "node src/cli.mjs",
-    "probe:omp": "NOESIS_DATA_DIR=${TMPDIR:-/tmp}/noesis-omp-probe omp -p --no-session --no-extensions --extension ./src/omp-extension.mjs --max-time 6 \"Reply with OK.\""
+    "probe:omp": "NOESIS_DATA_DIR=${TMPDIR:-/tmp}/noesis-omp-probe omp -p --no-session --no-extensions --extension ./src/omp-extension.mjs --max-time 6 \"Reply with OK.\"",
+    "release:check": "npm test && python3 scripts/validate_bootstrap.py && node --check src/cli.mjs && node --check src/server.mjs"
   },
   "dependencies": {
     "qrcode": "1.5.4"
