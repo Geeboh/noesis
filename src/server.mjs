@@ -3,7 +3,8 @@ import { join } from "node:path";
 import { openService } from "./service.mjs";
 import { PairingManager } from "./web-auth.mjs";
 import { createAtlas } from "./atlas.mjs";
-
+import { buildLorePage } from "./lore.mjs";
+import { buildForgeView, exportBlueprint } from "./forge.mjs";
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
   const port = Number(env.NOESIS_PORT ?? 7337);
@@ -93,6 +94,22 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       if (url.pathname === "/api/resources" && request.method === "GET") return sendJson(response, 200, { data: atlas.list({ principal }) });
       if (url.pathname.startsWith("/api/resources/") && request.method === "GET") return sendJson(response, 200, atlas.inspect({ principal, resource_id: decodeURIComponent(url.pathname.slice("/api/resources/".length)) }));
       if (url.pathname.startsWith("/api/trace/") && request.method === "GET") return sendJson(response, 200, atlas.trace({ principal, id: decodeURIComponent(url.pathname.slice("/api/trace/".length)) }));
+      if (url.pathname.startsWith("/api/lore/") && request.method === "GET") {
+        const resource_id = decodeURIComponent(url.pathname.slice("/api/lore/".length));
+        const resource = atlas.inspect({ principal, resource_id });
+        const claims = service.store.listRecords().filter((record) => record.scope.scope_id === resource.scope.scope_id && record.provenance.source_refs.includes(resource_id));
+        return sendJson(response, 200, buildLorePage({ page_id: `resource:${resource_id}`, page_type: "resource", title: resource.display_name, claims: claims.map((record) => ({ statement: record.payload.statement ?? "", source_refs: record.provenance.source_refs })) }));
+      }
+      if (url.pathname.startsWith("/api/forge/") && request.method === "GET") {
+        const resource_id = decodeURIComponent(url.pathname.slice("/api/forge/".length));
+        const resource = atlas.inspect({ principal, resource_id });
+        return sendJson(response, 200, buildForgeView({ resource, records: service.store.listRecords() }));
+      }
+      if (url.pathname.startsWith("/api/blueprint/") && request.method === "GET") {
+        const resource_id = decodeURIComponent(url.pathname.slice("/api/blueprint/".length));
+        const resource = atlas.inspect({ principal, resource_id });
+        return sendJson(response, 200, exportBlueprint({ forge: buildForgeView({ resource, records: service.store.listRecords() }), target: resource.display_name }));
+      }
       if (url.pathname === "/api/recall" && request.method === "GET") return sendJson(response, 200, service.mindRecall({ principal, query: url.searchParams.get("query") ?? "", max_items: 8, max_chars: 12000 }));
       if (url.pathname.startsWith("/api/inspect/") && request.method === "GET") {
         const record_id = decodeURIComponent(url.pathname.slice("/api/inspect/".length));
