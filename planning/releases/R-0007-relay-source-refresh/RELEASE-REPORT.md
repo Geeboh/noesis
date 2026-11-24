@@ -45,8 +45,8 @@ R7 is a local candidate. Do not replace the live v1.2.4 checkout or data directo
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R7 | not attempted |
-| GitHub release/assets | none authorized for R7 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `1c00047fc817d8754439009cf95e272c6704cd0d`, tag `v1.3.0` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.3.0) and `noesis-1.3.0.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.3.0.md`; backup preserved and v1.3.0 health/pairing verified |
 | Hosted deployment | none | not attempted |
