@@ -1,11 +1,11 @@
 # NOESIS implementation status
 
 **Bootstrap version:** 1.0.0  
-**Product version:** 1.2.3  
-**Plan revision:** 2026-11-24  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.2.3 is the recovery baseline. R-0006 Scope accounting is the active local patch candidate with no publication authorization.
-**Active release:** `R-0006-scope-accounting` targeting `1.2.4`. Plan: `planning/releases/R-0006-scope-accounting/PLAN.md`.
-**Next task:** Start `R-0006-T001` with the default-scope baseline reproduction. Preserve v1.2.3 service, tag, artifact, and live backup.
+**Product version:** 1.2.4  
+**Plan revision:** 2026-11-25  
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.2.4 is the current recovery baseline. R-0006 Scope accounting is closed; Relay remains proposed only after a concrete workflow is selected.
+**Active release:** `R-0006-scope-accounting` published at `1.2.4`. Plan: `planning/releases/R-0006-scope-accounting/PLAN.md`.
+**Next task:** Select one concrete Relay client/source workflow before creating another implementation release.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -164,4 +164,4 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0006 installation | backup, clean install, release gate, managed restart, actual LAN URL/QR, pairing, and OMP extension probe | v1.2.4 installed and healthy; simple native probe passed | `reports/use-v1.2.4.md` |
 | 2026-11-25 | R-0006 publication | branch/tag push and GitHub release with verified artifact | v1.2.4 published; installed dashboard remains healthy | `planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.2.4 is published and installed locally for the declared dashboard path. Physical second-device LAN validation, full schemas, and durable non-`/tmp` data storage remain limitations.
+M1 through M8 remain complete. v1.2.4 is published and installed locally for the declared dashboard path. No dependency-ready implementation task exists until a concrete Relay workflow is selected. Physical second-device LAN validation, full schemas, and durable non-`/tmp` data storage remain limitations.
