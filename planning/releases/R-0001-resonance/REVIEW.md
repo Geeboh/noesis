@@ -13,7 +13,7 @@ The candidate adds recall trace and local usage accounting without changing lexi
 - `npm ci --ignore-scripts`: passed.
 - `npm run release:check`: passed, 56 tests.
 - `node scripts/measure_resonance.mjs baseline`: 5 runs, 0 errors, median 1.48 ms, p95 3.62 ms.
-- `node scripts/measure_resonance.mjs candidate`: 5 runs, 0 errors, median 1.53 ms, p95 3.54 ms.
+- `node scripts/measure_resonance.mjs candidate`: 5 runs, 0 errors, median 1.56 ms, p95 3.70 ms.
 - Real OMP note/recall/inspect smoke: passed.
 - Paired Observatory recall: passed with trace ID, coverage, and usage.
 - Artifact: `/tmp/noesis-r1-release/noesis-1.1.0.tgz`, SHA-256 `9adb40fdd90a01bb6a52c4a3bae136b65fc15faa1ecacd4d5c15e877fbf85900`.

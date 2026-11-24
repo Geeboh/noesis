@@ -14,7 +14,7 @@
 | Run | Errors | Returned per run | Median | P95 | Trace | Usage |
 | --- | ---: | --- | ---: | ---: | --- | --- |
 | Baseline | 0 | 8, 8, 8, 8, 8 | 1.48 ms | 3.62 ms | absent | absent |
-| Candidate | 0 | 8, 8, 8, 8, 8 | 1.53 ms | 3.54 ms | present | present |
+| Candidate | 0 | 8, 8, 8, 8, 8 | 1.56 ms | 3.70 ms | present | present |
 
 Result: trace/accounting acceptance passed. Recall quality improvement is inconclusive because no labeled missed/stale recall cases were available. Ranking policy remains unchanged.
 

@@ -13,7 +13,7 @@
 
 ## Validation
 
-Baseline and candidate used separate 40-record stores and five runs each. Both returned 8 records with zero errors. Baseline median was 1.48 ms and candidate median was 1.53 ms. The result is inconclusive for recall quality and does not justify a ranking-policy change.
+Baseline and candidate used separate 40-record stores and five runs each. Both returned 8 records with zero errors. Baseline median was 1.48 ms and candidate median was 1.56 ms. The result is inconclusive for recall quality and does not justify a ranking-policy change.
 
 `npm run release:check` passed 56 tests. Real OMP note, recall, inspect, and paired Observatory trace checks passed.
 

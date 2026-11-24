@@ -21,7 +21,7 @@ The baseline and candidate used separate temporary SQLite stores with 40 records
 | Outcome/check | Candidate | Command or observed procedure | Result | Evidence and limitation |
 | --- | --- | --- | --- | --- |
 | Baseline measurement | `1.0.0` behavior | `node scripts/measure_resonance.mjs baseline` | passed, 5 runs, 0 errors, median 1.48 ms, p95 3.62 ms | isolated 40-record store; no concurrency |
-| Candidate measurement | `1.1.0` behavior | `node scripts/measure_resonance.mjs candidate` | passed, 5 runs, 0 errors, median 1.53 ms, p95 3.54 ms | no measurable quality change; local timing variation |
+| Candidate measurement | `1.1.0` behavior | `node scripts/measure_resonance.mjs candidate` | passed, 5 runs, 0 errors, median 1.56 ms, p95 3.70 ms | no measurable quality change; local timing variation |
 | Recall trace contract | `8c87c2e` | `npm test`, service tests, Observatory tests | passed | trace adds no unauthorized IDs |
 | Real OMP path | `1.1.0` source | OMP `mind_note`, fresh `mind_recall`, and `mind_inspect` in an isolated store | passed | deterministic authorized smoke only |
 | Dashboard path | `1.1.0` source | paired temporary Observatory note and recall | passed | trace ID, counts, usage observed; no physical device |
