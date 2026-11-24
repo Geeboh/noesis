@@ -146,5 +146,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M8 hardening | `npm run release:check`; `npm ci --ignore-scripts` | 56 tests, bootstrap, syntax, and clean install passed | `reports/validation-M8.md` |
 | 2026-11-24 | M8 artifact | `npm pack --ignore-scripts --pack-destination /tmp/noesis-release` | `noesis-1.0.0.tgz` built with recorded SHA-256 | `reports/validation-M8.md` |
 | 2026-11-24 | M8 workload | `node scripts/measure_m8.mjs` | five runs, 25 records, zero errors; recall/archive/restore metrics recorded | `reports/validation-M8.md` |
+| 2026-11-24 | v1.0.0 use | `npm ci --ignore-scripts`; copied migration; native OMP note/recall/inspect/Snooze; live dashboard restart, URL/QR/pairing | accepted release running with preserved live data and explicit limitations | `reports/use-v1.0.0.md` |
 ## Blockers and forecast changes
-M1 through M8 are complete. Product `v1.0.0` is a local stable candidate for the declared environment. Remote publication remains separately authorized. Post-v1 work requires a new scope decision.
+M1 through M8 are complete. v1.0.0 is installed and running locally for the declared environment. No remote publication action occurred during this use operation. Physical second-device LAN validation, live `before_agent_start` delivery, full schemas, and durable non-`/tmp` data storage remain limitations.
