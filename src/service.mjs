@@ -58,7 +58,7 @@ export function createService(store) {
       if (!Number.isInteger(max_items) || max_items < 1 || max_items > 100 || !Number.isInteger(max_chars) || max_chars < 1) throw new LedgerError("INVALID_ARGUMENT", "invalid recall budget");
       const trace_id = randomUUID();
       const startedAt = Date.now();
-      const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+      const terms = [...new Set(query.toLowerCase().split(/\s+/).filter(Boolean))];
       const hits = [];
       const omitted = { out_of_scope: 0, non_match: 0, budget: 0, item_limit: 0 };
       let considered = 0;

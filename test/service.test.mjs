@@ -103,6 +103,22 @@ test("mind_inspect returns exact revision and source without disclosing forbidde
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
+test("mind_recall does not inflate repeated query terms", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  try {
+    service.mindNote({ principal, scope, content: "alpha older evidence", producer_id: "omp-session", idempotency_key: "note-alpha" });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    service.mindNote({ principal, scope, content: "beta newer evidence", producer_id: "omp-session", idempotency_key: "note-beta" });
+    const recalled = service.mindRecall({ principal, query: "alpha alpha beta", scope_ids: [scope.scope_id], max_items: 1, max_chars: 200 });
+    assert.equal(recalled.data[0].statement, "beta newer evidence");
+    assert.equal(recalled.data[0].reason, "matched 1 query term");
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_dream admits full bounded Reverie levels and modes", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));

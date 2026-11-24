@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0004-query-normalization",
+  "target_version": "1.2.2",
+  "theme": "Resonance query normalization",
+  "status": "ready_local",
+  "baseline": {
+    "application_version": "1.2.1",
+    "commit": "49a1ff5dc3c725b00b2ef2301f58ee9cd55410ae",
+    "tag": "v1.2.1",
+    "artifact_sha256": "7275f6e0d4c9de50a074dbc021aa73b125608edce4c83d6c8c4fb4851372984f",
+    "evidence_refs": ["planning/releases/R-0003-afterglow-budget/RELEASE-REPORT.md", "reports/use-v1.2.1.md", "https://github.com/Geeboh/noesis/releases/tag/v1.2.1"]
+  },
+  "outcomes": [
+    {
+      "id": "R4-O1",
+      "intended_user_result": "Repeated words in a recall query do not inflate one lexical term's score over distinct evidence terms.",
+      "current_baseline": "Lexical scoring iterates duplicate query terms, so `alpha alpha beta` gives an alpha-only hit score 2 and a beta-only hit score 1.",
+      "acceptance": "Query terms are deduplicated before scoring; distinct-term scores and existing deterministic tie order remain intact, with unchanged scope, provenance, coverage, trace, and budgets.",
+      "evidence_needed": ["focused service regression", "isolated baseline/candidate comparison", "paired Observatory recall", "release gate"]
+    }
+  ],
+  "excluded_scope": [
+    "No ranking-policy change beyond removing duplicate query-term weight.",
+    "No model, vector, graph, MCP, connector, external backend, schema, or database migration.",
+    "No change to scope authorization, provenance, live data, or native OMP configuration.",
+    "No remote publication without new explicit authorization for R4."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "continuation/prompts/08-RESUME-ROADMAP.md",
+  "budget": {
+    "policy_ref": "deterministic-local-only",
+    "model_call_limit": 0,
+    "model_token_limit": 0,
+    "wall_time_seconds_limit": 300,
+    "currency": null,
+    "monetary_limit": null,
+    "actual_cost": 0,
+    "includes_children_retries_embeddings": true
+  },
+  "completion_evidence": ["planning/releases/R-0004-query-normalization/RELEASE-REPORT.md", "planning/releases/R-0004-query-normalization/REVIEW.md", "reports/validation-R-0004.md", "reports/release-notes-v1.2.2.md", "npm run release:check", "/tmp/noesis-r4-release/noesis-1.2.2.tgz"],
+  "publication": {
+    "authorization_ref": null,
+    "allowed_actions": [],
+    "destination": null,
+    "status": "not_authorized",
+    "observed_commit": null,
+    "observed_tag": null,
+    "evidence_refs": []
+  },
+  "next_authorized_goal_ref": "Horizon Relay after a concrete workflow is selected",
+  "last_updated": "2026-11-24"
+}

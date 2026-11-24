@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0003-afterglow-budget",
-  "release_directory": "planning/releases/R-0003-afterglow-budget",
-  "release_file": "planning/releases/R-0003-afterglow-budget/release.json",
-  "backlog_file": "planning/releases/R-0003-afterglow-budget/backlog.json",
-  "plan_file": "planning/releases/R-0003-afterglow-budget/PLAN.md",
+  "release_id": "R-0004-query-normalization",
+  "release_directory": "planning/releases/R-0004-query-normalization",
+  "release_file": "planning/releases/R-0004-query-normalization/release.json",
+  "backlog_file": "planning/releases/R-0004-query-normalization/backlog.json",
+  "plan_file": "planning/releases/R-0004-query-normalization/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-24"
 }
