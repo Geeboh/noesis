@@ -65,7 +65,7 @@ export function createService(store) {
       let matched = 0;
       let used_chars = 0;
       let truncated = false;
-      for (const record of store.listRecords()) {
+      for (const record of store.listRecords().sort((left, right) => recallScore(right, terms) - recallScore(left, terms))) {
         considered += 1;
         if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {
           omitted.out_of_scope += 1;

@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.1.0  
 **Plan revision:** 2026-11-24  
-**Implementation state:** M1 through M8 remain complete. R-0001 Resonance v1.1.0 is published and installed locally with explicit physical-device and operational limits.
-**Active release:** `R-0001-resonance` targeting `1.1.0`. Plan: `planning/releases/R-0001-resonance/PLAN.md`.
-**Next task:** R-0001 is published and installed. Next proposed goal: Relay only after a concrete client/source workflow is selected.
+**Implementation state:** M1 through M8 remain complete. Published v1.1.0 is installed locally. R-0002 Resonance ranking is the active bounded local candidate with explicit no-publication scope.
+**Active release:** `R-0002-resonance-ranking` targeting `1.2.0`. Plan: `planning/releases/R-0002-resonance-ranking/PLAN.md`.
+**Next task:** Start `R-0002-T001` with the isolated baseline reproduction. Preserve the v1.1.0 service and artifact.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -151,4 +151,4 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | v1.0.0 use | `npm ci --ignore-scripts`; copied migration; native OMP note/recall/inspect/Snooze; live dashboard restart, URL/QR/pairing | accepted release running with preserved live data and explicit limitations | `reports/use-v1.0.0.md` |
 | 2026-11-24 | v1.1.0 use/publication | `npm ci --ignore-scripts`; `npm run release:check`; live managed restart, backup, pairing; branch/tag push; GitHub release | published and running locally; native print-mode OMP smoke reached extension readiness then timed out | `reports/use-v1.1.0.md`, `planning/releases/R-0001-resonance/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.1.0 is published and installed locally for the declared environment. Active post-v1 plan is `R-0001-resonance`; next proposed goal is Relay only after a concrete client/source workflow is selected. Physical second-device LAN validation, live `before_agent_start` delivery, full schemas, and durable non-`/tmp` data storage remain limitations.
+M1 through M8 remain complete. v1.1.0 is published and installed locally for the declared environment. Active post-v1 plan is `R-0002-resonance-ranking`; T001 baseline and T002 score-aware ordering are complete. The next task is integrated candidate validation. Physical second-device LAN validation, live `before_agent_start` delivery, full schemas, and durable non-`/tmp` data storage remain limitations.

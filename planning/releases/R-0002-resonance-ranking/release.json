@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0002-resonance-ranking",
+  "target_version": "1.2.0",
+  "theme": "Resonance ranking",
+  "status": "in_progress",
+  "baseline": {
+    "application_version": "1.1.0",
+    "commit": "481a5ead843886d32f4f42492d5532e3807fd886",
+    "tag": "v1.1.0",
+    "artifact_sha256": "9adb40fdd90a01bb6a52c4a3bae136b65fc15faa1ecacd4d5c15e877fbf85900",
+    "evidence_refs": ["planning/releases/R-0001-resonance/RELEASE-REPORT.md", "reports/use-v1.1.0.md", "https://github.com/Geeboh/noesis/releases/tag/v1.1.0"]
+  },
+  "outcomes": [
+    {
+      "id": "R2-O1",
+      "intended_user_result": "When recall is item-budgeted, stronger lexical matches appear before weaker matches without leaking scope or provenance.",
+      "current_baseline": "Lexical score is computed for each match but results follow database recency order, so a newer low-score match can consume the item budget before an older higher-score match.",
+      "acceptance": "For equivalent authorized data, hits sort by descending lexical score, ties remain deterministic by existing recency order and record identity, and scope, provenance, coverage, and budgets remain unchanged.",
+      "evidence_needed": ["focused service regression", "isolated baseline/candidate comparison", "release gate", "paired Observatory recall"]
+    }
+  ],
+  "excluded_scope": [
+    "No vector, model, graph, MCP, connector, or external backend.",
+    "No preference, fading, dream-policy, schema, or database migration changes.",
+    "No change to scope authorization, provenance, or live data.",
+    "No remote publication without new explicit authorization for R-0002."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "continuation/prompts/05-AFTER-RELEASE.md",
+  "budget": {
+    "policy_ref": "deterministic-local-only",
+    "model_call_limit": 0,
+    "model_token_limit": 0,
+    "wall_time_seconds_limit": 300,
+    "currency": null,
+    "monetary_limit": null,
+    "actual_cost": 0,
+    "includes_children_retries_embeddings": true
+  },
+  "completion_evidence": [],
+  "publication": {
+    "authorization_ref": null,
+    "allowed_actions": [],
+    "destination": null,
+    "status": "not_authorized",
+    "observed_commit": null,
+    "observed_tag": null,
+    "evidence_refs": []
+  },
+  "next_authorized_goal_ref": "Horizon Relay after a concrete workflow is selected",
+  "last_updated": "2026-11-24"
+}
