@@ -65,13 +65,13 @@ export function createService(store) {
       let matched = 0;
       let used_chars = 0;
       let truncated = false;
-      for (const record of store.listRecords().sort((left, right) => recallScore(right, terms) - recallScore(left, terms))) {
+      const orderedRecords = store.listRecords().map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, index })).sort((left, right) => right.score - left.score || left.index - right.index);
+      for (const { record, score } of orderedRecords) {
         considered += 1;
         if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {
           omitted.out_of_scope += 1;
           continue;
         }
-        const score = terms.length ? recallScore(record, terms) : 1;
         if (!score) {
           omitted.non_match += 1;
           continue;
