@@ -5,7 +5,7 @@
 **Plan revision:** 2026-11-23  
 **Implementation state:** M1 through M8 done. M8 stable v1.0.0 is complete for the declared environment with explicit physical-device and operational limits.
 **Active release:** `R-0001-resonance` targeting `1.1.0`. Plan: `planning/releases/R-0001-resonance/PLAN.md`.
-**Next task:** `R-0001-T001` baseline recall measurement. Current release remains the accepted `v1.0.0`; candidate work must use separate temporary data.
+**Next task:** R-0001 is complete and ready locally. No publication was attempted. Next proposed goal: Relay only after a concrete client/source workflow is selected.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 

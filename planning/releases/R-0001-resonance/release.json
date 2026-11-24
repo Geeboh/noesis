@@ -4,7 +4,7 @@
   "release_id": "R-0001-resonance",
   "target_version": "1.1.0",
   "theme": "Resonance",
-  "status": "active",
+  "status": "ready_local",
   "baseline": {
     "application_version": "1.0.0",
     "commit": "80a87030c0a4eaf2e029e48f32feb789be7ffb47",
@@ -40,7 +40,7 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": [],
+  "completion_evidence": ["planning/releases/R-0001-resonance/RELEASE-REPORT.md", "planning/releases/R-0001-resonance/REVIEW.md", "reports/validation-R-0001.md", "reports/release-notes-v1.1.0.md", "npm run release:check", "/tmp/noesis-r1-release/noesis-1.1.0.tgz"],
   "publication": {
     "authorization_ref": null,
     "allowed_actions": [],
