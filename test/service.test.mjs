@@ -34,6 +34,9 @@ test("mind_recall returns bounded provenance-backed matches only in scope", () =
   service.mindNote({ principal, scope, content: "alpha tool result", producer_id: "omp-session", idempotency_key: "note-recall" });
   const recalled = service.mindRecall({ principal, query: "alpha", scope_ids: [scope.scope_id], max_items: 1, max_chars: 100 });
   assert.equal(recalled.data.length, 1);
+  assert.equal(typeof recalled.trace_id, "string");
+  assert.equal(recalled.usage.model_calls, 0);
+  assert.equal(recalled.coverage.included, 1);
   assert.equal(recalled.data[0].provenance.origin, "tool_observation");
   assert.equal(service.mindRecall({ principal: { owner_id: "other", scope_ids: [] }, query: "alpha", scope_ids: [scope.scope_id] }).data.length, 0);
   service.close();

@@ -33,6 +33,9 @@ test("Observatory denies private data until pairing, then serves real service da
   const recall = await fetch(`${base}/api/recall?query=dashboard`, { headers: { cookie } });
   const recalled = await recall.json();
   assert.equal(recalled.data.length, 1);
+  assert.equal(typeof recalled.trace_id, "string");
+  assert.equal(recalled.usage.model_calls, 0);
+  assert.equal(recalled.coverage.included, 1);
   const inspect = await fetch(`${base}/api/inspect/${recalled.data[0].record_id}`, { headers: { cookie } });
   assert.equal((await inspect.json()).record.payload.statement, "dashboard observation");
   const dream = await fetch(`${base}/api/dream`, { method: "POST", headers: { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" }, body: "{}" });

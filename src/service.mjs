@@ -56,22 +56,50 @@ export function createService(store) {
     },
     mindRecall({ principal, query = "", scope_ids = [], max_items = 8, max_chars = 12000 }) {
       if (!Number.isInteger(max_items) || max_items < 1 || max_items > 100 || !Number.isInteger(max_chars) || max_chars < 1) throw new LedgerError("INVALID_ARGUMENT", "invalid recall budget");
+      const trace_id = randomUUID();
+      const startedAt = Date.now();
       const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
       const hits = [];
+      const omitted = { out_of_scope: 0, non_match: 0, budget: 0, item_limit: 0 };
+      let considered = 0;
+      let matched = 0;
       let used_chars = 0;
+      let truncated = false;
       for (const record of store.listRecords()) {
-        if (scope_ids.length && !scope_ids.includes(record.scope.scope_id)) continue;
-        if (!scopeAllows(principal, record.scope)) continue;
+        considered += 1;
+        if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {
+          omitted.out_of_scope += 1;
+          continue;
+        }
         const score = terms.length ? recallScore(record, terms) : 1;
-        if (!score) continue;
+        if (!score) {
+          omitted.non_match += 1;
+          continue;
+        }
+        matched += 1;
         const statement = String(record.payload.statement ?? record.payload.content ?? "");
         const hit = makeRecallHit({ record, reason: terms.length ? `matched ${score} query term${score === 1 ? "" : "s"}` : "listed in authorized scope", estimated_chars: statement.length });
-        if (used_chars + hit.estimated_chars > max_chars) break;
+        if (used_chars + hit.estimated_chars > max_chars) {
+          omitted.budget += 1;
+          truncated = true;
+          break;
+        }
         hits.push(hit);
         used_chars += hit.estimated_chars;
-        if (hits.length >= max_items) break;
+        if (hits.length >= max_items) {
+          omitted.item_limit += 1;
+          truncated = true;
+          break;
+        }
       }
-      return { status: "ok", data: hits, coverage: { scope_ids, returned: hits.length, query } };
+      const duration_ms = Date.now() - startedAt;
+      return {
+        status: "ok",
+        data: hits,
+        trace_id,
+        coverage: { scope_ids, returned: hits.length, query, considered, matched, included: hits.length, omitted, truncated },
+        usage: { duration_ms, model_calls: 0, model_tokens: 0, cost: null, measurement: "local_deterministic" },
+      };
     },
     mindInspect({ principal, record_id, revision = null }) {
       const record = revision === null ? store.getRecord(record_id) : store.getRecordRevision(record_id, revision);
