@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0004-query-normalization",
-  "release_directory": "planning/releases/R-0004-query-normalization",
-  "release_file": "planning/releases/R-0004-query-normalization/release.json",
-  "backlog_file": "planning/releases/R-0004-query-normalization/backlog.json",
-  "plan_file": "planning/releases/R-0004-query-normalization/PLAN.md",
+  "release_id": "R-0005-continuity-trace",
+  "release_directory": "planning/releases/R-0005-continuity-trace",
+  "release_file": "planning/releases/R-0005-continuity-trace/release.json",
+  "backlog_file": "planning/releases/R-0005-continuity-trace/backlog.json",
+  "plan_file": "planning/releases/R-0005-continuity-trace/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-24"
 }

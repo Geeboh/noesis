@@ -38,7 +38,9 @@ function observeHostEvent(pi, service, atlas, principal, scope, resource_id, nam
 
 export function buildRecallAttachment(result) {
   if (!result?.data?.length) return "";
-  return result.data.map((hit) => `[${hit.record_type} ${hit.record_id}@${hit.revision}] ${hit.statement} (${hit.reason}; origin=${hit.provenance.origin})`).join("\n");
+  const coverage = result.coverage ?? {};
+  const trace = result.trace_id ? `[trace=${result.trace_id}; included=${coverage.included ?? result.data.length}; matched=${coverage.matched ?? result.data.length}]` : "";
+  return [trace, result.data.map((hit) => `[${hit.record_type} ${hit.record_id}@${hit.revision}] ${hit.statement} (${hit.reason}; origin=${hit.provenance.origin})`).join("\n")].filter(Boolean).join("\n");
 }
 
 export default function noesisExtension(pi) {

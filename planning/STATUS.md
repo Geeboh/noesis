@@ -1,11 +1,11 @@
 # NOESIS implementation status
 
 **Bootstrap version:** 1.0.0  
-**Product version:** 1.2.1  
+**Product version:** 1.2.2  
 **Plan revision:** 2026-11-24  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.2.1 is the recovery baseline. R-0004 query normalization is the active local patch candidate with no publication authorization.
-**Active release:** `R-0004-query-normalization` targeting `1.2.2`. Plan: `planning/releases/R-0004-query-normalization/PLAN.md`.
-**Next task:** Start `R-0004-T001` with the isolated duplicate-term ranking reproduction. Preserve v1.2.1 service, tag, artifact, and live backup.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.2.2 is the recovery baseline. R-0005 Continuity trace is the active local patch candidate with no publication authorization.
+**Active release:** `R-0005-continuity-trace` targeting `1.2.3`. Plan: `planning/releases/R-0005-continuity-trace/PLAN.md`.
+**Next task:** Start `R-0005-T001` with the native attachment baseline. Preserve v1.2.2 service, tag, artifact, and live backup.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -157,5 +157,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | R-0004 candidate | duplicate-term baseline; distinct-term scoring regression; paired Observatory normalization; `npm run release:check`; local artifact | local `1.2.2` candidate ready; no publication yet | `planning/releases/R-0004-query-normalization/RELEASE-REPORT.md`, `reports/validation-R-0004.md` |
 | 2026-11-24 | R-0004 installation | backup, clean install, release gate, managed restart, actual LAN URL/QR, pairing, and OMP extension probe | v1.2.2 installed and healthy; simple native probe passed | `reports/use-v1.2.2.md` |
 | 2026-11-24 | R-0004 publication | branch/tag push and GitHub release with verified artifact | v1.2.2 published; installed dashboard remains healthy | `planning/releases/R-0004-query-normalization/RELEASE-REPORT.md` |
+| 2026-11-24 | R-0005 candidate | native attachment baseline; trace/coverage regression; OMP probe; `npm run release:check`; local artifact | local `1.2.3` candidate ready; no publication or live install | `planning/releases/R-0005-continuity-trace/RELEASE-REPORT.md`, `reports/validation-R-0005.md` |
 ## Blockers and forecast changes
 M1 through M8 remain complete. v1.2.2 is published and installed locally for the declared dashboard path. Fresh native write/recall remains unclaimed from the malformed forced-tool attempt. Physical second-device LAN validation, full schemas, and durable non-`/tmp` data storage remain limitations.
