@@ -42,12 +42,12 @@ R8 is a local candidate. Do not replace the live v1.3.0 checkout or data directo
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | `https://github.com/Geeboh/noesis` | authorized, pending |
-| GitHub release/assets | `https://github.com/Geeboh/noesis` | authorized, pending |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `bcc58d4089fc6fda2f65199464b85917e5f0257b`, tag `v1.4.0` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.4.0) and `noesis-1.4.0.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.4.0.md`; backup preserved and v1.4.0 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R8 meets the selected proposal-to-task projection outcome on the declared Forge/Blueprint fixture and preserves the tested invariants. It does not prove task usefulness because no task was executed or measured. v1.4.0 is installed locally and publication is authorized and pending. Next recommended step is one real proposal-to-task outcome evaluation before expanding execution semantics.
+R8 meets the selected proposal-to-task projection outcome on the declared Forge/Blueprint fixture and preserves the tested invariants. It does not prove task usefulness because no task was executed or measured. v1.4.0 is published and installed locally. Next recommended step is one real proposal-to-task outcome evaluation before expanding execution semantics.
