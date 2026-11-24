@@ -178,6 +178,10 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
         if (!body.kind || !body.origin_facet || !body.display_name) return sendJson(response, 400, { error: "kind, origin_facet, and display_name are required" });
         return sendJson(response, 200, atlas.register({ principal, resource: { resource_id: body.resource_id, kind: body.kind, origin_facet: body.origin_facet, display_name: body.display_name, description: body.description ?? null, scope: dashboardScope(), aliases: body.aliases ?? [], metadata: body.metadata ?? {} } }));
       }
+      if (url.pathname.startsWith("/api/resources/") && url.pathname.endsWith("/refresh") && request.method === "POST") {
+        const resource_id = decodeURIComponent(url.pathname.slice("/api/resources/".length, -"/refresh".length));
+        return sendJson(response, 200, await atlas.refresh({ principal, resource_id }));
+      }
       if (url.pathname.startsWith("/api/resources/") && url.pathname.endsWith("/snapshot") && request.method === "POST") {
         const resource_id = decodeURIComponent(url.pathname.slice("/api/resources/".length, -"/snapshot".length));
         const body = await readBody(request);

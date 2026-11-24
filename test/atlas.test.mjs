@@ -54,3 +54,25 @@ test("Atlas records unavailable source content without fabricating a snapshot", 
   store.close();
   rmSync(directory, { recursive: true, force: true });
 });
+test("Atlas refreshes bounded URL snapshots and rejects unsafe failures", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-atlas-"));
+  const store = openStore(join(directory, "mind.sqlite"));
+  const atlas = createAtlas(store);
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const resource = atlas.register({ principal, resource: { resource_id: "resource-refresh", kind: "webpage", origin_facet: "external", display_name: "Refresh Page", scope, aliases: [{ value: "https://example.test/page", kind: "url" }], metadata: {} } });
+  try {
+    const refreshed = await atlas.refresh({ principal, resource_id: resource.resource_id, retrieved_at: "2026-11-25T00:00:00.000Z", fetchImpl: async () => new Response("snapshot body", { status: 200, headers: { "content-type": "text/plain" } }) });
+    assert.equal(refreshed.snapshots.length, 1);
+    assert.equal(refreshed.snapshots[0].content.text, "snapshot body");
+    assert.equal(refreshed.snapshots[0].digest.length, 64);
+    assert.ok(atlas.trace({ principal, id: resource.resource_id }).chronicle.some((event) => event.event_kind === "snapshot_added"));
+    await assert.rejects(atlas.refresh({ principal, resource_id: resource.resource_id, fetchImpl: async () => new Response("redirect", { status: 302, headers: { location: "https://elsewhere.test" } }) }), /redirects are not followed/);
+    assert.equal(atlas.inspect({ principal, resource_id: resource.resource_id }).snapshots.length, 1);
+    const unsafe = atlas.register({ principal, resource: { resource_id: "resource-private", kind: "webpage", origin_facet: "external", display_name: "Private Page", scope, aliases: [{ value: "http://127.0.0.1/private", kind: "url" }], metadata: {} } });
+    await assert.rejects(atlas.refresh({ principal, resource_id: unsafe.resource_id, fetchImpl: async () => new Response("should not fetch") }), /permitted public HTTP/);
+    await assert.rejects(atlas.refresh({ principal, resource_id: resource.resource_id, fetchImpl: async () => new Response("x".repeat(65_537), { status: 200 }) }), /exceeds refresh limit/);
+  } finally {
+    store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});

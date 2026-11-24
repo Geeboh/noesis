@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0006-scope-accounting",
-  "release_directory": "planning/releases/R-0006-scope-accounting",
-  "release_file": "planning/releases/R-0006-scope-accounting/release.json",
-  "backlog_file": "planning/releases/R-0006-scope-accounting/backlog.json",
-  "plan_file": "planning/releases/R-0006-scope-accounting/PLAN.md",
+  "release_id": "R-0007-relay-source-refresh",
+  "release_directory": "planning/releases/R-0007-relay-source-refresh",
+  "release_file": "planning/releases/R-0007-relay-source-refresh/release.json",
+  "backlog_file": "planning/releases/R-0007-relay-source-refresh/backlog.json",
+  "plan_file": "planning/releases/R-0007-relay-source-refresh/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-24"
 }

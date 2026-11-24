@@ -11,6 +11,39 @@ function digest(value) {
 function authorized(principal, scope, message) {
   if (!scopeAllows(principal, scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", message);
 }
+const MAX_REFRESH_BYTES = 65_536;
+
+function refreshUrl(resource) {
+ const alias = resource.aliases.find((candidate) => candidate.alias_kind === "url" && candidate.alias);
+ if (!alias) throw new LedgerError("INVALID_ARGUMENT", "resource has no URL alias");
+ const url = new URL(alias.alias);
+ const hostname = url.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+ const octets = hostname.split(".").map(Number);
+ const privateIpv4 = octets.length === 4 && octets.every(Number.isInteger)
+ && (octets[0] === 10 || octets[0] === 127 || (octets[0] === 169 && octets[1] === 254) || (octets[0] === 192 && octets[1] === 168) || (octets[0] === 172 && octets[1] >= 16 && octets[1] <= 31));
+ if (!["http:", "https:"].includes(url.protocol) || url.username || url.password || hostname === "localhost" || hostname.endsWith(".localhost") || hostname === "::1" || privateIpv4) throw new LedgerError("INVALID_ARGUMENT", "resource URL is not a permitted public HTTP(S) URL");
+ return url;
+}
+
+async function readRefreshBody(response) {
+ const length = Number(response.headers.get("content-length"));
+ if (Number.isFinite(length) && length > MAX_REFRESH_BYTES) throw new LedgerError("BUDGET_EXHAUSTED", "source body exceeds refresh limit");
+ if (!response.body) return Buffer.from(await response.arrayBuffer());
+ const reader = response.body.getReader();
+ const chunks = [];
+ let total = 0;
+ while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  total += value.byteLength;
+  if (total > MAX_REFRESH_BYTES) {
+   await reader.cancel();
+   throw new LedgerError("BUDGET_EXHAUSTED", "source body exceeds refresh limit");
+  }
+  chunks.push(Buffer.from(value));
+ }
+ return Buffer.concat(chunks, total);
+}
 
 export function createAtlas(store) {
   const atlas = {
@@ -89,6 +122,28 @@ export function createAtlas(store) {
         }
       }
       return updated;
+    },
+    async refresh({ principal, resource_id, fetchImpl = globalThis.fetch, retrieved_at = new Date().toISOString() }) {
+      const resource = store.getResource(resource_id);
+      if (!resource) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "resource is not available");
+      authorized(principal, resource.scope, "resource is not available");
+      const url = refreshUrl(resource);
+      const response = await fetchImpl(url, { redirect: "manual" });
+      if (response.status >= 300 && response.status < 400) throw new LedgerError("PROVIDER_UNAVAILABLE", "source redirects are not followed");
+      if (!response.ok) throw new LedgerError("PROVIDER_UNAVAILABLE", `source returned HTTP ${response.status}`);
+      const body = await readRefreshBody(response);
+      return this.snapshot({
+        principal,
+        resource_id,
+        snapshot: {
+          locator: url.toString(),
+          version: null,
+          retrieved_at,
+          digest: createHash("sha256").update(body).digest("hex"),
+          status: "observed",
+          content: { text: body.toString("utf8"), byte_length: body.byteLength, content_type: response.headers.get("content-type") },
+        },
+      });
     },
     setState({ principal, resource_id, state_kind, state, evidence_refs = [] }) {
       const resource = store.getResource(resource_id);
