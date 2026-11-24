@@ -49,9 +49,9 @@ R3 is a local patch candidate. Do not replace the live v1.2.0 checkout or data d
 | Branch/tag push | none authorized for R3 | not attempted |
 | GitHub release/assets | none authorized for R3 | not attempted |
 | Package registry | none | not applicable; package remains private |
-| Live installation | existing v1.2.0 service | not attempted for R3 |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.1.md`; backup preserved and v1.2.1 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R3 meets the selected budget-safety outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. Keep v1.2.0 installed until a separate installation decision is made. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R3 meets the selected budget-safety outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.1 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete client/source workflow is selected.

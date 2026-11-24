@@ -1,6 +1,6 @@
 # NOESIS v1.2.1 release notes
 
-**Status:** local patch candidate, not published or installed.
+**Status:** installed locally; GitHub publication authorized and pending.
 **Candidate:** `b6be3179506e9e8844978c585bfd5cf8cf88c199`
 
 ## Implemented
@@ -20,7 +20,7 @@ The v1.2.0 baseline returned no records when one oversized high-score hit preced
 
 - No labeled live recall corpus exists. This result is not a general quality claim.
 - No model, vector, graph, MCP, connector, or external backend was added.
-- The candidate was not installed into the live v1.2.0 service.
+- The previous malformed forced-tool attempt did not produce fresh native write/recall evidence.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
 
-R3 is local only. No branch, tag, package, deployment, or hosted release was published.
+GitHub publication is authorized and pending. No branch, tag, package, or hosted release was published yet.
