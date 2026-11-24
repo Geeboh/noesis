@@ -48,9 +48,9 @@ R6 is a local patch candidate. Do not replace the live v1.2.3 checkout or data d
 | Branch/tag push | none authorized for R6 | not attempted |
 | GitHub release/assets | none authorized for R6 | not attempted |
 | Package registry | none | not applicable; package remains private |
-| Live installation | existing v1.2.3 service | not attempted for R6 |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.4.md`; backup preserved and v1.2.4 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R6 meets the selected scope-accounting outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. Keep v1.2.3 installed until a separate installation decision is made. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R6 meets the selected scope-accounting outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.4 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete workflow is selected.

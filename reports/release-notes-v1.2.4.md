@@ -1,6 +1,6 @@
 # NOESIS v1.2.4 release notes
 
-**Status:** local patch candidate, not published or installed.
+**Status:** installed locally; GitHub publication authorized and pending.
 **Candidate:** local change from published v1.2.3.
 
 ## Implemented
@@ -21,4 +21,4 @@ The v1.2.3 baseline returned an authorized record with an empty coverage scope l
 - The candidate was not installed into the live v1.2.3 service.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
 
-R6 is local only. No branch, tag, package, deployment, or hosted release was published.
+R6 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, deployment, or hosted release was published yet.
