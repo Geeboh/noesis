@@ -44,11 +44,11 @@ Install with `npm ci --ignore-scripts` from the candidate checkout. Run `npm run
 
 | Action | Authorized destination | Observed result | Identity/evidence |
 | --- | --- | --- | --- |
-| Branch/tag push | none for R-0001 | not attempted | local candidate only |
-| Release/assets | none for R-0001 | not attempted | local artifact only |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed | commit `481a5ead843886d32f4f42492d5532e3807fd886`; tag `v1.1.0` |
+| Release/assets | `https://github.com/Geeboh/noesis` | passed | [GitHub release](https://github.com/Geeboh/noesis/releases/tag/v1.1.0); `noesis-1.1.0.tgz` uploaded |
 | Package registry | none | not applicable | package remains private |
-| Deployment | none | not attempted | existing v1 service untouched |
+| Deployment | local managed `noesis-dashboard` | passed | `reports/use-v1.1.0.md`; existing data directory preserved |
 
 ## Decision and next step
 
-R-0001 meets its selected trace/accounting outcome. The baseline comparison is inconclusive for recall quality and shows no measured ranking change. Keep the current policy. A future quality release needs labeled missed/stale recall cases before changing ranking. Publication remains unauthorized. Next proposed theme is Relay only if a concrete client/source workflow is selected.
+R-0001 meets its selected trace/accounting outcome. The baseline comparison is inconclusive for recall quality and shows no measured ranking change. Keep the current policy. A future quality release needs labeled missed/stale recall cases before changing ranking. Publication completed at the authorized GitHub destination. Next proposed theme is Relay only if a concrete client/source workflow is selected.

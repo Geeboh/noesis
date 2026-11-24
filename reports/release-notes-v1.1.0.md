@@ -1,7 +1,7 @@
 # NOESIS v1.1.0 release notes
 
-**Status:** local candidate preparation, not published.
-**Candidate:** `8c87c2e`
+**Status:** published on GitHub; installed locally.
+**Candidate:** `8c87c2e`; publication commit `481a5ead84`
 
 ## Implemented
 
@@ -24,4 +24,4 @@ Baseline and candidate used separate 40-record stores and five runs each. Both r
 - Physical second-device LAN validation and full JSON Schema dependencies remain unavailable.
 - MCP and external backends remain deferred.
 
-No branch, tag, package, deployment, or hosted release was published for v1.1.0.
+GitHub release: https://github.com/Geeboh/noesis/releases/tag/v1.1.0
