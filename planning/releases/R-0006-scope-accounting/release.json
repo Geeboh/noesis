@@ -41,15 +41,15 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": ["planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md", "planning/releases/R-0006-scope-accounting/REVIEW.md", "reports/validation-R-0006.md", "reports/release-notes-v1.2.4.md", "reports/use-v1.2.4.md", "npm run release:check", "/tmp/noesis-r6-release/noesis-1.2.4.tgz"],
+  "completion_evidence": ["planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md", "planning/releases/R-0006-scope-accounting/REVIEW.md", "reports/validation-R-0006.md", "reports/release-notes-v1.2.4.md", "reports/use-v1.2.4.md", "npm run release:check", "/tmp/noesis-r6-release/noesis-1.2.4.tgz", "https://github.com/Geeboh/noesis/releases/tag/v1.2.4"],
   "publication": {
     "authorization_ref": "user request: install and shipit",
     "allowed_actions": ["push branch", "push v1.2.4 tag", "create GitHub release with verified artifact", "install into live managed dashboard"],
     "destination": "https://github.com/Geeboh/noesis",
-    "status": "authorized_pending",
-    "observed_commit": null,
-    "observed_tag": null,
-    "evidence_refs": []
+    "status": "published",
+    "observed_commit": "6c6a3759b99ae3d2873303511288f489d9fa94e7",
+    "observed_tag": "v1.2.4",
+    "evidence_refs": ["https://github.com/Geeboh/noesis/releases/tag/v1.2.4", "reports/use-v1.2.4.md"]
   },
   "next_authorized_goal_ref": "Horizon Relay after a concrete workflow is selected",
   "last_updated": "2026-11-24"

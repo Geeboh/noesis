@@ -45,12 +45,12 @@ R6 is a local patch candidate. Do not replace the live v1.2.3 checkout or data d
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R6 | not attempted |
-| GitHub release/assets | none authorized for R6 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `6c6a3759b99ae3d2873303511288f489d9fa94e7`, tag `v1.2.4` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.2.4) and `noesis-1.2.4.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.4.md`; backup preserved and v1.2.4 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R6 meets the selected scope-accounting outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.4 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete workflow is selected.
+R6 meets the selected scope-accounting outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.4 is published and installed locally. Next proposed theme remains Relay only after a concrete workflow is selected.

@@ -162,5 +162,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | R-0005 publication | branch/tag push and GitHub release with verified artifact | v1.2.3 published; installed dashboard remains healthy | `planning/releases/R-0005-continuity-trace/RELEASE-REPORT.md` |
 | 2026-11-24 | R-0006 candidate | default scope baseline; effective scope regression; paired Observatory scope check; `npm run release:check`; local artifact | local `1.2.4` candidate ready; no publication or live install | `planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md`, `reports/validation-R-0006.md` |
 | 2026-11-25 | R-0006 installation | backup, clean install, release gate, managed restart, actual LAN URL/QR, pairing, and OMP extension probe | v1.2.4 installed and healthy; simple native probe passed | `reports/use-v1.2.4.md` |
+| 2026-11-25 | R-0006 publication | branch/tag push and GitHub release with verified artifact | v1.2.4 published; installed dashboard remains healthy | `planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.2.4 is installed locally and healthy for the declared dashboard path. R6 publication is authorized and pending. Physical second-device LAN validation, full schemas, and durable non-`/tmp` data storage remain limitations.
+M1 through M8 remain complete. v1.2.4 is published and installed locally for the declared dashboard path. Physical second-device LAN validation, full schemas, and durable non-`/tmp` data storage remain limitations.

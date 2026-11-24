@@ -79,7 +79,7 @@
       "acceptance": ["Local v1.2.4 candidate passes the release gate, has a reproducible checksum, preserves v1.2.3 rollback, and remains unpublished without new authorization."],
       "validation_targets": ["release.reproducibility"],
       "planned_evidence": ["npm run release:check", "npm pack checksum", "release review", "bootstrap and tracker validation"],
-      "completion_evidence": ["planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md", "planning/releases/R-0006-scope-accounting/REVIEW.md", "reports/validation-R-0006.md", "reports/release-notes-v1.2.4.md", "reports/use-v1.2.4.md", "/tmp/noesis-r6-release/noesis-1.2.4.tgz"],
+      "completion_evidence": ["planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md", "planning/releases/R-0006-scope-accounting/REVIEW.md", "reports/validation-R-0006.md", "reports/release-notes-v1.2.4.md", "reports/use-v1.2.4.md", "https://github.com/Geeboh/noesis/releases/tag/v1.2.4"],
       "deferral_reason": null,
       "next_step": "Prepare local artifact and closeout after candidate checks pass."
     }
