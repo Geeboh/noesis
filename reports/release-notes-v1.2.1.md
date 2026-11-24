@@ -1,6 +1,6 @@
 # NOESIS v1.2.1 release notes
 
-**Status:** installed locally; GitHub publication authorized and pending.
+**Status:** published on GitHub; installed locally.
 **Candidate:** `b6be3179506e9e8844978c585bfd5cf8cf88c199`
 
 ## Implemented
@@ -23,4 +23,4 @@ The v1.2.0 baseline returned no records when one oversized high-score hit preced
 - The previous malformed forced-tool attempt did not produce fresh native write/recall evidence.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
 
-GitHub publication is authorized and pending. No branch, tag, package, or hosted release was published yet.
+GitHub release: https://github.com/Geeboh/noesis/releases/tag/v1.2.1

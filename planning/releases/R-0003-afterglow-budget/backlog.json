@@ -79,9 +79,9 @@
       "acceptance": ["Local v1.2.1 candidate passes the release gate, has a reproducible artifact checksum, preserves v1.2.0 rollback, and remains unpublished without new authorization."],
       "validation_targets": ["release.reproducibility"],
       "planned_evidence": ["npm run release:check", "npm pack checksum", "release review", "bootstrap and tracker validation"],
-      "completion_evidence": ["planning/releases/R-0003-afterglow-budget/RELEASE-REPORT.md", "planning/releases/R-0003-afterglow-budget/REVIEW.md", "reports/validation-R-0003.md", "reports/release-notes-v1.2.1.md", "/tmp/noesis-r3-release/noesis-1.2.1.tgz"],
+      "completion_evidence": ["planning/releases/R-0003-afterglow-budget/RELEASE-REPORT.md", "planning/releases/R-0003-afterglow-budget/REVIEW.md", "reports/validation-R-0003.md", "reports/release-notes-v1.2.1.md", "reports/use-v1.2.1.md", "https://github.com/Geeboh/noesis/releases/tag/v1.2.1"],
       "deferral_reason": null,
-      "next_step": "Keep v1.2.0 installed; R3 is local-only pending a separate installation and publication decision."
+      "next_step": "Keep v1.2.1 installed; R3 is published and the next proposed theme is Relay after a concrete workflow is selected."
     }
   ]
 }

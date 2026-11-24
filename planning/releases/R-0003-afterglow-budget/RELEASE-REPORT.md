@@ -46,12 +46,12 @@ R3 is a local patch candidate. Do not replace the live v1.2.0 checkout or data d
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R3 | not attempted |
-| GitHub release/assets | none authorized for R3 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `49a1ff5dc3c725b00b2ef2301f58ee9cd55410ae`, tag `v1.2.1` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.2.1) and `noesis-1.2.1.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.1.md`; backup preserved and v1.2.1 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R3 meets the selected budget-safety outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.1 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R3 meets the selected budget-safety outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.1 is published and installed locally. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
