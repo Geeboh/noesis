@@ -119,6 +119,23 @@ test("mind_recall does not inflate repeated query terms", async () => {
     rmSync(directory, { recursive: true, force: true });
   }
 });
+test("mind_recall reports effective owner scopes by default", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const otherScope = { ...scope, scope_id: "other-scope", owner_id: "other", project_id: "project-b" };
+  try {
+    service.mindNote({ principal, scope, content: "authorized note", producer_id: "omp-session", idempotency_key: "scope-authorized" });
+    service.mindNote({ principal: { owner_id: "other", scope_ids: [] }, scope: otherScope, content: "forbidden note", producer_id: "omp-session", idempotency_key: "scope-forbidden" });
+    const recalled = service.mindRecall({ principal, query: "", max_items: 8, max_chars: 200 });
+    assert.deepEqual(recalled.data.map((hit) => hit.statement), ["authorized note"]);
+    assert.deepEqual(recalled.coverage.scope_ids, [scope.scope_id]);
+    assert.equal(recalled.coverage.omitted.out_of_scope, 1);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_dream admits full bounded Reverie levels and modes", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));

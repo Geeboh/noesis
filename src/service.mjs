@@ -59,13 +59,15 @@ export function createService(store) {
       const trace_id = randomUUID();
       const startedAt = Date.now();
       const terms = [...new Set(query.toLowerCase().split(/\s+/).filter(Boolean))];
+      const records = store.listRecords();
+      const effective_scope_ids = scope_ids.length ? scope_ids : [...new Set(records.filter((record) => scopeAllows(principal, record.scope)).map((record) => record.scope.scope_id))].sort();
       const hits = [];
       const omitted = { out_of_scope: 0, non_match: 0, budget: 0, item_limit: 0 };
       let considered = 0;
       let matched = 0;
       let used_chars = 0;
       let truncated = false;
-      const orderedRecords = store.listRecords().map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, index })).sort((left, right) => right.score - left.score || left.index - right.index);
+      const orderedRecords = records.map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, index })).sort((left, right) => right.score - left.score || left.index - right.index);
       for (const { record, score } of orderedRecords) {
         considered += 1;
         if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {
@@ -97,7 +99,7 @@ export function createService(store) {
         status: "ok",
         data: hits,
         trace_id,
-        coverage: { scope_ids, returned: hits.length, query, considered, matched, included: hits.length, omitted, truncated },
+        coverage: { scope_ids: effective_scope_ids, returned: hits.length, query, considered, matched, included: hits.length, omitted, truncated },
         usage: { duration_ms, model_calls: 0, model_tokens: 0, cost: null, measurement: "local_deterministic" },
       };
     },

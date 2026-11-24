@@ -1,0 +1,56 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0006-scope-accounting",
+  "target_version": "1.2.4",
+  "theme": "Scope accounting",
+  "status": "ready_local",
+  "baseline": {
+    "application_version": "1.2.3",
+    "commit": "39323de8fb3c1d877b1c5235a52baa8023b503d6",
+    "tag": "v1.2.3",
+    "artifact_sha256": "b1c73ab39a16833c87d6868921da6174df6fd2ff10e9068f62262cb1c3a5fdb4",
+    "evidence_refs": ["planning/releases/R-0005-continuity-trace/RELEASE-REPORT.md", "reports/use-v1.2.3.md", "https://github.com/Geeboh/noesis/releases/tag/v1.2.3"]
+  },
+  "outcomes": [
+    {
+      "id": "R6-O1",
+      "intended_user_result": "Recall accounting identifies the effective owner-authorized scopes when callers use the default scope selection.",
+      "current_baseline": "Dashboard recall omits scope_ids, results remain owner-filtered, but coverage reports an empty scope list and hides the effective scope boundary.",
+      "acceptance": "Default-scope recall preserves returned records and authorization while coverage.scope_ids lists only effective owner-authorized scopes; explicit scope_ids behavior remains unchanged and unauthorized scopes remain unavailable.",
+      "evidence_needed": ["focused service regression", "paired Observatory recall", "release gate"]
+    }
+  ],
+  "excluded_scope": [
+    "No retrieval ranking, scoring, provenance, budget, or native attachment policy change.",
+    "No model, vector, graph, MCP, connector, external backend, schema, or database migration.",
+    "No live data rewrite or native OMP configuration change.",
+    "No remote publication without new explicit authorization for R6."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "continuation/prompts/08-RESUME-ROADMAP.md",
+  "budget": {
+    "policy_ref": "deterministic-local-only",
+    "model_call_limit": 0,
+    "model_token_limit": 0,
+    "wall_time_seconds_limit": 300,
+    "currency": null,
+    "monetary_limit": null,
+    "actual_cost": 0,
+    "includes_children_retries_embeddings": true
+  },
+  "completion_evidence": ["planning/releases/R-0006-scope-accounting/RELEASE-REPORT.md", "planning/releases/R-0006-scope-accounting/REVIEW.md", "reports/validation-R-0006.md", "reports/release-notes-v1.2.4.md", "npm run release:check", "/tmp/noesis-r6-release/noesis-1.2.4.tgz"],
+  "publication": {
+    "authorization_ref": null,
+    "allowed_actions": [],
+    "destination": null,
+    "status": "not_authorized",
+    "observed_commit": null,
+    "observed_tag": null,
+    "evidence_refs": []
+  },
+  "next_authorized_goal_ref": "Horizon Relay after a concrete workflow is selected",
+  "last_updated": "2026-11-24"
+}
