@@ -1,7 +1,7 @@
 # NOESIS v1.0.0 release notes
 
-**Status:** released to private GitHub repository.
-**Candidate:** `314501d`
+**Status:** released to private GitHub repository; no new remote publication performed by this review.
+**Candidate:** `80a8703`
 
 ## Stable scope
 
@@ -13,7 +13,7 @@
 
 ## Validation
 
-`npm ci --ignore-scripts` passed. `npm run release:check` passed 56 tests, bootstrap validation, and syntax checks. Five-run workload measurement completed with zero errors. Local artifact SHA-256 is `2d0af5e9eea8e14c0eff3ac4690a0a89bd7f4f93fe9d5009d3773f05eccbb65e`.
+`npm ci --ignore-scripts` passed. Sequential `npm run release:check` passed 56 tests, bootstrap validation, and syntax checks. Five-run workload measurement completed with zero errors. Current local artifact SHA-256 is `5c6a9e60a6530f2087f8e77a2c582e236e856fe73f20be4ff9a8d88ab4c11c83`.
 
 ## Known limitations
 

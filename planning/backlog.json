@@ -1922,7 +1922,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-"completion_evidence": ["reports/milestone-M8.md", "reports/validation-M8.md", "reports/release-notes-v1.0.0.md"]
+"completion_evidence": ["reports/milestone-M8.md", "reports/validation-M8.md", "reports/release-review-v1.0.0.md", "reports/release-notes-v1.0.0.md"]
     }
   ]
 }

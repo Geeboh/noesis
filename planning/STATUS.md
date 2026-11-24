@@ -19,7 +19,7 @@ This file is the editable progress record for implementation. The bootstrap's pr
 | M5 | Lore living wiki | done | `v0.5.0-beta.1` | `reports/milestone-M5.md`, `reports/validation-M5.md`, `reports/release-notes-v0.5.0-beta.1.md` |
 | M6 | Forge and Blueprints | done | `v0.6.0-beta.1` | `reports/milestone-M6.md`, `reports/validation-M6.md`, `reports/release-notes-v0.6.0-beta.1.md` |
 | M7 | Native portability and optional adapters | done | `v0.7.0-beta.1` | `reports/milestone-M7.md`, `reports/validation-M7.md`, `reports/release-notes-v0.7.0-beta.1.md`, `reports/decisions/DEC-0002-m7-optional-adapters.md` |
-| M8 | Hardening and stable release | done | `v1.0.0` | `reports/milestone-M8.md`, `reports/validation-M8.md`, `reports/release-notes-v1.0.0.md` |
+| M8 | Hardening and stable release | done | `v1.0.0` | `reports/milestone-M8.md`, `reports/validation-M8.md`, `reports/release-review-v1.0.0.md`, `reports/release-notes-v1.0.0.md` |
 
 The machine-readable baseline is `planning/milestones.json` and `planning/backlog.json`: nine milestones, six tasks per milestone, and 54 tasks total. M0 through M8 are complete. Post-v1 work requires an explicit scope decision.
 

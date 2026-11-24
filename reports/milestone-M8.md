@@ -35,23 +35,23 @@ M8 is complete for the declared Linux x86_64, Node 24, npm 11, SQLite, and OMP 1
 ## Validation
 
 **Environment:** Linux x86_64, 16 cores, Node 24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1. Load average before measurement was 2.65, 2.67, 2.83. The measurement is a five-run representative ballpark, not a comparison between implementations.
-**Tested candidate:** `31364e1`.
-**Artifact:** `/tmp/noesis-release/noesis-1.0.0.tgz`; SHA-256 `2d0af5e9eea8e14c0eff3ac4690a0a89bd7f4f93fe9d5009d3773f05eccbb65e`.
+**Tested candidate:** `80a8703`.
+**Artifact:** `/tmp/noesis-release-review/noesis-1.0.0.tgz`; SHA-256 `5c6a9e60a6530f2087f8e77a2c582e236e856fe73f20be4ff9a8d88ab4c11c83`.
 
 | Target | Exact command or observed procedure | Result | Limitation |
 | --- | --- | --- | --- |
-| `release.reproducibility` | `npm ci --ignore-scripts`; `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release` | passed | private package is not published |
+| `release.reproducibility` | `npm ci --ignore-scripts`; sequential `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review` | passed | private package is not published |
 | `system.hardening` | `npm test`; pairing, scope, archive tamper, backup/restore, migration, and Lore restart cases | passed, 56 tests | external physical device unavailable |
 | `ledger.integrity` | `npm test` | passed, 56 tests | none observed |
-| Workload measurement | `node scripts/measure_m8.mjs`, 25 records, five runs, zero errors | passed | restore p50 75.45 ms, p95 163.03 ms; small local dataset, no concurrency load |
+| Workload measurement | `node scripts/measure_m8.mjs`, 25 records, five runs, zero errors | passed | restore p50 66.22 ms, p95 130.41 ms; small local dataset, no concurrency load |
 
 ### Representative workload measurements
 
 | Operation | Runs | Median | P95 | Range |
 | --- | ---: | ---: | ---: | ---: |
-| Scoped recall | 5 | 1.27 ms | 1.79 ms | 1.14 to 1.79 ms |
-| Native archive creation | 5 | 2.44 ms | 3.40 ms | 1.33 to 3.40 ms |
-| Clean-store restore | 5 | 75.45 ms | 163.03 ms | 39.34 to 163.03 ms |
+| Scoped recall | 5 | 1.34 ms | 1.89 ms | 1.13 to 1.89 ms |
+| Native archive creation | 5 | 3.89 ms | 5.45 ms | 1.54 to 5.45 ms |
+| Clean-store restore | 5 | 66.22 ms | 130.41 ms | 39.09 to 130.41 ms |
 
 The measured restore path is bounded by SQLite file creation and table insertion. No failures occurred, and the script verified record counts and restored schema for each run. These numbers are operational observations, not universal performance guarantees.
 

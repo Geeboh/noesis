@@ -17,19 +17,19 @@
 
 | Field | Observed value |
 | --- | --- |
-| Source revision | `31364e1` |
+| Source revision | `80a8703` |
 | Product version | `1.0.0` |
 | Bootstrap version | `1.0.0` |
 | Runtime / package manager | Node v24.22.3; npm 11.19.1 |
 | SQLite / OMP | SQLite 3.45.1 via `node:sqlite`; omp/19.1.1 |
-| Artifact | `/tmp/noesis-release/noesis-1.0.0.tgz`, SHA-256 `2d0af5e9eea8e14c0eff3ac4690a0a89bd7f4f93fe9d5009d3773f05eccbb65e` |
+| Artifact | `/tmp/noesis-release-review/noesis-1.0.0.tgz`, SHA-256 `5c6a9e60a6530f2087f8e77a2c582e236e856fe73f20be4ff9a8d88ab4c11c83` |
 | Physical second device | unavailable; no claim made |
 
 ## Observed checks
 
 | Target | Exact command or procedure | Result | Limitation |
 | --- | --- | --- | --- |
-| `release.reproducibility` | `npm ci --ignore-scripts`; `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release` | passed | local artifact only |
+| `release.reproducibility` | `npm ci --ignore-scripts`; sequential `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review` | passed | local artifact only |
 | `system.hardening` | `npm test`; archive tamper, migration, backup/restore, pairing, scope, Lore restart, and forgetting tests | passed, 56 tests | no physical second device |
 | `ledger.integrity` | `npm test` | passed, 56 tests | none observed |
 | `observatory.journeys` | existing authenticated Observatory tests plus headless Chromium captures at 1280x720 and 390x844 | passed | interactive browser control not run |
@@ -42,7 +42,7 @@ Clean install added the locked dependency set without lifecycle scripts. The rel
 
 Native archive tamper rejection, clean-store restore, SQLite backup/restore, migration reopen, pairing denial/reuse, scope denial, Lore authored-section restart, and explicit forgetting behavior passed through the existing tests.
 
-The five-run workload script processed 25 records per run and counted zero errors. Recall median was 1.27 ms, archive median 2.44 ms, and restore median 75.45 ms. Restore p95 was 163.03 ms. Results are local ballpark observations, not a cross-machine guarantee.
+The five-run workload script processed 25 records per run and counted zero errors. Recall median was 1.34 ms, archive median 3.89 ms, and restore median 66.22 ms. Restore p95 was 130.41 ms. Results are local ballpark observations, not a cross-machine guarantee.
 
 ## Limitations and disposition
 
