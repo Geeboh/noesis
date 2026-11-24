@@ -17,7 +17,7 @@
 
 | Field | Observed value |
 | --- | --- |
-| Source revision | `11da2fd` |
+| Source revision | `d32b1cf` |
 | Product version | `1.0.0` |
 | Bootstrap version | `1.0.0` |
 | Runtime / package manager | Node v24.22.3; npm 11.19.1 |

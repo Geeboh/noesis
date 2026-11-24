@@ -1,7 +1,7 @@
 # NOESIS v1.0.0 release notes
 
 **Status:** released to private GitHub repository; no new remote publication performed by this review.
-**Candidate:** `11da2fd`
+**Candidate:** `d32b1cf`
 
 ## Stable scope
 

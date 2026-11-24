@@ -35,7 +35,7 @@ M8 is complete for the declared Linux x86_64, Node 24, npm 11, SQLite, and OMP 1
 ## Validation
 
 **Environment:** Linux x86_64, 16 cores, Node 24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1. Load average before measurement was 2.65, 2.67, 2.83. The measurement is a five-run representative ballpark, not a comparison between implementations.
-**Tested candidate:** `11da2fd`.
+**Tested candidate:** `d32b1cf`.
 **Artifact:** `/tmp/noesis-release-review-final2/noesis-1.0.0.tgz`; SHA-256 `e1a1ad454be160ae3f8cb2a7080f1faa265e828b52c655edf453bd4cbf8b0e3e`.
 
 | Target | Exact command or observed procedure | Result | Limitation |

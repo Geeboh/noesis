@@ -1,7 +1,7 @@
 # NOESIS v1.0.0 release review
 
 **Review date:** 2026-11-24
-**Candidate:** `11da2fd`
+**Candidate:** `d32b1cf`
 **Product version:** `1.0.0`
 **Bootstrap version:** `1.0.0`
 **Destination:** local only; no new remote publication performed by this review
