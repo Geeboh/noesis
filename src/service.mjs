@@ -82,7 +82,7 @@ export function createService(store) {
         if (used_chars + hit.estimated_chars > max_chars) {
           omitted.budget += 1;
           truncated = true;
-          break;
+          continue;
         }
         hits.push(hit);
         used_chars += hit.estimated_chars;

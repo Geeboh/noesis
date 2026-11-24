@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0002-resonance-ranking",
-  "release_directory": "planning/releases/R-0002-resonance-ranking",
-  "release_file": "planning/releases/R-0002-resonance-ranking/release.json",
-  "backlog_file": "planning/releases/R-0002-resonance-ranking/backlog.json",
-  "plan_file": "planning/releases/R-0002-resonance-ranking/PLAN.md",
+  "release_id": "R-0003-afterglow-budget",
+  "release_directory": "planning/releases/R-0003-afterglow-budget",
+  "release_file": "planning/releases/R-0003-afterglow-budget/release.json",
+  "backlog_file": "planning/releases/R-0003-afterglow-budget/backlog.json",
+  "plan_file": "planning/releases/R-0003-afterglow-budget/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-24"
 }

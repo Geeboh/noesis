@@ -62,6 +62,28 @@ test("mind_recall prioritizes stronger lexical matches under the item budget", a
     rmSync(directory, { recursive: true, force: true });
   }
 });
+test("mind_recall continues after an oversized lexical hit", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  try {
+    service.mindNote({ principal, scope, content: `alpha beta ${"oversized ".repeat(30)}`, producer_id: "omp-session", idempotency_key: "note-oversized" });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    for (let index = 0; index < 3; index += 1) {
+      service.mindNote({ principal, scope, content: `alpha small-${index}`, producer_id: "omp-session", idempotency_key: `note-small-${index}` });
+      await new Promise((resolve) => setTimeout(resolve, 2));
+    }
+    const recalled = service.mindRecall({ principal, query: "alpha beta", scope_ids: [scope.scope_id], max_items: 3, max_chars: 80 });
+    assert.deepEqual(recalled.data.map((hit) => hit.statement), ["alpha small-2", "alpha small-1", "alpha small-0"]);
+    assert.equal(recalled.coverage.omitted.budget, 1);
+    assert.equal(recalled.coverage.included, 3);
+    assert.equal(recalled.coverage.truncated, true);
+    assert.ok(recalled.data.reduce((total, hit) => total + hit.estimated_chars, 0) <= 80);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_inspect returns exact revision and source without disclosing forbidden records", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));
