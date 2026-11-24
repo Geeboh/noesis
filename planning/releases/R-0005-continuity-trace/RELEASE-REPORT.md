@@ -45,12 +45,12 @@ R5 is a local patch candidate. Do not replace the live v1.2.2 checkout or data d
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R5 | not attempted |
-| GitHub release/assets | none authorized for R5 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `39323de8fb3c1d877b1c5235a52baa8023b503d6`, tag `v1.2.3` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.2.3) and `noesis-1.2.3.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.3.md`; backup preserved and v1.2.3 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R5 meets the selected adapter-continuity outcome on the declared fixture and preserves the tested invariants. It does not prove model acceptance or task usefulness. v1.2.3 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R5 meets the selected adapter-continuity outcome on the declared fixture and preserves the tested invariants. It does not prove model acceptance or task usefulness. v1.2.3 is published and installed locally. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
