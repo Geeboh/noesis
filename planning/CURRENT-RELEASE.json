@@ -1,0 +1,11 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0001-resonance",
+  "release_directory": "planning/releases/R-0001-resonance",
+  "release_file": "planning/releases/R-0001-resonance/release.json",
+  "backlog_file": "planning/releases/R-0001-resonance/backlog.json",
+  "plan_file": "planning/releases/R-0001-resonance/PLAN.md",
+  "status_summary": "planning/STATUS.md",
+  "last_updated": "2026-11-24"
+}

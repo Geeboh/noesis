@@ -4,6 +4,8 @@
 **Product version:** unreleased  
 **Plan revision:** 2026-11-23  
 **Implementation state:** M1 through M8 done. M8 stable v1.0.0 is complete for the declared environment with explicit physical-device and operational limits.
+**Active release:** `R-0001-resonance` targeting `1.1.0`. Plan: `planning/releases/R-0001-resonance/PLAN.md`.
+**Next task:** `R-0001-T001` baseline recall measurement. Current release remains the accepted `v1.0.0`; candidate work must use separate temporary data.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -148,4 +150,4 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-24 | M8 workload | `node scripts/measure_m8.mjs` | five runs, 25 records, zero errors; recall/archive/restore metrics recorded | `reports/validation-M8.md` |
 | 2026-11-24 | v1.0.0 use | `npm ci --ignore-scripts`; copied migration; native OMP note/recall/inspect/Snooze; live dashboard restart, URL/QR/pairing | accepted release running with preserved live data and explicit limitations | `reports/use-v1.0.0.md` |
 ## Blockers and forecast changes
-M1 through M8 are complete. v1.0.0 is installed and running locally for the declared environment. No remote publication action occurred during this use operation. Physical second-device LAN validation, live `before_agent_start` delivery, full schemas, and durable non-`/tmp` data storage remain limitations.
+M1 through M8 are complete. v1.0.0 is installed and running locally for the declared environment. Active post-v1 plan is `R-0001-resonance`; first task is baseline recall measurement. No remote publication action occurred during this continuation. Physical second-device LAN validation, live `before_agent_start` delivery, full schemas, and durable non-`/tmp` data storage remain limitations.

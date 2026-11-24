@@ -1,0 +1,55 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0001-resonance",
+  "target_version": "1.1.0",
+  "theme": "Resonance",
+  "status": "active",
+  "baseline": {
+    "application_version": "1.0.0",
+    "commit": "80a87030c0a4eaf2e029e48f32feb789be7ffb47",
+    "tag": "v1.0.0",
+    "artifact_sha256": "e1a1ad454be160ae3f8cb2a7080f1faa265e828b52c655edf453bd4cbf8b0e3e",
+    "evidence_refs": ["reports/release-review-v1.0.0.md", "reports/use-v1.0.0.md"]
+  },
+  "outcomes": [
+    {
+      "id": "R1-O1",
+      "intended_user_result": "Recall explains what it considered, matched, included, omitted, and cost locally without changing accepted ranking or scope rules.",
+      "current_baseline": "Lexical scoped recall returns hits and a small coverage object, but does not expose retrieval accounting or elapsed cost.",
+      "acceptance": "Every bounded recall response includes a trace identity, considered/matched/included counts, omission reasons, elapsed duration, and no unauthorized record identifiers.",
+      "evidence_needed": ["service tests", "OMP recall smoke", "Observatory recall journey", "five-run measurement"]
+    }
+  ],
+  "excluded_scope": [
+    "No ranking-policy promotion without independent development/holdout evidence.",
+    "No model, vector index, graph database, MCP adapter, or new memory backend.",
+    "No schema migration or live-data rewrite unless implementation proves it necessary."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "continuation/prompts/05-AFTER-RELEASE.md",
+  "budget": {
+    "policy_ref": "deterministic-local-only",
+    "model_call_limit": 0,
+    "model_token_limit": 0,
+    "wall_time_seconds_limit": 300,
+    "currency": null,
+    "monetary_limit": null,
+    "actual_cost": 0,
+    "includes_children_retries_embeddings": true
+  },
+  "completion_evidence": [],
+  "publication": {
+    "authorization_ref": null,
+    "allowed_actions": [],
+    "destination": null,
+    "status": "not_attempted",
+    "observed_commit": null,
+    "observed_tag": null,
+    "evidence_refs": []
+  },
+  "next_authorized_goal_ref": "Horizon Relay",
+  "last_updated": "2026-11-24"
+}
