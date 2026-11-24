@@ -41,15 +41,15 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": ["planning/releases/R-0002-resonance-ranking/RELEASE-REPORT.md", "planning/releases/R-0002-resonance-ranking/REVIEW.md", "reports/validation-R-0002.md", "reports/release-notes-v1.2.0.md", "reports/use-v1.2.0.md", "npm run release:check", "/tmp/noesis-r2-release/noesis-1.2.0.tgz"],
+  "completion_evidence": ["planning/releases/R-0002-resonance-ranking/RELEASE-REPORT.md", "planning/releases/R-0002-resonance-ranking/REVIEW.md", "reports/validation-R-0002.md", "reports/release-notes-v1.2.0.md", "reports/use-v1.2.0.md", "npm run release:check", "/tmp/noesis-r2-release/noesis-1.2.0.tgz", "https://github.com/Geeboh/noesis/releases/tag/v1.2.0"],
   "publication": {
     "authorization_ref": "user request: shipit and install",
     "allowed_actions": ["push branch", "push v1.2.0 tag", "create GitHub release with verified artifact", "install into live managed dashboard"],
     "destination": "https://github.com/Geeboh/noesis",
-    "status": "authorized_pending",
-    "observed_commit": null,
-    "observed_tag": null,
-    "evidence_refs": []
+    "status": "published",
+    "observed_commit": "0b7a5a5b7fe69fff1c4dc14b5b92522e3ea021ad",
+    "observed_tag": "v1.2.0",
+    "evidence_refs": ["https://github.com/Geeboh/noesis/releases/tag/v1.2.0", "reports/use-v1.2.0.md"]
   },
   "next_authorized_goal_ref": "Horizon Relay after a concrete workflow is selected",
   "last_updated": "2026-11-24"

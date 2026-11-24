@@ -1,6 +1,6 @@
 # NOESIS v1.2.0 release notes
 
-**Status:** installed locally; GitHub publication authorized and pending.
+**Status:** published on GitHub; installed locally.
 **Candidate:** `7e3ff807688b3edc8a5da62582a464c1f8559bef`
 
 ## Implemented
@@ -23,4 +23,4 @@ The baseline fixture omitted an older two-term decision while newer one-term rou
 - The candidate was not installed into the live v1.1.0 service.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
 
-R2 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, or hosted release was published yet.
+GitHub release: https://github.com/Geeboh/noesis/releases/tag/v1.2.0

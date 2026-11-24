@@ -46,11 +46,12 @@ R2 is a local candidate. Do not replace the live v1.1.0 checkout or data directo
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | `https://github.com/Geeboh/noesis` | authorized, pending |
-| GitHub release/assets | `https://github.com/Geeboh/noesis` | authorized, pending |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `0b7a5a5b7fe69fff1c4dc14b5b92522e3ea021ad`, tag `v1.2.0` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.2.0) and `noesis-1.2.0.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
-| Live installation | managed `noesis-dashboard` | passed | `reports/use-v1.2.0.md`; backup preserved and v1.2.0 health/pairing verified |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.0.md`; backup preserved and v1.2.0 health/pairing verified |
+| Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R2 meets the selected ranking outcome on the declared isolated case and preserves the tested invariants. The result is encouraging but not general quality proof because no labeled live corpus exists. Keep v1.1.0 installed until a separate installation decision is made. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R2 meets the selected ranking outcome on the declared isolated case and preserves the tested invariants. The result is encouraging but not general quality proof because no labeled live corpus exists. v1.2.0 is published and installed locally. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
