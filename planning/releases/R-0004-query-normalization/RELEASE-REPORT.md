@@ -49,9 +49,9 @@ R4 is a local patch candidate. Do not replace the live v1.2.1 checkout or data d
 | Branch/tag push | none authorized for R4 | not attempted |
 | GitHub release/assets | none authorized for R4 | not attempted |
 | Package registry | none | not applicable; package remains private |
-| Live installation | existing v1.2.1 service | not attempted for R4 |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.2.md`; backup preserved and v1.2.2 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R4 meets the selected normalization outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. Keep v1.2.1 installed until a separate installation decision is made. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R4 meets the selected normalization outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.2 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete client/source workflow is selected.

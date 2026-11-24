@@ -1,6 +1,6 @@
 # NOESIS v1.2.2 release notes
 
-**Status:** local patch candidate, not published or installed.
+**Status:** installed locally; GitHub publication authorized and pending.
 **Candidate:** local change from published v1.2.1.
 
 ## Implemented
@@ -20,6 +20,6 @@ The v1.2.1 baseline selected an older alpha-only record for `alpha alpha beta` a
 - No labeled live recall corpus exists. This result is not a general quality claim.
 - No model, vector, graph, MCP, connector, or external backend was added.
 - The candidate was not installed into the live v1.2.1 service.
-- Physical second-device LAN validation and full JSON Schema validation remain unavailable.
+- The candidate was installed into the live v1.2.2 service without migration or data replacement.
 
-R4 is local only. No branch, tag, package, deployment, or hosted release was published.
+R4 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, deployment, or hosted release was published yet.
