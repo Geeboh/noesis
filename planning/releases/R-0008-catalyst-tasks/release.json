@@ -32,8 +32,8 @@
   "report_file": "RELEASE-REPORT.md",
   "implementation_scope_ref": "continuation/HORIZON-ROADMAP.md",
   "budget": {"policy_ref":"deterministic-local-only","model_call_limit":0,"model_token_limit":0,"wall_time_seconds_limit":300,"currency":null,"monetary_limit":null,"actual_cost":0,"includes_children_retries_embeddings":true},
- "completion_evidence": ["planning/releases/R-0008-catalyst-tasks/RELEASE-REPORT.md","planning/releases/R-0008-catalyst-tasks/REVIEW.md","reports/validation-R-0008.md","reports/release-notes-v1.4.0.md","npm run release:check","/tmp/noesis-r8-release/noesis-1.4.0.tgz"],
-  "publication": {"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "completion_evidence": ["planning/releases/R-0008-catalyst-tasks/RELEASE-REPORT.md","planning/releases/R-0008-catalyst-tasks/REVIEW.md","reports/validation-R-0008.md","reports/release-notes-v1.4.0.md","reports/use-v1.4.0.md","npm run release:check","/tmp/noesis-r8-release/noesis-1.4.0.tgz"],
+  "publication": {"authorization_ref":"user request: install and shipit","allowed_actions":["push branch","push v1.4.0 tag","create GitHub release with verified artifact","install into live managed dashboard"],"destination":"https://github.com/Geeboh/noesis","status":"authorized_pending","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
   "next_authorized_goal_ref": "Catalyst follow-up requires an observed proposal-to-task outcome workflow",
   "last_updated": "2026-11-25"
 }

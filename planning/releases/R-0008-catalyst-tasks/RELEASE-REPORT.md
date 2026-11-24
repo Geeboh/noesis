@@ -42,12 +42,12 @@ R8 is a local candidate. Do not replace the live v1.3.0 checkout or data directo
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R8 | not attempted |
-| GitHub release/assets | none authorized for R8 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | authorized, pending |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | authorized, pending |
 | Package registry | none | not applicable; package remains private |
-| Live installation | existing v1.3.0 service | not attempted for R8 |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.4.0.md`; backup preserved and v1.4.0 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R8 meets the selected proposal-to-task projection outcome on the declared Forge/Blueprint fixture and preserves the tested invariants. It does not prove task usefulness because no task was executed or measured. Keep v1.3.0 installed until a separate installation decision is made. Next recommended step is one real proposal-to-task outcome evaluation before expanding execution semantics.
+R8 meets the selected proposal-to-task projection outcome on the declared Forge/Blueprint fixture and preserves the tested invariants. It does not prove task usefulness because no task was executed or measured. v1.4.0 is installed locally and publication is authorized and pending. Next recommended step is one real proposal-to-task outcome evaluation before expanding execution semantics.

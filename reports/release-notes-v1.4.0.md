@@ -1,6 +1,6 @@
 # NOESIS v1.4.0 release notes
 
-**Status:** local Catalyst candidate, not published or installed.
+**Status:** installed locally; GitHub publication authorized and pending.
 **Candidate:** local change from published v1.3.0.
 
 ## Implemented
@@ -21,4 +21,4 @@ Focused Forge and Observatory tests passed. The paired route required authentica
 - No model, vector, graph, MCP, connector, or external backend was added.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
 
-R8 is local only. No branch, tag, package, deployment, or hosted release was published.
+R8 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, deployment, or hosted release was published yet.
