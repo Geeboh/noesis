@@ -1,6 +1,6 @@
 # NOESIS v1.3.0 release notes
 
-**Status:** local Relay candidate, not published or installed.
+**Status:** installed locally; GitHub publication authorized and pending.
 **Candidate:** local change from published v1.2.4.
 
 ## Implemented
@@ -22,5 +22,4 @@ The paired `https://example.com` workflow registered a resource and refreshed on
 - DNS aliases that resolve to private addresses are outside this bounded check.
 - No live user source was refreshed.
 - Physical second-device LAN validation and full JSON Schema validation remain unavailable.
-
-R7 is local only. No branch, tag, package, deployment, or hosted release was published.
+R7 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, deployment, or hosted release was published yet.

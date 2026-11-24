@@ -48,9 +48,9 @@ R7 is a local candidate. Do not replace the live v1.2.4 checkout or data directo
 | Branch/tag push | none authorized for R7 | not attempted |
 | GitHub release/assets | none authorized for R7 | not attempted |
 | Package registry | none | not applicable; package remains private |
-| Live installation | existing v1.2.4 service | not attempted for R7 |
+| Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.3.0.md`; backup preserved and v1.3.0 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R7 meets the selected Relay source-refresh outcome on the declared paired example.com workflow and preserves the tested invariants. Keep v1.2.4 installed until a separate installation decision is made. Next proposed theme is Catalyst only after a concrete proposal-to-task workflow is selected.
+R7 meets the selected Relay source-refresh outcome on the declared paired example.com workflow and preserves the tested invariants. v1.3.0 is installed locally and publication is authorized and pending. Next proposed theme is Catalyst only after a concrete proposal-to-task workflow is selected.
