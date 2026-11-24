@@ -1,7 +1,7 @@
 # NOESIS v1.0.0 release review
 
 **Review date:** 2026-11-24
-**Candidate:** `80a8703`
+**Candidate:** `11da2fd`
 **Product version:** `1.0.0`
 **Bootstrap version:** `1.0.0`
 **Destination:** local only; no new remote publication performed by this review
@@ -23,7 +23,7 @@ All M0 through M8 milestones are marked done with nonempty completion evidence. 
 | Sequential `npm run release:check` | passed, 56 tests |
 | `python3 scripts/doctor.py` | passed prerequisite inventory; optional packages absent |
 | `npm run probe:omp` | extension loaded on OMP 19.1.1; print probe remains partial |
-| `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review` | passed; `noesis-1.0.0.tgz` |
+| `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review-final2` | passed; `noesis-1.0.0.tgz`, SHA-256 `e1a1ad454be160ae3f8cb2a7080f1faa265e828b52c655edf453bd4cbf8b0e3e` |
 | Native archive tamper/restore and SQLite backup/restore | passed in application suite |
 | `node scripts/measure_m8.mjs` | five runs, 25 records, zero errors |
 | Port 17346 startup and `/healthz` | passed; actual URL and pairing code printed after bind |

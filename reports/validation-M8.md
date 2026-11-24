@@ -17,19 +17,19 @@
 
 | Field | Observed value |
 | --- | --- |
-| Source revision | `80a8703` |
+| Source revision | `11da2fd` |
 | Product version | `1.0.0` |
 | Bootstrap version | `1.0.0` |
 | Runtime / package manager | Node v24.22.3; npm 11.19.1 |
 | SQLite / OMP | SQLite 3.45.1 via `node:sqlite`; omp/19.1.1 |
-| Artifact | `/tmp/noesis-release-review/noesis-1.0.0.tgz`, SHA-256 `5c6a9e60a6530f2087f8e77a2c582e236e856fe73f20be4ff9a8d88ab4c11c83` |
+| Artifact | `/tmp/noesis-release-review-final2/noesis-1.0.0.tgz`, SHA-256 `e1a1ad454be160ae3f8cb2a7080f1faa265e828b52c655edf453bd4cbf8b0e3e` |
 | Physical second device | unavailable; no claim made |
 
 ## Observed checks
 
 | Target | Exact command or procedure | Result | Limitation |
 | --- | --- | --- | --- |
-| `release.reproducibility` | `npm ci --ignore-scripts`; sequential `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review` | passed | local artifact only |
+| `release.reproducibility` | `npm ci --ignore-scripts`; sequential `npm run release:check`; `npm pack --ignore-scripts --pack-destination /tmp/noesis-release-review-final2` | passed | local artifact only |
 | `system.hardening` | `npm test`; archive tamper, migration, backup/restore, pairing, scope, Lore restart, and forgetting tests | passed, 56 tests | no physical second device |
 | `ledger.integrity` | `npm test` | passed, 56 tests | none observed |
 | `observatory.journeys` | existing authenticated Observatory tests plus headless Chromium captures at 1280x720 and 390x844 | passed | interactive browser control not run |
