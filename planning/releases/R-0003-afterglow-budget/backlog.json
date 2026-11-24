@@ -46,7 +46,7 @@
     {
       "id": "R-0003-T003",
       "title": "Validate budget-safe recall",
-      "status": "planned",
+      "status": "done",
       "required_for_release": true,
       "outcome_ids": ["R3-O1"],
       "depends_on": ["R-0003-T002"],
@@ -59,14 +59,14 @@
       "acceptance": ["Candidate returns fitting evidence, stays within declared budgets, preserves scope and provenance, and records negative cases."],
       "validation_targets": ["omp.capture-recall", "observatory.journeys"],
       "planned_evidence": ["Candidate measurement", "paired dashboard recall", "scope denial check"],
-      "completion_evidence": [],
+      "completion_evidence": ["node --test test/observatory.test.mjs", "/tmp/noesis-r3-budget-candidate.json", "paired Observatory budget command"],
       "deferral_reason": null,
       "next_step": "Run candidate and paired Observatory checks after the regression passes."
     },
     {
       "id": "R-0003-T004",
       "title": "Prepare local Afterglow patch",
-      "status": "planned",
+      "status": "done",
       "required_for_release": true,
       "outcome_ids": ["R3-O1"],
       "depends_on": ["R-0003-T003"],
@@ -79,9 +79,9 @@
       "acceptance": ["Local v1.2.1 candidate passes the release gate, has a reproducible artifact checksum, preserves v1.2.0 rollback, and remains unpublished without new authorization."],
       "validation_targets": ["release.reproducibility"],
       "planned_evidence": ["npm run release:check", "npm pack checksum", "release review", "bootstrap and tracker validation"],
-      "completion_evidence": [],
+      "completion_evidence": ["planning/releases/R-0003-afterglow-budget/RELEASE-REPORT.md", "planning/releases/R-0003-afterglow-budget/REVIEW.md", "reports/validation-R-0003.md", "reports/release-notes-v1.2.1.md", "/tmp/noesis-r3-release/noesis-1.2.1.tgz"],
       "deferral_reason": null,
-      "next_step": "Prepare the local artifact and closeout after all candidate evidence passes."
+      "next_step": "Keep v1.2.0 installed; R3 is local-only pending a separate installation and publication decision."
     }
   ]
 }

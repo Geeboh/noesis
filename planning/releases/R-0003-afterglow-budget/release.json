@@ -4,7 +4,7 @@
   "release_id": "R-0003-afterglow-budget",
   "target_version": "1.2.1",
   "theme": "Afterglow",
-  "status": "in_progress",
+  "status": "ready_local",
   "baseline": {
     "application_version": "1.2.0",
     "commit": "0b7a5a5b7fe69fff1c4dc14b5b92522e3ea021ad",
@@ -41,7 +41,7 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": [],
+  "completion_evidence": ["planning/releases/R-0003-afterglow-budget/RELEASE-REPORT.md", "planning/releases/R-0003-afterglow-budget/REVIEW.md", "reports/validation-R-0003.md", "reports/release-notes-v1.2.1.md", "npm run release:check", "/tmp/noesis-r3-release/noesis-1.2.1.tgz"],
   "publication": {
     "authorization_ref": null,
     "allowed_actions": [],
