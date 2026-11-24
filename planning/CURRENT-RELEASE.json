@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0007-relay-source-refresh",
-  "release_directory": "planning/releases/R-0007-relay-source-refresh",
-  "release_file": "planning/releases/R-0007-relay-source-refresh/release.json",
-  "backlog_file": "planning/releases/R-0007-relay-source-refresh/backlog.json",
-  "plan_file": "planning/releases/R-0007-relay-source-refresh/PLAN.md",
+  "release_id": "R-0008-catalyst-tasks",
+  "release_directory": "planning/releases/R-0008-catalyst-tasks",
+  "release_file": "planning/releases/R-0008-catalyst-tasks/release.json",
+  "backlog_file": "planning/releases/R-0008-catalyst-tasks/backlog.json",
+  "plan_file": "planning/releases/R-0008-catalyst-tasks/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

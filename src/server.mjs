@@ -5,7 +5,7 @@ import { PairingManager } from "./web-auth.mjs";
 import { createAtlas } from "./atlas.mjs";
 import { createAdaptation } from "./adaptation.mjs";
 import { buildLorePage, diffLorePages, editManualSection, invalidateLorePage, refreshLorePage } from "./lore.mjs";
-import { buildForgeView, exportBlueprint } from "./forge.mjs";
+import { buildForgeView, exportBlueprint, exportTaskManifest } from "./forge.mjs";
 export function parseServerConfig(env = process.env) {
   const bind_host = env.NOESIS_BIND_HOST ?? "0.0.0.0";
   const port = Number(env.NOESIS_PORT ?? 7337);
@@ -225,6 +225,12 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
         const forge = buildForgeView({ resource, records: service.store.listRecords(), version: url.searchParams.get("version") || null });
         const baseline = url.searchParams.get("baseline_target") ? { target: url.searchParams.get("baseline_target"), scope: url.searchParams.get("baseline_scope"), version: url.searchParams.get("baseline_version") || null } : null;
         return sendJson(response, 200, exportBlueprint({ forge, target: resource.display_name, previous_cutoff: url.searchParams.get("since") || null, privacy: url.searchParams.get("privacy") || "standard", baseline }));
+      }
+      if (url.pathname.startsWith("/api/tasks/") && request.method === "GET") {
+        const resource_id = decodeURIComponent(url.pathname.slice("/api/tasks/".length));
+        const resource = atlas.inspect({ principal, resource_id });
+        const forge = buildForgeView({ resource, records: service.store.listRecords(), version: url.searchParams.get("version") || null });
+        return sendJson(response, 200, exportTaskManifest({ forge, target: resource.display_name, privacy: url.searchParams.get("privacy") || "standard" }));
       }
       if (url.pathname === "/api/recall" && request.method === "GET") return sendJson(response, 200, service.mindRecall({ principal, query: url.searchParams.get("query") ?? "", max_items: 8, max_chars: 12000 }));
       if (url.pathname.startsWith("/api/inspect/") && request.method === "GET") {

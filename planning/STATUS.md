@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.3.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.3.0 is the current recovery baseline. R-0007 Relay source refresh is closed; Catalyst remains proposed only after a concrete proposal-to-task workflow is selected.
-**Active release:** `R-0007-relay-source-refresh` published at `1.3.0`. Plan: `planning/releases/R-0007-relay-source-refresh/PLAN.md`.
-**Next task:** Select one concrete Catalyst proposal-to-task workflow before creating another implementation release.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.3.0 is the recovery baseline. R-0008 Catalyst proposal tasks is the active local candidate with no publication authorization.
+**Active release:** `R-0008-catalyst-tasks` targeting `1.4.0`. Plan: `planning/releases/R-0008-catalyst-tasks/PLAN.md`.
+**Next task:** Start `R-0008-T001` with the scoped task-manifest projection tests. Preserve v1.3.0 service, tag, artifact, and live backup.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -166,5 +166,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0007 candidate | bounded URL validation; Atlas refresh; paired example.com smoke; `npm run release:check`; local artifact | local `1.3.0` candidate ready; no publication or live install | `planning/releases/R-0007-relay-source-refresh/RELEASE-REPORT.md`, `reports/validation-R-0007.md` |
 | 2026-11-25 | R-0007 installation | backup, clean install, release gate, managed restart, actual LAN URL/QR, pairing, and OMP extension probe | v1.3.0 installed and healthy; simple native probe passed; live source data unchanged | `reports/use-v1.3.0.md` |
 | 2026-11-25 | R-0007 publication | branch/tag push and GitHub release with verified artifact | v1.3.0 published; installed dashboard remains healthy | `planning/releases/R-0007-relay-source-refresh/RELEASE-REPORT.md` |
+| 2026-11-25 | R-0008 candidate | scoped task-manifest projection; paired proposal-only route; `npm run release:check`; local artifact | local `1.4.0` candidate ready; no publication or live install | `planning/releases/R-0008-catalyst-tasks/RELEASE-REPORT.md`, `reports/validation-R-0008.md` |
 ## Blockers and forecast changes
 M1 through M8 remain complete. v1.3.0 is published and installed locally for the declared dashboard path. Live source data was not refreshed. Physical second-device LAN validation, full schemas, and DNS/private-network edge cases remain limitations.

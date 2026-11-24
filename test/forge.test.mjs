@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildForgeView, exportBlueprint } from "../src/forge.mjs";
+import { buildForgeView, exportBlueprint, exportTaskManifest } from "../src/forge.mjs";
 
 test("Forge and Blueprint export stay scoped and separate findings from hypotheses", () => {
   const resource = { resource_id: "resource-1", scope: { scope_id: "scope-1" }, metadata: { version: "1.0" } };
@@ -24,4 +24,14 @@ test("Blueprints carry scoped evidence, reproduction cases, hypotheses, and delt
   assert.equal(blueprint.json.hypotheses.length, 1);
   assert.match(blueprint.markdown, /<path>/);
   assert.throws(() => exportBlueprint({ forge, target: "Project", baseline: { target: "Other", scope: "scope-project", version: "2.0" } }), /INCOMPATIBLE_BASELINE/);
+});
+test("Catalyst task manifest stays scoped and proposal-only", () => {
+  const resource = { resource_id: "resource-task", scope: { scope_id: "scope-task" }, metadata: { version: "3.0" } };
+  const forge = buildForgeView({ resource, records: [{ record_id: "hyp-task", record_type: "hypothesis", updated_at: "2026-03-01", scope: { scope_id: "scope-task" }, payload: { resource_id: "resource-task", statement: "improve retry handling", validation_needed: ["run regression"] }, provenance: { origin: "dream", source_refs: ["source-task"] } }] });
+  const manifest = exportTaskManifest({ forge, target: "Task Resource", privacy: "redacted" });
+  assert.equal(manifest.json.status, "proposed");
+  assert.equal(manifest.json.tasks[0].execution, "not_requested");
+  assert.equal(manifest.json.tasks[0].hypothesis_id, "hyp-task");
+  assert.deepEqual(manifest.json.tasks[0].source_refs, ["source-task"]);
+  assert.match(manifest.markdown, /execution not requested/);
 });
