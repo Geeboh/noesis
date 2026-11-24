@@ -495,7 +495,7 @@
     {
       "id": "M8",
       "title": "Hardening and stable release",
-      "status": "planned",
+"status": "done",
       "release_target": "v1.0.0",
       "depends_on": [
         "M6",
@@ -546,7 +546,7 @@
         "M8-06"
       ],
       "optional_task_ids": [],
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M8.md", "reports/validation-M8.md", "reports/release-notes-v1.0.0.md", "docs/15-OPERATIONS-RUNBOOK.md", "scripts/measure_m8.mjs", "npm run release:check"]
     }
   ]
 }

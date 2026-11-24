@@ -1727,7 +1727,7 @@
       "id": "M8-01",
       "milestone_id": "M8",
       "title": "Freeze the supported v1 scope and measure operating budgets",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M6-06",
@@ -1753,13 +1753,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["scripts/measure_m8.mjs", "reports/validation-M8.md", "npm test"]
     },
     {
       "id": "M8-02",
       "milestone_id": "M8",
       "title": "Exercise failure, migration, backup, privacy, and restoration",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M8-01"
@@ -1785,13 +1785,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["test/archive.test.mjs", "test/operations.test.mjs", "test/observatory.test.mjs", "reports/validation-M8.md"]
     },
     {
       "id": "M8-03",
       "milestone_id": "M8",
       "title": "Build a reproducible release candidate",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M8-01",
@@ -1818,13 +1818,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["package.json", "package-lock.json", "docs/15-OPERATIONS-RUNBOOK.md", "reports/validation-M8.md"]
     },
     {
       "id": "M8-04",
       "milestone_id": "M8",
       "title": "Verify complete user journeys and conditional cross-device access",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M8-03"
@@ -1857,13 +1857,13 @@
           "when": "MCP adapter is selected for the candidate release"
         }
       ],
-      "completion_evidence": []
+"completion_evidence": ["test/observatory.test.mjs", "reports/validation-M8.md", "reports/release-notes-v1.0.0.md"]
     },
     {
       "id": "M8-05",
       "milestone_id": "M8",
       "title": "Resolve candidate defects with bounded regression checks",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M8-03",
@@ -1888,13 +1888,13 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["npm run release:check", "reports/validation-M8.md"]
     },
     {
       "id": "M8-06",
       "milestone_id": "M8",
       "title": "Prepare stable v1 and close the milestone with evidence",
-      "status": "planned",
+"status": "done",
       "priority": "P0",
       "depends_on": [
         "M8-01",
@@ -1922,7 +1922,7 @@
       ],
       "optional": false,
       "required_for_v1": true,
-      "completion_evidence": []
+"completion_evidence": ["reports/milestone-M8.md", "reports/validation-M8.md", "reports/release-notes-v1.0.0.md"]
     }
   ]
 }
