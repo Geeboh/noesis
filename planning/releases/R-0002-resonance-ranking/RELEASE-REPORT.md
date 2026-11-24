@@ -46,10 +46,10 @@ R2 is a local candidate. Do not replace the live v1.1.0 checkout or data directo
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R2 | not attempted |
-| GitHub release/assets | none authorized for R2 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | authorized, pending |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | authorized, pending |
 | Package registry | none | not applicable; package remains private |
-| Hosted deployment | none authorized for R2 | not attempted |
+| Live installation | managed `noesis-dashboard` | passed | `reports/use-v1.2.0.md`; backup preserved and v1.2.0 health/pairing verified |
 
 ## Decision and next step
 
