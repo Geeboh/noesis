@@ -1,7 +1,7 @@
 # NOESIS v1.0.0 release notes
 
-**Status:** local stable candidate, not published.
-**Candidate:** `31364e1`
+**Status:** released to private GitHub repository.
+**Candidate:** `314501d`
 
 ## Stable scope
 
@@ -22,4 +22,4 @@
 - Provider-backed model enrichment and MCP are not enabled.
 - External blobs and uncontrolled copies remain outside native restore/deletion guarantees.
 
-No package was published, deployed, or exposed to the public Internet.
+Released as a private GitHub release. No package was published to a package registry, deployed, or exposed to the public Internet.
