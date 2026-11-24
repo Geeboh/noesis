@@ -46,7 +46,7 @@
     {
       "id": "R-0002-T003",
       "title": "Validate integrated recall ordering",
-      "status": "planned",
+      "status": "done",
       "required_for_release": true,
       "outcome_ids": ["R2-O1"],
       "depends_on": ["R-0002-T002"],
@@ -59,14 +59,14 @@
       "acceptance": ["Candidate includes the stronger match under the same budget, preserves authorized scope and provenance, and records latency and negative cases."],
       "validation_targets": ["omp.capture-recall", "observatory.journeys"],
       "planned_evidence": ["Candidate measurement", "paired dashboard recall", "scope denial check"],
-      "completion_evidence": [],
-      "deferral_reason": null,
-      "next_step": "Run candidate comparison and paired dashboard checks after the regression passes."
+      "completion_evidence": ["node --test test/observatory.test.mjs", "/tmp/noesis-r2-ranking-candidate-runs.jsonl", "paired Observatory recall command"],
+      "next_step": "Prepare the local R2 candidate package and review.",
+      "deferral_reason": null
     },
     {
       "id": "R-0002-T004",
       "title": "Prepare local R2 candidate",
-      "status": "planned",
+      "status": "in_progress",
       "required_for_release": true,
       "outcome_ids": ["R2-O1"],
       "depends_on": ["R-0002-T003"],
