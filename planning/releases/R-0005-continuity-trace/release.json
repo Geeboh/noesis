@@ -41,12 +41,12 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": ["planning/releases/R-0005-continuity-trace/RELEASE-REPORT.md", "planning/releases/R-0005-continuity-trace/REVIEW.md", "reports/validation-R-0005.md", "reports/release-notes-v1.2.3.md", "npm run release:check", "/tmp/noesis-r5-release/noesis-1.2.3.tgz"],
+  "completion_evidence": ["planning/releases/R-0005-continuity-trace/RELEASE-REPORT.md", "planning/releases/R-0005-continuity-trace/REVIEW.md", "reports/validation-R-0005.md", "reports/release-notes-v1.2.3.md", "reports/use-v1.2.3.md", "npm run release:check", "/tmp/noesis-r5-release/noesis-1.2.3.tgz"],
   "publication": {
-    "authorization_ref": null,
-    "allowed_actions": [],
-    "destination": null,
-    "status": "not_authorized",
+    "authorization_ref": "user request: install and shipit",
+    "allowed_actions": ["push branch", "push v1.2.3 tag", "create GitHub release with verified artifact", "install into live managed dashboard"],
+    "destination": "https://github.com/Geeboh/noesis",
+    "status": "authorized_pending",
     "observed_commit": null,
     "observed_tag": null,
     "evidence_refs": []
