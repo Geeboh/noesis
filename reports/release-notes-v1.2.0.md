@@ -1,7 +1,7 @@
 # NOESIS v1.2.0 release notes
 
 **Status:** local candidate preparation, not published or installed.
-**Candidate:** `0cf24ad1dc2868a72ce0feb11b6bbe5abfc95e38`
+**Candidate:** `7e3ff807688b3edc8a5da62582a464c1f8559bef`
 
 ## Implemented
 

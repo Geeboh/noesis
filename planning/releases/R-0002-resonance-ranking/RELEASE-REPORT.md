@@ -4,8 +4,8 @@
 
 - Stable release ID and application version: `R-0002-resonance-ranking`, `1.2.0`.
 - Accepted prior version/commit: `1.1.0`, tag `v1.1.0`, commit `481a5ead843886d32f4f42492d5532e3807fd886`.
-- Candidate implementation commit: `0cf24ad1dc2868a72ce0feb11b6bbe5abfc95e38`.
-- Artifact: `/tmp/noesis-r2-release/noesis-1.2.0.tgz`, SHA-256 `e41d52290c61f9cb9a7f43d0f275220fd6541a2da7c1e16bb8751e934fac4a49`.
+- Candidate implementation commit: `7e3ff807688b3edc8a5da62582a464c1f8559bef`.
+- Artifact: `/tmp/noesis-r2-release/noesis-1.2.0.tgz`, SHA-256 `5eb5bb73c4e0c892a8389e32ea55364de31a468d2100c7d6c10ea343f6fe88d9`.
 - Environment: Linux x86_64, Node v24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1.
 - Plan: `planning/releases/R-0002-resonance-ranking/PLAN.md`.
 - Report date: 2026-11-24.

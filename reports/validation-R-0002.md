@@ -3,7 +3,7 @@
 ## Candidate
 
 - Baseline: NOESIS v1.1.0, tag `v1.1.0`, commit `481a5ead843886d32f4f42492d5532e3807fd886`, artifact SHA-256 `9adb40fdd90a01bb6a52c4a3bae136b65fc15faa1ecacd4d5c15e877fbf85900`.
-- Candidate implementation: commit `0cf24ad1dc2868a72ce0feb11b6bbe5abfc95e38`.
+- Candidate implementation: commit `7e3ff807688b3edc8a5da62582a464c1f8559bef`.
 - Package version: `1.2.0`.
 - Runtime: Node v24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1.
 - Model calls: 0. Embeddings: 0. Monetary cost: 0.
