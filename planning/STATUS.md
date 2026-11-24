@@ -1,11 +1,11 @@
 # NOESIS implementation status
 
 **Bootstrap version:** 1.0.0  
-**Product version:** 1.2.4  
+**Product version:** 1.3.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.2.4 is the recovery baseline. R-0007 Relay source refresh is the active local candidate with no publication authorization.
-**Active release:** `R-0007-relay-source-refresh` targeting `1.3.0`. Plan: `planning/releases/R-0007-relay-source-refresh/PLAN.md`.
-**Next task:** Start `R-0007-T001` with bounded URL validation and failure tests. Preserve v1.2.4 service, tag, artifact, and live backup.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.3.0 is the current recovery baseline. R-0007 Relay source refresh is closed; Catalyst remains proposed only after a concrete proposal-to-task workflow is selected.
+**Active release:** `R-0007-relay-source-refresh` published at `1.3.0`. Plan: `planning/releases/R-0007-relay-source-refresh/PLAN.md`.
+**Next task:** Select one concrete Catalyst proposal-to-task workflow before creating another implementation release.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
