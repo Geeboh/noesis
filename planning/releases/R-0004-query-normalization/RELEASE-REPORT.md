@@ -46,12 +46,12 @@ R4 is a local patch candidate. Do not replace the live v1.2.1 checkout or data d
 
 | Action | Destination | Observed result |
 | --- | --- | --- |
-| Branch/tag push | none authorized for R4 | not attempted |
-| GitHub release/assets | none authorized for R4 | not attempted |
+| Branch/tag push | `https://github.com/Geeboh/noesis` | passed; commit `9651a53f025996108ed3b84e98323612e66f68c5`, tag `v1.2.2` |
+| GitHub release/assets | `https://github.com/Geeboh/noesis` | passed; [release](https://github.com/Geeboh/noesis/releases/tag/v1.2.2) and `noesis-1.2.2.tgz` uploaded |
 | Package registry | none | not applicable; package remains private |
 | Live installation | managed `noesis-dashboard` | passed; `reports/use-v1.2.2.md`; backup preserved and v1.2.2 health/pairing verified |
 | Hosted deployment | none | not attempted |
 
 ## Decision and next step
 
-R4 meets the selected normalization outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.2 is installed locally and publication is authorized and pending. Next proposed theme remains Relay only after a concrete client/source workflow is selected.
+R4 meets the selected normalization outcome on the declared isolated case and preserves the tested invariants. The result is not general quality proof because no labeled live corpus exists. v1.2.2 is published and installed locally. Next proposed theme remains Relay only after a concrete client/source workflow is selected.

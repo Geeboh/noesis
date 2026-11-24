@@ -1,6 +1,6 @@
 # NOESIS v1.2.2 release notes
 
-**Status:** installed locally; GitHub publication authorized and pending.
+**Status:** published on GitHub; installed locally.
 **Candidate:** local change from published v1.2.1.
 
 ## Implemented
@@ -22,4 +22,4 @@ The v1.2.1 baseline selected an older alpha-only record for `alpha alpha beta` a
 - The candidate was not installed into the live v1.2.1 service.
 - The candidate was installed into the live v1.2.2 service without migration or data replacement.
 
-R4 is installed locally. GitHub publication is authorized and pending. No branch, tag, package, deployment, or hosted release was published yet.
+GitHub release: https://github.com/Geeboh/noesis/releases/tag/v1.2.2
