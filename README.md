@@ -2,7 +2,7 @@
 
 **Build a universal, inspectable Mind for Oh My Pi.**
 
-Package **1.0.0**, prepared **24 November 2026**. This is the complete implementation bootstrap: product requirements, architecture, contracts, milestone backlog, Git workflow, prompts, fixtures and working bootstrap utilities. The NOESIS application is to be implemented by OMP from this package; application milestones start as planned.
+Package **1.0.0** is the bootstrap package version. Product candidate **v1.0.0** is implemented for the declared Node 24, npm 11, SQLite, Linux x86_64, and OMP 19.1.1 environment. This repository retains the bootstrap contracts and the reproducible application source.
 
 ## Start
 
@@ -56,17 +56,17 @@ Machine-readable planning lives in [milestones.json](planning/milestones.json) a
 
 ## Delivery contents and truthfulness
 
-- JSON Schemas and examples specify candidate v0.1 contracts. They are design inputs, not an implemented server.
+- JSON Schemas and examples remain versioned contract fixtures; runtime behavior is validated separately by `npm run release:check`.
 - `config/noesis.example.json` is a proposed NOESIS policy file, **not** an OMP global config and not currently consumed by an application.
 - `scripts/doctor.py` inventories local prerequisites without installing or changing them.
 - `scripts/validate_bootstrap.py` checks package structure, references, planning consistency, configuration and optional full schema validation.
 - `scripts/init_repo.py` safely seeds a fresh local repository.
 - `scripts/lan_qr.py` renders an operator-supplied access URL as a terminal QR. It does not start a dashboard or discover a running server.
 - `scripts/pack_bootstrap.py` produces an allowlisted, reproducible ZIP and checksum manifest.
-- Bootstrap tests and CI validate these deliverables. Application CI and product test commands are established in M0.
+- Application validation is bound to `npm run release:check`; bootstrap helpers remain separate integrity checks.
 
 ## Versioning
 
-The **bootstrap package version** describes these delivered files. Product releases begin at the alpha targets in the roadmap. Do not tag the unfinished application `v1.0.0` because this bootstrap is version 1.0.0. Follow the roadmap's prerelease sequence and its evidence requirements.
+The bootstrap package version and product version remain distinct. Product `v1.0.0` is a local stable candidate for the declared supported environment. Remote publication remains separately authorized.
 
 The 12–18 week roadmap is a planning envelope for one experienced primary implementer with bounded parallel assistance, not a forecast of autonomous wall-clock time. Re-estimate from the first real vertical slice.
