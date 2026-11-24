@@ -4,7 +4,7 @@
   "release_id": "R-0002-resonance-ranking",
   "target_version": "1.2.0",
   "theme": "Resonance ranking",
-  "status": "in_progress",
+  "status": "ready_local",
   "baseline": {
     "application_version": "1.1.0",
     "commit": "481a5ead843886d32f4f42492d5532e3807fd886",
@@ -41,7 +41,7 @@
     "actual_cost": 0,
     "includes_children_retries_embeddings": true
   },
-  "completion_evidence": [],
+  "completion_evidence": ["planning/releases/R-0002-resonance-ranking/RELEASE-REPORT.md", "planning/releases/R-0002-resonance-ranking/REVIEW.md", "reports/validation-R-0002.md", "reports/release-notes-v1.2.0.md", "npm run release:check", "/tmp/noesis-r2-release/noesis-1.2.0.tgz"],
   "publication": {
     "authorization_ref": null,
     "allowed_actions": [],
