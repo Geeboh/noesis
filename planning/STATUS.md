@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the recovery baseline. R9 Aperture is a local 1.5.0 candidate. R10 bounded OMP JSONL import is in progress locally.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the recovery baseline. R9 Aperture is a local 1.5.0 candidate. R10 bounded OMP JSONL import is a ready local 1.6.0 candidate.
 **Active release:** `R-0010-omp-jsonl-import` targeting `1.6.0`. Plan: `planning/releases/R-0010-omp-jsonl-import/PLAN.md`.
-**Next task:** Complete `R-0010-T001` schema and store methods, then implement the importer.
+**Next task:** Decide whether to install or publish R10. No such action is authorized by the release tracker.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -170,5 +170,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0008 installation | backup, clean install, release gate, managed restart, actual LAN URL/QR, pairing, and OMP extension probe | v1.4.0 installed and healthy; proposal route verified on disposable data | `reports/use-v1.4.0.md` |
 | 2026-11-25 | R-0008 publication | branch/tag push and GitHub release with verified artifact | v1.4.0 published; installed dashboard remains healthy | `planning/releases/R-0008-catalyst-tasks/RELEASE-REPORT.md` |
 | 2026-11-25 | R-0009 candidate | exact revision-bound inspection; UTF-8 paging; cursor/scope tests; `npm run release:check`; local artifact | local `1.5.0` candidate ready; no publication or live install | `planning/releases/R-0009-aperture-inspection/RELEASE-REPORT.md`, `reports/validation-R-0009.md` |
+| 2026-11-25 | R-0010 candidate | bounded OMP JSONL preflight, raw retention, chunking, quarantine, resumable progress, archive restore, real coding/design smoke, `npm run release:check`; local artifact | local `1.6.0` candidate ready; no publication or live install | `reports/validation-R-0010.md`, `planning/releases/R-0010-omp-jsonl-import/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.4.0 is published and installed locally for the declared dashboard path. R9 Aperture exact inspection is ready as a local `1.5.0` candidate. Keep v1.4.0 installed until a separate installation and publication decision. Origami summaries remain deferred. Physical second-device LAN validation, full schemas, and source-snapshot byte paging remain limitations.
+M1 through M8 remain complete. v1.4.0 is published and installed locally for the declared dashboard path. R9 Aperture remains a local `1.5.0` recovery candidate. R10 historical import is ready as a local `1.6.0` candidate. Keep v1.4.0 installed until separate installation and publication authorization. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
