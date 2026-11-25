@@ -29,7 +29,7 @@ The CLI is `npm run import:omp -- <preflight|start|resume|status>`. The importer
 
 ## Disposition
 
-Adopt the bounded importer as the published `1.6.0` candidate. Keep the installed v1.4.0 service as the live recovery baseline. Full JSON Schema validation was unavailable because the optional validation dependencies were not installed.
+Adopt the bounded importer as the published and installed `1.6.0` release. The pre-install v1.4.0 database backup remains the rollback baseline. Full JSON Schema validation was unavailable because the optional validation dependencies were not installed.
 
 ## Known limits
 
@@ -41,4 +41,8 @@ The importer accepts one UTF-8 source up to 64 MiB and one JSONL line up to 4 Mi
 - Annotated tag `v1.6.0` pushed.
 - GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.6.0.
 - Asset `noesis-1.6.0.tgz` uploaded with the recorded SHA-256.
-- Live installation was not performed. v1.4.0 remains installed.
+- Live v1.6.0 installation completed and verified. The v1.4.0 service is retained only as rollback.
+
+## Installation
+
+`reports/use-v1.6.0.md` records the backup, schema migration, actual LAN URL, terminal QR, pairing, authenticated dashboard checks, and disposable native OMP note/recall loop. The live data counts remained records 0 and resources 1. The service is healthy on schema 5.
