@@ -19,6 +19,7 @@
   "report_file":"RELEASE-REPORT.md",
   "implementation_scope_ref":"reports/decisions/DEC-0006-recall-budget-fit.md",
   "completion_evidence": ["reports/validation-R-0011.md", "reports/release-notes-v1.6.1.md", "planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md", "npm run release:check", "/tmp/noesis-r11-release/noesis-1.6.1.tgz"],
-  "publication":{"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "publication":{"authorization_ref":"user shipit","allowed_actions":["branch_push","tag_push","github_release"],"destination":"https://github.com/Geeboh/noesis","status":"published","observed_commit":"3ffe28f65fa5043e84bcbc6201d5b12f3ab9943f","observed_tag":"v1.6.1","evidence_refs":["https://github.com/Geeboh/noesis/releases/tag/v1.6.1","reports/validation-R-0011.md"]},
+  "installation":{"status":"installed","version":"1.6.1","data_directory":"/tmp/noesis-m3-dashboard","backup":"/tmp/noesis-live-backup-v1.6.1-preinstall/mind.sqlite","evidence_refs":["reports/use-v1.6.1.md"]},
   "last_updated":"2026-11-25"
 }

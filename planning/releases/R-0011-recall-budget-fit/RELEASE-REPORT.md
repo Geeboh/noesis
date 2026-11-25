@@ -24,4 +24,15 @@
 
 ## Disposition
 
-Adopt the deterministic ranking patch as a local `1.6.1` candidate. Keep installed v1.6.0 as rollback. Do not claim semantic recall improvement. Publication and installation are not authorized for R11.
+Adopt the deterministic ranking patch as the published and installed `1.6.1` release. Keep the v1.6.0 backup and release as rollback. Do not claim semantic recall improvement.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed through commit `3ffe28f65fa5043e84bcbc6201d5b12f3ab9943f`.
+- Annotated tag `v1.6.1` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.6.1.
+- Asset `noesis-1.6.1.tgz` uploaded with the recorded SHA-256.
+
+## Installation
+
+`reports/use-v1.6.1.md` records the backup, preserved live counts, LAN URL, terminal QR, pairing, authenticated dashboard, and disposable native OMP loop. v1.6.1 is running on schema 5 with the live records and resources unchanged.
