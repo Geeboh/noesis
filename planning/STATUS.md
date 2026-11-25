@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the current recovery baseline. R8 Catalyst proposal tasks is closed.
-**Active release:** `R-0008-catalyst-tasks` targeting `1.4.0`. Plan: `planning/releases/R-0008-catalyst-tasks/PLAN.md`.
-**Next task:** Evaluate one real proposal-to-task outcome before expanding execution semantics. A concrete project proposal and outcome are required.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the recovery baseline. R-0009 Aperture exact inspection is a proposed local plan; implementation is not authorized by the decision record.
+**Active release:** `R-0009-aperture-inspection` targeting `1.5.0`. Plan: `planning/releases/R-0009-aperture-inspection/PLAN.md`.
+**Next task:** Authorize the R9 follow-on implementation prompt, then start R-0009-T001 source inventory.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 

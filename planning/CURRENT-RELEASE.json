@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0008-catalyst-tasks",
-  "release_directory": "planning/releases/R-0008-catalyst-tasks",
-  "release_file": "planning/releases/R-0008-catalyst-tasks/release.json",
-  "backlog_file": "planning/releases/R-0008-catalyst-tasks/backlog.json",
-  "plan_file": "planning/releases/R-0008-catalyst-tasks/PLAN.md",
+  "release_id": "R-0009-aperture-inspection",
+  "release_directory": "planning/releases/R-0009-aperture-inspection",
+  "release_file": "planning/releases/R-0009-aperture-inspection/release.json",
+  "backlog_file": "planning/releases/R-0009-aperture-inspection/backlog.json",
+  "plan_file": "planning/releases/R-0009-aperture-inspection/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

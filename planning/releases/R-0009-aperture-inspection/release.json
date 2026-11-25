@@ -1,0 +1,40 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0009-aperture-inspection",
+  "target_version": "1.5.0",
+  "theme": "Resonance Aperture exact inspection",
+  "status": "planned",
+  "baseline": {
+    "application_version": "1.4.0",
+    "commit": "bcc58d4089fc6fda2f65199464b85917e5f0257b",
+    "tag": "v1.4.0",
+    "artifact_sha256": "2902151ca22e8abeed0b75c9b32389342200c935c77b36ef5355f38bc9000025",
+    "evidence_refs": ["planning/releases/R-0008-catalyst-tasks/RELEASE-REPORT.md", "reports/use-v1.4.0.md", "https://github.com/Geeboh/noesis/releases/tag/v1.4.0"]
+  },
+  "outcomes": [
+    {
+      "id": "R9-O1",
+      "intended_user_result": "An authorized caller can inspect a bounded exact revision/source page and know whether coverage is exact, partial, summary-only, or unavailable.",
+      "current_baseline": "mind_inspect accepts an exact record and optional revision but returns full available fields without page/range continuation or explicit coverage semantics.",
+      "acceptance": "Revision-bound bounded inspection returns honest coverage, hard byte/character limits, source identity, and an opaque continuation bound to revision and authorization; inaccessible and unavailable content does not disclose hidden identity.",
+      "evidence_needed": ["source inventory baseline", "focused inspect paging tests", "scope/continuation failure tests", "Observatory inspector journey", "release gate"]
+    }
+  ],
+  "excluded_scope": [
+    "No Origami summary generation in R9.",
+    "No automatic conversation compaction, proxy, acp-kernel, billion-context, model, vector, graph, MCP, or external backend.",
+    "No new top-level tool; mind_trace, mind_explore, and mind_manage remain unavailable.",
+    "No retention, confidence, validity, adoption, fading, deletion, or learning-policy change.",
+    "No remote publication or live installation without new explicit authorization for R9."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "reports/decisions/DEC-0004-aperture-origami.md",
+  "budget": {"policy_ref":"deterministic-local-only","model_call_limit":0,"model_token_limit":0,"wall_time_seconds_limit":300,"currency":null,"monetary_limit":null,"actual_cost":0,"includes_children_retries_embeddings":true},
+  "completion_evidence": [],
+  "publication": {"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "next_authorized_goal_ref": "Origami only after R9 exact inspection adoption decision",
+  "last_updated": "2026-11-25"
+}
