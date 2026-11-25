@@ -55,3 +55,20 @@ R9 is a local candidate. Do not replace the live v1.4.0 checkout or data directo
 ## Decision and next step
 
 Adopt R9 exact inspection for the deterministic correctness slice. Defer Origami summaries until a measured exact-detail recovery need exists. Keep v1.4.0 installed until a separate installation decision is made. Next step is evaluate exact inspection on a real coding and noncoding long-history corpus before adding derived summaries.
+
+## Historical import preflight and pilot
+
+The bounded pilot used one coding session file and one design/research session file from the local OMP session store. The preflight parsed both files without errors, found session metadata, and found unique IDs for all message entries.
+
+| Input | Bytes | JSONL lines | Message entries | Imported | Skipped |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Coding session | 552,444 | 96 | 43 | 35 | 8 |
+| Design/research session | 332,560 | 114 | 52 | 33 | 19 |
+
+The pilot wrote 68 imported records, 68 sources, 68 events, and 68 revisions into a disposable SQLite store. It used `document_import` provenance, exact source digests, entry locators, session scopes, and idempotency keys. A repeated import returned the original receipt. The store was deleted after validation.
+
+R9 inspection reconstructed the longest imported record exactly across 49 pages. The first page reported `partial`, and the final continuation was null. An inspection from another owner was rejected.
+
+The pilot did not modify the live database, OMP configuration, or release artifact. It skipped hidden reasoning, non-text parts, text-only messages, and three messages over the 16,000-character note limit. It did not preserve raw source bytes, tool-call arguments, or compaction lineage. The pilot proves mechanical feasibility, not production import fidelity.
+
+Production import remains a separate bounded task. It needs durable raw-source storage, chunking for oversized entries, quarantine for unsupported events, resumable progress, and release validation before adoption.
