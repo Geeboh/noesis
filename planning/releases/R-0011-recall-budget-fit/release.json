@@ -4,7 +4,7 @@
   "release_id": "R-0011-recall-budget-fit",
   "target_version": "1.6.1",
   "theme": "budget-fitting lexical recall",
-  "status": "ready_local",
+  "status": "published",
   "baseline": {
     "application_version": "1.6.0",
     "commit": "bc236d55b92aab511593789f8b364804ab47351c",
