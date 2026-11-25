@@ -2,7 +2,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
-export const STORE_SCHEMA_VERSION = 4;
+export const STORE_SCHEMA_VERSION = 5;
 
 const MIGRATIONS = [
   {
@@ -203,6 +203,45 @@ const MIGRATIONS = [
       CREATE INDEX IF NOT EXISTS lore_pages_scope_updated ON lore_pages(scope_id, updated_at DESC);
     `,
   },
+  {
+    version: 5,
+    sql: `
+      CREATE TABLE IF NOT EXISTS import_runs (
+        run_id TEXT PRIMARY KEY,
+        format TEXT NOT NULL,
+        locator TEXT NOT NULL,
+        source_digest TEXT NOT NULL,
+        byte_length INTEGER NOT NULL,
+        raw_content TEXT NOT NULL,
+        scope_id TEXT NOT NULL REFERENCES scopes(scope_id),
+        manifest_json TEXT NOT NULL,
+        state TEXT NOT NULL,
+        next_line INTEGER NOT NULL,
+        total_lines INTEGER NOT NULL,
+        processed_lines INTEGER NOT NULL,
+        imported_records INTEGER NOT NULL,
+        quarantined_entries INTEGER NOT NULL,
+        error_json TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        UNIQUE(source_digest, scope_id)
+      ) STRICT;
+      CREATE TABLE IF NOT EXISTS import_quarantine (
+        quarantine_id TEXT PRIMARY KEY,
+        run_id TEXT NOT NULL REFERENCES import_runs(run_id),
+        line_number INTEGER NOT NULL,
+        byte_start INTEGER NOT NULL,
+        byte_end INTEGER NOT NULL,
+        entry_id TEXT,
+        reason TEXT NOT NULL,
+        raw_entry_json TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        UNIQUE(run_id, line_number)
+      ) STRICT;
+      CREATE INDEX IF NOT EXISTS import_quarantine_run_line ON import_quarantine(run_id, line_number);
+      CREATE INDEX IF NOT EXISTS import_runs_scope_updated ON import_runs(scope_id, updated_at DESC);
+    `,
+  },
 ];
 
 export function migrate(db) {
@@ -258,6 +297,44 @@ function parseRecord(row, scope) {
     provenance: JSON.parse(row.provenance_json),
     ...state,
     payload: JSON.parse(row.payload_json),
+  };
+}
+function parseImportRun(row, include_raw = true) {
+  if (!row) return null;
+  const run = {
+    run_id: row.run_id,
+    format: row.format,
+    locator: row.locator,
+    source_digest: row.source_digest,
+    byte_length: row.byte_length,
+    scope_id: row.scope_id,
+    manifest: JSON.parse(row.manifest_json),
+    state: row.state,
+    next_line: row.next_line,
+    total_lines: row.total_lines,
+    processed_lines: row.processed_lines,
+    imported_records: row.imported_records,
+    quarantined_entries: row.quarantined_entries,
+    error: row.error_json === null ? null : JSON.parse(row.error_json),
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  };
+  if (include_raw) run.raw_content = row.raw_content;
+  return run;
+}
+
+function parseImportQuarantine(row) {
+  if (!row) return null;
+  return {
+    quarantine_id: row.quarantine_id,
+    run_id: row.run_id,
+    line_number: row.line_number,
+    byte_start: row.byte_start,
+    byte_end: row.byte_end,
+    entry_id: row.entry_id,
+    reason: row.reason,
+    raw_entry_json: row.raw_entry_json,
+    created_at: row.created_at,
   };
 }
 
@@ -328,6 +405,70 @@ export function openStore(filename) {
     const row = db.prepare("SELECT source_id, scope_id, locator, digest, captured_at, status, snapshot_json FROM sources WHERE source_id = ?").get(source_id);
     if (!row) return null;
     return { ...row, snapshot: JSON.parse(row.snapshot_json) };
+  },
+  getScope(scope_id) {
+    return db.prepare("SELECT scope_id, owner_id, kind, project_id, session_id, task_id FROM scopes WHERE scope_id = ?").get(scope_id) ?? null;
+  },
+  createImportRun({ run_id, format, locator, source_digest, byte_length, raw_content, scope_id: requested_scope_id = null, scope = null, manifest = {}, state = "ready", next_line = 0, total_lines = 0, processed_lines = 0, imported_records = 0, quarantined_entries = 0, error = null, now = new Date().toISOString() }) {
+    const scope_id = requested_scope_id ?? scope?.scope_id;
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      if (scope) db.prepare("INSERT OR IGNORE INTO scopes(scope_id, owner_id, kind, project_id, session_id, task_id) VALUES (?, ?, ?, ?, ?, ?)").run(scope.scope_id, scope.owner_id, scope.kind, scope.project_id ?? null, scope.session_id ?? null, scope.task_id ?? null);
+      const inserted = db.prepare("INSERT OR IGNORE INTO import_runs(run_id, format, locator, source_digest, byte_length, raw_content, scope_id, manifest_json, state, next_line, total_lines, processed_lines, imported_records, quarantined_entries, error_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").run(run_id, format, locator, source_digest, byte_length, raw_content, scope_id, JSON.stringify(manifest), state, next_line, total_lines, processed_lines, imported_records, quarantined_entries, error === null ? null : JSON.stringify(error), now, now);
+      if (!inserted.changes) {
+        const existing = db.prepare("SELECT * FROM import_runs WHERE source_digest = ? AND scope_id = ? ORDER BY created_at LIMIT 1").get(source_digest, scope_id);
+        db.exec("COMMIT");
+        return parseImportRun(existing, false);
+      }
+      db.exec("COMMIT");
+      return this.getImportRun(run_id, { include_raw: false });
+    } catch (error) {
+      try { db.exec("ROLLBACK"); } catch {}
+      throw error;
+    }
+  },
+  findImportRun(source_digest, scope_id) {
+    if (source_digest && typeof source_digest === "object") ({ source_digest, scope_id } = source_digest);
+    const row = db.prepare("SELECT * FROM import_runs WHERE source_digest = ? AND scope_id = ? ORDER BY created_at LIMIT 1").get(source_digest, scope_id);
+    return parseImportRun(row, false);
+  },
+  getImportRun(run_id, { include_raw = true } = {}) {
+    return parseImportRun(db.prepare("SELECT * FROM import_runs WHERE run_id = ?").get(run_id), include_raw);
+  },
+  updateImportRun(run_id, changes = {}, { expected_next_line = null } = {}) {
+    const current = this.getImportRun(run_id, { include_raw: false });
+    if (!current) return null;
+    const next = { ...current, ...changes };
+    const updated_at = changes.updated_at ?? new Date().toISOString();
+    const args = [
+      next.state,
+      JSON.stringify(next.manifest),
+      next.next_line,
+      next.total_lines,
+      next.processed_lines,
+      next.imported_records,
+      next.quarantined_entries,
+      next.error === null ? null : JSON.stringify(next.error),
+      updated_at,
+      run_id,
+    ];
+    const guard = expected_next_line === null ? "" : " AND next_line = ?";
+    if (expected_next_line !== null) args.push(expected_next_line);
+    const result = db.prepare(`UPDATE import_runs SET state = ?, manifest_json = ?, next_line = ?, total_lines = ?, processed_lines = ?, imported_records = ?, quarantined_entries = ?, error_json = ?, updated_at = ? WHERE run_id = ?${guard}`).run(...args);
+    return result.changes === 0 ? null : this.getImportRun(run_id, { include_raw: false });
+  },
+  addImportQuarantine({ quarantine_id, run_id, line_number, byte_start, byte_end, entry_id = null, reason, raw_entry_json, created_at = new Date().toISOString() }) {
+    db.prepare("INSERT OR IGNORE INTO import_quarantine(quarantine_id, run_id, line_number, byte_start, byte_end, entry_id, reason, raw_entry_json, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)").run(quarantine_id, run_id, line_number, byte_start, byte_end, entry_id, reason, raw_entry_json, created_at);
+    return this.getImportQuarantine(run_id, line_number);
+  },
+  getImportQuarantine(run_id, line_number = null) {
+    const row = line_number === null
+      ? db.prepare("SELECT * FROM import_quarantine WHERE run_id = ? ORDER BY line_number LIMIT 1").get(run_id)
+      : db.prepare("SELECT * FROM import_quarantine WHERE run_id = ? AND line_number = ?").get(run_id, line_number);
+    return parseImportQuarantine(row);
+  },
+  listImportQuarantine(run_id) {
+    return db.prepare("SELECT * FROM import_quarantine WHERE run_id = ? ORDER BY line_number").all(run_id).map(parseImportQuarantine);
   },
   createProcessingJob({ job_id, kind, payload = {}, checkpoint = {}, now = new Date().toISOString(), producer_id = null, operation = "job", idempotency_key = null, request = null }) {
     db.exec("BEGIN IMMEDIATE");

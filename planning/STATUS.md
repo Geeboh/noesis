@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the recovery baseline. R-0009 Aperture exact inspection is a proposed local plan; implementation is not authorized by the decision record.
-**Active release:** `R-0009-aperture-inspection` targeting `1.5.0`. Plan: `planning/releases/R-0009-aperture-inspection/PLAN.md`.
-**Next task:** Authorize the R9 follow-on implementation prompt, then start R-0009-T001 source inventory.
+**Implementation state:** M1 through M8 remain complete. Published and installed v1.4.0 is the recovery baseline. R9 Aperture is a local 1.5.0 candidate. R10 bounded OMP JSONL import is in progress locally.
+**Active release:** `R-0010-omp-jsonl-import` targeting `1.6.0`. Plan: `planning/releases/R-0010-omp-jsonl-import/PLAN.md`.
+**Next task:** Complete `R-0010-T001` schema and store methods, then implement the importer.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 

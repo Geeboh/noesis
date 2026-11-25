@@ -3,8 +3,8 @@ import { existsSync } from "node:fs";
 import { openStore } from "./store.mjs";
 
 const ARCHIVE_VERSION = "0.1.0";
-const RESTORABLE_TABLES = Object.freeze(["scopes", "resources", "resource_aliases", "resource_snapshots", "resource_states", "sources", "records", "record_revisions", "events", "processing_jobs", "idempotency_receipts", "lineage_edges", "chronicle_events", "preferences", "activation_states", "forgetments", "lore_pages"]);
-const RESTORE_ORDER = ["scopes", "resources", "resource_aliases", "resource_snapshots", "resource_states", "sources", "records", "record_revisions", "events", "processing_jobs", "idempotency_receipts", "lineage_edges", "chronicle_events", "preferences", "activation_states", "forgetments", "lore_pages"];
+const RESTORABLE_TABLES = Object.freeze(["scopes", "resources", "resource_aliases", "resource_snapshots", "resource_states", "sources", "records", "record_revisions", "events", "processing_jobs", "idempotency_receipts", "lineage_edges", "chronicle_events", "preferences", "activation_states", "forgetments", "lore_pages", "import_runs", "import_quarantine"]);
+const RESTORE_ORDER = ["scopes", "resources", "resource_aliases", "resource_snapshots", "resource_states", "sources", "records", "record_revisions", "events", "processing_jobs", "idempotency_receipts", "lineage_edges", "chronicle_events", "preferences", "activation_states", "forgetments", "lore_pages", "import_runs", "import_quarantine"];
 
 function digest(value) {
   return createHash("sha256").update(JSON.stringify(value)).digest("hex");

@@ -1,0 +1,36 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0010-omp-jsonl-import",
+  "target_version": "1.6.0",
+  "theme": "bounded OMP JSONL historical import",
+  "status": "in_progress",
+  "baseline": {
+    "application_version": "1.5.0",
+    "commit": "f15ed0026c31f96b9fd2a459756b6ca6622f047c",
+    "tag": null,
+    "artifact_sha256": null,
+    "evidence_refs": ["planning/releases/R-0009-aperture-inspection/RELEASE-REPORT.md"]
+  },
+  "outcomes": [
+    {
+      "id": "R10-O1",
+      "intended_user_result": "An operator can retain and import one bounded OMP JSONL history with exact source identity, chunked visible text, quarantine, and resumable progress.",
+      "current_baseline": "NOESIS captures live OMP observations but has no historical OMP JSONL importer.",
+      "acceptance": "Preflight, raw retention, chunking, quarantine, resume, scope, idempotency, and native archive/restore pass on disposable stores without model work or OMP configuration changes.",
+      "evidence_needed": ["importer focused tests", "archive restore test", "release gate", "local artifact"]
+    }
+  ],
+  "excluded_scope": [
+    "No new Mind tool or management surface.",
+    "No provider proxy, model, embedding, summary, Origami, or automatic compaction change.",
+    "No live installation, remote push, or publication."
+  ],
+  "backlog_file": "backlog.json",
+  "plan_file": "PLAN.md",
+  "report_file": "RELEASE-REPORT.md",
+  "implementation_scope_ref": "reports/decisions/DEC-0005-omp-jsonl-import.md",
+  "completion_evidence": [],
+  "publication": {"authorization_ref": null, "allowed_actions": [], "destination": null, "status": "not_authorized", "observed_commit": null, "observed_tag": null, "evidence_refs": []},
+  "last_updated": "2026-11-25"
+}

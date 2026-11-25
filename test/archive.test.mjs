@@ -1,7 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createArchive, createStoreArchive, restoreArchive, restoreStoreArchive, verifyArchive } from "../src/archive.mjs";
-import { mkdtempSync, rmSync } from "node:fs";
+import { getOmpJsonlImportStatus, resumeOmpJsonlImport, startOmpJsonlImport } from "../src/importer.mjs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createAtlas } from "../src/atlas.mjs";
@@ -40,4 +41,44 @@ test("native store archive restores records, resources, scopes, and lineage into
   assert.equal(restored.omitted[0], "external_copies");
   reopened.close();
   rmSync(directory, { recursive: true, force: true });
+});
+
+test("native store archive restores OMP imports, quarantine, records, and source references", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-archive-import-"));
+  const sourcePath = join(directory, "session.jsonl");
+  const destination = join(directory, "restored.sqlite");
+  const sourceText = [
+    JSON.stringify({ type: "session", id: "archive-session", cwd: "/workspace/archive" }),
+    JSON.stringify({ type: "message", id: "archive-message", role: "user", content: "archived import" }),
+    "{ malformed",
+  ].join("\n") + "\n";
+  writeFileSync(sourcePath, sourceText);
+  const service = openService(join(directory, "source.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  try {
+    const started = startOmpJsonlImport({ store: service.store, principal, source_path: sourcePath });
+    const completed = resumeOmpJsonlImport({ service, principal, run_id: started.run_id, max_lines: 10 });
+    assert.equal(completed.state, "completed");
+    const imported = service.store.listRecords().find((record) => record.payload.statement === "archived import");
+    const source = service.store.getSource(imported.provenance.source_refs[0]);
+    const archive = createStoreArchive(service.store);
+    service.close();
+    const restored = restoreStoreArchive(archive, destination);
+    const reopened = openService(destination);
+    try {
+      const status = getOmpJsonlImportStatus({ store: reopened.store, principal, run_id: started.run_id });
+      assert.equal(status.state, "completed");
+      assert.equal(status.quarantine[0].reason, "malformed_json");
+      assert.equal(reopened.store.getImportRun(started.run_id).raw_content, sourceText);
+      assert.equal(reopened.store.getRecord(imported.record_id).payload.statement, "archived import");
+      assert.equal(reopened.store.getSource(source.source_id).snapshot.run_id, started.run_id);
+      assert.equal(restored.coverage.import_runs, 1);
+      assert.equal(restored.coverage.import_quarantine, 1);
+    } finally {
+      reopened.close();
+    }
+  } finally {
+    try { service.close(); } catch {}
+    rmSync(directory, { recursive: true, force: true });
+  }
 });

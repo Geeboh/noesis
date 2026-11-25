@@ -15,6 +15,10 @@ test("mind_note persists an observed record through the service boundary", () =>
   const second = service.mindNote({ principal, scope, content: "tool returned a usable result", producer_id: "omp-session", idempotency_key: "note-1", actor_id: "omp-session" });
   assert.equal(first.duplicate, false);
   assert.equal(second.duplicate, true);
+  const imported = service.mindNote({ principal, scope, content: "retained document text", producer_id: "omp-import", idempotency_key: "document-1", origin: "document_import" });
+  assert.equal(service.store.getRecord(imported.receipt.record_id).provenance.origin, "document_import");
+  const importedRepeat = service.mindNote({ principal, scope, content: "retained document text", producer_id: "omp-import", idempotency_key: "document-1", origin: "tool_observation" });
+  assert.equal(importedRepeat.duplicate, true);
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });

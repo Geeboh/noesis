@@ -30,6 +30,28 @@ node --input-type=module -e 'import { restoreDatabase } from "./src/operations.m
 ```
 
 Restore to a separate absent destination first. Inspect it before switching `NOESIS_DATA_DIR`. Native archive export verifies SHA-256 integrity and reports omitted uncontrolled copies.
+## Import an OMP JSONL session
+
+Run preflight before writing. Preflight reads one UTF-8 JSONL file and reports its digest, session metadata, visible message coverage, chunk count, and quarantine candidates.
+
+```bash
+npm run import:omp -- preflight --source /path/to/session.jsonl
+```
+
+Start a run against the selected NOESIS database. The importer stores the exact raw source in SQLite and returns a run ID.
+
+```bash
+npm run import:omp -- start --source /path/to/session.jsonl --database "$NOESIS_DATABASE"
+```
+
+Resume a run in bounded batches. Repeat the command with the returned run ID until `state` is `completed`.
+
+```bash
+npm run import:omp -- resume --run-id RUN_ID --database "$NOESIS_DATABASE" --max-lines 64
+npm run import:omp -- status --run-id RUN_ID --database "$NOESIS_DATABASE"
+```
+
+Imported visible text remains `document_import` evidence. Hidden reasoning, tool-call arguments, and derived summaries are not imported. Malformed, unsupported, or text-free entries remain in the run quarantine. The raw source remains available for later inspection. Back up the database before importing live data.
 
 ## Upgrade and rollback
 
