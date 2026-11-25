@@ -4,7 +4,7 @@
   "release_id": "R-0010-omp-jsonl-import",
   "target_version": "1.6.0",
   "theme": "bounded OMP JSONL historical import",
-  "status": "ready_local",
+  "status": "published",
   "baseline": {
     "application_version": "1.5.0",
     "commit": "f15ed0026c31f96b9fd2a459756b6ca6622f047c",
@@ -31,6 +31,6 @@
   "report_file": "RELEASE-REPORT.md",
   "implementation_scope_ref": "reports/decisions/DEC-0005-omp-jsonl-import.md",
   "completion_evidence": ["reports/validation-R-0010.md", "reports/release-notes-v1.6.0.md", "planning/releases/R-0010-omp-jsonl-import/RELEASE-REPORT.md", "npm run release:check", "/tmp/noesis-r10-release/noesis-1.6.0.tgz"],
-  "publication": {"authorization_ref": null, "allowed_actions": [], "destination": null, "status": "not_authorized", "observed_commit": null, "observed_tag": null, "evidence_refs": []},
+  "publication": {"authorization_ref": "user shipit", "allowed_actions": ["branch_push", "tag_push", "github_release"], "destination": "https://github.com/Geeboh/noesis", "status": "published", "observed_commit": "bc236d55b92aab511593789f8b364804ab47351c", "observed_tag": "v1.6.0", "evidence_refs": ["https://github.com/Geeboh/noesis/releases/tag/v1.6.0", "reports/validation-R-0010.md"]},
   "last_updated": "2026-11-25"
 }

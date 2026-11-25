@@ -29,8 +29,16 @@ The CLI is `npm run import:omp -- <preflight|start|resume|status>`. The importer
 
 ## Disposition
 
-Adopt the bounded importer as a local `1.6.0` candidate. Keep the published and installed v1.4.0 service as recovery baseline. No installation, push, publication, or live-data rewrite occurred. Full JSON Schema validation was unavailable because the optional validation dependencies were not installed.
+Adopt the bounded importer as the published `1.6.0` candidate. Keep the installed v1.4.0 service as the live recovery baseline. Full JSON Schema validation was unavailable because the optional validation dependencies were not installed.
 
 ## Known limits
 
 The importer accepts one UTF-8 source up to 64 MiB and one JSONL line up to 4 MiB. It imports visible user, assistant, and tool-result text only. Hidden reasoning, tool-call arguments, and derived summaries remain excluded. Raw source retention increases SQLite size. Public status omits quarantined raw bodies while the authoritative store retains them.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed to commit `bc236d55b92aab511593789f8b364804ab47351c`.
+- Annotated tag `v1.6.0` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.6.0.
+- Asset `noesis-1.6.0.tgz` uploaded with the recorded SHA-256.
+- Live installation was not performed. v1.4.0 remains installed.
