@@ -30,14 +30,14 @@
 
 ```text
 node --test test/importer.test.mjs test/importer-cli.test.mjs test/service.test.mjs test/archive.test.mjs test/store.test.mjs test/operations.test.mjs
-npm run release:check
+npm ci --ignore-scripts && npm run release:check
 node --check src/importer.mjs
 node --check scripts/import_omp_jsonl.mjs
 npm pack --ignore-scripts --pack-destination /tmp/noesis-r10-release
 NOESIS_PROBE=1 npm run probe:omp
 ```
 
-The focused suite passed 27 tests. The release gate passed 70 tests, bootstrap integrity, and syntax checks. Full JSON Schema validation remained unavailable because `requirements-validation.txt` was not installed.
+The clean install and release gate passed 70 tests, bootstrap integrity, and syntax checks. Full JSON Schema validation remained unavailable because `requirements-validation.txt` was not installed.
 
 The real-session smoke used a disposable database. The coding source was 552,444 bytes and 96 lines. It completed with 39 imported records and 58 quarantined entries. The design/research source was 332,560 bytes and 114 lines. It completed with 35 imported records and 79 quarantined entries. The temporary store contained 74 records, 2 import runs, and 137 quarantine rows before cleanup.
 
