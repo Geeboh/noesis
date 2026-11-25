@@ -4,7 +4,7 @@
   "release_id": "R-0009-aperture-inspection",
   "target_version": "1.5.0",
   "theme": "Resonance Aperture exact inspection",
-  "status": "planned",
+  "status": "ready_local",
   "baseline": {
     "application_version": "1.4.0",
     "commit": "bcc58d4089fc6fda2f65199464b85917e5f0257b",
@@ -32,8 +32,7 @@
   "plan_file": "PLAN.md",
   "report_file": "RELEASE-REPORT.md",
   "implementation_scope_ref": "reports/decisions/DEC-0004-aperture-origami.md",
-  "budget": {"policy_ref":"deterministic-local-only","model_call_limit":0,"model_token_limit":0,"wall_time_seconds_limit":300,"currency":null,"monetary_limit":null,"actual_cost":0,"includes_children_retries_embeddings":true},
-  "completion_evidence": [],
+  "completion_evidence": ["planning/releases/R-0009-aperture-inspection/RELEASE-REPORT.md","planning/releases/R-0009-aperture-inspection/REVIEW.md","reports/validation-R-0009.md","reports/release-notes-v1.5.0.md","npm run release:check","/tmp/noesis-r9-release/noesis-1.5.0.tgz"],
   "publication": {"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
   "next_authorized_goal_ref": "Origami only after R9 exact inspection adoption decision",
   "last_updated": "2026-11-25"

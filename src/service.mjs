@@ -14,6 +14,33 @@ function recallScore(record, terms) {
   const text = String(record.payload.statement ?? record.payload.content ?? "").toLowerCase();
   return terms.reduce((score, term) => score + (text.includes(term) ? 1 : 0), 0);
 }
+const MAX_INSPECT_BYTES = 12_000;
+
+function principalKey(principal) {
+  return JSON.stringify({ owner_id: principal.owner_id, scope_ids: [...(principal.scope_ids ?? [])].sort() });
+}
+
+function encodeInspectCursor(value) {
+  return Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
+}
+
+function decodeInspectCursor(value) {
+  try {
+    const parsed = JSON.parse(Buffer.from(value, "base64url").toString("utf8"));
+    if (parsed?.version !== 1 || typeof parsed.record_id !== "string" || !Number.isInteger(parsed.revision) || typeof parsed.field !== "string" || !Number.isInteger(parsed.start_byte) || !Number.isInteger(parsed.max_bytes) || typeof parsed.principal !== "string") throw new Error();
+    return parsed;
+  } catch {
+    throw new LedgerError("INVALID_ARGUMENT", "invalid inspection cursor");
+  }
+}
+
+function inspectPage(text, start_byte, max_bytes) {
+  const bytes = Buffer.from(text, "utf8");
+  if (max_bytes === null) return { content: text, start_byte: 0, end_byte: bytes.length, total_bytes: bytes.length, complete: true };
+  let end_byte = Math.min(bytes.length, start_byte + max_bytes);
+  while (end_byte > start_byte && end_byte < bytes.length && (bytes[end_byte] & 0xc0) === 0x80) end_byte -= 1;
+  return { content: bytes.subarray(start_byte, end_byte).toString("utf8"), start_byte, end_byte, total_bytes: bytes.length, complete: end_byte >= bytes.length };
+}
 function authorizedScopeIds(store, principal, scope_ids) {
   if (!Array.isArray(scope_ids) || scope_ids.length === 0) throw new LedgerError("INVALID_ARGUMENT", "scope_ids are required");
   const scopes = new Map(store.listRecords().map((record) => [record.scope.scope_id, record.scope]));
@@ -103,11 +130,40 @@ export function createService(store) {
         usage: { duration_ms, model_calls: 0, model_tokens: 0, cost: null, measurement: "local_deterministic" },
       };
     },
-    mindInspect({ principal, record_id, revision = null }) {
+    mindInspect({ principal, record_id, revision = null, max_bytes = null, cursor = null }) {
+      const cursorData = cursor ? decodeInspectCursor(cursor) : null;
+      const callerKey = principalKey(principal);
+      if (cursorData && (cursorData.record_id !== record_id || cursorData.principal !== callerKey || (revision !== null && revision !== cursorData.revision) || (max_bytes !== null && max_bytes !== cursorData.max_bytes))) throw new LedgerError("INVALID_ARGUMENT", "inspection cursor does not match request");
+      if (cursorData && revision === null) revision = cursorData.revision;
+      if (cursorData && max_bytes === null) max_bytes = cursorData.max_bytes;
+      if (max_bytes !== null && (!Number.isInteger(max_bytes) || max_bytes < 4 || max_bytes > MAX_INSPECT_BYTES)) throw new LedgerError("INVALID_ARGUMENT", "invalid inspection byte budget");
       const record = revision === null ? store.getRecord(record_id) : store.getRecordRevision(record_id, revision);
       if (!record || !scopeAllows(principal, record.scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "record is not available");
       const sources = record.provenance.source_refs.map((source_id) => store.getSource(source_id)).filter(Boolean);
-      return { record, sources };
+      const field = Object.hasOwn(record.payload, "statement") ? "statement" : "content";
+      const fullText = String(record.payload[field] ?? "");
+      const start_byte = cursorData?.start_byte ?? 0;
+      const total_bytes = Buffer.byteLength(fullText, "utf8");
+      if (start_byte < 0 || start_byte > total_bytes) throw new LedgerError("INVALID_ARGUMENT", "inspection cursor is stale");
+      const page = inspectPage(fullText, start_byte, max_bytes);
+      const continuation = page.complete ? null : encodeInspectCursor({ version: 1, record_id, revision: record.revision, field, start_byte: page.end_byte, max_bytes, principal: callerKey });
+      const viewRecord = max_bytes === null && !cursorData ? record : { ...record, payload: { ...record.payload, [field]: page.content } };
+      return {
+        record: viewRecord,
+        sources,
+        inspection: {
+          field,
+          revision: record.revision,
+          kind: total_bytes === 0 ? "unavailable" : page.complete ? "exact" : "partial",
+          requested_range: { start_byte, end_byte: max_bytes === null ? total_bytes : Math.min(total_bytes, start_byte + max_bytes) },
+          returned_range: { start_byte: page.start_byte, end_byte: page.end_byte },
+          returned_bytes: page.end_byte - page.start_byte,
+          total_bytes,
+          integrity: { status: "unverified", reason: "no range digest recorded" },
+          content: page.content,
+          continuation,
+        },
+      };
     },
     mindDream({ principal, scope_ids, level = "snooze", modes = ["consolidate"], focus = null, producer_id, idempotency_key }) {
       if (!producer_id || !idempotency_key) throw new LedgerError("INVALID_ARGUMENT", "producer_id and idempotency_key are required");
@@ -120,11 +176,12 @@ export function createService(store) {
     mindCapabilities() {
       return {
         contract_version: CONTRACT_VERSION,
-        capability_revision: 1,
+        capability_revision: 2,
         available_tools: ["mind_note", "mind_recall", "mind_inspect", "mind_dream"],
         dream: { levels: ["snooze", "nap", "dream", "deep_sleep"], modes: ["consolidate", "associate", "imagine", "rehearse", "reframe"], execution_kinds: ["bounded"] },
         retrieval: { full_text: false, lexical: true, vectors: false },
         limits: { max_inline_records: 8, max_inline_chars: 12000 },
+        inspection: { max_bytes: 12000, cursor: true, coverage_kinds: ["exact", "partial", "unavailable"] },
       };
     },
     runSnooze(args) {

@@ -103,6 +103,31 @@ test("mind_inspect returns exact revision and source without disclosing forbidde
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
+test("mind_inspect returns revision-bound UTF-8 pages with continuation", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const content = "identifier=π; exact value=42; failure=timeout";
+  try {
+    const captured = service.mindNote({ principal, scope, content, producer_id: "omp-session", idempotency_key: "note-page" });
+    const first = service.mindInspect({ principal, record_id: captured.receipt.record_id, revision: 1, max_bytes: 8 });
+    assert.equal(first.inspection.kind, "partial");
+    assert.ok(first.inspection.continuation);
+    assert.ok(!first.inspection.content.includes("\uFFFD"));
+    let page = first;
+    let combined = first.inspection.content;
+    while (page.inspection.continuation) {
+      page = service.mindInspect({ principal, record_id: captured.receipt.record_id, cursor: page.inspection.continuation });
+      combined += page.inspection.content;
+    }
+    assert.equal(page.inspection.kind, "exact");
+    assert.equal(combined, content);
+    assert.throws(() => service.mindInspect({ principal: { owner_id: "other", scope_ids: [] }, record_id: captured.receipt.record_id, cursor: first.inspection.continuation }), /inspection cursor does not match request/);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_recall does not inflate repeated query terms", async () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));

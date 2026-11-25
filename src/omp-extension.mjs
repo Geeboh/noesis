@@ -84,9 +84,8 @@ export default function noesisExtension(pi) {
   pi.registerTool({
     name: "mind_inspect",
     label: "NOESIS inspect",
-    description: "Inspect one exact authorized NOESIS record revision and its source references.",
-    parameters: schema(pi, { record_id: pi.zod.string(), revision: pi.zod.number().int().positive().optional() }),
-    execute: async (_toolCallId, params) => textResult(service.mindInspect({ principal, record_id: params.record_id, revision: params.revision ?? null })),
+    parameters: schema(pi, { record_id: pi.zod.string(), revision: pi.zod.number().int().positive().optional(), max_bytes: pi.zod.number().int().min(4).max(12000).optional(), cursor: pi.zod.string().optional() }),
+    execute: async (_toolCallId, params) => textResult(service.mindInspect({ principal, record_id: params.record_id, revision: params.revision ?? null, max_bytes: params.max_bytes ?? null, cursor: params.cursor ?? null })),
   });
   pi.registerTool({
     name: "mind_dream",

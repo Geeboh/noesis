@@ -235,7 +235,9 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
       if (url.pathname === "/api/recall" && request.method === "GET") return sendJson(response, 200, service.mindRecall({ principal, query: url.searchParams.get("query") ?? "", max_items: 8, max_chars: 12000 }));
       if (url.pathname.startsWith("/api/inspect/") && request.method === "GET") {
         const record_id = decodeURIComponent(url.pathname.slice("/api/inspect/".length));
-        return sendJson(response, 200, service.mindInspect({ principal, record_id }));
+        const revision = url.searchParams.get("revision");
+        const max_bytes = url.searchParams.get("max_bytes");
+        return sendJson(response, 200, service.mindInspect({ principal, record_id, revision: revision === null ? null : Number(revision), max_bytes: max_bytes === null ? null : Number(max_bytes), cursor: url.searchParams.get("cursor") }));
       }
       if (url.pathname === "/api/note" && request.method === "POST") {
         const body = await readBody(request);
