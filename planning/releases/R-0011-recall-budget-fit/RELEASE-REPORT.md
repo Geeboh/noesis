@@ -17,7 +17,7 @@
 `reports/validation-R-0011.md` records the focused suite, full release gate, artifact, and real coding/design history comparison.
 
 - Focused recall checks: 20 passed.
-- Full release gate: 70 passed.
+- Full release gate: 71 passed, including 21 JSON Schema examples after installing `requirements-validation.txt`.
 - Coding target coverage: 19/20 to 20/20.
 - Design/research target coverage: 19/20 to 19/20.
 - Artifact: `/tmp/noesis-r11-release/noesis-1.6.1.tgz`, SHA-256 `770e3409f0e522a6f63a667bfaa6f22e9e17a06e27b24692fdb2a6f248b0376e`.

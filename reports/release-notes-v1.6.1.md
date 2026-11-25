@@ -8,6 +8,6 @@ No Mind tool, schema, importer, provider, model, or compaction behavior changed.
 
 ## Validation
 
-The local candidate passed the full 70-test release gate. A disposable coding-history probe improved target coverage from 19/20 to 20/20. A design/research probe remained 19/20. These are diagnostic retrieval checks, not semantic-quality claims.
+The local candidate passed the final 71-test release gate, bootstrap integrity, syntax checks, and 21 JSON Schema examples. A disposable coding-history probe improved target coverage from 19/20 to 20/20. A design/research probe remained 19/20. These are diagnostic retrieval checks, not semantic-quality claims.
 
 The candidate is local only. v1.6.0 remains installed and is the rollback baseline.

@@ -30,7 +30,7 @@ node --test test/service.test.mjs test/omp-recall.test.mjs
 npm ci --ignore-scripts && npm run release:check
 ```
 
-The focused recall suite passed 20 tests. The full release gate passed 70 tests, bootstrap integrity, and syntax checks. Full JSON Schema validation remained unavailable because `requirements-validation.txt` was not installed.
+The focused recall suite passed 20 tests. The final release gate passed 71 tests, bootstrap integrity, syntax checks, and 21 JSON Schema examples after installing `requirements-validation.txt`.
 
 A disposable real-history probe used the same coding and design/research sessions as the v1.6.0 baseline. It queried 20 unique terms per source under `max_chars=12000` and checked whether the target source entry appeared in the returned provenance.
 
