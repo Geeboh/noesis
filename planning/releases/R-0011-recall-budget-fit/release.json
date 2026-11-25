@@ -1,0 +1,24 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0011-recall-budget-fit",
+  "target_version": "1.6.1",
+  "theme": "budget-fitting lexical recall",
+  "status": "ready_local",
+  "baseline": {
+    "application_version": "1.6.0",
+    "commit": "bc236d55b92aab511593789f8b364804ab47351c",
+    "tag": "v1.6.0",
+    "artifact_sha256": "d4fec7d21116bfbeda13863d35d1525f4dbb4ad8793b30e31ee14a1b25f79c33",
+    "evidence_refs": ["reports/use-v1.6.0.md", "planning/releases/R-0010-omp-jsonl-import/RELEASE-REPORT.md"]
+  },
+  "outcomes": [{"id":"R11-O1","intended_user_result":"Budgeted lexical recall prefers a shorter tied match before a longer match consumes the inline budget.","current_baseline":"Lexical score ties preserve record order, which can omit a shorter exact hit after a long imported chunk uses the budget.","acceptance":"Shorter tied hits rank first, bounded recall returns the fitting exact hit, and all existing gates pass."}],
+  "excluded_scope":["No semantic search, vector index, model, provider, proxy, compaction, schema, importer, or tool-surface change."],
+  "backlog_file":"backlog.json",
+  "plan_file":"PLAN.md",
+  "report_file":"RELEASE-REPORT.md",
+  "implementation_scope_ref":"reports/decisions/DEC-0006-recall-budget-fit.md",
+  "completion_evidence": ["reports/validation-R-0011.md", "reports/release-notes-v1.6.1.md", "planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md", "npm run release:check", "/tmp/noesis-r11-release/noesis-1.6.1.tgz"],
+  "publication":{"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "last_updated":"2026-11-25"
+}

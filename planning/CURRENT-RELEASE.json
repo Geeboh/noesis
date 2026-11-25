@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0010-omp-jsonl-import",
-  "release_directory": "planning/releases/R-0010-omp-jsonl-import",
-  "release_file": "planning/releases/R-0010-omp-jsonl-import/release.json",
-  "backlog_file": "planning/releases/R-0010-omp-jsonl-import/backlog.json",
-  "plan_file": "planning/releases/R-0010-omp-jsonl-import/PLAN.md",
+  "release_id": "R-0011-recall-budget-fit",
+  "release_directory": "planning/releases/R-0011-recall-budget-fit",
+  "release_file": "planning/releases/R-0011-recall-budget-fit/release.json",
+  "backlog_file": "planning/releases/R-0011-recall-budget-fit/backlog.json",
+  "plan_file": "planning/releases/R-0011-recall-budget-fit/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

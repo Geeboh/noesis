@@ -46,6 +46,24 @@ test("mind_recall returns bounded provenance-backed matches only in scope", () =
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
+test("mind_recall prefers shorter tied lexical matches under character budget", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const shortStatement = "alpha short";
+  const longStatement = `alpha ${"long ".repeat(12)}`;
+  try {
+    service.mindNote({ principal, scope, content: shortStatement, producer_id: "omp-session", idempotency_key: "note-short-tie" });
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    service.mindNote({ principal, scope, content: longStatement, producer_id: "omp-session", idempotency_key: "note-long-tie" });
+    const recalled = service.mindRecall({ principal, query: "alpha", scope_ids: [scope.scope_id], max_items: 2, max_chars: longStatement.length });
+    assert.deepEqual(recalled.data.map((hit) => hit.statement), [shortStatement]);
+    assert.equal(recalled.coverage.omitted.budget, 1);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_recall prioritizes stronger lexical matches under the item budget", async () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));

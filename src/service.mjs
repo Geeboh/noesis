@@ -94,7 +94,7 @@ export function createService(store) {
       let matched = 0;
       let used_chars = 0;
       let truncated = false;
-      const orderedRecords = records.map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, index })).sort((left, right) => right.score - left.score || left.index - right.index);
+      const orderedRecords = records.map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, statement_length: String(record.payload.statement ?? record.payload.content ?? "").length, index })).sort((left, right) => right.score - left.score || left.statement_length - right.statement_length || left.index - right.index);
       for (const { record, score } of orderedRecords) {
         considered += 1;
         if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {

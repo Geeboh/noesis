@@ -1,0 +1,8 @@
+{
+  "format_version": 1,
+  "release_id": "R-0011-recall-budget-fit",
+  "tasks": [
+    {"id":"R-0011-T001","title":"Prefer budget-fitting tied recall hits","status":"done","required_for_release":true,"outcome_ids":["R11-O1"],"depends_on":[],"owner":"integration owner","branch":"feat/m0-foundation","worktree":"/code/helpers/noesis-bootstrap-v1.0.0","owned_paths":["src/service.mjs","test/service.test.mjs"],"outputs":["Deterministic shorter-tied-hit rank and regression evidence"],"acceptance":["Equal-score shorter records precede longer records without changing score, scope, or provenance semantics."],"completion_evidence":["src/service.mjs","test/service.test.mjs","node --test test/service.test.mjs test/omp-recall.test.mjs"]},
+    {"id":"R-0011-T002","title":"Prepare local v1.6.1 candidate","status":"done","required_for_release":true,"outcome_ids":["R11-O1"],"depends_on":["R-0011-T001"],"owner":"integration owner","branch":"feat/m0-foundation","worktree":"/code/helpers/noesis-bootstrap-v1.0.0","owned_paths":["package.json","package-lock.json","planning/releases/R-0011-recall-budget-fit/","planning/STATUS.md","reports/"],"outputs":["Focused validation, release gate, artifact, release notes, and rollback record"],"acceptance":["Local v1.6.1 candidate passes release gates and records the narrow adoption result with v1.6.0 recovery."],"completion_evidence":["reports/validation-R-0011.md","npm run release:check","/tmp/noesis-r11-release/noesis-1.6.1.tgz"]}
+  ]
+}
