@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.9.2 is installed and healthy. R18 Prism is ready as a local v1.10.0 candidate.
-**Active release:** `R-0018-prism-png-inspection` targeting `1.10.0`. Plan: `planning/releases/R-0018-prism-png-inspection/PLAN.md`.
-**Next task:** Publish or install v1.10.0 only with explicit authorization. Keep v1.9.2 live.
+**Implementation state:** M1 through M8 remain complete. Published v1.10.0 is installed and healthy. R18 Prism is complete.
+**Active release:** `R-0018-prism-png-inspection` published and installed as `1.10.0`. Plan: `planning/releases/R-0018-prism-png-inspection/PLAN.md`.
+**Next task:** Observe v1.10.0 for compatibility defects before selecting the next bounded roadmap release.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -201,5 +201,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0017 installation | backup, clean install, LAN URL/QR, pairing, dashboard, and empty-note boundary verification | v1.9.2 installed and healthy; live counts preserved | `reports/use-v1.9.2.md` |
 | 2026-11-25 | R-0018 baseline | Prism roadmap review and available local screenshot evidence | selected bounded PNG header inspection with exact source identity | `reports/decisions/DEC-0013-prism-png-inspection.md` |
 | 2026-11-25 | R-0018 candidate | bounded PNG inspection, malformed-input tests, relocated screenshot inspection, full release gate, schema validation, local artifact | local `1.10.0` candidate ready; no publication or live install | `reports/validation-R-0018.md`, `planning/releases/R-0018-prism-png-inspection/RELEASE-REPORT.md` |
+| 2026-11-26 | R-0018 publication and installation | branch/tag push, GitHub release asset hash, live backup, package install, health, pairing, private resources, installed Prism, installed MCP adapter, and preserved counts | v1.10.0 published and installed; live data preserved | `planning/releases/R-0018-prism-png-inspection/RELEASE-REPORT.md`, `reports/use-v1.10.0.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.10.0` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.9.2 is published and installed locally for the declared dashboard path. R18 is ready as a local v1.10.0 candidate. Keep v1.9.2 live until separate publication and installation authorization. Prism is header-only and does not decode pixels or run OCR.
+M1 through M8 remain complete. v1.10.0 is published and installed from the verified release artifact. `.runtime/live` remains the live data directory. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations. Prism is header-only and does not decode pixels or run OCR.

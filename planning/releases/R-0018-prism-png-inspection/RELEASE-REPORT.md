@@ -5,12 +5,12 @@
 - Release: `R-0018-prism-png-inspection`.
 - Target: `1.10.0`.
 - Baseline: published and installed `1.9.2`.
-- Publication: not authorized.
+- Publication: published at https://github.com/Geeboh/noesis/releases/tag/v1.10.0.
+- Installation: `.runtime/installed-v1.10.0/node_modules/noesis`.
 
-## Status
 ## Delivered result
 
-Prism now provides a bounded deterministic PNG header inspector and JSON CLI. It preserves exact source identity through locator, byte length, SHA-256, and inspected byte range. It does not copy or decode pixels.
+Prism provides a bounded deterministic PNG header inspector and JSON CLI. It preserves exact source identity through locator, byte length, SHA-256, and inspected byte range. It does not copy or decode pixels.
 
 ## Validation
 
@@ -20,8 +20,22 @@ Prism now provides a bounded deterministic PNG header inspector and JSON CLI. It
 - Full release gate: 81 passed.
 - Schema examples: 21 passed.
 - Real screenshot inspection: passed.
-- Artifact: `/tmp/noesis-r18-release/noesis-1.10.0.tgz`, SHA-256 `70685f9d6bb3410dd1cb1de2c3189912ddc442848e7ab9ea6bc3ed7c4a6ed7f1`.
+- Artifact SHA-256: `70685f9d6bb3410dd1cb1de2c3189912ddc442848e7ab9ea6bc3ed7c4a6ed7f1`.
+- Remote asset SHA-256: matched local artifact.
+
+## Publication and installation
+
+- Branch `feat/m0-foundation` pushed through commit `7caa6f7ccf`.
+- Tag `v1.10.0` pushed.
+- GitHub release asset verified.
+- Live database backed up before install.
+- Installed service health returned `{"status":"ready"}`.
+- Advertised LAN pairing succeeded and private resources remained available.
+- Installed Prism CLI inspected a relocated screenshot successfully.
+- Installed MCP adapter returned protocol `2025-11-25` and server version `1.10.0`.
+- Live counts remained schema 5, records 0, resources 1, imports 0.
+- Evidence: `reports/use-v1.10.0.md`.
 
 ## Disposition
 
-Adopt Prism PNG inspection as a local `1.10.0` candidate. Keep installed v1.9.2 as rollback. Publication and installation are not authorized for R18.
+R18 is published and installed. v1.9.2 rollback remains available through `.runtime/artifacts/noesis-live-backup-v1.10.0-preinstall/mind.sqlite` and the prior release artifact.
