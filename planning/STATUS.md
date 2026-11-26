@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.6.1 is installed and healthy. R12 was evaluated and deferred after inconclusive real-history results.
-**Active release:** `R-0011-recall-budget-fit` published and installed at `1.6.1`. Plan: `planning/releases/R-0011-recall-budget-fit/PLAN.md`.
-**Next task:** Keep v1.6.1 running. A future Resonance task must address budget allocation across co-matching imported chunks.
+**Implementation state:** M1 through M8 remain complete. Published v1.6.1 is installed and healthy. R13 source-group recall is ready as a local v1.7.0 candidate.
+**Active release:** `R-0013-source-group-recall` targeting `1.7.0`. Plan: `planning/releases/R-0013-source-group-recall/PLAN.md`.
+**Next task:** Publish or install v1.7.0 only with explicit authorization. Keep v1.6.1 live.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -179,5 +179,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0011 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and disposable native OMP loop | v1.6.1 installed and healthy; live counts preserved | `reports/use-v1.6.1.md` |
 | 2026-11-25 | R-0012 baseline | design/research miss traced to 31,282-character message split into two chunks larger than the 12,000-character recall budget | bounded chunk-size fix selected; no live data rewrite | `reports/decisions/DEC-0007-import-recall-fit.md` |
 | 2026-11-25 | R-0012 disposition | 12,000-character re-chunking preserved content but left coding and design/research target coverage at 19/20 | R12 deferred; no candidate or live change | `planning/releases/R-0012-import-recall-fit/RELEASE-REPORT.md` |
+| 2026-11-25 | R-0013 baseline | residual recall miss traced to multiple matching chunks from one imported entry competing with an independent source under budget | source-group allocation selected | `reports/decisions/DEC-0008-source-group-recall.md` |
+| 2026-11-25 | R-0013 candidate | source-group recall admission, grouped omission regression, full release gate, real coding/design probe, local artifact | local `1.7.0` candidate ready; no publication or live install | `reports/validation-R-0013.md`, `planning/releases/R-0013-source-group-recall/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.6.1 is published and installed locally for the declared dashboard path. R12 was deferred because chunk-size reduction did not improve the measured target coverage. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.6.1 is published and installed locally for the declared dashboard path. R13 is ready as a local v1.7.0 candidate. Keep v1.6.1 live until separate publication and installation authorization. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.

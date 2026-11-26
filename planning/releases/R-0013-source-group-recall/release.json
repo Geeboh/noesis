@@ -1,0 +1,14 @@
+{
+  "format_version":1,
+  "template":false,
+  "release_id":"R-0013-source-group-recall",
+  "target_version":"1.7.0",
+  "theme":"source-group recall budgeting",
+  "status":"ready_local",
+  "baseline":{"application_version":"1.6.1","commit":"3ffe28f65fa5043e84bcbc6201d5b12f3ab9943f","tag":"v1.6.1","artifact_sha256":"770e3409f0e522a6f63a667bfaa6f22e9e17a06e27b24692fdb2a6f248b0376e","evidence_refs":["reports/use-v1.6.1.md","planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md"]},
+  "outcomes":[{"id":"R13-O1","intended_user_result":"Budgeted recall gives independent imported source entries a fair chance when one source has multiple matching chunks.","current_baseline":"Multiple matching chunks from one imported entry can consume the inline budget before independent sources are returned.","acceptance":"At most one matching chunk per exact imported source entry is admitted, grouped omissions are explicit, and all gates pass."}],
+  "excluded_scope":["No semantic search, model, provider, proxy, compaction, schema, importer, or tool-surface change."],
+  "backlog_file":"backlog.json","plan_file":"PLAN.md","report_file":"RELEASE-REPORT.md","implementation_scope_ref":"reports/decisions/DEC-0008-source-group-recall.md","completion_evidence":["reports/validation-R-0013.md","reports/release-notes-v1.7.0.md","planning/releases/R-0013-source-group-recall/RELEASE-REPORT.md","npm run release:check","/tmp/noesis-r13-release/noesis-1.7.0.tgz"],
+  "publication":{"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "last_updated":"2026-11-25"
+}
