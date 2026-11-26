@@ -23,4 +23,15 @@ The documented MCP launcher now uses silent npm logging, so the JSON-RPC stream 
 
 ## Disposition
 
-Adopt the launcher patch as a local `1.9.1` candidate. Keep installed v1.9.0 as rollback. Publication and installation are not authorized for R16.
+Adopt the protocol-clean launcher patch as the published and installed `1.9.1` release. Keep the v1.9.0 backup and release as rollback.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed through commit `e309e158fdbbaef695bde19916d992bc4db46a73`.
+- Annotated tag `v1.9.1` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.9.1.
+- Asset `noesis-1.9.1.tgz` uploaded with the recorded SHA-256.
+
+## Installation
+
+`reports/use-v1.9.1.md` records the backup, preserved live counts, LAN URL, terminal QR, pairing, dashboard, and silent npm MCP verification. v1.9.1 is running on schema 5 with live records and resources unchanged.
