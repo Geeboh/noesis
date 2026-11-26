@@ -30,8 +30,7 @@ The existing data directory and configuration were preserved.
 - Authenticated recall: returned `status=ok`.
 
 ## Native OMP validation
-
-The bounded `NOESIS_PROBE=1 npm run probe:omp` check loaded the v1.7 extension and advertised its capabilities. A model-driven synthetic note/recall attempt was inconclusive. OMP emitted repeated `note content must be 1-16000 characters` extension errors and exceeded its 20-second deadline. The disposable store was used, not the live database. This is a model/tool-call behavior limitation, not a dashboard startup failure.
+The bounded `NOESIS_PROBE=1 npm run probe:omp` check loaded the v1.7 extension and advertised its capabilities. Two model-driven synthetic note/recall attempts were inconclusive, including one strict explicit-argument prompt. OMP emitted `note content must be 1-16000 characters` extension errors and exceeded the 20-second deadline. Both disposable stores were used, not the live database. This is a model/tool-call behavior limitation, not a dashboard startup failure.
 
 ## Rollback
 
@@ -39,4 +38,4 @@ Stop the v1.7.0 service and restore `/tmp/noesis-live-backup-v1.7-preinstall/min
 
 ## Limitations
 
-The LAN check used the actual advertised interface and local HTTP pairing. No second physical device was used. HTTP remains unencrypted LAN transport. The model-driven OMP loop remains inconclusive because the model emitted invalid empty note calls.
+The LAN check used the actual advertised interface and local HTTP pairing. No second physical device was used. HTTP remains unencrypted LAN transport. The model-driven OMP loop remains inconclusive despite a strict retry because the model emitted invalid empty note calls.
