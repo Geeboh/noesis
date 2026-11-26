@@ -14,6 +14,15 @@ function recallScore(record, terms) {
   const text = String(record.payload.statement ?? record.payload.content ?? "").toLowerCase();
   return terms.reduce((score, term) => score + (text.includes(term) ? 1 : 0), 0);
 }
+function recallGroupKey(store, record) {
+  if (record.provenance?.origin !== "document_import") return null;
+  const sourceId = record.provenance.source_refs?.[0];
+  if (!sourceId) return null;
+  const snapshot = store.getSource(sourceId)?.snapshot;
+  if (typeof snapshot?.run_id !== "string" || snapshot.run_id.length === 0 || typeof snapshot.entry_id !== "string" || snapshot.entry_id.length === 0) return null;
+  return JSON.stringify([snapshot.run_id, snapshot.entry_id]);
+}
+
 const MAX_INSPECT_BYTES = 12_000;
 
 function principalKey(principal) {
@@ -89,12 +98,13 @@ export function createService(store) {
       const records = store.listRecords();
       const effective_scope_ids = scope_ids.length ? scope_ids : [...new Set(records.filter((record) => scopeAllows(principal, record.scope)).map((record) => record.scope.scope_id))].sort();
       const hits = [];
-      const omitted = { out_of_scope: 0, non_match: 0, budget: 0, item_limit: 0 };
+      const omitted = { out_of_scope: 0, non_match: 0, budget: 0, item_limit: 0, grouped: 0 };
       let considered = 0;
       let matched = 0;
       let used_chars = 0;
       let truncated = false;
       const orderedRecords = records.map((record, index) => ({ record, score: terms.length ? recallScore(record, terms) : 1, statement_length: String(record.payload.statement ?? record.payload.content ?? "").length, index })).sort((left, right) => right.score - left.score || left.statement_length - right.statement_length || left.index - right.index);
+      const admittedGroups = new Set();
       for (const { record, score } of orderedRecords) {
         considered += 1;
         if ((scope_ids.length && !scope_ids.includes(record.scope.scope_id)) || !scopeAllows(principal, record.scope)) {
@@ -106,6 +116,11 @@ export function createService(store) {
           continue;
         }
         matched += 1;
+        const group = recallGroupKey(store, record);
+        if (group !== null && admittedGroups.has(group)) {
+          omitted.grouped += 1;
+          continue;
+        }
         const statement = String(record.payload.statement ?? record.payload.content ?? "");
         const hit = makeRecallHit({ record, reason: terms.length ? `matched ${score} query term${score === 1 ? "" : "s"}` : "listed in authorized scope", estimated_chars: statement.length });
         if (used_chars + hit.estimated_chars > max_chars) {
@@ -114,6 +129,7 @@ export function createService(store) {
           continue;
         }
         hits.push(hit);
+        if (group !== null) admittedGroups.add(group);
         used_chars += hit.estimated_chars;
         if (hits.length >= max_items) {
           omitted.item_limit += 1;

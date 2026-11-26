@@ -106,6 +106,34 @@ test("mind_recall continues after an oversized lexical hit", async () => {
     rmSync(directory, { recursive: true, force: true });
   }
 });
+test("mind_recall admits one matching chunk per imported source entry within character budget", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const sourceFor = (source_id, run_id, entry_id) => ({
+    source_id,
+    scope_id: scope.scope_id,
+    locator: `import://${source_id}`,
+    digest: `digest-${source_id}`,
+    captured_at: "2026-01-01T00:00:00.000Z",
+    status: "observed",
+    snapshot: { format: "omp-jsonl", run_id, entry_id },
+  });
+  try {
+    service.mindNote({ principal, scope, content: "alpha a", producer_id: "omp-import", idempotency_key: "group-a-1", origin: "document_import", source: sourceFor("source-group-a-1", "run-a", "entry-a") });
+    service.mindNote({ principal, scope, content: "alpha bb", producer_id: "omp-import", idempotency_key: "group-a-2", origin: "document_import", source: sourceFor("source-group-a-2", "run-a", "entry-a") });
+    service.mindNote({ principal, scope, content: "alpha independent", producer_id: "omp-import", idempotency_key: "group-b-1", origin: "document_import", source: sourceFor("source-group-b-1", "run-b", "entry-b") });
+    const recalled = service.mindRecall({ principal, query: "alpha", scope_ids: [scope.scope_id], max_items: 3, max_chars: "alpha a".length + "alpha independent".length });
+    assert.deepEqual(recalled.data.map((hit) => hit.statement), ["alpha a", "alpha independent"]);
+    assert.equal(recalled.coverage.omitted.grouped, 1);
+    assert.equal(recalled.coverage.omitted.budget, 0);
+    assert.equal(recalled.coverage.included, 2);
+    assert.equal(recalled.usage.model_calls, 0);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 test("mind_inspect returns exact revision and source without disclosing forbidden records", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
   const service = openService(join(directory, "mind.sqlite"));
