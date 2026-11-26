@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.8.0 is installed and healthy. R15 Relay stdio MCP is ready as a local v1.9.0 candidate.
-**Active release:** `R-0015-relay-stdio-mcp` targeting `1.9.0`. Plan: `planning/releases/R-0015-relay-stdio-mcp/PLAN.md`.
-**Next task:** Publish or install v1.9.0 only with explicit authorization. Keep v1.8.0 live.
+**Implementation state:** M1 through M8 remain complete. Published v1.9.0 is installed and healthy. v1.8.0 remains the rollback baseline.
+**Active release:** `R-0015-relay-stdio-mcp` published and installed at `1.9.0`. Plan: `planning/releases/R-0015-relay-stdio-mcp/PLAN.md`.
+**Next task:** Keep v1.9.0 running. Record client compatibility or transport defects before selecting the next bounded release.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -189,5 +189,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0014 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and native extension probe | v1.8.0 installed and healthy; live counts preserved | `reports/use-v1.8.0.md` |
 | 2026-11-25 | R-0015 baseline | Relay roadmap and M7 MCP deferral review | selected local stdio MCP transport over existing service contracts | `reports/decisions/DEC-0010-relay-stdio-mcp.md` |
 | 2026-11-25 | R-0015 candidate | stdio MCP initialize/list/call journey, scope and idempotency checks, full release gate, schema validation, local artifact | local `1.9.0` candidate ready; no publication or live install | `reports/validation-R-0015.md`, `planning/releases/R-0015-relay-stdio-mcp/RELEASE-REPORT.md` |
+| 2026-11-25 | R-0015 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.9.0 published; v1.8.0 installation was replaced after backup | `planning/releases/R-0015-relay-stdio-mcp/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.9.0` |
+| 2026-11-25 | R-0015 installation | backup, clean install, LAN URL/QR, pairing, dashboard, and direct stdio MCP verification | v1.9.0 installed and healthy; live counts preserved | `reports/use-v1.9.0.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.8.0 is published and installed locally for the declared dashboard path. R15 is ready as a local v1.9.0 candidate. Keep v1.8.0 live until separate publication and installation authorization. No HTTP MCP, external backend, provider proxy, compaction change, or new Mind tool is included.
+M1 through M8 remain complete. v1.9.0 is published and installed locally for the declared dashboard path. The v1.8.0 backup and release remain the rollback baseline. Relay is local stdio only. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.

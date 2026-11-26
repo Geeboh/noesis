@@ -23,4 +23,15 @@ Relay now provides a local newline-delimited JSON-RPC MCP server over the existi
 
 ## Disposition
 
-Adopt Relay stdio MCP as a local `1.9.0` candidate. Keep installed v1.8.0 as rollback. Publication and installation are not authorized for R15.
+Adopt Relay stdio MCP as the published and installed `1.9.0` release. Keep the v1.8.0 backup and release as rollback.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed through commit `fec3a51369aaa1cfe4dea00f6247d79c617dbde8`.
+- Annotated tag `v1.9.0` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.9.0.
+- Asset `noesis-1.9.0.tgz` uploaded with the recorded SHA-256.
+
+## Installation
+
+`reports/use-v1.9.0.md` records the backup, preserved live counts, LAN URL, terminal QR, pairing, dashboard, and direct stdio MCP verification. v1.9.0 is running on schema 5 with live records and resources unchanged.
