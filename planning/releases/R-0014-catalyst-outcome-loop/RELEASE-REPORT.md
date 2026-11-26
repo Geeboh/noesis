@@ -25,4 +25,15 @@ Catalyst now records a scoped proposal application and a separate observed outco
 
 ## Disposition
 
-Adopt the Catalyst loop as a local `1.8.0` candidate. Keep installed v1.7.0 as rollback. Publication and installation are not authorized for R14.
+Adopt the Catalyst loop as the published and installed `1.8.0` release. Keep the v1.7.0 backup and release as rollback.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed through commit `e4d8239e48ce1f4b10f6c13862ff87b8f337470c`.
+- Annotated tag `v1.8.0` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.8.0.
+- Asset `noesis-1.8.0.tgz` uploaded with the recorded SHA-256.
+
+## Installation
+
+`reports/use-v1.8.0.md` records the backup, preserved live counts, LAN URL, terminal QR, pairing, authenticated dashboard, and native extension probe. v1.8.0 is running on schema 5 with live records and resources unchanged.

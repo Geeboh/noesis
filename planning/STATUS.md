@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.7.0 is installed and healthy. R14 Catalyst is ready as a local v1.8.0 candidate.
-**Active release:** `R-0014-catalyst-outcome-loop` targeting `1.8.0`. Plan: `planning/releases/R-0014-catalyst-outcome-loop/PLAN.md`.
-**Next task:** Publish or install v1.8.0 only with explicit authorization. Keep v1.7.0 live.
+**Implementation state:** M1 through M8 remain complete. Published v1.8.0 is installed and healthy. v1.7.0 remains the rollback baseline.
+**Active release:** `R-0014-catalyst-outcome-loop` published and installed at `1.8.0`. Plan: `planning/releases/R-0014-catalyst-outcome-loop/PLAN.md`.
+**Next task:** Keep v1.8.0 running. Record real Catalyst usage and outcomes before selecting the next bounded release.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -185,5 +185,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0013 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and native extension probe | v1.7.0 installed and healthy; live counts preserved | `reports/use-v1.7.0.md` |
 | 2026-11-25 | R-0014 baseline | Catalyst roadmap review and proposal-only task-manifest baseline | selected proposal → application → observed outcome loop | `reports/decisions/DEC-0009-catalyst-outcome-loop.md` |
 | 2026-11-25 | R-0014 candidate | scoped application/outcome records, lineage, Forge lifecycle, paired Observatory journey, archive restore, full release gate, local artifact | local `1.8.0` candidate ready; no publication or live install | `reports/validation-R-0014.md`, `planning/releases/R-0014-catalyst-outcome-loop/RELEASE-REPORT.md` |
+| 2026-11-25 | R-0014 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.8.0 published; v1.7.0 installation was replaced after backup | `planning/releases/R-0014-catalyst-outcome-loop/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.8.0` |
+| 2026-11-25 | R-0014 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and native extension probe | v1.8.0 installed and healthy; live counts preserved | `reports/use-v1.8.0.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.7.0 is published and installed locally for the declared dashboard path. R14 is ready as a local v1.8.0 candidate. Keep v1.7.0 live until separate publication and installation authorization. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.8.0 is published and installed locally for the declared dashboard path. The v1.7.0 backup and release remain the rollback baseline. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
