@@ -1,6 +1,6 @@
 {
   "name": "noesis",
-  "version": "1.9.2",
+  "version": "1.10.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -12,6 +12,7 @@
     "start": "node src/cli.mjs",
     "mcp:start": "node scripts/mcp-server.mjs",
     "import:omp": "node scripts/import_omp_jsonl.mjs",
+    "inspect:png": "node scripts/inspect_png.mjs",
     "probe:omp": "NOESIS_DATA_DIR=${TMPDIR:-/tmp}/noesis-omp-probe omp -p --no-session --no-extensions --extension ./src/omp-extension.mjs --max-time 6 \"Reply with OK.\"",
     "release:check": "npm test && python3 scripts/validate_bootstrap.py && node --check src/cli.mjs && node --check src/server.mjs"
   },
