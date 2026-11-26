@@ -24,4 +24,15 @@
 
 ## Disposition
 
-Adopt the source-group accounting change as a local `1.7.0` candidate. Keep installed v1.6.1 as rollback. Publication and installation are not authorized for R13.
+Adopt the source-group accounting change as the published and installed `1.7.0` release. Keep the v1.6.1 backup and release as rollback. The model-driven native loop was inconclusive because OMP emitted invalid empty note calls; extension loading passed.
+
+## Publication
+
+- Branch `feat/m0-foundation` pushed through commit `1a3801ff421ef2cee92c8458de8ba41f3bf607c6`.
+- Annotated tag `v1.7.0` pushed.
+- GitHub release published at https://github.com/Geeboh/noesis/releases/tag/v1.7.0.
+- Asset `noesis-1.7.0.tgz` uploaded with the recorded SHA-256.
+
+## Installation
+
+`reports/use-v1.7.0.md` records the backup, preserved live counts, LAN URL, terminal QR, pairing, authenticated dashboard, and native extension probe. v1.7.0 is running on schema 5 with live records and resources unchanged. The model-driven note/recall loop remains inconclusive.
