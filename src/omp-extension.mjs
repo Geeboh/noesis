@@ -71,7 +71,7 @@ export default function noesisExtension(pi) {
     name: "mind_note",
     label: "NOESIS note",
     description: "Persist an observed note with source and scope provenance.",
-    parameters: schema(pi, { content: pi.zod.string(), idempotency_key: pi.zod.string().optional() }),
+    parameters: schema(pi, { content: pi.zod.string().min(1).max(16_000), idempotency_key: pi.zod.string().optional() }),
     execute: async (_toolCallId, params) => textResult(captureNote({ service, atlas, principal, scope, resource_id: projectResource.resource_id, content: params.content, producer_id: "omp", idempotency_key: params.idempotency_key ?? key("note") })),
   });
   pi.registerTool({

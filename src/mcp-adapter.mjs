@@ -14,7 +14,7 @@ export const TOOL_DEFINITIONS = Object.freeze([
     inputSchema: Object.freeze({
       type: "object",
       properties: Object.freeze({
-        content: Object.freeze({ type: "string" }),
+        content: Object.freeze({ type: "string", minLength: 1, maxLength: 16_000 }),
         idempotency_key: Object.freeze({ type: "string" }),
       }),
       required: Object.freeze(["content"]),
@@ -114,7 +114,7 @@ function projectScope(cwd = process.cwd()) {
 function validateArguments(name, args) {
   if (!isObject(args)) throw invalidParams("tool arguments must be an object");
   if (name === "mind_note") {
-    if (typeof args.content !== "string") throw invalidParams("content must be a string");
+    if (typeof args.content !== "string" || args.content.length < 1 || args.content.length > 16_000) throw invalidParams("content must be a non-empty string of at most 16000 characters");
     if (args.idempotency_key !== undefined && typeof args.idempotency_key !== "string") throw invalidParams("idempotency_key must be a string");
   } else if (name === "mind_recall") {
     if (typeof args.query !== "string") throw invalidParams("query must be a string");

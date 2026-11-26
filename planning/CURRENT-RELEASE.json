@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0016-mcp-launcher-clean",
-  "release_directory": "planning/releases/R-0016-mcp-launcher-clean",
-  "release_file": "planning/releases/R-0016-mcp-launcher-clean/release.json",
-  "backlog_file": "planning/releases/R-0016-mcp-launcher-clean/backlog.json",
-  "plan_file": "planning/releases/R-0016-mcp-launcher-clean/PLAN.md",
+  "release_id": "R-0017-nonempty-note-boundary",
+  "release_directory": "planning/releases/R-0017-nonempty-note-boundary",
+  "release_file": "planning/releases/R-0017-nonempty-note-boundary/release.json",
+  "backlog_file": "planning/releases/R-0017-nonempty-note-boundary/backlog.json",
+  "plan_file": "planning/releases/R-0017-nonempty-note-boundary/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

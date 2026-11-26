@@ -150,16 +150,18 @@ test("stdio MCP adapter initializes, lists deterministic tools, and completes th
 
     const unknownTool = await client.request({ jsonrpc: "2.0", id: 8, method: "tools/call", params: { name: "mind_missing", arguments: {} } });
     assert.equal(unknownTool.error.code, -32602);
-    const unknownMethod = await client.request({ jsonrpc: "2.0", id: 9, method: "mind/missing" });
+    const emptyNote = await client.request({ jsonrpc: "2.0", id: 9, method: "tools/call", params: { name: "mind_note", arguments: { content: "" } } });
+    assert.equal(emptyNote.error.code, -32602);
+    const unknownMethod = await client.request({ jsonrpc: "2.0", id: 10, method: "mind/missing" });
     assert.equal(unknownMethod.error.code, -32601);
     const malformed = await client.request("not-json");
     assert.equal(malformed.id, null);
     assert.equal(malformed.error.code, -32700);
-    const invalidRequest = await client.request({ jsonrpc: "2.0", id: 10 });
+    const invalidRequest = await client.request({ jsonrpc: "2.0", id: 11 });
     assert.equal(invalidRequest.error.code, -32600);
 
     client.send({ jsonrpc: "2.0", method: "notifications/initialized" });
-    const afterNotification = await client.request({ jsonrpc: "2.0", id: 11, method: "tools/list" });
+    const afterNotification = await client.request({ jsonrpc: "2.0", id: 12, method: "tools/list" });
     assert.equal(afterNotification.result.tools.length, 4);
   } finally {
     client.child.stdin.end();
@@ -167,7 +169,7 @@ test("stdio MCP adapter initializes, lists deterministic tools, and completes th
     assert.equal(status.code, 0);
     assert.equal(status.signal, null);
     assert.equal(client.streamError, null);
-    assert.equal(client.stdoutLines.length, 12);
+    assert.equal(client.stdoutLines.length, 13);
     assert.equal(client.stderr.join(""), "");
     rmSync(directory, { recursive: true, force: true });
   }
