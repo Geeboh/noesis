@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.6.1 is installed and healthy. v1.6.0 remains the rollback baseline.
+**Implementation state:** M1 through M8 remain complete. Published v1.6.1 is installed and healthy. R12 was evaluated and deferred after inconclusive real-history results.
 **Active release:** `R-0011-recall-budget-fit` published and installed at `1.6.1`. Plan: `planning/releases/R-0011-recall-budget-fit/PLAN.md`.
-**Next task:** Keep v1.6.1 running. Record observed recall or import defects before selecting the next bounded release.
+**Next task:** Keep v1.6.1 running. A future Resonance task must address budget allocation across co-matching imported chunks.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -177,5 +177,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0011 candidate | shorter tied-hit recall ranking, focused regression, full release gate, real coding/design probe, local artifact | local `1.6.1` candidate ready; no publication or live install | `reports/validation-R-0011.md`, `planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md` |
 | 2026-11-25 | R-0011 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.6.1 published; v1.6.0 installation was replaced after backup | `planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.6.1` |
 | 2026-11-25 | R-0011 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and disposable native OMP loop | v1.6.1 installed and healthy; live counts preserved | `reports/use-v1.6.1.md` |
+| 2026-11-25 | R-0012 baseline | design/research miss traced to 31,282-character message split into two chunks larger than the 12,000-character recall budget | bounded chunk-size fix selected; no live data rewrite | `reports/decisions/DEC-0007-import-recall-fit.md` |
+| 2026-11-25 | R-0012 disposition | 12,000-character re-chunking preserved content but left coding and design/research target coverage at 19/20 | R12 deferred; no candidate or live change | `planning/releases/R-0012-import-recall-fit/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.6.1 is published and installed locally for the declared dashboard path. The v1.6.0 backup and release remain the rollback baseline. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.6.1 is published and installed locally for the declared dashboard path. R12 was deferred because chunk-size reduction did not improve the measured target coverage. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.

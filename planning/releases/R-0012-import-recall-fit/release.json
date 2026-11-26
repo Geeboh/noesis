@@ -1,0 +1,14 @@
+{
+  "format_version": 1,
+  "template": false,
+  "release_id": "R-0012-import-recall-fit",
+  "target_version": "1.6.2",
+  "theme": "historical import continuity",
+  "status": "deferred",
+  "baseline": {"application_version":"1.6.1","commit":"3ffe28f65fa5043e84bcbc6201d5b12f3ab9943f","tag":"v1.6.1","artifact_sha256":"770e3409f0e522a6f63a667bfaa6f22e9e17a06e27b24692fdb2a6f248b0376e","evidence_refs":["reports/use-v1.6.1.md","planning/releases/R-0011-recall-budget-fit/RELEASE-REPORT.md"]},
+  "outcomes":[{"id":"R12-O1","intended_user_result":"Re-imported historical messages remain retrievable under the default bounded recall budget.","current_baseline":"16,000-character imported chunks can exceed the 12,000-character recall budget.","acceptance":"Imported chunks fit 12,000 characters, reconstruct exactly, and the selected real-history target miss improves without regressions."}],
+  "excluded_scope":["No semantic search, model, provider, proxy, compaction, schema, importer state-machine, or tool-surface change."],
+  "backlog_file":"backlog.json","plan_file":"PLAN.md","report_file":"RELEASE-REPORT.md","implementation_scope_ref":"reports/decisions/DEC-0007-import-recall-fit.md","completion_evidence":["reports/decisions/DEC-0007-import-recall-fit.md","planning/releases/R-0012-import-recall-fit/RELEASE-REPORT.md"],
+  "publication":{"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "last_updated":"2026-11-25"
+}

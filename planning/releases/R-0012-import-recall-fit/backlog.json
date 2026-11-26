@@ -1,0 +1,8 @@
+{
+  "format_version":1,
+  "release_id":"R-0012-import-recall-fit",
+  "tasks":[
+    {"id":"R-0012-T001","title":"Align import chunks with recall budget","status":"deferred","required_for_release":true,"outcome_ids":["R12-O1"],"depends_on":[],"owner":"integration owner","branch":"feat/m0-foundation","worktree":"/code/helpers/noesis-bootstrap-v1.0.0","owned_paths":["src/importer.mjs","test/importer.test.mjs"],"outputs":["12,000-character import chunks and exact reconstruction coverage"],"acceptance":["Visible text chunks fit the default recall budget and concatenate exactly."],"completion_evidence":["planning/releases/R-0012-import-recall-fit/RELEASE-REPORT.md"]},
+    {"id":"R-0012-T002","title":"Prepare local v1.6.2 candidate","status":"deferred","required_for_release":true,"outcome_ids":["R12-O1"],"depends_on":["R-0012-T001"],"owner":"integration owner","branch":"feat/m0-foundation","worktree":"/code/helpers/noesis-bootstrap-v1.0.0","owned_paths":["package.json","package-lock.json","planning/releases/R-0012-import-recall-fit/","reports/"],"outputs":["Real-history probe, release gate, artifact, release notes, and rollback record"],"acceptance":["Local candidate records the measured result and keeps v1.6.1 as rollback."],"completion_evidence":["planning/releases/R-0012-import-recall-fit/RELEASE-REPORT.md"]}
+  ]
+}
