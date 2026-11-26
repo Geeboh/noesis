@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.7.0 is installed and healthy. v1.6.1 remains the rollback baseline.
-**Active release:** `R-0013-source-group-recall` published and installed at `1.7.0`. Plan: `planning/releases/R-0013-source-group-recall/PLAN.md`.
-**Next task:** Keep v1.7.0 running. Treat the model-driven OMP note/recall loop as an observed limitation until a separate host investigation.
+**Implementation state:** M1 through M8 remain complete. Published v1.7.0 is installed and healthy. R14 Catalyst is ready as a local v1.8.0 candidate.
+**Active release:** `R-0014-catalyst-outcome-loop` targeting `1.8.0`. Plan: `planning/releases/R-0014-catalyst-outcome-loop/PLAN.md`.
+**Next task:** Publish or install v1.8.0 only with explicit authorization. Keep v1.7.0 live.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -183,5 +183,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0013 candidate | source-group recall admission, grouped omission regression, full release gate, real coding/design probe, local artifact | local `1.7.0` candidate ready; no publication or live install | `reports/validation-R-0013.md`, `planning/releases/R-0013-source-group-recall/RELEASE-REPORT.md` |
 | 2026-11-25 | R-0013 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.7.0 published; v1.6.1 installation was replaced after backup | `planning/releases/R-0013-source-group-recall/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.7.0` |
 | 2026-11-25 | R-0013 installation | backup, clean install, LAN URL/QR, pairing, authenticated dashboard, and native extension probe | v1.7.0 installed and healthy; live counts preserved | `reports/use-v1.7.0.md` |
+| 2026-11-25 | R-0014 baseline | Catalyst roadmap review and proposal-only task-manifest baseline | selected proposal → application → observed outcome loop | `reports/decisions/DEC-0009-catalyst-outcome-loop.md` |
+| 2026-11-25 | R-0014 candidate | scoped application/outcome records, lineage, Forge lifecycle, paired Observatory journey, archive restore, full release gate, local artifact | local `1.8.0` candidate ready; no publication or live install | `reports/validation-R-0014.md`, `planning/releases/R-0014-catalyst-outcome-loop/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.7.0 is published and installed locally for the declared dashboard path. The v1.6.1 backup and release remain the rollback baseline. The model-driven native note/recall loop is inconclusive because OMP emitted invalid empty notes. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.7.0 is published and installed locally for the declared dashboard path. R14 is ready as a local v1.8.0 candidate. Keep v1.7.0 live until separate publication and installation authorization. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.

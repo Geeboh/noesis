@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0013-source-group-recall",
-  "release_directory": "planning/releases/R-0013-source-group-recall",
-  "release_file": "planning/releases/R-0013-source-group-recall/release.json",
-  "backlog_file": "planning/releases/R-0013-source-group-recall/backlog.json",
-  "plan_file": "planning/releases/R-0013-source-group-recall/PLAN.md",
+  "release_id": "R-0014-catalyst-outcome-loop",
+  "release_directory": "planning/releases/R-0014-catalyst-outcome-loop",
+  "release_file": "planning/releases/R-0014-catalyst-outcome-loop/release.json",
+  "backlog_file": "planning/releases/R-0014-catalyst-outcome-loop/backlog.json",
+  "plan_file": "planning/releases/R-0014-catalyst-outcome-loop/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

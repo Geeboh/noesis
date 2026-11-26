@@ -15,6 +15,8 @@ export function buildForgeView({ resource, records, version = null }) {
   const findings = selected.filter((record) => record.record_type === "observation");
   const lessons = selected.filter((record) => record.record_type === "lesson");
   const hypotheses = selected.filter((record) => record.record_type === "hypothesis");
+  const applications = selected.filter((record) => record.record_type === "application");
+  const outcomes = selected.filter((record) => record.record_type === "outcome");
   return {
     resource_id: resource.resource_id,
     target: resource.display_name,
@@ -23,6 +25,8 @@ export function buildForgeView({ resource, records, version = null }) {
     findings,
     lessons,
     hypotheses,
+    applications,
+    outcomes,
     reproduction_cases: findings.map((record) => ({ record_id: record.record_id, statement: record.payload.statement ?? "", scope_id: record.scope.scope_id })),
     evidence: findings.map((record) => ({ record_id: record.record_id, source_refs: record.provenance.source_refs, origin: record.provenance.origin })),
     coverage: { considered: selected.length, scope_id: resource.scope.scope_id, version: version ?? snapshot?.version ?? null, omissions: [] },
@@ -56,18 +60,33 @@ export function exportBlueprint({ forge, target = forge.target, previous_cutoff 
 }
 
 export function exportTaskManifest({ forge, target = forge.target, privacy = "standard" }) {
-  const tasks = forge.hypotheses.map((record) => ({
-    task_id: `proposal-task:${record.record_id}`,
-    status: "proposed",
-    execution: "not_requested",
-    target,
-    scope_id: forge.coverage.scope_id,
-    hypothesis_id: record.record_id,
-    statement: redactText(record.payload?.statement ?? "", privacy),
-    source_refs: record.provenance?.source_refs ?? [],
-    provenance: record.provenance,
-    validation_needed: record.payload?.validation_needed ?? [],
-  }));
+  const applications = forge.applications ?? [];
+  const outcomes = forge.outcomes ?? [];
+  const tasks = forge.hypotheses.map((record) => {
+    const linkedApplications = applications.filter((application) => application.payload?.hypothesis_id === record.record_id);
+    const applicationIds = new Set(linkedApplications.map((application) => application.record_id));
+    const linkedOutcomes = outcomes.filter((outcome) => applicationIds.has(outcome.payload?.application_id));
+    const application = linkedApplications[0] ?? null;
+    const status = linkedOutcomes.some((outcome) => outcome.payload?.status === "validated")
+      ? "validated"
+      : application
+        ? "applied"
+        : "proposed";
+    return {
+      task_id: `proposal-task:${record.record_id}`,
+      status,
+      execution: "not_requested",
+      target,
+      scope_id: forge.coverage.scope_id,
+      hypothesis_id: record.record_id,
+      ...(application ? { application_id: application.record_id } : {}),
+      outcome_ids: linkedOutcomes.map((outcome) => outcome.record_id),
+      statement: redactText(record.payload?.statement ?? "", privacy),
+      source_refs: record.provenance?.source_refs ?? [],
+      provenance: record.provenance,
+      validation_needed: record.payload?.validation_needed ?? [],
+    };
+  });
   const document = {
     schema_version: "0.1.0",
     kind: "proposal_task_manifest",

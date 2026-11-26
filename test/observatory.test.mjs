@@ -4,10 +4,44 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createObservatory } from "../src/server.mjs";
+import { makeEvent, makeRecord } from "../src/contracts.mjs";
 
 async function close(started) {
   await new Promise((resolve) => started.server.close(resolve));
   started.service.close();
+}
+
+function seedHypothesis(service, resource) {
+  const record = makeRecord({
+    record_id: "hypothesis-observatory-lifecycle",
+    record_type: "hypothesis",
+    scope: resource.scope,
+    provenance: {
+      origin: "dream",
+      creator_id: "test-fixture",
+      source_refs: ["synthetic-source"],
+      derivation_refs: [],
+      capture_idempotency_key: null,
+      transformation: null,
+    },
+    payload: { resource_id: resource.resource_id, statement: "apply synthetic change", validation_needed: ["observe result"] },
+  });
+  const event = makeEvent({
+    event_type: "test_hypothesis",
+    actor_id: "test-fixture",
+    scope: resource.scope,
+    object_revision: record.revision,
+    payload: { record_id: record.record_id },
+  });
+  service.store.capture({
+    producer_id: "test-fixture",
+    operation: "test_hypothesis",
+    idempotency_key: record.record_id,
+    request: { hypothesis_id: record.record_id, resource_id: resource.resource_id },
+    record,
+    event,
+  });
+  return record.record_id;
 }
 
 test("Observatory denies private data until pairing, then serves real service data", async () => {
@@ -195,6 +229,73 @@ test("Forge and Blueprint routes stay scoped for plugin and project resources", 
   assert.equal(dreamStatus.focus.resource_id, plugin.resource_id);
   const incompatible = await fetch(`${base}/api/blueprint/${plugin.resource_id}?baseline_target=other&baseline_scope=local`, { headers: { cookie } });
   assert.equal(incompatible.status, 400);
+  await close(started);
+  rmSync(directory, { recursive: true, force: true });
+});
+
+test("Observatory pairs Catalyst application and validated outcome journey", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-catalyst-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  const registerPath = "/api/resources";
+  const unauthorized = await fetch(`${base}/api/tasks/resource-catalyst-journey`);
+  assert.equal(unauthorized.status, 401);
+  const pair = await fetch(`${base}/pair`, {
+    method: "POST",
+    headers: { origin: base, host: `127.0.0.1:${address.port}`, "content-type": "application/json" },
+    body: JSON.stringify({ code: started.pairing_code.code }),
+  });
+  const cookie = pair.headers.get("set-cookie").split(";", 1)[0];
+  const headers = { origin: base, host: `127.0.0.1:${address.port}`, cookie, "content-type": "application/json" };
+  const registered = await (await fetch(`${base}${registerPath}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ resource_id: "resource-catalyst-journey", kind: "project", origin_facet: "local", display_name: "Catalyst journey", aliases: [{ value: "file:///catalyst-journey", kind: "path" }] }),
+  })).json();
+  const hypothesis_id = seedHypothesis(started.service, registered);
+  const proposedResponse = await fetch(`${base}/api/tasks/${registered.resource_id}`, { headers: { cookie } });
+  const proposed = await proposedResponse.json();
+  assert.equal(proposedResponse.status, 200);
+  assert.equal(proposed.json.tasks[0].status, "proposed");
+  assert.equal(proposed.json.tasks[0].hypothesis_id, hypothesis_id);
+  assert.deepEqual(proposed.json.tasks[0].source_refs, ["synthetic-source"]);
+
+  const apply = await (await fetch(`${base}/api/tasks/${registered.resource_id}/apply`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ hypothesis_id, idempotency_key: "catalyst-apply-1" }),
+  })).json();
+  assert.equal(apply.duplicate, false);
+  const repeatedApply = await (await fetch(`${base}/api/tasks/${registered.resource_id}/apply`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ hypothesis_id, idempotency_key: "catalyst-apply-1" }),
+  })).json();
+  assert.equal(repeatedApply.duplicate, true);
+  assert.deepEqual(repeatedApply.receipt, apply.receipt);
+
+  const outcome = await (await fetch(`${base}/api/tasks/${registered.resource_id}/outcome`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ application_id: apply.receipt.record_id, statement: "synthetic change held", outcome_status: "validated", idempotency_key: "catalyst-outcome-1" }),
+  })).json();
+  assert.equal(outcome.duplicate, false);
+  const repeatedOutcome = await (await fetch(`${base}/api/tasks/${registered.resource_id}/outcome`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ application_id: apply.receipt.record_id, statement: "synthetic change held", outcome_status: "validated", idempotency_key: "catalyst-outcome-1" }),
+  })).json();
+  assert.equal(repeatedOutcome.duplicate, true);
+  assert.deepEqual(repeatedOutcome.receipt, outcome.receipt);
+
+  const validatedResponse = await fetch(`${base}/api/tasks/${registered.resource_id}`, { headers: { cookie } });
+  const validated = await validatedResponse.json();
+  const task = validated.json.tasks.find((candidate) => candidate.hypothesis_id === hypothesis_id);
+  assert.equal(validatedResponse.status, 200);
+  assert.equal(task.status, "validated");
+  assert.equal(task.application_id, apply.receipt.record_id);
+  assert.deepEqual(task.outcome_ids, [outcome.receipt.record_id]);
   await close(started);
   rmSync(directory, { recursive: true, force: true });
 });

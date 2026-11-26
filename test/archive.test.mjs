@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createAtlas } from "../src/atlas.mjs";
 import { openService } from "../src/service.mjs";
+import { makeEvent, makeRecord } from "../src/contracts.mjs";
 
 test("native archive verifies integrity and restores identities and lineage", () => {
   const archive = createArchive({ records: [{ record_id: "record-1" }], resources: [{ resource_id: "resource-1" }], lineage: [{ from_id: "record-1", to_id: "resource-1" }], omitted: ["raw_blob"] });
@@ -31,6 +32,46 @@ test("native store archive restores records, resources, scopes, and lineage into
   const atlas = createAtlas(service.store);
   const resource = atlas.register({ principal, resource: { resource_id: "archive-resource", kind: "project", origin_facet: "local", display_name: "Archive project", scope, aliases: [{ value: "file:///archive-project", kind: "path" }], metadata: { version: "1" } } });
   atlas.attachRecord({ principal, record_id: note.receipt.record_id, resource_id: resource.resource_id, edge_kind: "observed_in" });
+  const hypothesis = makeRecord({
+    record_id: "archive-hypothesis",
+    record_type: "hypothesis",
+    scope,
+    provenance: { origin: "dream", creator_id: "archive-test", source_refs: [], derivation_refs: [], capture_idempotency_key: null, transformation: null },
+    payload: { resource_id: resource.resource_id, statement: "apply archived hypothesis", validation_needed: ["observe outcome"] },
+  });
+  const hypothesisEvent = makeEvent({
+    event_type: "archive_hypothesis",
+    actor_id: "archive-test",
+    scope,
+    object_revision: hypothesis.revision,
+    payload: { record_id: hypothesis.record_id },
+  });
+  service.store.capture({
+    producer_id: "archive-test",
+    operation: "archive_hypothesis",
+    idempotency_key: "archive-hypothesis",
+    request: { hypothesis_id: hypothesis.record_id },
+    record: hypothesis,
+    event: hypothesisEvent,
+  });
+  const application = service.mindApply({
+    principal,
+    scope,
+    hypothesis_id: hypothesis.record_id,
+    resource_id: resource.resource_id,
+    producer_id: "archive-test",
+    idempotency_key: "archive-application",
+  });
+  const outcome = service.mindOutcome({
+    principal,
+    scope,
+    application_id: application.receipt.record_id,
+    resource_id: resource.resource_id,
+    statement: "archived outcome observed",
+    outcome_status: "validated",
+    producer_id: "archive-test",
+    idempotency_key: "archive-outcome",
+  });
   const archive = createStoreArchive(service.store, { omitted: ["external_copies"] });
   service.close();
   const restored = restoreStoreArchive(archive, destination);
@@ -38,6 +79,11 @@ test("native store archive restores records, resources, scopes, and lineage into
   assert.equal(reopened.store.getRecord(note.receipt.record_id).payload.statement, "portable record");
   assert.equal(reopened.store.getResource(resource.resource_id).display_name, "Archive project");
   assert.equal(reopened.store.listLineage(resource.resource_id)[0].from_id, note.receipt.record_id);
+  assert.equal(reopened.store.getRecord(application.receipt.record_id).record_type, "application");
+  assert.equal(reopened.store.getRecord(outcome.receipt.record_id).payload.status, "validated");
+  assert.deepEqual(reopened.store.listLineage(hypothesis.record_id).map((edge) => edge.edge_kind), ["applied_as"]);
+  assert.deepEqual(reopened.store.listLineage(application.receipt.record_id).map((edge) => edge.edge_kind).sort(), ["applied_as", "observed_outcome"]);
+  assert.equal(reopened.store.listLineage(application.receipt.record_id).find((edge) => edge.edge_kind === "observed_outcome").to_id, outcome.receipt.record_id);
   assert.equal(restored.omitted[0], "external_copies");
   reopened.close();
   rmSync(directory, { recursive: true, force: true });

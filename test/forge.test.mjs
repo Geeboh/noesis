@@ -33,5 +33,33 @@ test("Catalyst task manifest stays scoped and proposal-only", () => {
   assert.equal(manifest.json.tasks[0].execution, "not_requested");
   assert.equal(manifest.json.tasks[0].hypothesis_id, "hyp-task");
   assert.deepEqual(manifest.json.tasks[0].source_refs, ["source-task"]);
+  assert.deepEqual(manifest.json.tasks[0].outcome_ids, []);
+  assert.equal(Object.hasOwn(manifest.json.tasks[0], "application_id"), false);
   assert.match(manifest.markdown, /execution not requested/);
+});
+
+test("Catalyst task manifest projects application and validated outcome lifecycle", () => {
+  const resource = { resource_id: "resource-lifecycle", scope: { scope_id: "scope-lifecycle" }, metadata: { version: "4.0" } };
+  const records = [
+    { record_id: "hyp-proposed", record_type: "hypothesis", scope: resource.scope, payload: { resource_id: resource.resource_id, statement: "keep as proposal" }, provenance: { origin: "dream", source_refs: ["source-proposed"] } },
+    { record_id: "hyp-applied", record_type: "hypothesis", scope: resource.scope, payload: { resource_id: resource.resource_id, statement: "apply this change" }, provenance: { origin: "dream", source_refs: ["source-applied"] } },
+    { record_id: "hyp-validated", record_type: "hypothesis", scope: resource.scope, payload: { resource_id: resource.resource_id, statement: "validate this change" }, provenance: { origin: "dream", source_refs: ["source-validated"] } },
+    { record_id: "application-applied", record_type: "application", scope: resource.scope, payload: { hypothesis_id: "hyp-applied", resource_id: resource.resource_id, status: "applied" }, provenance: { origin: "direct_user", source_refs: [] } },
+    { record_id: "application-validated", record_type: "application", scope: resource.scope, payload: { hypothesis_id: "hyp-validated", resource_id: resource.resource_id, status: "applied" }, provenance: { origin: "direct_user", source_refs: [] } },
+    { record_id: "outcome-validated", record_type: "outcome", scope: resource.scope, payload: { application_id: "application-validated", resource_id: resource.resource_id, status: "validated", statement: "change held" }, provenance: { origin: "direct_user", source_refs: [] } },
+  ];
+  const forge = buildForgeView({ resource, records });
+  const manifest = exportTaskManifest({ forge, target: "Lifecycle Resource" });
+  const tasks = new Map(manifest.json.tasks.map((task) => [task.hypothesis_id, task]));
+  assert.equal(forge.applications.length, 2);
+  assert.equal(forge.outcomes.length, 1);
+  assert.equal(tasks.get("hyp-proposed").status, "proposed");
+  assert.deepEqual(tasks.get("hyp-proposed").source_refs, ["source-proposed"]);
+  assert.equal(tasks.get("hyp-applied").status, "applied");
+  assert.equal(tasks.get("hyp-applied").application_id, "application-applied");
+  assert.deepEqual(tasks.get("hyp-applied").outcome_ids, []);
+  assert.equal(tasks.get("hyp-validated").status, "validated");
+  assert.equal(tasks.get("hyp-validated").application_id, "application-validated");
+  assert.deepEqual(tasks.get("hyp-validated").outcome_ids, ["outcome-validated"]);
+  assert.deepEqual(tasks.get("hyp-validated").source_refs, ["source-validated"]);
 });

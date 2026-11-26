@@ -4,8 +4,53 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { openService } from "../src/service.mjs";
+import { makeEvent, makeRecord } from "../src/contracts.mjs";
 
 const scope = { scope_id: "scope-service", owner_id: "operator", kind: "project", project_id: "project-a", session_id: "session-1", task_id: null };
+
+function seedCatalystResource(service, resource_id, resourceScope = scope) {
+  return service.store.createResource({
+    resource_id,
+    kind: "project",
+    origin_facet: "local",
+    display_name: resource_id,
+    scope: resourceScope,
+    metadata: {},
+  });
+}
+
+function seedHypothesis(service, hypothesis_id, resource_id, hypothesisScope = scope) {
+  const record = makeRecord({
+    record_id: hypothesis_id,
+    record_type: "hypothesis",
+    scope: hypothesisScope,
+    provenance: {
+      origin: "dream",
+      creator_id: "dreamer",
+      source_refs: [],
+      derivation_refs: [],
+      capture_idempotency_key: null,
+      transformation: null,
+    },
+    payload: { resource_id, statement: "try the proposed change", validation_needed: ["observe result"] },
+  });
+  const event = makeEvent({
+    event_type: "test_hypothesis",
+    actor_id: "dreamer",
+    scope: hypothesisScope,
+    object_revision: record.revision,
+    payload: { record_id: record.record_id },
+  });
+  service.store.capture({
+    producer_id: "test-fixture",
+    operation: "test_hypothesis",
+    idempotency_key: hypothesis_id,
+    request: { hypothesis_id, resource_id },
+    record,
+    event,
+  });
+  return record;
+}
 
 test("mind_note persists an observed record through the service boundary", () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
@@ -29,6 +74,199 @@ test("mind_note denies a principal outside the requested scope", () => {
   assert.throws(() => service.mindNote({ principal: { owner_id: "other", scope_ids: [] }, scope, content: "private", producer_id: "other", idempotency_key: "note-2" }), /scope is not available/);
   service.close();
   rmSync(directory, { recursive: true, force: true });
+});
+
+test("mind_apply and mind_outcome create direct-user records and idempotent lineage", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  try {
+    const resource = seedCatalystResource(service, "resource-catalyst");
+    const hypothesis = seedHypothesis(service, "hypothesis-catalyst", resource.resource_id);
+    const firstApplication = service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-1",
+    });
+    const repeatedApplication = service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-1",
+    });
+    assert.equal(firstApplication.duplicate, false);
+    assert.equal(repeatedApplication.duplicate, true);
+    const application = service.store.getRecord(firstApplication.receipt.record_id);
+    assert.equal(application.record_type, "application");
+    assert.deepEqual(application.payload, { hypothesis_id: hypothesis.record_id, resource_id: resource.resource_id, status: "applied" });
+    assert.equal(application.provenance.origin, "direct_user");
+    assert.equal(application.provenance.creator_id, "observatory");
+
+    const firstOutcome = service.mindOutcome({
+      principal,
+      scope,
+      application_id: application.record_id,
+      resource_id: resource.resource_id,
+      statement: "operator observed the requested change",
+      outcome_status: "validated",
+      producer_id: "observatory",
+      idempotency_key: "outcome-1",
+    });
+    const repeatedOutcome = service.mindOutcome({
+      principal,
+      scope,
+      application_id: application.record_id,
+      resource_id: resource.resource_id,
+      statement: "operator observed the requested change",
+      outcome_status: "validated",
+      producer_id: "observatory",
+      idempotency_key: "outcome-1",
+    });
+    assert.equal(firstOutcome.duplicate, false);
+    assert.equal(repeatedOutcome.duplicate, true);
+    const outcome = service.store.getRecord(firstOutcome.receipt.record_id);
+    assert.equal(outcome.record_type, "outcome");
+    assert.deepEqual(outcome.payload, {
+      application_id: application.record_id,
+      resource_id: resource.resource_id,
+      status: "validated",
+      statement: "operator observed the requested change",
+    });
+    assert.equal(outcome.provenance.origin, "direct_user");
+    assert.equal(outcome.provenance.creator_id, "observatory");
+
+    const applicationLineage = service.store.listLineage(application.record_id);
+    assert.equal(applicationLineage.filter((edge) => edge.edge_kind === "applied_as").length, 1);
+    assert.equal(applicationLineage.filter((edge) => edge.edge_kind === "observed_outcome").length, 1);
+    assert.equal(applicationLineage.find((edge) => edge.edge_kind === "applied_as").from_id, hypothesis.record_id);
+    assert.equal(applicationLineage.find((edge) => edge.edge_kind === "observed_outcome").to_id, outcome.record_id);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("Catalyst mutations deny unauthorized and cross-scope references", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  const otherScope = { ...scope, scope_id: "scope-other", owner_id: "other", project_id: "project-other" };
+  try {
+    const resource = seedCatalystResource(service, "resource-authorized");
+    const hypothesis = seedHypothesis(service, "hypothesis-authorized", resource.resource_id);
+    const otherResource = seedCatalystResource(service, "resource-other", otherScope);
+    assert.throws(() => service.mindApply({
+      principal: { owner_id: "other", scope_ids: [] },
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-forbidden",
+    }), /scope is not available/);
+    assert.throws(() => service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: otherResource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-cross-scope",
+    }), /reference is not available/);
+
+    const application = service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-authorized",
+    });
+    assert.throws(() => service.mindOutcome({
+      principal: { owner_id: "other", scope_ids: [] },
+      scope,
+      application_id: application.receipt.record_id,
+      resource_id: resource.resource_id,
+      statement: "private outcome",
+      outcome_status: "observed",
+      producer_id: "observatory",
+      idempotency_key: "outcome-forbidden",
+    }), /scope is not available/);
+    assert.throws(() => service.mindOutcome({
+      principal,
+      scope,
+      application_id: application.receipt.record_id,
+      resource_id: otherResource.resource_id,
+      statement: "cross-scope outcome",
+      outcome_status: "observed",
+      producer_id: "observatory",
+      idempotency_key: "outcome-cross-scope",
+    }), /reference is not available/);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("Catalyst mutations reject missing and wrong-type references without disclosure", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-service-"));
+  const service = openService(join(directory, "mind.sqlite"));
+  const principal = { owner_id: "operator", scope_ids: [] };
+  try {
+    const resource = seedCatalystResource(service, "resource-reference");
+    const note = service.mindNote({ principal, scope, content: "not a hypothesis", producer_id: "omp-session", idempotency_key: "reference-note" });
+    assert.throws(() => service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: note.receipt.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-wrong-type",
+    }), /reference is not available/);
+    assert.throws(() => service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: "missing-hypothesis",
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-missing",
+    }), /reference is not available/);
+    const hypothesis = seedHypothesis(service, "hypothesis-reference", resource.resource_id);
+    const application = service.mindApply({
+      principal,
+      scope,
+      hypothesis_id: hypothesis.record_id,
+      resource_id: resource.resource_id,
+      producer_id: "observatory",
+      idempotency_key: "apply-reference",
+    });
+    assert.throws(() => service.mindOutcome({
+      principal,
+      scope,
+      application_id: note.receipt.record_id,
+      resource_id: resource.resource_id,
+      statement: "wrong application",
+      outcome_status: "observed",
+      producer_id: "observatory",
+      idempotency_key: "outcome-wrong-type",
+    }), /reference is not available/);
+    assert.throws(() => service.mindOutcome({
+      principal,
+      scope,
+      application_id: application.receipt.record_id,
+      resource_id: "missing-resource",
+      statement: "missing resource",
+      outcome_status: "observed",
+      producer_id: "observatory",
+      idempotency_key: "outcome-missing-resource",
+    }), /reference is not available/);
+  } finally {
+    service.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
 });
 
 test("mind_recall returns bounded provenance-backed matches only in scope", () => {

@@ -1,0 +1,14 @@
+{
+  "format_version":1,
+  "template":false,
+  "release_id":"R-0014-catalyst-outcome-loop",
+  "target_version":"1.8.0",
+  "theme":"Catalyst proposal-to-outcome loop",
+  "status":"ready_local",
+  "baseline":{"application_version":"1.7.0","commit":"1a3801ff421ef2cee92c8458de8ba41f3bf607c6","tag":"v1.7.0","artifact_sha256":"cbc578c19a312e39c5729ca9ad0915470852a8f1a614ce52b7e7bc5a3161f186","evidence_refs":["reports/use-v1.7.0.md","planning/releases/R-0013-source-group-recall/RELEASE-REPORT.md"]},
+  "outcomes":[{"id":"R14-O1","intended_user_result":"An authorized operator can inspect a proposed task, record its application, record an observed outcome, and see the full lineage without automatic execution.","current_baseline":"Catalyst exports proposal-only task manifests with no durable application or outcome lifecycle.","acceptance":"Paired Observatory journey, lineage, lifecycle projection, archive restore, and full release gate pass."}],
+  "excluded_scope":["No new Mind tool, automatic execution, external write, model, provider, proxy, compaction, schema, importer, or learning-policy change."],
+  "backlog_file":"backlog.json","plan_file":"PLAN.md","report_file":"RELEASE-REPORT.md","implementation_scope_ref":"reports/decisions/DEC-0009-catalyst-outcome-loop.md","completion_evidence":["reports/validation-R-0014.md","reports/release-notes-v1.8.0.md","planning/releases/R-0014-catalyst-outcome-loop/RELEASE-REPORT.md","npm run release:check","/tmp/noesis-r14-release/noesis-1.8.0.tgz"],
+  "publication":{"authorization_ref":null,"allowed_actions":[],"destination":null,"status":"not_authorized","observed_commit":null,"observed_tag":null,"evidence_refs":[]},
+  "last_updated":"2026-11-25"
+}

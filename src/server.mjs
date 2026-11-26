@@ -226,6 +226,38 @@ export function createRequestHandler({ service, pairing, atlas = createAtlas(ser
         const baseline = url.searchParams.get("baseline_target") ? { target: url.searchParams.get("baseline_target"), scope: url.searchParams.get("baseline_scope"), version: url.searchParams.get("baseline_version") || null } : null;
         return sendJson(response, 200, exportBlueprint({ forge, target: resource.display_name, previous_cutoff: url.searchParams.get("since") || null, privacy: url.searchParams.get("privacy") || "standard", baseline }));
       }
+      const applyTaskMatch = url.pathname.match(/^\/api\/tasks\/([^/]+)\/apply$/);
+      if (applyTaskMatch && request.method === "POST") {
+        const resource_id = decodeURIComponent(applyTaskMatch[1]);
+        const resource = atlas.inspect({ principal, resource_id });
+        const body = await readBody(request);
+        service.mindInspect({ principal, record_id: body.hypothesis_id });
+        return sendJson(response, 200, service.mindApply({
+          principal,
+          scope: resource.scope,
+          hypothesis_id: body.hypothesis_id,
+          resource_id,
+          producer_id: "dashboard",
+          idempotency_key: body.idempotency_key ?? `dashboard-task-apply:${resource_id}:${body.hypothesis_id}:${Date.now()}`,
+        }));
+      }
+      const outcomeTaskMatch = url.pathname.match(/^\/api\/tasks\/([^/]+)\/outcome$/);
+      if (outcomeTaskMatch && request.method === "POST") {
+        const resource_id = decodeURIComponent(outcomeTaskMatch[1]);
+        const resource = atlas.inspect({ principal, resource_id });
+        const body = await readBody(request);
+        service.mindInspect({ principal, record_id: body.application_id });
+        return sendJson(response, 200, service.mindOutcome({
+          principal,
+          scope: resource.scope,
+          application_id: body.application_id,
+          resource_id,
+          statement: body.statement,
+          outcome_status: body.outcome_status,
+          producer_id: "dashboard",
+          idempotency_key: body.idempotency_key ?? `dashboard-task-outcome:${resource_id}:${body.application_id}:${Date.now()}`,
+        }));
+      }
       if (url.pathname.startsWith("/api/tasks/") && request.method === "GET") {
         const resource_id = decodeURIComponent(url.pathname.slice("/api/tasks/".length));
         const resource = atlas.inspect({ principal, resource_id });

@@ -57,6 +57,29 @@ function authorizedScopeIds(store, principal, scope_ids) {
   return scope_ids;
 }
 
+function authorizedCatalystScope(store, principal, scope) {
+  const authorized = scope?.scope_id ? store.getScope(scope.scope_id) : null;
+  if (!authorized || !principal || !scopeAllows({ ...principal, scope_ids: principal.scope_ids ?? [] }, authorized)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "scope is not available");
+  return authorized;
+}
+
+function authorizedCatalystRecord(store, principal, record_id, record_type, scope_id) {
+  const record = record_id ? store.getRecord(record_id) : null;
+  if (!record || record.record_type !== record_type || record.scope.scope_id !== scope_id || !principal || !scopeAllows({ ...principal, scope_ids: principal.scope_ids ?? [] }, record.scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "reference is not available");
+  return record;
+}
+
+function authorizedCatalystResource(store, principal, resource_id, scope_id) {
+  const resource = resource_id ? store.getResource(resource_id) : null;
+  if (!resource || resource.scope.scope_id !== scope_id || !principal || !scopeAllows({ ...principal, scope_ids: principal.scope_ids ?? [] }, resource.scope)) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "reference is not available");
+  return resource;
+}
+
+function requireOutcomeStatus(value) {
+  if (typeof value !== "string" || value.length === 0) throw new LedgerError("INVALID_ARGUMENT", "outcome_status is required");
+  return value;
+}
+
 export function createService(store) {
   return {
     store,
@@ -89,6 +112,99 @@ export function createService(store) {
         payload: { record_id: record.record_id, statement_kind: "observation" },
       });
       return store.capture({ producer_id, operation: "mind_note", idempotency_key, request: { content: statement, source_id: source?.source_id ?? null, scope_id: scope.scope_id, resource_id }, record, event, source });
+    },
+    mindApply({ principal, scope, hypothesis_id, resource_id, producer_id, idempotency_key }) {
+      const authorizedScope = authorizedCatalystScope(store, principal, scope);
+      const hypothesis = authorizedCatalystRecord(store, principal, hypothesis_id, "hypothesis", authorizedScope.scope_id);
+      authorizedCatalystResource(store, principal, resource_id, authorizedScope.scope_id);
+      if (!producer_id || !idempotency_key) throw new LedgerError("INVALID_ARGUMENT", "producer_id and idempotency_key are required");
+      const record = makeRecord({
+        record_type: "application",
+        scope: authorizedScope,
+        provenance: {
+          origin: "direct_user",
+          creator_id: producer_id,
+          source_refs: [],
+          derivation_refs: [],
+          capture_idempotency_key: idempotency_key,
+          transformation: null,
+        },
+        payload: { hypothesis_id, resource_id, status: "applied" },
+      });
+      const event = makeEvent({
+        event_type: "mind_apply",
+        actor_id: producer_id,
+        scope: authorizedScope,
+        object_revision: record.revision,
+        payload: { record_id: record.record_id, hypothesis_id, resource_id, status: "applied" },
+      });
+      const captured = store.capture({
+        producer_id,
+        operation: "mind_apply",
+        idempotency_key,
+        request: { hypothesis_id, resource_id, scope_id: authorizedScope.scope_id },
+        record,
+        event,
+      });
+      const application_id = captured.receipt.record_id;
+      store.addLineageEdge({
+        edge_id: `application:${application_id}:hypothesis:${hypothesis_id}`,
+        from_id: hypothesis.record_id,
+        from_revision: hypothesis.revision,
+        to_id: application_id,
+        to_revision: captured.receipt.revision,
+        edge_kind: "applied_as",
+        metadata: { resource_id },
+      });
+      return captured;
+    },
+    mindOutcome({ principal, scope, application_id, resource_id, statement, outcome_status, producer_id, idempotency_key }) {
+      const authorizedScope = authorizedCatalystScope(store, principal, scope);
+      const application = authorizedCatalystRecord(store, principal, application_id, "application", authorizedScope.scope_id);
+      const resource = authorizedCatalystResource(store, principal, resource_id, authorizedScope.scope_id);
+      if (application.payload?.resource_id !== resource.resource_id) throw new LedgerError("NOT_FOUND_OR_FORBIDDEN", "reference is not available");
+      const outcomeStatement = requireNote(statement);
+      const status = requireOutcomeStatus(outcome_status);
+      if (!producer_id || !idempotency_key) throw new LedgerError("INVALID_ARGUMENT", "producer_id and idempotency_key are required");
+      const record = makeRecord({
+        record_type: "outcome",
+        scope: authorizedScope,
+        provenance: {
+          origin: "direct_user",
+          creator_id: producer_id,
+          source_refs: [],
+          derivation_refs: [],
+          capture_idempotency_key: idempotency_key,
+          transformation: null,
+        },
+        payload: { application_id, resource_id, status, statement: outcomeStatement },
+      });
+      const event = makeEvent({
+        event_type: "mind_outcome",
+        actor_id: producer_id,
+        scope: authorizedScope,
+        object_revision: record.revision,
+        payload: { record_id: record.record_id, application_id, resource_id, status, statement: outcomeStatement },
+      });
+      const captured = store.capture({
+        producer_id,
+        operation: "mind_outcome",
+        idempotency_key,
+        request: { application_id, resource_id, statement: outcomeStatement, status, scope_id: authorizedScope.scope_id },
+        record,
+        event,
+      });
+      const outcome_id = captured.receipt.record_id;
+      store.addLineageEdge({
+        edge_id: `outcome:${outcome_id}:application:${application_id}`,
+        from_id: application.record_id,
+        from_revision: application.revision,
+        to_id: outcome_id,
+        to_revision: captured.receipt.revision,
+        edge_kind: "observed_outcome",
+        metadata: { resource_id },
+      });
+      return captured;
     },
     mindRecall({ principal, query = "", scope_ids = [], max_items = 8, max_chars = 12000 }) {
       if (!Number.isInteger(max_items) || max_items < 1 || max_items > 100 || !Number.isInteger(max_chars) || max_chars < 1) throw new LedgerError("INVALID_ARGUMENT", "invalid recall budget");
