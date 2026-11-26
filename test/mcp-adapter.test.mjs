@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 function startClient(database) {
-  const child = spawn(process.execPath, ["scripts/mcp-server.mjs"], {
+  const child = spawn("npm", ["--silent", "run", "mcp:start"], {
     cwd: repoRoot,
     env: { ...process.env, NOESIS_DATABASE: database, NOESIS_DATA_DIR: join(dirname(database), "unused-data") },
     stdio: ["pipe", "pipe", "pipe"],

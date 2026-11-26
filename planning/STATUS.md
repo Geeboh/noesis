@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.9.0 is installed and healthy. v1.8.0 remains the rollback baseline.
-**Active release:** `R-0015-relay-stdio-mcp` published and installed at `1.9.0`. Plan: `planning/releases/R-0015-relay-stdio-mcp/PLAN.md`.
-**Next task:** Keep v1.9.0 running. Record client compatibility or transport defects before selecting the next bounded release.
+**Implementation state:** M1 through M8 remain complete. Published v1.9.0 is installed and healthy. R16 MCP launcher patch is ready as a local v1.9.1 candidate.
+**Active release:** `R-0016-mcp-launcher-clean` targeting `1.9.1`. Plan: `planning/releases/R-0016-mcp-launcher-clean/PLAN.md`.
+**Next task:** Publish or install v1.9.1 only with explicit authorization. Keep v1.9.0 live.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -191,5 +191,7 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0015 candidate | stdio MCP initialize/list/call journey, scope and idempotency checks, full release gate, schema validation, local artifact | local `1.9.0` candidate ready; no publication or live install | `reports/validation-R-0015.md`, `planning/releases/R-0015-relay-stdio-mcp/RELEASE-REPORT.md` |
 | 2026-11-25 | R-0015 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.9.0 published; v1.8.0 installation was replaced after backup | `planning/releases/R-0015-relay-stdio-mcp/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.9.0` |
 | 2026-11-25 | R-0015 installation | backup, clean install, LAN URL/QR, pairing, dashboard, and direct stdio MCP verification | v1.9.0 installed and healthy; live counts preserved | `reports/use-v1.9.0.md` |
+| 2026-11-25 | R-0016 baseline | npm MCP wrapper banner observed on protocol stdout | protocol-clean silent launcher selected | `reports/decisions/DEC-0011-mcp-launcher-clean.md` |
+| 2026-11-25 | R-0016 candidate | silent npm MCP launcher regression, full release gate, schema validation, local artifact | local `1.9.1` candidate ready; no publication or live install | `reports/validation-R-0016.md`, `planning/releases/R-0016-mcp-launcher-clean/RELEASE-REPORT.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.9.0 is published and installed locally for the declared dashboard path. The v1.8.0 backup and release remain the rollback baseline. Relay is local stdio only. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.9.0 is published and installed locally for the declared dashboard path. R16 is ready as a local v1.9.1 candidate. Keep v1.9.0 live until separate publication and installation authorization. No protocol, service, provider, backend, compaction, or Mind tool change was made.
