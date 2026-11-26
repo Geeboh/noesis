@@ -9,10 +9,8 @@
 - Environment: Linux x86_64, Node 24.22.3, npm 11.19.1, SQLite 3.45.1, OMP 19.1.1.
 
 ## Data preservation
-
-The live service used `/tmp/noesis-m3-dashboard`. A fresh online-safe backup was created before stopping v1.9.1.
-
-- Backup: `/tmp/noesis-live-backup-v1.9.2-preinstall/mind.sqlite`.
+- The live service uses `.runtime/live/`. A fresh online-safe backup was created before stopping v1.9.1.
+- Backup: `.runtime/artifacts/noesis-live-backup-v1.9.2-preinstall/mind.sqlite`.
 - Backup SHA-256: `4eb67fbd88fda131dd0eb5ef4065c4d66ebdcda6284c86524a69826097484aaa`.
 - Pre-install counts: schema 5, records 0, resources 1, import runs 0.
 - Post-install counts: schema 5, records 0, resources 1, import runs 0.

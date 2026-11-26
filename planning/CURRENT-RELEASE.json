@@ -1,10 +1,10 @@
 {
   "format_version": 1,
-  "release_id": "R-0017-nonempty-note-boundary",
-  "release_directory": "planning/releases/R-0017-nonempty-note-boundary",
-  "release_file": "planning/releases/R-0017-nonempty-note-boundary/release.json",
-  "backlog_file": "planning/releases/R-0017-nonempty-note-boundary/backlog.json",
-  "plan_file": "planning/releases/R-0017-nonempty-note-boundary/PLAN.md",
+  "release_id": "R-0018-prism-png-inspection",
+  "release_directory": "planning/releases/R-0018-prism-png-inspection",
+  "release_file": "planning/releases/R-0018-prism-png-inspection/release.json",
+  "backlog_file": "planning/releases/R-0018-prism-png-inspection/backlog.json",
+  "plan_file": "planning/releases/R-0018-prism-png-inspection/PLAN.md",
   "status_summary": "planning/STATUS.md",
   "last_updated": "2026-11-25"
 }

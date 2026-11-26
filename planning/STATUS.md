@@ -3,9 +3,9 @@
 **Bootstrap version:** 1.0.0  
 **Product version:** 1.4.0  
 **Plan revision:** 2026-11-25  
-**Implementation state:** M1 through M8 remain complete. Published v1.9.2 is installed and healthy. v1.9.1 remains the rollback baseline.
-**Active release:** `R-0017-nonempty-note-boundary` published and installed at `1.9.2`. Plan: `planning/releases/R-0017-nonempty-note-boundary/PLAN.md`.
-**Next task:** Keep v1.9.2 running. Record host compatibility or note-boundary defects before selecting the next bounded release.
+**Implementation state:** M1 through M8 remain complete. Published v1.9.2 is installed and healthy. R18 Prism PNG inspection is the active local release.
+**Active release:** `R-0018-prism-png-inspection` targeting `1.10.0`. Plan: `planning/releases/R-0018-prism-png-inspection/PLAN.md`.
+**Next task:** Implement bounded PNG header inspection and exact identity tests.
 
 This file is the editable progress record for implementation. The bootstrap's presence is evidence that a plan was delivered, not that NOESIS, its web application, its OMP adapter, or any runtime test has been implemented. No task is marked complete merely because its specification appears in this package.
 
@@ -199,5 +199,6 @@ M1 is owned by the integration owner on `feat/m0-foundation` at `/code/helpers/n
 | 2026-11-25 | R-0017 candidate | nonempty OMP/MCP note schemas, invalid-call regression, full release gate, schema validation, local artifact | local `1.9.2` candidate ready; no publication or live install | `reports/validation-R-0017.md`, `planning/releases/R-0017-nonempty-note-boundary/RELEASE-REPORT.md` |
 | 2026-11-25 | R-0017 publication | branch/tag push, GitHub release, artifact upload, and remote verification | v1.9.2 published; v1.9.1 installation was replaced after backup | `planning/releases/R-0017-nonempty-note-boundary/RELEASE-REPORT.md`, `https://github.com/Geeboh/noesis/releases/tag/v1.9.2` |
 | 2026-11-25 | R-0017 installation | backup, clean install, LAN URL/QR, pairing, dashboard, and empty-note boundary verification | v1.9.2 installed and healthy; live counts preserved | `reports/use-v1.9.2.md` |
+| 2026-11-25 | R-0018 baseline | Prism roadmap review and available local screenshot evidence | selected bounded PNG header inspection with exact source identity | `reports/decisions/DEC-0013-prism-png-inspection.md` |
 ## Blockers and forecast changes
-M1 through M8 remain complete. v1.9.2 is published and installed locally for the declared dashboard path. The v1.9.1 backup and release remain the rollback baseline. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.
+M1 through M8 remain complete. v1.9.2 is published and installed locally for the declared dashboard path. R18 targets bounded PNG inspection. Full schemas, second-device LAN validation, semantic import extraction, and imports above the 64 MiB source limit remain limitations.

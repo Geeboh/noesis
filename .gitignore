@@ -21,3 +21,4 @@ coverage/
 Thumbs.db
 artifacts/runtime/
 /.noesis-artifacts/
+/.runtime/
