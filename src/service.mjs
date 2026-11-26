@@ -237,22 +237,22 @@ export function createService(store) {
           omitted.grouped += 1;
           continue;
         }
-        const statement = String(record.payload.statement ?? record.payload.content ?? "");
-        const hit = makeRecallHit({ record, reason: terms.length ? `matched ${score} query term${score === 1 ? "" : "s"}` : "listed in authorized scope", estimated_chars: statement.length });
-        if (used_chars + hit.estimated_chars > max_chars) {
-          omitted.budget += 1;
-          truncated = true;
-          continue;
-        }
-        hits.push(hit);
-        if (group !== null) admittedGroups.add(group);
-        used_chars += hit.estimated_chars;
-        if (hits.length >= max_items) {
-          omitted.item_limit += 1;
-          truncated = true;
-          break;
-        }
+      const statement = String(record.payload.statement ?? record.payload.content ?? "");
+      if (used_chars + statement.length > max_chars) {
+        omitted.budget += 1;
+        truncated = true;
+        continue;
       }
+      if (hits.length >= max_items) {
+        omitted.item_limit += 1;
+        truncated = true;
+        continue;
+      }
+      const hit = makeRecallHit({ record, reason: terms.length ? `matched ${score} query term${score === 1 ? "" : "s"}` : "listed in authorized scope", estimated_chars: statement.length });
+      hits.push(hit);
+      if (group !== null) admittedGroups.add(group);
+      used_chars += hit.estimated_chars;
+    }
       const duration_ms = Date.now() - startedAt;
       return {
         status: "ok",

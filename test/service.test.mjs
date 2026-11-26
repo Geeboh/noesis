@@ -280,7 +280,9 @@ test("mind_recall returns bounded provenance-backed matches only in scope", () =
   assert.equal(recalled.usage.model_calls, 0);
   assert.equal(recalled.coverage.included, 1);
   assert.equal(recalled.data[0].provenance.origin, "tool_observation");
-  assert.equal(service.mindRecall({ principal: { owner_id: "other", scope_ids: [] }, query: "alpha", scope_ids: [scope.scope_id] }).data.length, 0);
+  const unauthorized = service.mindRecall({ principal: { owner_id: "other", scope_ids: [] }, query: "alpha", scope_ids: [scope.scope_id] });
+  assert.equal(unauthorized.data.length, 0);
+  assert.equal(unauthorized.coverage.matched, 0);
   service.close();
   rmSync(directory, { recursive: true, force: true });
 });
@@ -316,6 +318,8 @@ test("mind_recall prioritizes stronger lexical matches under the item budget", a
     const recalled = service.mindRecall({ principal, query: "alpha beta", scope_ids: [scope.scope_id], max_items: 2, max_chars: 200 });
     assert.deepEqual(recalled.data.map((hit) => hit.statement), ["alpha beta critical decision", "alpha routine-2"]);
     assert.equal(recalled.coverage.included, 2);
+    assert.equal(recalled.coverage.matched, 4);
+    assert.equal(recalled.coverage.omitted.item_limit, 2);
     assert.equal(recalled.coverage.truncated, true);
   } finally {
     service.close();
