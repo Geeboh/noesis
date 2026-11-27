@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "1.0-local-handoff",
+  "status": "design-rendered-not-application-qa",
+  "surfaceId": "capture-recall",
+  "contract": "design-contract-20261127.2",
+  "mockup": "index.html",
+  "states": ["empty", "editing", "submitting", "success", "results", "partial", "error", "recovery"],
+  "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"],
+  "cases": [
+    {"id":"CR-EMPTY-1440","state":"empty","viewport":"desktop-1440","mockup":"index.html#capture-empty","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-empty","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-EMPTY-1024","state":"empty","viewport":"desktop-900-1260","mockup":"index.html#capture-empty","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-empty","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-EMPTY-390","state":"empty","viewport":"narrow-390","mockup":"index.html#capture-empty","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-empty","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-EMPTY-320","state":"empty","viewport":"reflow-320","mockup":"index.html#capture-empty","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-empty","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-EDITING-1440","state":"editing","viewport":"desktop-1440","mockup":"index.html#capture-editing","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-editing","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-EDITING-1024","state":"editing","viewport":"desktop-900-1260","mockup":"index.html#capture-editing","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-editing","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-EDITING-390","state":"editing","viewport":"narrow-390","mockup":"index.html#capture-editing","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-editing","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-EDITING-320","state":"editing","viewport":"reflow-320","mockup":"index.html#capture-editing","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-editing","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-SUBMITTING-1440","state":"submitting","viewport":"desktop-1440","mockup":"index.html#capture-submitting","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-submitting","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-SUBMITTING-1024","state":"submitting","viewport":"desktop-900-1260","mockup":"index.html#capture-submitting","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-submitting","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-SUBMITTING-390","state":"submitting","viewport":"narrow-390","mockup":"index.html#capture-submitting","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-submitting","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-SUBMITTING-320","state":"submitting","viewport":"reflow-320","mockup":"index.html#capture-submitting","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-submitting","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-SUCCESS-1440","state":"success","viewport":"desktop-1440","mockup":"index.html#capture-success","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-success","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-SUCCESS-1024","state":"success","viewport":"desktop-900-1260","mockup":"index.html#capture-success","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-success","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-SUCCESS-390","state":"success","viewport":"narrow-390","mockup":"index.html#capture-success","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-success","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-SUCCESS-320","state":"success","viewport":"reflow-320","mockup":"index.html#capture-success","implementation":"unverified","qaEvidence":["design-artifact:index.html#capture-success","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-RESULTS-1440","state":"results","viewport":"desktop-1440","mockup":"index.html#recall-form","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-form","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-RESULTS-1024","state":"results","viewport":"desktop-900-1260","mockup":"index.html#recall-form","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-form","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-RESULTS-390","state":"results","viewport":"narrow-390","mockup":"index.html#recall-form","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-form","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-RESULTS-320","state":"results","viewport":"reflow-320","mockup":"index.html#recall-form","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-form","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-PARTIAL-1440","state":"partial","viewport":"desktop-1440","mockup":"index.html#partial-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#partial-title","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-PARTIAL-1024","state":"partial","viewport":"desktop-900-1260","mockup":"index.html#partial-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#partial-title","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-PARTIAL-390","state":"partial","viewport":"narrow-390","mockup":"index.html#partial-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#partial-title","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-PARTIAL-320","state":"partial","viewport":"reflow-320","mockup":"index.html#partial-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#partial-title","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-ERROR-1440","state":"error","viewport":"desktop-1440","mockup":"index.html#recall-error-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-error-title","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-ERROR-1024","state":"error","viewport":"desktop-900-1260","mockup":"index.html#recall-error-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-error-title","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-ERROR-390","state":"error","viewport":"narrow-390","mockup":"index.html#recall-error-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-error-title","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-ERROR-320","state":"error","viewport":"reflow-320","mockup":"index.html#recall-error-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recall-error-title","capture:captures/capture-recall-320.png"]},
+    {"id":"CR-RECOVERY-1440","state":"recovery","viewport":"desktop-1440","mockup":"index.html#recovery-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recovery-title","capture:captures/capture-recall-1440.png"]},
+    {"id":"CR-RECOVERY-1024","state":"recovery","viewport":"desktop-900-1260","mockup":"index.html#recovery-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recovery-title","capture:captures/capture-recall-1024.png"]},
+    {"id":"CR-RECOVERY-390","state":"recovery","viewport":"narrow-390","mockup":"index.html#recovery-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recovery-title","capture:captures/capture-recall-390.png"]},
+    {"id":"CR-RECOVERY-320","state":"recovery","viewport":"reflow-320","mockup":"index.html#recovery-title","implementation":"unverified","qaEvidence":["design-artifact:index.html#recovery-title","capture:captures/capture-recall-320.png"]}
+  ],
+  "captureEnvironment": {
+    "tool": "playwright_fast capture",
+    "browser": "Chromium 159.0.8154.6",
+    "viewports": [1440, 1024, 390, 320],
+    "pageErrors": [],
+    "qaStatus": "NOT_RUN",
+    "applicationQa": "not-run",
+    "overflow": "no page-level horizontal overflow observed by visual inspection"
+  },
+  "captures": [
+    "captures/capture-recall-1440.png",
+    "captures/capture-recall-1024.png",
+    "captures/capture-recall-390.png",
+    "captures/capture-recall-320.png",
+    "captures/capture-recall-system-1440.png",
+    "captures/capture-recall-light-1024.png",
+    "captures/capture-recall-dark-1440.png",
+    "captures/capture-recall-forced-colors-intent.png"
+  ],
+  "themeEvidence": {
+    "control": "index.html#mode-toggle",
+    "rootAttribute": "data-ui-color-mode",
+    "supportedModes": ["system", "light", "dark"],
+    "systemPreview": {
+      "path": "captures/capture-recall-system-1440.png",
+      "url": "index.html?mode=system",
+      "status": "visual concept evidence"
+    },
+    "lightPreview": {
+      "path": "captures/capture-recall-light-1024.png",
+      "url": "index.html?mode=light",
+      "status": "visual concept evidence"
+    },
+    "darkPreview": {
+      "path": "captures/capture-recall-dark-1440.png",
+      "url": "index.html?mode=dark",
+      "status": "visual concept evidence"
+    },
+    "forcedColors": {
+      "status": "unverified",
+      "browserEmulation": "unavailable",
+      "intentSource": "captures/forced-colors-intent.html",
+      "intentCapture": "captures/capture-recall-forced-colors-intent.png",
+      "limitation": "Static system-color intent preview is not browser forced-colors emulation or conformance evidence."
+    }
+  },
+  "responsiveNotes": {
+    "desktop-900-1260": "At 1024px the inspector moves below the rail/main canvas; forms remain two-column where readable.",
+    "narrow-390": "Tabs scroll; context, forms, result rows, and inspector stack; page is intended not to horizontally scroll.",
+    "reflow-320": "Important actions become full width; identifiers wrap; result rows stack; focus targets remain at least 44px."
+  },
+  "applicationImplementation": "unverified",
+  "limitations": [
+    "Static mockup does not prove service behavior, authorization, route/deep-link preservation, or durable capture/recall retries.",
+    "Captures are visual concept evidence only and do not establish WCAG conformance, screen-reader output, numeric contrast, browser compatibility, performance, or network recovery.",
+    "Synthetic fixture values do not prove production provenance, coverage, or API binding."
+  ]
+}

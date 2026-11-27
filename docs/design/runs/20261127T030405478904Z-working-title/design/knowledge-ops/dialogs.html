@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system" data-mode="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shared dialogs · NOESIS mockup</title>
+<link rel="stylesheet" href="./styles.css">
+<style>
+.dialog-board { grid-template-columns: minmax(0, 1fr); }
+.dialog-board > * { min-width: 0; }
+.dialog-card { min-width: 0; }
+.dialog-title { flex-wrap: wrap; }
+.dialog-title > * { min-width: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to dialog patterns</a>
+<div class="dialog-shell">
+  <div class="dialog-board">
+    <header class="topbar" inert>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Shared dialogs · focus, provenance, and safe recovery</p></div></div>
+      <div class="top-actions"><span class="badge synthetic">SYNTHETIC / PLANNED</span><a class="button quiet" href="./index.html">Back to lane index</a></div>
+    </header>
+    <nav class="tabs" aria-label="Primary navigation" inert>
+      <a class="tab" aria-current="page" href="./index.html">Observatory</a>
+      <a class="tab" href="../core-atlas/atlas.html">Atlas</a>
+      <a class="tab" href="./lore.html">Lore</a>
+      <a class="tab" href="./reverie.html">Reverie</a>
+      <a class="tab" href="./forge.html">Forge</a>
+    </nav>
+    <div class="context" inert><div class="context-main"><strong>Threadloom MCP</strong><span class="meta">MCP server · local / managed · v2.4.1</span><span class="meta">snapshot sha256:8a41…c2d7</span></div><span class="badge synthetic">scope local / project: noesis</span></div>
+    <main id="main-content" tabindex="-1">
+      <section class="dialog-card dialog-specimen" aria-labelledby="page-title" inert>
+        <p class="eyebrow">surface-id shared-dialogs · planned native dialog patterns</p>
+        <div class="dialog-title"><div><h2 id="page-title">Safe explanations and safe exits</h2><p class="lead">These static specimens describe planned native <span class="mono">&lt;dialog&gt;</span> behavior. They are not wired routes and do not mutate fixture data.</p></div><span class="badge error">FOCUS CONTAINED</span></div>
+        <div class="state-strip" aria-label="Dialog state coverage"><span class="state-chip">Closed</span><span class="state-chip success">Open</span><span class="state-chip">Empty</span><span class="state-chip waiting">No results</span><span class="state-chip error">Action error</span><span class="state-chip waiting">Recovery</span><span class="state-chip">Pairing feedback</span><span class="state-chip error">Destructive confirm</span></div>
+        <div class="status waiting" role="status"><div><strong>Planned interaction: focus remains inside the active dialog</strong><span class="helper">Escape closes information dialogs without mutation. Forgetting and export-impact confirmations require explicit Cancel or Confirm; backdrop click does not mutate.</span></div></div><div class="actions"><button id="forget-open" data-dialog-open="#forgetting" type="button">Open forgetting confirmation</button></div>
+      </section>
+      <section class="dialog-backdrop dialog-specimen" id="provenance" aria-labelledby="provenance-title" aria-describedby="provenance-copy" inert>
+        <div class="dialog-card" role="region">
+          <div class="dialog-title"><div><p class="eyebrow">InfoDialog · non-modal inactive specimen</p><h2 id="provenance-title">Why this block is generated</h2></div><span class="badge">INACTIVE EXAMPLE</span></div>
+          <p id="provenance-copy">Generated Lore summarizes supported source records. Authored Lore is separately owned and remains unchanged when dependent generated sections refresh.</p>
+          <dl class="kv" style="margin-block:16px"><dt>Source</dt><dd class="mono">fixture-record-source-001@rev-7</dd><dt>Generated block</dt><dd class="mono">observed-behavior@rev-13</dd><dt>Evidence meaning</dt><dd><span class="badge derived">derived observation</span></dd><dt>Stale rule</dt><dd>Source correction marks dependent generated content stale.</dd></dl>
+          <div class="actions"><button class="primary" type="button" aria-label="Open lineage for generated block observed-behavior at revision 13">Open lineage</button><button class="quiet" type="button" aria-label="Close provenance explanation example">Close</button></div>
+        </div>
+      </section>
+      <section class="dialog-backdrop dialog-specimen" id="relationship" aria-labelledby="relationship-title" aria-describedby="relationship-copy" inert>
+        <div class="dialog-card" role="region">
+          <div class="dialog-title"><div><p class="eyebrow">InfoDialog · non-modal inactive specimen</p><h2 id="relationship-title">Relationship meaning</h2></div><span class="badge">INACTIVE EXAMPLE</span></div>
+          <p id="relationship-copy">A relationship line names one bounded record relation. It does not prove linked records are true or imply confidence, causality, or completeness.</p>
+          <div class="coverage"><span><strong>Center</strong> <span class="mono">fixture-resource-threadloom-mcp</span></span><span><strong>Visible</strong> 3 nodes · 2 relations</span><span><strong>Omitted</strong> 1 · continuation available</span></div>
+          <ul class="long-copy"><li><strong>derived from</strong> · <span class="mono">fixture-record-source-001</span> → generated observation.</li><li><strong>hypothetical association</strong> · <span class="mono">fixture-record-hypothesis-001</span> → proposal only.</li></ul>
+          <div class="actions"><button class="primary" type="button" aria-label="Open list alternative for Threadloom MCP relationships">Open list alternative</button><button class="quiet" type="button" aria-label="Close relationship explanation example">Close</button></div>
+        </div>
+      </section>
+      <dialog class="dialog-backdrop" id="forgetting" data-active-dialog data-destructive="true" data-opener="#forget-open" open aria-modal="true" aria-labelledby="forget-title" aria-describedby="forget-copy">
+        <div class="dialog-card">
+          <div class="dialog-title"><div><p class="eyebrow">ConfirmDialog · active native dialog</p><h2 id="forget-title">Forget this controlled record?</h2></div><span class="badge error">DESTRUCTIVE</span></div>
+          <p id="forget-copy">This requests explicit forgetting for <span class="mono">fixture-record-derived-001</span> in <span class="mono">local / project: noesis</span>. Review controlled derivatives before confirming.</p>
+          <div class="callout error"><strong>Potential impact:</strong> raw artifacts, revisions, indexes, caches, generated Lore sections, and service-controlled export copies may require reconciliation. Copies already delivered outside NOESIS cannot be recalled.</div>
+          <div class="status error" role="alert" data-dialog-status><div><strong>Confirmation is required</strong><span class="helper">Background content is inert. Cancel, Escape, or backdrop click returns without mutation; Confirm creates a deletion request and receipt.</span></div></div>
+          <div class="actions"><button class="quiet" type="button" autofocus data-dialog-close aria-label="Cancel forgetting for record fixture-record-derived-001">Cancel</button><button class="danger" type="button" data-dialog-confirm aria-label="Confirm forgetting for record fixture-record-derived-001">Confirm forgetting</button></div>
+        </div>
+      </dialog>
+      <section class="dialog-backdrop dialog-specimen" id="export-impact" aria-labelledby="export-title" aria-describedby="export-copy" inert>
+        <div class="dialog-card" role="region">
+          <div class="dialog-title"><div><p class="eyebrow">ConfirmDialog · non-modal inactive specimen</p><h2 id="export-title">Review Blueprint export boundary</h2></div><span class="badge derived">SCOPED COPY</span></div>
+          <p id="export-copy">The preview includes only the selected Threadloom MCP version, project scope, evidence links, omissions, and validation cases. It does not include unrelated preferences, credentials, or a patch.</p>
+          <dl class="kv" style="margin-block:16px"><dt>Target</dt><dd>Threadloom MCP <span class="mono">v2.4.1</span></dd><dt>Scope</dt><dd class="mono">local / project: noesis</dd><dt>Included</dt><dd>5 bounded rows</dd><dt>Omitted</dt><dd>1 row · <span class="mono">forge-next-2</span></dd><dt>Side effect</dt><dd>None; export does not patch or publish.</dd></dl>
+          <div class="actions"><button class="quiet" type="button" aria-label="Return to Blueprint preview example">Back to preview</button><button class="primary" type="button" aria-label="Confirm scoped Blueprint export example">Confirm export</button></div>
+        </div>
+      </section>
+      <section class="dialog-backdrop dialog-specimen" id="correction-conflict" aria-labelledby="conflict-title" aria-describedby="conflict-copy" inert>
+        <div class="dialog-card" role="region">
+          <div class="dialog-title"><div><p class="eyebrow">CorrectionConflictDialog · non-modal inactive specimen</p><h2 id="conflict-title">Preference changed elsewhere</h2></div><span class="badge error">REVISION MISMATCH</span></div>
+          <p id="conflict-copy">Your draft targets <span class="mono">pref-candidate-017@rev-17</span>, but the current preference is <span class="mono">@rev-18</span>. No overwrite occurred.</p>
+          <div class="diff"><div><p class="section-label">Your draft</p><pre class="removed">Offer short progress updates
+for substantial work.
+Scope: project: noesis</pre></div><div><p class="section-label">Current revision</p><pre class="added">Offer short progress updates
+for long-running work only.
+Scope: project: noesis</pre></div></div>
+          <div class="actions"><button class="primary" type="button" aria-label="Use current preference revision and edit">Use current and edit</button><button type="button" aria-label="Keep draft for preference pref-candidate-017">Keep my draft</button><button class="quiet" type="button" aria-label="Cancel correction conflict example">Cancel</button></div>
+        </div>
+      </section>
+      <section class="dialog-backdrop dialog-specimen" id="command-palette" aria-labelledby="command-title" aria-describedby="command-copy" inert>
+        <div class="dialog-card" role="region">
+          <div class="dialog-title"><div><p class="eyebrow">CommandPalette · non-modal inactive specimen</p><h2 id="command-title">Find an action or record</h2></div><kbd aria-label="Escape key">Esc</kbd></div>
+          <p id="command-copy" class="helper">Searches only authorized actions and records returned by the service. Arrow keys move; Enter invokes; Escape closes.</p>
+          <label for="command-query">Search commands and records<input id="command-query" role="combobox" aria-controls="command-results" aria-expanded="true" aria-activedescendant="command-option-1" placeholder="Try “Threadloom”, “revive”, or “Blueprint”" aria-describedby="command-count"></label>
+          <p class="helper" id="command-count" role="status">4 results</p>
+          <div class="command-results" id="command-results" role="listbox" aria-label="Command results"><div id="command-option-1" class="command-result selected" role="option" aria-selected="true"><span>Open Threadloom MCP in Atlas</span><kbd>Enter</kbd></div><div id="command-option-2" class="command-result" role="option" aria-selected="false"><span>Preview scoped Blueprint</span><kbd>F</kbd></div><div id="command-option-3" class="command-result" role="option" aria-selected="false"><span>Revive selected record</span><kbd>R</kbd></div><div id="command-option-4" class="command-result" role="option" aria-selected="false"><span>Open Reverie job <span class="mono">job-rv-2048</span></span><kbd>J</kbd></div></div>
+          <div class="status" role="status"><div><strong>No-results specimen</strong><span class="helper">No authorized action or record matched. The query stays preserved; Backspace edits it and Escape returns focus to the invoking control.</span></div></div>
+        </div>
+      </section>
+      <section class="panel dialog-specimen" aria-labelledby="pairing-title" inert>
+        <div class="panel-header"><div><p class="eyebrow">PairingFeedback · non-modal route-safe examples</p><h3 id="pairing-title">Pairing feedback stays outside private dialogs</h3></div><span class="badge waiting">UNPAIRED SAFE</span></div>
+        <div class="grid-2"><div class="card"><div class="card-title"><h4>Invalid or expired</h4><span class="badge error">RETRY</span></div><div class="status error" role="alert"><div><strong>Pairing code invalid or expired</strong><span class="helper">Entered context remains safe. No private resource names, counts, job IDs, or activity graphics are exposed.</span></div></div><div class="actions" style="margin-top:12px"><button class="primary" type="button">Try another code</button><button class="quiet" type="button">Return to address</button></div></div><div class="card"><div class="card-title"><h4>Paired return</h4><span class="badge known">SUCCESS</span></div><div class="status known" role="status"><div><strong>Paired: returning to intended route</strong><span class="helper">Private data becomes available only after authorization. Focus returns to the original route action.</span></div></div></div></div>
+      </section>
+      <section class="panel dialog-specimen" aria-labelledby="behavior-title" inert>
+        <div class="panel-header"><div><p class="eyebrow">interaction contract</p><h3 id="behavior-title">Focus, status, and responsive behavior</h3></div><span class="badge synthetic">mockup notes</span></div>
+        <div class="grid-3"><div class="card"><h4>1440px</h4><p>One active native dialog sits above an inert background. Non-modal specimens remain labelled examples.</p></div><div class="card"><h4>390px</h4><p>Dialog padding narrows; content and actions wrap; controls remain 44px high. Safe-area padding is reserved.</p></div><div class="card"><h4>320px</h4><p>Actions become full width, hashes and diffs wrap, and the active dialog never exceeds viewport width.</p></div></div>
+        <div class="focus-note"><strong>Keyboard / status / motion:</strong> the active native dialog labels title and description, starts focus on Cancel, contains Tab, closes on Escape or backdrop without mutation, and restores focus to its invoking control. Inactive examples are inert, non-modal regions. Command results expose a count, listbox selection, active descendant, and query-preserving no-results recovery. Dialog errors use local <span class="mono">role=alert</span>. Reduced motion removes transitions and heartbeat while retaining dialog boundaries and recovery text.</div>
+      </section>
+      <section class="panel" aria-labelledby="pairing-title">
+        <div class="panel-header"><div><p class="eyebrow">PairingFeedback · route-safe status</p><h3 id="pairing-title">Pairing feedback stays outside private dialogs</h3></div><span class="badge waiting">UNPAIRED SAFE</span></div>
+        <div class="grid-2"><div class="card"><div class="card-title"><h4>Invalid or expired</h4><span class="badge error">RETRY</span></div><div class="status error" role="alert"><div><strong>Pairing code invalid or expired</strong><span class="helper">Entered context remains safe. No private resource names, counts, job IDs, or activity graphics are exposed.</span></div></div><div class="actions" style="margin-top:12px"><button class="primary" type="button">Try another code</button><button class="quiet" type="button">Return to address</button></div></div><div class="card"><div class="card-title"><h4>Paired return</h4><span class="badge known">SUCCESS</span></div><div class="status known" role="status"><div><strong>Paired: returning to intended route</strong><span class="helper">Private data becomes available only after authorization. Focus returns to the original route action.</span></div></div></div></div>
+      </section>
+      <section class="panel" aria-labelledby="behavior-title">
+        <div class="panel-header"><div><p class="eyebrow">interaction contract</p><h3 id="behavior-title">Focus, status, and responsive behavior</h3></div><span class="badge synthetic">mockup notes</span></div>
+        <div class="grid-3"><div class="card"><h4>1440px</h4><p>Dialog specimens use a constrained raised surface over a semantic canvas. Long copy and diffs remain readable beside the page context.</p></div><div class="card"><h4>390px</h4><p>Backdrop padding narrows; dialog actions wrap or stack; inputs remain 44px high. Safe-area padding is reserved by the production shell.</p></div><div class="card"><h4>320px</h4><p>Actions become full width, hashes and revision diffs wrap, and the dialog never exceeds viewport width. Background page stays inert.</p></div></div>
+        <div class="focus-note"><strong>Keyboard / status / motion:</strong> native dialog implementation will focus the first meaningful control; destructive confirm initially focuses Cancel. Tab stays contained; Escape closes only explanatory dialogs; close restores focus to the invoking control. Dialog errors use local <span class="mono">role=alert</span>, command results expose count/status, and no-results preserves query. Reduced motion removes transitions and heartbeat without removing dialog boundaries or recovery text. These specimens are visual evidence only. Handheld portrait/landscape keeps the same dialog order; safe-area insets and text scaling are reserved, and the on-screen keyboard does not hide the focused input or action.</div>
+      </section>
+    </main>
+    <footer class="footer-note">Design-only mockups. Synthetic fixture; dialogs are not wired and no action was performed.</footer>
+  </div>
+</div>
+<script src="./mockup.js"></script>
+</body>
+</html>

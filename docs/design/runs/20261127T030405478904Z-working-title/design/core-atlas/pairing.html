@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Pairing gate · NOESIS Observatory mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to pairing</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Local-first evidence workspace</p></div></div>
+    <div class="top-actions"><span class="connection"><span class="dot warn" aria-hidden="true"></span>Unpaired · private data withheld</span><button class="icon-button" type="button" data-theme-toggle aria-label="Switch to light theme">☼</button></div>
+  </header>
+ <main id="main-content" class="pairing-page" tabindex="-1">
+    <div class="pairing-layout">
+      <section class="pairing-card" aria-labelledby="pair-title">
+        <p class="eyebrow">PAIRING GATE · SYNTHETIC / PLANNED</p>
+        <h2 id="pair-title">Pair this browser</h2>
+        <p>Enter the one-use code printed by the local operator. Pairing unlocks private reads and mutations for this browser session.</p>
+        <form class="pairing-form" aria-describedby="pair-help">
+ <div class="field"><label for="pair-code">One-use pairing code</label><input id="pair-code" class="pairing-code" name="code" inputmode="numeric" autocomplete="one-time-code" placeholder="482 913 07" aria-describedby="pair-help pairing-invalid-copy"></div>
+          <button class="button primary" type="button">Pair this browser</button>
+          <small id="pair-help">Code expires soon and cannot be reused. This page contains no private memory, resource names, job IDs, or activity counts.</small>
+        </form>
+        <div class="pairing-note"><strong>Safe return:</strong> after pairing, the service returns to the intended route. Invalid or expired attempts keep entered context and never reveal private data.</div>
+      </section>
+      <aside class="pairing-card" aria-labelledby="pair-states-title">
+        <p class="eyebrow">STATE COVERAGE</p>
+        <h3 id="pair-states-title">Pairing feedback</h3>
+        <div class="pairing-states" style="margin-block-start:12px">
+ <article class="state-card"><h4>Code entry</h4><strong>Ready one-use code</strong><p>Primary action enabled only when labelled field valid.</p></article>
+ <article class="state-card" role="alert" aria-labelledby="pairing-invalid-title"><h4 id="pairing-invalid-title">Invalid code</h4><strong><span class="badge error">Error</span> Code not accepted</strong><p id="pairing-invalid-copy">Preserve typed value. Explain retry without disclosing account or memory state.</p></article>
+ <article class="state-card" role="alert" aria-labelledby="pairing-expired-title"><h4 id="pairing-expired-title">Expired code</h4><strong><span class="badge review">Review</span> Code expired</strong><p>Ask operator print new local code. No private content appears.</p></article>
+ <article class="state-card" role="status" aria-labelledby="pairing-paired-title"><h4 id="pairing-paired-title">Paired return</h4><strong><span class="badge success">Paired</span> Return intended route</strong><p>Announce success locally, restore focus route heading.</p></article>
+ <article class="state-card" role="alert" aria-labelledby="pairing-unavailable-title"><h4 id="pairing-unavailable-title">Unavailable / error</h4><strong><span class="badge error">Unavailable</span> Pairing service unreachable</strong><p>Keep code input. Offer retry; do not show empty Observatory success.</p></article>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <p class="footer-note">Design mockup only. Fixture and labels are synthetic/planned; pairing behavior remains unverified until application integration.</p>
+  <script src="mockup.js"></script>
+</body>
+</html>

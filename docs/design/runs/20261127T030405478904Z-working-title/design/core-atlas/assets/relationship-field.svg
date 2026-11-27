@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" role="img" aria-labelledby="field-title field-desc">
+  <title id="field-title">Bounded relationship module with Threadloom connector hub</title>
+  <desc id="field-desc">One synthetic Atlas relationship module contains a connector hub, four named nodes, one center resource node, and four typed edges. The adjacent list remains the accessible primary alternative.</desc>
+  <rect width="680" height="360" fill="#0a1726"/>
+  <rect x="18" y="18" width="644" height="324" rx="12" fill="none" stroke="#416076"/>
+  <g stroke="#294356" stroke-width="1" opacity=".75">
+    <path d="M28 52H652M28 314H652" stroke-dasharray="2 8"/>
+    <path d="M18 42h18M18 42v18M662 42h-18M662 42v18M18 318h18M18 318v-18M662 318h-18M662 318v-18" stroke="#71d7d0"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="10">
+    <text x="32" y="39" fill="#71d7d0">MODULE / ATLAS RELATIONSHIP FIELD</text>
+    <text x="506" y="39" fill="#a9bac2">BOUNDED · DEPTH 1</text>
+  </g>
+  <g stroke-width="2" fill="none">
+    <path d="M340 176 138 90" stroke="#71d7d0"/>
+    <path d="M340 176 548 82" stroke="#71d7d0"/>
+    <path d="M340 176 136 276" stroke="#ae9cff"/>
+    <path d="M340 176 546 278" stroke="#ff9ca9" stroke-dasharray="5 6"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="9" fill="#a9bac2">
+    <text x="205" y="117">EDGE · DERIVED FROM</text>
+    <text x="423" y="112">EDGE · USED BY</text>
+    <text x="201" y="247">EDGE · APPLIES TO</text>
+    <text x="407" y="247">EDGE · HYPOTHETICAL</text>
+  </g>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+    <g>
+      <circle cx="340" cy="176" r="39" fill="#153c47" stroke="#71d7d0" stroke-width="2"/>
+      <circle cx="340" cy="176" r="49" fill="none" stroke="#71d7d0" stroke-width="1" stroke-dasharray="3 7"/>
+      <text x="340" y="170" fill="#eaf2ff">HUB / CENTER</text>
+      <text x="340" y="185" fill="#71d7d0">Threadloom MCP</text>
+    </g>
+    <g><circle cx="138" cy="90" r="28" fill="#12263a" stroke="#71d7d0" stroke-width="2"/><text x="138" y="84" fill="#eaf2ff">NODE A</text><text x="138" y="98" fill="#a9bac2">Snapshot</text></g>
+    <g><circle cx="548" cy="82" r="28" fill="#12263a" stroke="#71d7d0" stroke-width="2"/><text x="548" y="76" fill="#eaf2ff">NODE B</text><text x="548" y="90" fill="#a9bac2">Noesis project</text></g>
+    <g><circle cx="136" cy="276" r="28" fill="#2a2450" stroke="#ae9cff" stroke-width="2"/><text x="136" y="270" fill="#eaf2ff">NODE C</text><text x="136" y="284" fill="#ae9cff">Derived record</text></g>
+    <g><circle cx="546" cy="278" r="28" fill="#431f2a" stroke="#ff9ca9" stroke-width="2"/><text x="546" y="272" fill="#eaf2ff">NODE D</text><text x="546" y="286" fill="#ff9ca9">Hypothesis</text></g>
+  </g>
+  <path d="M32 326H648" stroke="#416076"/>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="10" fill="#a9bac2">
+    <text x="34" y="338">5 NODES</text><text x="164" y="338">4 TYPED EDGES</text><text x="332" y="338">1 CONNECTOR HUB</text><text x="540" y="338">STATIC</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0",
+  "themeApi": "1",
+  "defaultTheme": "cortex-tabs",
+  "themes": [
+    {
+      "id": "cortex-tabs",
+      "name": "Cortex Tabs",
+      "version": "1.0.0",
+      "description": "A restrained, evidence-first science-fiction theme for NOESIS Observatory.",
+      "themeApi": "1",
+      "assets": [
+        { "path": "cortex-tabs/tokens.css", "contentType": "text/css; charset=utf-8" },
+        { "path": "cortex-tabs/theme.css", "contentType": "text/css; charset=utf-8" },
+        { "path": "cortex-tabs/icons.svg", "contentType": "image/svg+xml; charset=utf-8" }
+      ]
+    }
+  ]
+}

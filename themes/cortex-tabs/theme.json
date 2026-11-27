@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "1.0",
+  "id": "cortex-tabs",
+  "name": "Cortex Tabs",
+  "version": "1.0.0",
+  "description": "A restrained, evidence-first science-fiction theme for NOESIS Observatory with dark and light instrument surfaces, cyan signal accents, and explicit status states.",
+  "author": "NOESIS project",
+  "license": "Repository policy (no public license declared; see LICENSE.txt)",
+  "tokens": "tokens.json",
+  "styles": [
+    "tokens.css",
+    "theme.css"
+  ],
+  "icons": "icons.svg",
+  "preview": "preview.html",
+  "compatibility": {
+    "themeApi": "1",
+    "framework": "any"
+  },
+  "budgets": {
+    "maxRawBytes": 131072,
+    "maxGzipBytes": 40960
+  },
+  "contrastPairs": [
+    {
+      "foreground": "color.text",
+      "background": "color.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.text",
+      "background": "color.surface",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.muted",
+      "background": "color.background",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-primary",
+      "background": "color.primary",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-danger",
+      "background": "color.danger",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-success",
+      "background": "color.success",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.focus",
+      "background": "color.background",
+      "minimum": 3
+    },
+    {
+      "foreground": "color.border",
+      "background": "color.surface",
+      "minimum": 3
+    },
+    {
+      "foreground": "color.text-light",
+      "background": "color.canvas-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.text-light",
+      "background": "color.surface-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.muted-light",
+      "background": "color.canvas-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-signal-light",
+      "background": "color.signal-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-danger-light",
+      "background": "color.danger-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-success-light",
+      "background": "color.success-light",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.focus-light",
+      "background": "color.canvas-light",
+      "minimum": 3
+    },
+    {
+      "foreground": "color.border-light",
+      "background": "color.surface-light",
+      "minimum": 3
+    },
+    {
+      "foreground": "color.on-warning",
+      "background": "color.warning",
+      "minimum": 4.5
+    },
+    {
+      "foreground": "color.on-derived",
+      "background": "color.derived",
+      "minimum": 4.5
+    }
+  ]
+}

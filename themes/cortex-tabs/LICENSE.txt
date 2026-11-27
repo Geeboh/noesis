@@ -1,0 +1,12 @@
+CORTEX TABS THEME MODULE — REPOSITORY POLICY NOTICE
+
+No public software license is declared for this module.
+
+The module is an original NOESIS project artifact. Its use, copying, modification,
+packaging, and distribution remain subject to the repository's applicable policy
+and the authorization governing this work. This file intentionally does not infer
+or apply MIT, Apache-2.0, GPL, or another public license.
+
+The bundled SVG symbols and CSS are authored for this module. No third-party
+reference image, stock asset, hosted font, remote stylesheet, particles.js code,
+or external runtime asset is included.

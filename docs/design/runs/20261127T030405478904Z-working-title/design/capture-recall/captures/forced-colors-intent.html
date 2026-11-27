@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capture/Recall forced-colors intent preview</title>
+  <style>
+    :root { color-scheme: light dark; font: 16px/1.5 system-ui, sans-serif; }
+    body { max-width: 720px; margin: 0 auto; padding: 32px; color: CanvasText; background: Canvas; }
+    .panel { padding: 20px; border: 2px solid CanvasText; background: Canvas; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; margin-block: 20px; }
+    button, a { min-height: 44px; padding: 9px 14px; border: 2px solid ButtonText; color: ButtonText; background: ButtonFace; font: inherit; }
+    .selected { color: HighlightText; background: Highlight; border-color: Highlight; }
+    :focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+    .status { padding: 12px; border: 2px solid CanvasText; }
+    .muted { color: GrayText; }
+    @media (forced-colors: active) {
+      .panel, .status { border-color: CanvasText; background: Canvas; }
+      .row button, .row a { border-color: ButtonText; background: ButtonFace; color: ButtonText; }
+      .selected { border-color: Highlight; background: Highlight; color: HighlightText; }
+    }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <p><strong>Forced-colors intent preview</strong></p>
+    <p class="muted">Static local artifact. Browser forced-colors emulation was unavailable for this capture.</p>
+    <div class="row" aria-label="Forced-colors control examples">
+      <button type="button">Secondary action</button>
+      <button class="selected" type="button">Selected action</button>
+      <a href="#status">Inspect evidence</a>
+    </div>
+    <div class="status" id="status" role="status"><strong>Partial recall</strong> · 3 returned · 2 omitted. Status words and borders remain visible without color.</div>
+  </main>
+</body>
+</html>

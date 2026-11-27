@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="title desc">
+  <title id="title">Inspection pipeline stage activity</title>
+  <desc id="desc">Four connected stages: snapshot received and source examined are complete, provenance mapping is active without a denominator, and Lore handoff is queued.</desc>
+  <defs>
+    <linearGradient id="track" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#71d7d0"/>
+      <stop offset=".67" stop-color="#71d7d0"/>
+      <stop offset=".68" stop-color="#36546d"/>
+      <stop offset="1" stop-color="#36546d"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke="#1e3a52" stroke-width="1" opacity=".7">
+    <path d="M25 42H695" stroke-dasharray="2 8"/>
+    <path d="M25 205H695" stroke-dasharray="2 8"/>
+    <path d="M25 42V205M695 42V205"/>
+  </g>
+  <path d="M73 120H647" stroke="#36546d" stroke-width="4" stroke-linecap="round"/>
+  <path d="M73 120H422" stroke="url(#track)" stroke-width="4" stroke-linecap="round"/>
+  <g font-family="ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <g>
+      <circle cx="73" cy="120" r="19" fill="#17452e" stroke="#7ee3a1" stroke-width="2"/>
+      <path d="m65 120 6 6 11-13" fill="none" stroke="#7ee3a1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="73" y="83" fill="#eaf2ff" font-size="11" font-weight="700">received</text>
+      <text x="73" y="167" fill="#8da6be" font-size="9">8 files</text>
+    </g>
+    <g>
+      <circle cx="250" cy="120" r="19" fill="#17452e" stroke="#7ee3a1" stroke-width="2"/>
+      <path d="m242 120 6 6 11-13" fill="none" stroke="#7ee3a1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="250" y="83" fill="#eaf2ff" font-size="11" font-weight="700">examined</text>
+      <text x="250" y="167" fill="#8da6be" font-size="9">6 observations</text>
+    </g>
+    <g filter="url(#glow)">
+      <circle cx="422" cy="120" r="23" fill="#173e48" stroke="#71d7d0" stroke-width="2"/>
+      <circle cx="422" cy="120" r="7" fill="#71d7d0"/>
+      <circle cx="422" cy="120" r="31" fill="none" stroke="#71d7d0" stroke-opacity=".25" stroke-width="1" stroke-dasharray="2 7"/>
+      <text x="422" y="83" fill="#eaf2ff" font-size="11" font-weight="700">mapping</text>
+      <text x="422" y="167" fill="#71d7d0" font-size="9">heartbeat only</text>
+    </g>
+    <g>
+      <circle cx="647" cy="120" r="19" fill="#102035" stroke="#57738c" stroke-width="2"/>
+      <path d="M639 120h16M647 112v16" stroke="#8da6be" stroke-width="2" stroke-linecap="round"/>
+      <text x="647" y="83" fill="#eaf2ff" font-size="11" font-weight="700">Lore handoff</text>
+      <text x="647" y="167" fill="#8da6be" font-size="9">queued after review</text>
+    </g>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" fill="#8da6be">
+    <text x="25" y="228">KNOWN STATES</text><text x="574" y="228">NO FABRICATED %</text>
+  </g>
+</svg>

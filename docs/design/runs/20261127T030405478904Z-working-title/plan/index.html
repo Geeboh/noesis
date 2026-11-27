@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOESIS Observatory concept comparison</title>
+<style>
+:root{color-scheme:dark;background:#09121d;color:#eaf2ff;font:16px/1.5 system-ui,sans-serif}body{max-width:1440px;margin:0 auto;padding:24px}h1{font-size:clamp(2rem,5vw,4rem);line-height:1.05;margin:.2em 0}.lede{max-width:70ch;color:#b8c8d8}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.concept{border:1px solid #294258;border-radius:16px;padding:16px;background:#0f1e2d}.concept h2{margin-top:0}.preview{width:100%;height:720px;border:1px solid #294258;border-radius:12px;background:#101820}.recommend{border-left:4px solid #71d7d0;padding:12px 16px;background:#102636;margin:24px 0}.tag{display:inline-block;border:1px solid #4f6d82;border-radius:999px;padding:2px 8px;margin:2px;font-size:.85rem}.tradeoffs{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tradeoffs div{border:1px solid #294258;border-radius:10px;padding:10px;background:#0b1724}@media(max-width:800px){body{padding:12px}.grid,.tradeoffs{grid-template-columns:1fr}.preview{height:620px}}
+</style>
+</head>
+<body>
+<header>
+<p class="tag">PLAN · GUIDED · NOT APPROVED</p>
+<h1>Observatory concept comparison</h1>
+<p class="lede">Same task, fixture, and constraints. Pair safely, see open work, select a resource, inspect provenance, open Lore or Forge with scope retained, and recover from one failed request.</p>
+</header>
+<section class="recommend" aria-labelledby="recommend-title">
+<h2 id="recommend-title">Director recommendation</h2>
+<p><strong>Signal Deck</strong> is the safer base. It makes status and open work the first task, keeps provenance in a persistent inspector, uses explicit pipeline state instead of decorative progress, and preserves the zero-dependency budget. Borrow Cortex Tabs' sticky selected context and deliberate 320px tab treatment if the user wants a hybrid. Any hybrid must be redrawn as one contract.</p>
+<p>Both concepts are renderable local boards. Neither is application code or user approval.</p>
+</section>
+<div class="grid">
+<section class="concept" aria-labelledby="signal-title">
+<h2 id="signal-title">Signal Deck</h2>
+<p>Quiet operations deck. Strong status-first hierarchy, provenance inspector, explicit activity pipeline, and evidence badges.</p>
+<div class="tradeoffs"><div><strong>Strengths</strong><br>Best fit for status-first priority, evidence clarity, bounded activity, and low implementation risk.</div><div><strong>Tradeoffs</strong><br>Denser desktop composition. Handheld relies on a longer stack and careful action separation.</div></div>
+<p><span class="tag">#0B6F80 signal</span><span class="tag">#6B4FD5 focus</span><span class="tag">local SVG</span><span class="tag">44px controls</span></p>
+<iframe class="preview" src="concept-signal/board.html" title="Signal Deck concept board"></iframe>
+<p><a href="concept-signal/concept.md">Signal Deck rationale and contract</a></p>
+</section>
+<section class="concept" aria-labelledby="cortex-title">
+<h2 id="cortex-title">Cortex Tabs</h2>
+<p>Calm cognitive workspace. Persistent context strip, status canvas, resource inspector, and explicit state specimen matrix.</p>
+<div class="tradeoffs"><div><strong>Strengths</strong><br>Best responsive contract, state coverage, and clear handoff between Atlas, Lore, Forge, and Reverie.</div><div><strong>Tradeoffs</strong><br>More visual surface and a larger concept board. Requires strict runtime-data bounds to keep the inspector honest.</div></div>
+<p><span class="tag">#71D7D0 signal</span><span class="tag">#AE9CFF derived</span><span class="tag">local SVG</span><span class="tag">reduced motion</span></p>
+<iframe class="preview" src="concept-cortex/index.html" title="Cortex Tabs concept board"></iframe>
+<p><a href="concept-cortex/concept.md">Cortex Tabs rationale and contract</a></p>
+</section>
+</div>
+<section aria-labelledby="review-title">
+<h2 id="review-title">Comparison criteria</h2>
+<table><thead><tr><th>Criterion</th><th>Signal Deck</th><th>Cortex Tabs</th></tr></thead><tbody>
+<tr><th>Task clarity and status</th><td>Strongest status-first layout and explicit pipeline</td><td>Strong status canvas and selected context</td></tr>
+<tr><th>Evidence and provenance</th><td>Persistent inspector and semantic badge sheet</td><td>Inspector plus lineage meaning grid</td></tr>
+<tr><th>Responsive behavior</th><td>Stacked narrow layout, 320px grid contract</td><td>Sticky context and deliberate tab overflow/reflow</td></tr>
+<tr><th>Accessibility intent</th><td>Native controls, 44px rows, local status contract</td><td>Tab semantics, dialog contract, local status contract</td></tr>
+<tr><th>Cost and maintenance</th><td>Lower estimated CSS and interaction surface</td><td>More complete specimen surface, slightly higher integration cost</td></tr>
+</tbody></table>
+</section>
+<section class="recommend" aria-labelledby="atlas-graph-title">
+<h2 id="atlas-graph-title">Approved extension: Atlas relationships</h2>
+<p>The selected hybrid may reuse the activity visual language for a bounded Atlas relationship view. Particle-field inspiration is allowed only as a local visual layer over actual resource, lineage, Chronicle, and relationship records. The primary accessible view remains a labelled list/table with edge meanings. No network-loaded particles.js, fabricated edges, or progress-like animation.</p>
+</section>
+</body>
+</html>

@@ -1,14 +1,26 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { request as httpRequest } from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createObservatory } from "../src/server.mjs";
+import { createObservatory, loadThemeRegistry } from "../src/server.mjs";
 import { makeEvent, makeRecord } from "../src/contracts.mjs";
 
 async function close(started) {
   await new Promise((resolve) => started.server.close(resolve));
   started.service.close();
+}
+function rawStatus(base, path) {
+  const target = new URL(base);
+  return new Promise((resolve, reject) => {
+    const request = httpRequest({ hostname: target.hostname, port: target.port, path, method: "GET" }, (response) => {
+      response.resume();
+      response.on("end", () => resolve(response.statusCode));
+    });
+    request.on("error", reject);
+    request.end();
+  });
 }
 
 function seedHypothesis(service, resource) {
@@ -43,6 +55,61 @@ function seedHypothesis(service, resource) {
   });
   return record.record_id;
 }
+
+test("Observatory exposes the validated Cortex Tabs registry and exact local assets", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-theme-"));
+  const started = await createObservatory({ config: { bind_host: "127.0.0.1", port: 0, data_directory: directory, advertised_host: null } });
+  const address = started.server.address();
+  const base = `http://127.0.0.1:${address.port}`;
+  try {
+    const registryResponse = await fetch(`${base}/themes/registry.json`);
+    assert.equal(registryResponse.status, 200);
+    const registry = await registryResponse.json();
+    assert.equal(registry.defaultTheme, "cortex-tabs");
+    assert.deepEqual(registry.themes.map(({ id, name, version }) => ({ id, name, version })), [{ id: "cortex-tabs", name: "Cortex Tabs", version: "1.0.0" }]);
+    assert.equal(Object.hasOwn(registry.themes[0].assets[0], "filePath"), false);
+    assert.deepEqual(registry.themes[0].assets.map((asset) => asset.path), ["/themes/cortex-tabs/tokens.css", "/themes/cortex-tabs/theme.css", "/themes/cortex-tabs/icons.svg"]);
+    const css = await fetch(`${base}/themes/cortex-tabs/theme.css`);
+    assert.equal(css.status, 200);
+    assert.equal(css.headers.get("content-type"), "text/css; charset=utf-8");
+    assert.match(await css.text(), /\[data-ui-theme="cortex-tabs"\]/);
+    const svg = await fetch(`${base}/themes/cortex-tabs/icons.svg`);
+    assert.equal(svg.status, 200);
+    assert.equal(svg.headers.get("content-type"), "image/svg+xml; charset=utf-8");
+    assert.match(await svg.text(), /<symbol id="cortex"/);
+    assert.equal((await fetch(`${base}/themes/cortex-tabs/not-declared.css`)).status, 404);
+    assert.equal(await rawStatus(base, "/themes/cortex-tabs/%2e%2e/registry.json"), 404);
+    const landing = await (await fetch(`${base}/`)).text();
+    assert.match(landing, /data-ui-theme="cortex-tabs"/);
+    assert.match(landing, /data-ui-color-mode="system"/);
+    assert.match(landing, /href="\/themes\/cortex-tabs\/tokens.css"/);
+    assert.match(landing, /id="theme-settings"/);
+    assert.match(landing, /localStorage\.setItem\('noesis-theme'/);
+    assert.match(landing, /is unavailable/);
+  } finally {
+    await close(started);
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("Theme registry loading falls back to bundled Cortex Tabs metadata when registry is invalid", () => {
+  const directory = mkdtempSync(join(tmpdir(), "noesis-theme-registry-fallback-"));
+  const registryPath = join(directory, "registry.json");
+  writeFileSync(registryPath, JSON.stringify({
+    schemaVersion: "1.0",
+    themeApi: "1",
+    defaultTheme: "unsafe",
+    themes: [{ id: "unsafe", name: "Unsafe", version: "1.0.0", themeApi: "1", assets: [{ path: "../server.mjs", contentType: "text/css; charset=utf-8" }] }],
+  }));
+  try {
+    const registry = loadThemeRegistry({ registryPath, themesRoot: join(process.cwd(), "themes") });
+    assert.equal(registry.defaultTheme, "cortex-tabs");
+    assert.equal(registry.themes[0].id, "cortex-tabs");
+    assert.deepEqual(registry.themes[0].assets.map((asset) => asset.path), ["cortex-tabs/tokens.css", "cortex-tabs/theme.css", "cortex-tabs/icons.svg"]);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 
 test("Observatory denies private data until pairing, then serves real service data", async () => {
   const directory = mkdtempSync(join(tmpdir(), "noesis-observatory-"));

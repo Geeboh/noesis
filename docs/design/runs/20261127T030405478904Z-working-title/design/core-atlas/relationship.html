@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Relationship field · NOESIS mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to relationship field</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Atlas · bounded relationship exploration</p></div></div>
+    <div class="top-actions"><span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span><button class="icon-button" type="button" data-theme-toggle aria-label="Switch to light theme">☼</button></div>
+  </header>
+  <nav class="primary-tabs" aria-label="Primary workspaces">
+    <a class="tab" href="observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+    <a class="tab" aria-current="page" href="atlas.html"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+    <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+    <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+    <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">⬡</span><span>Forge<small>Scoped exports</small></span></a>
+  </nav>
+  <section class="context-bar" aria-label="Selected resource context">
+    <span class="context-icon" aria-hidden="true">T</span>
+    <div class="context-copy"><strong>Threadloom MCP <span class="badge source">center entity</span></strong><span>Depth 1 · local / project: noesis · synthetic/planned</span></div>
+    <div class="context-values"><span class="code-chip">v2.4.1</span><span class="code-chip">center: fixture-resource-threadloom-mcp</span></div>
+    <a class="button small secondary" href="atlas.html">Back to Atlas</a>
+  </section>
+  <main id="main-content" class="app-grid" tabindex="-1">
+    <aside class="rail" aria-label="Relationship views"><p class="rail-label">Explore</p><a class="rail-link current" href="#field" aria-current="page">⌁ <span>Relationship field</span><b>5</b></a><a class="rail-link" href="#table">▤ <span>List / table</span><b>4</b></a><a class="rail-link" href="inspector.html">⟿ <span>Lineage inspector</span></a><div class="rail-rule"></div><a class="rail-link" href="atlas.html">⌘ <span>Resources</span></a></aside>
+
+    <section class="main-pane">
+      <header class="page-head" id="field"><div><p class="eyebrow">ATLAS / RELATIONSHIP FIELD · SYNTHETIC / PLANNED</p><h2>Threadloom MCP relationships</h2><p class="lede">Explore a bounded neighborhood around one selected entity. The field is supplemental; the explicit relation list remains the keyboard and screen-reader path.</p></div><a class="button primary" href="inspector.html" aria-label="Inspect Threadloom MCP center entity">Inspect center</a></header>
+
+      <section class="panel" aria-labelledby="field-title"><div class="panel-head"><div><h3 id="field-title">Relationship module · depth 1</h3><p>Static local HUD with one connector hub, five named nodes, and four typed edges. No orphan particles or distance-based meaning.</p></div><span class="badge source">Module · 5 nodes · 4 edges</span></div><div class="panel-body relationship-grid"><div><img class="relationship-svg" src="assets/relationship-field.svg" alt="" aria-hidden="true"><p class="alt-note">Module frame groups bounded records. Visible nodes map to stable IDs; edges retain relation labels and source record IDs. Motion is off by default.</p></div><div><h3 id="table">Text alternative</h3><p class="small-copy" style="margin-block:4px 10px">Use these explicit links instead of pointer dragging or graph gestures.</p><ul class="relationship-list" aria-label="Relationship field text alternative"><li aria-label="Threadloom MCP to Threadloom snapshot; derived from; fixture snapshot Threadloom v2 4 1; revision 8a41 c2d7"><div><strong>Threadloom MCP → Threadloom snapshot</strong><span><code>fixture-snapshot-threadloom-v2-4-1</code> · revision <code>8a41…c2d7</code></span></div><span class="edge-label">derived from</span></li><li aria-label="Threadloom MCP to NOESIS project; used by; fixture scope project noesis"><div><strong>Threadloom MCP → NOESIS project</strong><span><code>fixture-scope-project-noesis</code> · scope carried through</span></div><span class="edge-label">used by</span></li><li aria-label="Derived observation to Threadloom MCP; applies to; fixture record derived 001"><div><strong>Derived observation → Threadloom MCP</strong><span><code>fixture-record-derived-001</code> · interpreted record</span></div><span class="edge-label">applies to</span></li><li aria-label="Hypothesis to Threadloom MCP; hypothetical association; fixture record hypothesis 001; not validated"><div><strong>Hypothesis → Threadloom MCP</strong><span><code>fixture-record-hypothesis-001</code> · not validated</span></div><span class="edge-label">hypothetical association</span></li></ul></div></div><div class="panel-foot"><span aria-hidden="true">▤</span><span><strong>Accessible operation:</strong> tab through the text rows, open the stable destination, then inspect source/revision in the inspector. No drag, hover, or color-only meaning.</span></div></section>
+
+      <section class="panel" aria-labelledby="coverage-title"><div class="panel-head"><div><h3 id="coverage-title">Bounded coverage and fallback</h3><p>Rendering cap is a guard, not a substitute for service pagination.</p></div></div><div class="panel-body"><div class="status warn" id="field-coverage-status" role="status" aria-labelledby="field-coverage-title"><span class="status-icon" aria-hidden="true">!</span><div><strong id="field-coverage-title">Coverage complete for this synthetic fixture</strong><p data-status-message>5 nodes and 4 relationships returned at depth 1. Production responses must expose matched, included, omitted, truncated, continuation, and reason.</p></div></div><div class="badges" style="margin-block-start:11px"><span class="badge">max visible nodes: 24</span><span class="badge">max visible edges: 48</span><span class="badge review">unknown counts remain unknown</span></div></div></section>
+
+      <section class="panel" aria-labelledby="relationship-states"><div class="panel-head"><div><h3 id="relationship-states">Field state specimens</h3><p>Unavailable data never becomes decorative geometry.</p></div></div><div class="state-grid"><article class="state-card"><h4>Loading</h4><strong>Reading relationships…</strong><div class="skeleton" aria-hidden="true"><span></span><span></span></div><p>Retain center ID, depth, version, and scope.</p></article><article class="state-card"><h4>Empty</h4><strong>No relationships at depth 1</strong><p>Say zero, not unknown. Keep list/table controls available.</p></article><article class="state-card"><h4>Partial</h4><strong>5 of 9 links included</strong><p>Show omitted count and continuation; never imply complete graph.</p></article><article class="state-card"><h4>Unavailable</h4><strong><span class="badge error">Unavailable</span> Relationship data blocked</strong><p>Explain authorization/provider reason and use a list-safe fallback.</p></article><article class="state-card"><h4>Disputed</h4><strong><span class="badge review">Disputed</span> Link needs review</strong><p>Keep edge label and source IDs; do not recolor into certainty.</p></article><article class="state-card"><h4>Recovery</h4><strong>Retry preserves center</strong><p>Focus returns to the retry status; depth and selected context remain.</p></article></div></section>
+    </section>
+
+    <aside class="inspector" aria-labelledby="inspector-title"><div class="inspector-head"><div><p class="eyebrow">FIELD INSPECTOR</p><h2 id="inspector-title">Center entity</h2></div><span class="badge source">Threadloom MCP</span></div><div class="inspector-block"><dl class="fact-list"><div><dt>Center ID</dt><dd class="mono">fixture-resource-threadloom-mcp</dd></div><div><dt>Depth</dt><dd class="mono">1</dd></div><div><dt>Visible nodes</dt><dd class="mono">5</dd></div><div><dt>Visible edges</dt><dd class="mono">4</dd></div><div><dt>Source revision</dt><dd class="mono">v2.4.1</dd></div></dl></div><div class="inspector-block"><h3>Relation meanings</h3><ul class="provenance"><li>derived from · source/snapshot link</li><li>applies to · interpreted record target</li><li class="hypothetical">hypothetical association · unvalidated</li></ul></div><div class="inspector-block"><h3>Safe next steps</h3><div class="inspector-links"><a class="button small quiet" href="atlas.html">Return to resource list</a><a class="button small quiet" href="inspector.html">Inspect provenance</a></div></div><p class="small-copy">The field is a view over records. It does not confirm a relation or authorize a mutation.</p></aside>
+  </main>
+  <p class="footer-note">Design mockup only. Local SVG/CSS, deterministic positions, reduced-motion-safe. No particles.js, canvas, network, or graph library.</p>
+  <script src="mockup.js"></script>
+</body>
+</html>

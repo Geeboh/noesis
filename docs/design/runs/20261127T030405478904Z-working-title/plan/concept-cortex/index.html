@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111e">
+  <title>Cortex Tabs — NOESIS Observatory concept</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <header class="masthead">
+    <div class="brand-lockup">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+      <div>
+        <p class="eyebrow">NOESIS / PLAN CONCEPT</p>
+        <h1>Cortex Tabs</h1>
+      </div>
+    </div>
+    <div class="mast-actions">
+      <span class="connection-state"><span class="status-dot success"></span> Paired · local</span>
+      <button class="icon-button" type="button" id="theme-toggle" aria-label="Switch to light theme" title="Switch theme">◐</button>
+      <button class="operator-button" type="button"><span class="avatar" aria-hidden="true">MO</span><span class="operator-name">Mira Operator</span><span class="chevron" aria-hidden="true">⌄</span></button>
+    </div>
+  </header>
+
+  <nav class="tab-shell" aria-label="Primary navigation">
+    <div class="tab-list" role="tablist" aria-label="NOESIS workspaces">
+      <button class="tab is-active" id="tab-observatory" role="tab" aria-selected="true" aria-controls="panel-observatory" tabindex="0"><span class="tab-glyph" aria-hidden="true">◌</span><span>Observatory</span><span class="tab-note">status</span></button>
+      <button class="tab" id="tab-atlas" role="tab" aria-selected="false" aria-controls="panel-atlas" tabindex="-1"><span class="tab-glyph" aria-hidden="true">⌘</span><span>Atlas</span><span class="tab-note">resources</span></button>
+      <button class="tab" id="tab-lore" role="tab" aria-selected="false" aria-controls="panel-lore" tabindex="-1"><span class="tab-glyph" aria-hidden="true">▤</span><span>Lore</span><span class="tab-note">sourced pages</span></button>
+      <button class="tab" id="tab-reverie" role="tab" aria-selected="false" aria-controls="panel-reverie" tabindex="-1"><span class="tab-glyph" aria-hidden="true">✦</span><span>Reverie</span><span class="tab-note">jobs</span><span class="tab-count">1</span></button>
+      <button class="tab" id="tab-forge" role="tab" aria-selected="false" aria-controls="panel-forge" tabindex="-1"><span class="tab-glyph" aria-hidden="true">⌁</span><span>Forge</span><span class="tab-note">improve</span></button>
+    </div>
+    <div class="tab-utilities">
+      <button class="utility-link" type="button" id="command-button"><span aria-hidden="true">⌕</span> Command palette <kbd>⌘ K</kbd></button>
+      <span class="sync-note"><span class="status-dot info"></span> Last sync 14:32:08</span>
+    </div>
+  </nav>
+
+  <main id="workspace" class="workspace">
+    <div class="context-strip" aria-label="Selected resource context">
+      <div class="context-symbol" aria-hidden="true">A</div>
+      <div class="context-copy">
+        <span class="eyebrow">SELECTED CONTEXT</span>
+        <strong>Astra Parser</strong>
+        <span class="context-meta">tool · v2.4.1 · project / nebula</span>
+      </div>
+      <span class="context-badge"><span class="status-dot success"></span> examined</span>
+      <button class="quiet-button" type="button">Change resource</button>
+      <button class="quiet-button mobile-only" type="button" aria-label="Open selected resource details">Details</button>
+    </div>
+
+    <div class="layout-grid">
+      <aside class="side-rail" aria-label="Observatory sections">
+        <div class="rail-heading">
+          <span class="eyebrow">OBSERVATORY</span>
+          <span class="status-dot info" title="Live status"></span>
+        </div>
+        <a class="rail-link is-current" href="#pulse"><span class="rail-icon" aria-hidden="true">◒</span><span><strong>Pulse</strong><small>open work</small></span><span class="rail-count">2</span></a>
+        <a class="rail-link" href="#atlas-card"><span class="rail-icon" aria-hidden="true">⌘</span><span><strong>Atlas</strong><small>resource map</small></span></a>
+        <a class="rail-link" href="#provenance-card"><span class="rail-icon" aria-hidden="true">⟿</span><span><strong>Lineage</strong><small>evidence trail</small></span></a>
+        <a class="rail-link" href="#recovery-card"><span class="rail-icon" aria-hidden="true">↻</span><span><strong>Recovery</strong><small>needs attention</small></span><span class="rail-count alert">1</span></a>
+        <div class="rail-divider"></div>
+        <p class="rail-label">SHORTCUTS</p>
+        <button class="rail-shortcut" type="button"><span>+</span> Capture observation</button>
+        <button class="rail-shortcut" type="button"><span>⌕</span> Search records</button>
+        <div class="rail-footer">
+          <span class="status-dot success"></span>
+          <span><strong>Service healthy</strong><small>127.0.0.1:7337 · paired</small></span>
+        </div>
+      </aside>
+
+      <section class="primary-column">
+        <section class="panel hero-panel" id="pulse" aria-labelledby="pulse-title" role="tabpanel" tabindex="0">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">WEDNESDAY · 14:32</p>
+              <h2 id="pulse-title">Good afternoon, Mira.</h2>
+              <p class="lede">Two open threads need a decision. Your selected resource is ready for inspection.</p>
+            </div>
+            <button class="more-button" type="button" aria-label="More Observatory actions">•••</button>
+          </div>
+          <div class="hero-grid">
+            <figure class="brain-figure">
+              <div class="graphic-frame brain-frame">
+                <img src="assets/brain-activity.svg" alt="Static brain activity diagram: two evidence-backed observations are active, one connection is waiting for source confirmation">
+                <span class="graphic-label">LOCAL SIGNAL · EVIDENCE AWARE</span>
+              </div>
+              <figcaption><strong>Mind activity</strong><span>2 observations active · 1 awaiting source confirmation</span></figcaption>
+            </figure>
+            <div class="open-work-list">
+              <div class="section-kicker"><span>OPEN WORK</span><span class="muted">2 threads</span></div>
+              <article class="work-item">
+                <span class="work-marker amber" aria-hidden="true">!</span>
+                <div><strong>Provenance review</strong><p>Confirm Astra Parser v2.4.1 source snapshot before Lore refresh.</p><span class="tag warning">needs review</span></div>
+                <button class="arrow-button" type="button" aria-label="Open provenance review">↗</button>
+              </article>
+              <article class="work-item">
+                <span class="work-marker cyan" aria-hidden="true">↻</span>
+                <div><strong>Reverie checkpoint</strong><p>Dream job paused after provider timeout. No changes applied.</p><span class="tag info">recoverable</span></div>
+                <button class="arrow-button" type="button" aria-label="Open Reverie checkpoint">↗</button>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel pipeline-panel" aria-labelledby="pipeline-title">
+          <div class="panel-header compact">
+            <div><p class="eyebrow">ACTIVITY TRACE</p><h2 id="pipeline-title">Astra Parser inspection pipeline</h2></div>
+            <span class="pill subtle"><span class="status-dot info"></span> snapshot v2.4.1</span>
+          </div>
+          <div class="pipeline-content">
+            <div class="pipeline-graphic-wrap">
+              <img class="pipeline-graphic" src="assets/pipeline-activity.svg" alt="Pipeline diagram showing received, examined, provenance mapping, and Lore handoff stages">
+              <p class="graphic-caption"><span class="status-dot info"></span> Live activity is shown as stage state, not invented percent progress.</p>
+            </div>
+            <ol class="stage-list" aria-label="Inspection stages">
+              <li class="stage complete"><span class="stage-number">01</span><div><strong>Snapshot received</strong><small>8 files · digest verified</small></div><span class="stage-state">done</span></li>
+              <li class="stage complete"><span class="stage-number">02</span><div><strong>Source examined</strong><small>6 observations · 2 gaps</small></div><span class="stage-state">done</span></li>
+              <li class="stage active"><span class="stage-number">03</span><div><strong>Provenance mapping</strong><small>Waiting for server acknowledgement</small></div><span class="stage-state heartbeat">active</span></li>
+              <li class="stage pending"><span class="stage-number">04</span><div><strong>Lore handoff</strong><small>Starts after review</small></div><span class="stage-state">queued</span></li>
+            </ol>
+          </div>
+          <div class="panel-footnote"><span class="status-dot warning"></span><span><strong>Indeterminate stage.</strong> No denominator is available for server acknowledgement; heartbeat means connected, not completed.</span><button class="text-button" type="button">View event log</button></div>
+        </section>
+
+        <section class="panel atlas-panel" id="atlas-card" aria-labelledby="atlas-title">
+          <div class="panel-header compact">
+            <div><p class="eyebrow">ATLAS · RESOURCES I KNOW ABOUT</p><h2 id="atlas-title">Keep the thread in view</h2></div>
+            <button class="secondary-button" type="button">Open full Atlas</button>
+          </div>
+          <div class="filter-row" aria-label="Atlas filters">
+            <button class="filter-chip is-selected" type="button">All resources <span>12</span></button>
+            <button class="filter-chip" type="button">Examined <span>8</span></button>
+            <button class="filter-chip" type="button">Needs review <span>2</span></button>
+            <button class="filter-chip" type="button">Dormant <span>1</span></button>
+          </div>
+          <div class="resource-list" role="list">
+            <article class="resource-row is-selected" role="listitem" aria-current="true">
+              <div class="resource-glyph">A</div>
+              <div class="resource-main"><div class="resource-title"><strong>Astra Parser</strong><span class="tag success">selected</span></div><p>Local parser for structured technical notes.</p><div class="resource-meta"><span>tool</span><span>v2.4.1</span><span>examined 8m ago</span></div></div>
+              <div class="resource-depth"><span class="depth-bar"><i style="width:74%"></i></span><small>source depth · established</small></div>
+              <button class="arrow-button" type="button" aria-label="Inspect Astra Parser">↗</button>
+            </article>
+            <article class="resource-row" role="listitem">
+              <div class="resource-glyph violet">N</div>
+              <div class="resource-main"><div class="resource-title"><strong>nebula-guide.md</strong><span class="tag info">referenced</span></div><p>Project decisions and release handoff notes.</p><div class="resource-meta"><span>document</span><span>snapshot 2026-11-25</span></div></div>
+              <div class="resource-depth"><span class="depth-bar"><i style="width:38%"></i></span><small>source depth · partial</small></div>
+              <button class="arrow-button" type="button" aria-label="Inspect nebula-guide.md">↗</button>
+            </article>
+            <article class="resource-row empty-like" role="listitem">
+              <div class="resource-glyph muted-glyph">?</div>
+              <div class="resource-main"><div class="resource-title"><strong>Unexamined reference</strong><span class="tag neutral">mentioned only</span></div><p>Saved locator exists; content has not been read.</p><div class="resource-meta"><span>web page</span><span>knowledge unknown</span></div></div>
+              <div class="resource-depth"><small>no depth recorded</small></div>
+              <button class="arrow-button" type="button" aria-label="Inspect unexamined reference">↗</button>
+            </article>
+          </div>
+          <div class="coverage-note"><span class="status-dot info"></span> Showing 3 of 12 resources · selection stays pinned while you move to Lore or Forge.</div>
+        </section>
+
+        <section class="panel provenance-panel" id="provenance-card" aria-labelledby="provenance-title">
+          <div class="panel-header compact">
+            <div><p class="eyebrow">LINEAGE · SELECTED SNAPSHOT</p><h2 id="provenance-title">Where this understanding came from</h2></div>
+            <button class="secondary-button" type="button" id="provenance-dialog-button">Explain labels</button>
+          </div>
+          <div class="lineage-chain" aria-label="Provenance chain from source to proposed Lore handoff">
+            <article class="lineage-node source-node"><span class="node-icon" aria-hidden="true">S</span><div><span class="tag source">source evidence</span><strong>snapshot v2.4.1</strong><small>8 files · sha256 4f21…9b0c</small></div></article>
+            <span class="chain-arrow" aria-hidden="true">→</span>
+            <article class="lineage-node derived-node"><span class="node-icon" aria-hidden="true">E</span><div><span class="tag derived">derived observation</span><strong>Parser handles fenced notes</strong><small>record r-019 · rev 3</small></div></article>
+            <span class="chain-arrow" aria-hidden="true">→</span>
+            <article class="lineage-node generated-node"><span class="node-icon" aria-hidden="true">L</span><div><span class="tag generated">generated Lore</span><strong>Handoff section · draft</strong><small>not independent evidence</small></div></article>
+          </div>
+          <div class="meaning-grid">
+            <div><span class="meaning-key">RETRIEVED</span><strong>1 record</strong><small>matched by resource + version</small></div>
+            <div><span class="meaning-key">INCLUDED</span><strong>1 record</strong><small>attached to this review scope</small></div>
+            <div><span class="meaning-key">APPLIED</span><strong>not yet</strong><small>no target change has happened</small></div>
+            <div><span class="meaning-key">VALIDATED</span><strong>pending</strong><small>requires independent outcome</small></div>
+          </div>
+          <div class="handoff-row"><span><strong>Next:</strong> open the scoped page without losing Astra Parser v2.4.1.</span><div class="handoff-actions"><button class="primary-button" type="button" data-open-tab="lore">Open Lore</button><button class="secondary-button" type="button" data-open-tab="forge">Open Forge</button></div></div>
+        </section>
+
+        <section class="panel recovery-panel" id="recovery-card" aria-labelledby="recovery-title">
+          <div class="panel-header compact">
+            <div><p class="eyebrow">RECOVERY SPECIMEN · FAILED REQUEST</p><h2 id="recovery-title">Nothing was lost</h2></div>
+            <span class="pill error"><span class="status-dot error"></span> request failed</span>
+          </div>
+          <div class="recovery-body">
+            <div class="error-mark" aria-hidden="true">!</div>
+            <div class="recovery-copy"><strong>Lore handoff could not reach the local service.</strong><p>Your selected resource, version, and scope stay pinned. No Lore revision was written.</p><div class="error-detail"><span>Request</span><code>GET /api/lore/resource:astra-parser</code><span>Reason</span><strong>Connection interrupted · 14:31:52</strong></div></div>
+            <div class="recovery-actions"><button class="primary-button" type="button" id="retry-button">Retry request</button><button class="secondary-button" type="button">Keep working offline</button><span class="status-message" id="retry-status" role="status" aria-live="polite">Safe to retry. Form and selected context preserved.</span></div>
+          </div>
+        </section>
+
+        <section class="panel state-board" aria-labelledby="state-title">
+          <div class="panel-header compact"><div><p class="eyebrow">COMPONENT STATES</p><h2 id="state-title">Honest states, same calm surface</h2></div><span class="muted">specimens for later implementation</span></div>
+          <div class="state-grid">
+            <article class="state-card loading-state"><span class="state-label">LOADING</span><div class="skeleton-line wide"></div><div class="skeleton-line"></div><span class="state-caption">Reading snapshot metadata…</span></article>
+            <article class="state-card empty-state"><span class="state-label">EMPTY</span><span class="empty-icon" aria-hidden="true">⌁</span><strong>No matching observations</strong><span class="state-caption">Try a broader scope. Zero is not unknown.</span></article>
+            <article class="state-card unavailable-state"><span class="state-label">UNAVAILABLE</span><span class="state-symbol" aria-hidden="true">⊘</span><strong>Provider not configured</strong><span class="state-caption">This capability is disabled, not failed.</span></article>
+            <article class="state-card validation-state"><span class="state-label">VALIDATION</span><label for="scope-sample">Scope label</label><input id="scope-sample" value="project / nebula" aria-describedby="scope-help"><span class="state-caption" id="scope-help">Selected scope is required.</span></article>
+            <article class="state-card long-state"><span class="state-label">LONG CONTENT</span><strong>Source locator</strong><code>file:///workspace/nebula/docs/decisions/2026-11-27/astro-parser-notes.md</code><span class="state-caption">Wraps, copyable, never clipped.</span></article>
+            <article class="state-card error-state"><span class="state-label">ERROR + RECOVERY</span><strong>Snapshot check failed</strong><button class="text-button" type="button">Retry without changing scope</button></article>
+          </div>
+        </section>
+      </section>
+
+      <aside class="inspector" aria-label="Selected resource inspector">
+        <div class="inspector-heading"><div><p class="eyebrow">RESOURCE INSPECTOR</p><h2>Astra Parser</h2></div><button class="more-button" type="button" aria-label="More resource actions">•••</button></div>
+        <div class="inspector-status"><span class="status-dot success"></span><strong>Examined</strong><span>8 min ago</span></div>
+        <div class="inspector-block"><span class="inspector-label">IDENTITY</span><dl class="facts"><div><dt>Kind</dt><dd>Tool</dd></div><div><dt>Origin</dt><dd>Local</dd></div><div><dt>Version</dt><dd>2.4.1</dd></div><div><dt>Scope</dt><dd>project / nebula</dd></div></dl></div>
+        <div class="inspector-block"><span class="inspector-label">KNOWLEDGE DEPTH</span><div class="depth-summary"><strong>Established</strong><span>8 examined snapshots</span><div class="depth-bar large"><i style="width:74%"></i></div></div><div class="legend-list"><span><i class="legend-dot source"></i> source evidence <b>8</b></span><span><i class="legend-dot derived"></i> derived observations <b>6</b></span><span><i class="legend-dot generated"></i> generated pages <b>2</b></span></div></div>
+        <div class="inspector-block"><span class="inspector-label">SNAPSHOT</span><div class="snapshot-card"><div><strong>v2.4.1</strong><span class="tag success">digest verified</span></div><code>sha256:4f21…9b0c</code><small>Observed 27 Nov 2026 · 14:24</small></div></div>
+        <div class="inspector-block"><span class="inspector-label">QUICK PATHS</span><a class="inspector-link" href="#provenance-card"><span>⟿</span> Inspect provenance <b>↗</b></a><button class="inspector-link" type="button" data-open-tab="lore"><span>▤</span> Open scoped Lore <b>↗</b></button><button class="inspector-link" type="button" data-open-tab="forge"><span>⌁</span> Improve in Forge <b>↗</b></button></div>
+        <div class="inspector-block caution-block"><span class="inspector-label">LIMITATION</span><p>Two observations still need independent validation. Relevance is not confidence or permission.</p></div>
+        <div class="inspector-footer"><button class="secondary-button full" type="button">Copy selected context</button><button class="text-button full" type="button">Change resource</button></div>
+      </aside>
+    </div>
+
+    <section class="concept-panels" aria-label="Concept alternatives and responsive notes">
+      <div class="panel mini-panel"><p class="eyebrow">TAB PREVIEW</p><h2 id="panel-atlas">Atlas tab</h2><p>Tab switch keeps one selected-resource rail visible. Atlas owns search, filters, list/table fallback, and deep-linkable inspector.</p><div class="mini-rule"></div><h2 id="panel-lore">Lore tab</h2><p>Generated and authored blocks stay separate. Stale source claims are reviewable before refresh.</p><div class="mini-rule"></div><h2 id="panel-reverie">Reverie tab</h2><p>Durable job handle stays in the tab. Unknown progress uses heartbeat and stage text.</p><div class="mini-rule"></div><h2 id="panel-forge">Forge tab</h2><p>Blueprint preview carries resource, version, scope, evidence, limitations, and omissions.</p></div>
+      <div class="panel mini-panel"><p class="eyebrow">RESPONSIVE CONTRACT</p><div class="responsive-note"><span class="device-chip">1440</span><p><strong>Desktop</strong> Three panes: section rail, task canvas, resource inspector. Focus stays in the active tab panel.</p></div><div class="responsive-note"><span class="device-chip">390</span><p><strong>Handheld</strong> Horizontal tab strip, pinned selected context, stacked cards, inspector after task content.</p></div><div class="responsive-note"><span class="device-chip">320</span><p><strong>Reflow</strong> Tabs scroll, actions stack, long locators wrap, no required two-dimensional canvas.</p></div><div class="responsive-note"><span class="device-chip">⌨</span><p><strong>Keyboard</strong> Skip link → tabs (Arrow/Home/End) → panel heading → action order. Focus never disappears after async updates.</p></div></div>
+      <div class="panel mini-panel"><p class="eyebrow">VISUAL BOARD</p><div class="swatch-row"><span class="swatch ink"></span><span><strong>Signal ink</strong><code>#eaf2ff</code></span></div><div class="swatch-row"><span class="swatch canvas"></span><span><strong>Night canvas</strong><code>#07111e</code></span></div><div class="swatch-row"><span class="swatch cyan"></span><span><strong>Calm cyan</strong><code>#71d7d0</code></span></div><div class="swatch-row"><span class="swatch amber"></span><span><strong>Review amber</strong><code>#f4c96b</code></span></div><div class="swatch-row"><span class="swatch coral"></span><span><strong>Failure coral</strong><code>#ff8f86</code></span></div><div class="icon-strip" aria-label="Icon language samples"><span>◌</span><span>⌘</span><span>⟿</span><span>↻</span><span>✦</span></div></div>
+    </section>
+  </main>
+
+  <dialog id="provenance-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-shell"><div class="dialog-header"><div><p class="eyebrow">LABEL GUIDE</p><h2 id="dialog-title">Read the lineage, not just the color</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close label guide">×</button></div><p>Each label names what happened to a record. Color reinforces the meaning; text carries it.</p><ul class="dialog-list"><li><span class="tag source">source evidence</span><span>Observed or captured material. It can be inspected at its source revision.</span></li><li><span class="tag derived">derived observation</span><span>Interpretation built from evidence. It does not become a second source.</span></li><li><span class="tag generated">generated Lore</span><span>Readable projection. It is not independent proof and can become stale.</span></li><li><span class="tag hypothetical">hypothesis</span><span>Creative or inferred output. It remains explicitly unvalidated.</span></li></ul><form method="dialog" class="dialog-actions"><button class="primary-button">Close guide</button></form></div>
+  </dialog>
+
+  <script>
+    const root = document.documentElement;
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const switchTab = (next) => {
+      const target = typeof next === 'string' ? document.getElementById(`tab-${next}`) : next;
+      if (!target) return;
+      tabs.forEach((tab) => {
+        const active = tab === target;
+        tab.setAttribute('aria-selected', active);
+        tab.tabIndex = active ? 0 : -1;
+        document.getElementById(tab.getAttribute('aria-controls'))?.classList.toggle('tab-preview-active', active);
+      });
+      target.focus({ preventScroll: true });
+    };
+    tabs.forEach((tab, index) => tab.addEventListener('keydown', (event) => {
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End', 'Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      if (event.key === 'Enter' || event.key === ' ') return switchTab(tab);
+      const offset = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : event.key === 'Home' ? -index : tabs.length - 1 - index;
+      switchTab(tabs[(index + offset + tabs.length) % tabs.length]);
+    }));
+    tabs.forEach((tab) => tab.addEventListener('click', () => switchTab(tab)));
+    document.querySelectorAll('[data-open-tab]').forEach((button) => button.addEventListener('click', () => switchTab(button.dataset.openTab)));
+
+    const dialog = document.getElementById('provenance-dialog');
+    document.getElementById('provenance-dialog-button').addEventListener('click', () => dialog.showModal());
+    document.querySelectorAll('[data-close-dialog]').forEach((button) => button.addEventListener('click', () => dialog.close()));
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+
+    document.getElementById('theme-toggle').addEventListener('click', (event) => {
+      const light = root.dataset.theme === 'light';
+      root.dataset.theme = light ? 'dark' : 'light';
+      event.currentTarget.setAttribute('aria-label', light ? 'Switch to light theme' : 'Switch to dark theme');
+    });
+    document.getElementById('retry-button').addEventListener('click', () => {
+      const status = document.getElementById('retry-status');
+      status.textContent = 'Retry queued. Waiting for local service response; no progress assumed.';
+      status.classList.add('is-live');
+    });
+  </script>
+</body>
+</html>

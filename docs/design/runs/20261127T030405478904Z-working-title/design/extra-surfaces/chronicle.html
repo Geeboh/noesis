@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Chronicle · NOESIS design mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to Chronicle content</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Revision history without turning browsing into confirmation</p></div></div>
+    <div class="top-actions"><span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span><button class="theme-button" type="button" aria-label="Switch to light mode">☼ <span>Theme: dark</span></button></div>
+  </header>
+  <nav class="primary-tabs" aria-label="Primary workspaces">
+    <a class="tab" href="../core-atlas/observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+    <a class="tab" href="../core-atlas/atlas.html" aria-current="page"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+    <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+    <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+    <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">◆</span><span>Forge<small>Scoped exports</small></span></a>
+  </nav>
+  <section class="context-bar" aria-label="Selected resource context">
+    <span class="context-icon" aria-hidden="true">T</span>
+    <div class="context-copy"><strong>Threadloom MCP <span class="badge source">MCP server</span></strong><span>Selected context · local / project: noesis · synthetic/planned</span></div>
+    <div class="context-values"><span class="code-chip">v2.4.1</span><span class="code-chip">sha256:8a41…c2d7</span><span class="code-chip">scope: local/project:noesis</span></div>
+    <a class="button" href="../core-atlas/inspector.html">Open inspector</a>
+  </section>
+
+  <main id="main-content" class="app-grid" tabindex="-1">
+    <aside class="rail" aria-label="Chronicle sections">
+      <p class="rail-label">Trace views</p>
+      <a class="rail-link" href="../core-atlas/inspector.html">⟿ <span>Lineage</span></a>
+      <a class="rail-link" href="chronicle.html" aria-current="page">↺ <span>Chronicle</span><b>4</b></a>
+      <a class="rail-link" href="../core-atlas/relationship.html">⌁ <span>Relationships</span></a>
+      <div class="rail-rule"></div>
+      <p class="rail-label">Actions</p>
+      <a class="rail-link" href="command-palette.html">⌘ <span>Command palette</span></a>
+      <a class="rail-link" href="../core-atlas/atlas.html">⌂ <span>Back to Atlas</span></a>
+    </aside>
+
+    <section class="main-pane" aria-label="Chronicle revision history">
+      <header class="page-head">
+        <div><p class="eyebrow">CHRONICLE · SYNTHETIC / PLANNED</p><h2 id="chronicle-title">Revision history</h2><p class="lede">Inspect when a record changed, what changed, and which source revision was active. Reading history does not confirm, apply, or delete a record.</p></div>
+        <div class="actions"><a class="button primary" href="../core-atlas/inspector.html">Inspect selected record</a><a class="button" href="lineage.html">Open lineage</a></div>
+      </header>
+
+      <section class="status warn" role="status" aria-live="polite" aria-label="Chronicle coverage status">
+        <span class="status-icon" aria-hidden="true">!</span><div><strong>Partial: 4 revisions returned for this scope</strong><p>Two older revisions are omitted by the current bounded response. Continue only when the service advertises another page.</p></div>
+      </section>
+
+      <section class="panel" aria-labelledby="timeline-title">
+        <div class="panel-head"><div><h3 id="timeline-title">Bounded revision timeline</h3><p>Newest first; event type and source revision stay visible.</p></div><span class="badge review">4 shown · 2 omitted</span></div>
+        <div class="panel-body">
+          <div class="timeline-visual" aria-hidden="true">
+            <div class="timeline-event"><strong>r17 · Corrected scope</strong><span>2026-11-27 09:44 UTC · source snapshot 8a41…c2d7</span></div>
+            <div class="timeline-event derived"><strong>r16 · Derived observation</strong><span>2026-11-27 09:42 UTC · extraction job job-thr-042</span></div>
+            <div class="timeline-event review"><strong>r15 · Generated Lore refresh</strong><span>2026-11-26 18:10 UTC · generated block only</span></div>
+            <div class="timeline-event error"><strong>r14 · Conflict recorded</strong><span>2026-11-25 12:03 UTC · draft kept, no overwrite</span></div>
+          </div>
+          <div class="revision-list" aria-label="Chronicle revision list">
+            <article class="revision-row selected">
+              <div><strong><span class="badge source">r17</span> Selected revision</strong><span class="mono">2026-11-27 09:44 UTC</span></div>
+              <div><strong>Scope corrected</strong><span>Operator narrowed applicability to local/project:noesis.</span></div>
+              <div><strong>Source</strong><span class="mono">fixture-snapshot-astra-parser-v2-4-1 · sourceRevision s-22</span></div>
+              <a class="button row-action" href="../core-atlas/inspector.html">Open revision r17</a>
+            </article>
+            <article class="revision-row">
+              <div><strong><span class="badge derived">r16</span> Derived</strong><span class="mono">2026-11-27 09:42 UTC</span></div>
+              <div><strong>Observation extracted</strong><span>Retains source identity; not an independent confirmation.</span></div>
+              <div><strong>Origin</strong><span class="mono">job-thr-042 · fixture-record-derived-001</span></div>
+              <a class="button row-action" href="lineage.html">Open revision r16</a>
+            </article>
+            <article class="revision-row">
+              <div><strong><span class="badge review">r15</span> Generated</strong><span class="mono">2026-11-26 18:10 UTC</span></div>
+              <div><strong>Lore section refreshed</strong><span>Generated block changed; authored block remained owned.</span></div>
+              <div><strong>Origin</strong><span class="mono">fixture-record-lore-generated-001</span></div>
+              <a class="button row-action" href="../knowledge-ops/lore.html">Open Lore r15</a>
+            </article>
+            <article class="revision-row">
+              <div><strong><span class="badge error">r14</span> Dispute</strong><span class="mono">2026-11-25 12:03 UTC</span></div>
+              <div><strong>Correction conflict</strong><span>Expected r13; current r14 kept. Draft remains recoverable.</span></div>
+              <div><strong>Origin</strong><span class="mono">fixture-failure-lore-request-001</span></div>
+              <a class="button row-action" href="../knowledge-ops/dialogs.html">Inspect dispute r14</a>
+            </article>
+          </div>
+        </div>
+        <div class="panel-foot"><span><strong>Coverage:</strong> bounded by selected scope and source revision. Omitted records are unknown, not zero.</span><a class="button" href="#coverage">See coverage</a></div>
+      </section>
+
+      <section class="panel" aria-labelledby="states-title">
+        <div class="panel-head"><div><h3 id="states-title">State specimens</h3><p>Each state is local to Chronicle and preserves selected context.</p></div><span class="badge">State map</span></div>
+        <div class="state-grid">
+          <article class="state-card"><h4>Empty</h4><strong>No revision history returned</strong><p>Zero records is distinct from unknown or uncomputed history. Keep resource and scope visible.</p></article>
+          <article class="state-card" aria-busy="true"><h4>Loading</h4><strong>Loading revisions…</strong><p>Only Chronicle region is busy. Filters, selected revision, and route remain unchanged.</p></article>
+          <article class="state-card"><h4>List / selected</h4><strong>r17 pinned</strong><p>Selected revision opens a stable deep link and keeps source snapshot copyable.</p></article>
+          <article class="state-card"><h4>Partial</h4><strong>4 shown · 2 omitted</strong><p>Continuation is explicit; no “complete history” claim.</p></article>
+          <article class="state-card"><h4>Conflict / dispute</h4><strong>r14 expected r13</strong><p>Compare current revision, keep draft, or return. Never overwrite silently.</p></article>
+          <article class="state-card"><h4>Recovery</h4><strong>Retry queued</strong><p>Retry uses the same resource, version, scope, and cursor. No fabricated progress.</p></article>
+        </div>
+      </section>
+
+      <section class="status error" role="alert" aria-label="Chronicle request error">
+        <span class="status-icon" aria-hidden="true">!</span><div><strong>Error specimen: Chronicle request timed out</strong><p>Failure is not shown as an empty list. <span class="mono">traceId: fixture-failure-atlas-timeout-001</span> remains copyable.</p><div class="actions" style="margin-block-start:8px"><button class="button" type="button">Retry Chronicle</button><a class="button quiet" href="../core-atlas/atlas.html">Return to Atlas</a></div></div>
+      </section>
+
+      <div class="focus-note"><strong>Keyboard and focus:</strong> skip link → primary navigation → selected context → Chronicle rail → heading/actions → revision rows → inspector. Links include the target revision or record ID. A user-triggered retry may move focus to this local alert; passive updates do not steal focus.</div>
+    </section>
+
+    <aside class="inspector" aria-labelledby="inspector-title">
+      <div><p class="eyebrow">PINNED CONTEXT</p><div class="inspector-head"><h2 id="inspector-title">Threadloom MCP</h2><span class="badge source">r17 selected</span></div></div>
+      <div><h3>Revision identity</h3><dl class="small-copy"><dt>Record</dt><dd class="mono">fixture-record-source-001</dd><dt>Revision</dt><dd class="mono">r17 · sourceRevision s-22</dd><dt>Observed</dt><dd class="mono">2026-11-27 09:44 UTC</dd><dt>Scope</dt><dd>local / project:noesis</dd></dl></div>
+      <div><h3>Meaning boundary</h3><p class="small-copy">Browsing Chronicle is inspection only. A revision can record a correction, derived transformation, generated block, or dispute without becoming independent evidence.</p></div>
+      <div><h3>Coverage ledger</h3><div class="coverage"><span><strong>4</strong> included</span><span><strong>2</strong> omitted</span><span><strong>unknown</strong> older count</span></div></div>
+      <div><h3>Safe actions</h3><div class="actions"><a class="button" href="lineage.html">Trace lineage</a><a class="button" href="../core-atlas/inspector.html">Correct record</a></div></div>
+    </aside>
+  </main>
+  <p class="footer-note">Design mockup only. Synthetic Threadloom MCP fixture; no service request, mutation, authorization, or application route is implemented here.</p>
+<script src="./mockup.js"></script>
+</body>
+</html>

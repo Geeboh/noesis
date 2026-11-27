@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0-local-handoff",
+  "status": "design-rendered-not-application-qa",
+  "contract": "design-contract-20261127.2",
+  "fixture": "synthetic-threadloom-mcp-v2.4.1",
+  "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"],
+  "surfaces": [
+    {
+      "id": "chronicle",
+      "mockup": "chronicle.html",
+      "states": ["empty", "list", "loading", "selected-revision", "partial", "conflict/dispute", "error", "recovery"],
+      "cases": [
+        {"state": "empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "responsive-css:styles.css"]},
+        {"state": "list", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]},
+        {"state": "loading", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "responsive-css:styles.css"]},
+        {"state": "selected-revision", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]},
+        {"state": "partial", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]},
+        {"state": "conflict/dispute", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]},
+        {"state": "error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:chronicle.html", "responsive-css:styles.css", "captures/chronicle-1440.png", "captures/chronicle-390.png", "captures/chronicle-320.png"]}
+      ]
+    },
+    {
+      "id": "lineage",
+      "mockup": "lineage.html",
+      "states": ["selected", "loading", "empty", "source-chain", "derived-chain", "hypothetical-chain", "partial", "unknown", "conflict", "error", "recovery"],
+      "cases": [
+        {"state": "selected", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "loading", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "responsive-css:styles.css"]},
+        {"state": "empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "responsive-css:styles.css"]},
+        {"state": "source-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "derived-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "hypothetical-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "partial", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "unknown", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "conflict", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "responsive-css:styles.css"]},
+        {"state": "error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lineage.html", "responsive-css:styles.css", "captures/lineage-1440.png", "captures/lineage-390.png", "captures/lineage-320.png"]}
+      ]
+    },
+    {
+      "id": "command-palette",
+      "mockup": "command-palette.html",
+      "states": ["closed", "open-empty", "results", "no-results", "action-error", "recovery"],
+      "cases": [
+        {"state": "closed", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "responsive-css:styles.css"]},
+        {"state": "open-empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "captures/command-palette-1440.png", "captures/command-palette-390.png", "captures/command-palette-320.png"]},
+        {"state": "results", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "responsive-css:styles.css"]},
+        {"state": "no-results", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "captures/command-palette-1440.png", "captures/command-palette-390.png", "captures/command-palette-320.png"]},
+        {"state": "action-error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "captures/command-palette-1440.png", "captures/command-palette-390.png", "captures/command-palette-320.png"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:command-palette.html", "responsive-css:styles.css", "captures/command-palette-1440.png", "captures/command-palette-390.png", "captures/command-palette-320.png"]}
+      ]
+    }
+  ],
+  "captureEnvironment": {"tool": "playwright_fast capture + local Playwright forced-colors context", "browser": "Chromium 159.0.8154.6", "viewports": ["1440", "1024", "390", "320"], "forcedColors": ["command-palette-390-forced-v4.png"], "pageErrors": [], "affectedOverflow": "none observed by visual inspection", "applicationQa": "not-run"},
+  "captures": [
+    "captures/chronicle-1440.png", "captures/chronicle-1024-repair-v3.png", "captures/chronicle-390.png", "captures/chronicle-320.png",
+    "captures/lineage-1440.png", "captures/lineage-1024-repair-v3.png", "captures/lineage-390.png", "captures/lineage-320.png",
+    "captures/command-palette-1440.png", "captures/command-palette-1024-repair-v4.png", "captures/command-palette-390.png", "captures/command-palette-320.png", "captures/command-palette-390-forced-v4.png"
+  ],
+  "responsiveNotes": {"desktop-900-1260": "Fresh 1024px captures cover Chronicle, Lineage, and command palette; CSS moves inspector below rail/main and uses a two-column inspector detail grid where readable."},
+  "applicationImplementation": "unverified",
+  "limitations": ["Mockups do not prove service behavior, authorization, WCAG conformance, screen-reader output, browser compatibility, performance, network recovery, or second-device LAN reachability.", "Synthetic fixtures and static state specimens do not prove real API projections or application dialog behavior; local browser spot-checks are design evidence only."]
+}

@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Deck — NOESIS Observatory concept</title>
+<style>
+:root {
+  color-scheme: dark;
+  --canvas: #10151a;
+  --canvas-raised: #131b21;
+  --surface: #161e26;
+  --surface-2: #1c2730;
+  --surface-3: #202b33;
+  --ink: #e9f0f2;
+  --ink-strong: #ffffff;
+  --muted: #a9bac2;
+  --muted-2: #78909b;
+  --border: #334550;
+  --border-strong: #4f6470;
+  --accent: #74d5e5;
+  --accent-strong: #a7ebf5;
+  --accent-ink: #071a20;
+  --violet: #b7a9ff;
+  --success: #7bd4b2;
+  --warning: #f2c979;
+  --error: #ff9ca9;
+  --focus: #b7a9ff;
+  --danger-bg: #321d27;
+  --success-bg: #162c27;
+  --warning-bg: #30291b;
+  --grid-line: rgba(116, 213, 229, .08);
+  --shadow: 0 14px 36px rgba(0, 0, 0, .22);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #f2f5f7;
+  --canvas-raised: #e9eff2;
+  --surface: #ffffff;
+  --surface-2: #f7f9fa;
+  --surface-3: #e8eef1;
+  --ink: #14202b;
+  --ink-strong: #0b1218;
+  --muted: #4d5b66;
+  --muted-2: #65747e;
+  --border: #c5d1d7;
+  --border-strong: #8ca1ac;
+  --accent: #0b6f80;
+  --accent-strong: #075363;
+  --accent-ink: #ffffff;
+  --violet: #6b4fd5;
+  --success: #1b6b55;
+  --warning: #815b0a;
+  --error: #9c3344;
+  --focus: #6b4fd5;
+  --danger-bg: #fff1f3;
+  --success-bg: #edf8f3;
+  --warning-bg: #fff8e8;
+  --grid-line: rgba(11, 111, 128, .08);
+  --shadow: 0 12px 28px rgba(20, 32, 43, .12);
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    var(--canvas);
+  background-size: 32px 32px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+}
+button, input, select, textarea { font: inherit; }
+button, a, input, select, textarea { min-height: 44px; }
+a { color: var(--accent); }
+a:hover { color: var(--accent-strong); }
+button {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--surface-3);
+}
+button:hover { border-color: var(--border-strong); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+button:disabled { cursor: not-allowed; opacity: .55; }
+code, .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+svg { display: block; }
+.icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.icon-sm { width: 16px; height: 16px; }
+.icon-lg { width: 24px; height: 24px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; left: 12px; top: 12px; z-index: 20; transform: translateY(-150%); padding: 10px 14px; color: var(--accent-ink); background: var(--accent); border-radius: 8px; }
+.skip-link:focus { transform: translateY(0); }
+.board-header, .board-section { width: min(1440px, calc(100% - 32px)); margin-inline: auto; }
+.board-header { padding: 56px 0 32px; display: grid; gap: 14px; }
+.kicker, .eyebrow, .meta-label, .section-index { color: var(--accent); font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.board-header h1 { max-width: 740px; margin: 0; font-size: clamp(36px, 6vw, 64px); line-height: 1.03; letter-spacing: -.04em; font-weight: 680; }
+.board-header p { max-width: 760px; margin: 0; color: var(--muted); font-size: 18px; }
+.board-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 8px; }
+.board-toolbar button { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border-color: var(--border); }
+.board-toolbar .status-note { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+.dot { width: 9px; height: 9px; border-radius: 999px; background: var(--muted-2); display: inline-block; }
+.dot.live { background: var(--success); box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 16%, transparent); }
+.dot.warn { background: var(--warning); }
+.dot.error { background: var(--error); }
+.dot.accent { background: var(--accent); }
+.board-section { margin-bottom: 72px; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+.section-heading h2 { margin: 0; font-size: 26px; line-height: 1.15; letter-spacing: -.025em; }
+.section-heading p { margin: 0; max-width: 620px; color: var(--muted); }
+.concept-window {
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.window-bar { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+.window-lights { display: flex; gap: 6px; }
+.window-lights span { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); }
+.window-lights span:first-child { background: var(--error); }
+.window-lights span:nth-child(2) { background: var(--warning); }
+.window-lights span:nth-child(3) { background: var(--success); }
+.window-title { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 650; }
+.window-title .brand-mark { color: var(--accent); }
+.window-meta { margin-left: auto; display: flex; align-items: center; gap: 8px; color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.app-shell { display: grid; grid-template-columns: 216px minmax(0, 1fr); min-height: 840px; }
+.shell-rail { padding: 22px 14px; border-right: 1px solid var(--border); background: var(--surface-2); }
+.rail-brand { display: flex; align-items: center; gap: 10px; margin: 0 10px 22px; color: var(--ink-strong); font-weight: 700; letter-spacing: -.02em; }
+.rail-brand .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--accent); border-radius: 9px; color: var(--accent); }
+.rail-label { margin: 20px 10px 7px; color: var(--muted-2); font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+.rail-list { display: grid; gap: 4px; list-style: none; padding: 0; margin: 0; }
+.rail-list a { display: flex; align-items: center; gap: 9px; min-height: 42px; padding: 8px 10px; border-radius: 8px; color: var(--muted); text-decoration: none; font-size: 14px; }
+.rail-list a:hover { background: var(--surface-3); color: var(--ink); }
+.rail-list a.active { color: var(--ink-strong); background: color-mix(in srgb, var(--accent) 13%, var(--surface)); box-shadow: inset 3px 0 0 var(--accent); }
+.rail-count { margin-left: auto; min-width: 22px; padding: 1px 5px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); font-family: var(--font-mono); font-size: 11px; text-align: center; }
+.rail-context { display: grid; gap: 8px; margin: 26px 4px 0; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.rail-context h3 { margin: 0; font-size: 12px; }
+.rail-context p { margin: 0; color: var(--muted); font-size: 12px; }
+.app-stage { min-width: 0; background: var(--surface); }
+.stage-top { padding: 22px 24px 0; border-bottom: 1px solid var(--border); }
+.stage-heading { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.stage-heading h2 { margin: 0; font-size: 27px; letter-spacing: -.03em; }
+.stage-heading p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+.stage-actions { display: flex; flex-wrap: wrap; justify-content: end; gap: 8px; }
+.stage-actions button { min-height: 40px; padding-inline: 11px; }
+.btn-primary { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); font-weight: 700; }
+.btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn-secondary { background: transparent; border-color: var(--border-strong); }
+.btn-quiet { background: transparent; border-color: transparent; color: var(--muted); }
+.btn-danger { color: var(--error); background: transparent; border-color: color-mix(in srgb, var(--error) 45%, var(--border)); }
+.tab-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; margin-top: 20px; }
+.tab-strip button { position: relative; display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 52px; padding: 8px 10px; border: 0; border-radius: 8px 8px 0 0; color: var(--muted); background: transparent; font-size: 13px; font-weight: 650; }
+.tab-strip button::after { content: ""; position: absolute; right: 12px; bottom: 0; left: 12px; height: 3px; border-radius: 3px 3px 0 0; background: transparent; }
+.tab-strip button:hover { color: var(--ink); background: var(--surface-3); }
+.tab-strip button[aria-selected="true"] { color: var(--ink-strong); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.tab-strip button[aria-selected="true"]::after { background: var(--accent); }
+.scope-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 24px; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+.scope-heading { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-strong); font-size: 13px; font-weight: 700; }
+.scope-values { display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.scope-values span { padding: 4px 7px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); }
+.scope-lock { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--success); font-size: 12px; }
+.stage-body { display: grid; grid-template-columns: minmax(0, 1fr) 296px; gap: 18px; padding: 22px 24px 26px; }
+.main-column, .inspector-column { min-width: 0; display: grid; align-content: start; gap: 18px; }
+.card { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.card-header { display: flex; align-items: start; justify-content: space-between; gap: 12px; padding: 16px 16px 0; }
+.card-header h3 { margin: 0; font-size: 16px; line-height: 1.3; letter-spacing: -.01em; }
+.card-header p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+.card-body { padding: 16px; }
+.card-header + .card-body { padding-top: 14px; }
+.badge-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; min-height: 25px; padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); background: var(--surface-2); font-family: var(--font-mono); font-size: 11px; line-height: 1.2; }
+.badge.accent { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 46%, var(--border)); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.badge.success { color: var(--success); border-color: color-mix(in srgb, var(--success) 48%, var(--border)); background: var(--success-bg); }
+.badge.warning { color: var(--warning); border-color: color-mix(in srgb, var(--warning) 52%, var(--border)); background: var(--warning-bg); }
+.badge.error { color: var(--error); border-color: color-mix(in srgb, var(--error) 48%, var(--border)); background: var(--danger-bg); }
+.badge.violet { color: var(--violet); border-color: color-mix(in srgb, var(--violet) 46%, var(--border)); background: color-mix(in srgb, var(--violet) 10%, var(--surface)); }
+.open-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.metric { display: grid; gap: 4px; min-height: 88px; padding: 12px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface-2); }
+.metric .metric-value { color: var(--ink-strong); font-family: var(--font-mono); font-size: 22px; font-weight: 700; letter-spacing: -.04em; }
+.metric .metric-label { color: var(--muted); font-size: 12px; }
+.metric .metric-note { color: var(--muted-2); font-size: 11px; }
+.signal-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(180px, .9fr); gap: 14px; align-items: center; }
+.brain-figure { overflow: hidden; min-height: 182px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.brain-figure svg { width: 100%; height: 150px; }
+.brain-outline { fill: none; stroke: var(--border-strong); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.brain-network { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: .74; }
+.brain-node { fill: var(--surface); stroke: var(--accent-strong); stroke-width: 1.5; }
+.brain-node.hot { fill: var(--accent); stroke: var(--accent); }
+.brain-pulse { fill: var(--violet); }
+.signal-copy { display: grid; gap: 10px; }
+.signal-copy h4 { margin: 0; font-size: 14px; }
+.signal-copy p { margin: 0; color: var(--muted); font-size: 12px; }
+.signal-key { display: grid; gap: 7px; padding-top: 5px; }
+.signal-key div { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+.legend-line { width: 18px; height: 2px; background: var(--accent); }
+.legend-heartbeat { width: 18px; height: 8px; border-top: 2px solid var(--violet); transform: skewX(-35deg); }
+.pipeline-wrap { display: grid; gap: 12px; }
+.pipeline-figure { padding: 8px 12px 0; border: 1px solid var(--border); border-radius: 10px; background: var(--surface-2); }
+.pipeline-figure svg { width: 100%; height: 96px; }
+.pipeline-line { fill: none; stroke: var(--border-strong); stroke-width: 1.5; }
+.pipeline-line.active { stroke: var(--accent); }
+.pipeline-node { fill: var(--surface); stroke: var(--border-strong); stroke-width: 1.5; }
+.pipeline-node.active { fill: var(--accent); stroke: var(--accent); }
+.pipeline-node.wait { fill: var(--warning-bg); stroke: var(--warning); }
+.pipeline-node.fail { fill: var(--danger-bg); stroke: var(--error); }
+.pipeline-label { fill: var(--muted); font-family: var(--font-mono); font-size: 8px; text-anchor: middle; }
+.activity-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.activity-table th { padding: 0 8px 7px; color: var(--muted-2); font-family: var(--font-mono); font-size: 10px; font-weight: 500; letter-spacing: .06em; text-align: left; text-transform: uppercase; }
+.activity-table td { padding: 10px 8px; border-top: 1px solid var(--border); vertical-align: middle; }
+.activity-table th:first-child, .activity-table td:first-child { padding-left: 0; }
+.activity-table th:last-child, .activity-table td:last-child { padding-right: 0; text-align: right; }
+.activity-name { display: flex; align-items: center; gap: 8px; color: var(--ink-strong); font-weight: 650; }
+.activity-note { color: var(--muted); }
+.activity-result { color: var(--muted); font-family: var(--font-mono); font-size: 11px; white-space: nowrap; }
+.activity-result.good { color: var(--success); }
+.activity-result.warn { color: var(--warning); }
+.activity-result.bad { color: var(--error); }
+.resource-card { display: grid; gap: 14px; }
+.resource-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+.resource-title { display: flex; gap: 10px; align-items: start; }
+.resource-mark { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border)); border-radius: 10px; color: var(--accent); background: color-mix(in srgb, var(--accent) 11%, var(--surface)); }
+.resource-title h3 { margin: 0; font-size: 18px; }
+.resource-title p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+.resource-description { margin: 0; color: var(--muted); font-size: 13px; }
+.resource-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.resource-actions button { min-height: 40px; font-size: 12px; }
+.provenance-list { display: grid; gap: 0; list-style: none; padding: 0; margin: 0; }
+.provenance-list li { position: relative; display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 8px; padding: 0 0 14px 0; }
+.provenance-list li:not(:last-child)::before { content: ""; position: absolute; left: 8px; top: 18px; bottom: 0; width: 1px; background: var(--border-strong); }
+.provenance-list .prov-dot { position: relative; z-index: 1; width: 17px; height: 17px; margin-top: 1px; border: 2px solid var(--accent); border-radius: 50%; background: var(--surface); }
+.provenance-list li.generated .prov-dot { border-color: var(--violet); }
+.provenance-list li.hypothesis .prov-dot { border-color: var(--warning); }
+.provenance-list strong { display: block; color: var(--ink-strong); font-size: 12px; }
+.provenance-list span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+.inspector-column .card { background: var(--surface-2); }
+.inspector-sticky { position: sticky; top: 18px; display: grid; gap: 18px; }
+.inspector-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 16px 0; }
+.inspector-header h3 { margin: 0; font-size: 14px; }
+.inspector-header .inspector-tag { color: var(--muted-2); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; }
+.detail-grid { display: grid; gap: 9px; }
+.detail-row { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: 12px; }
+.detail-row dt { color: var(--muted-2); }
+.detail-row dd { min-width: 0; margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.inspector-callout { padding: 11px 12px; border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); color: var(--muted); font-size: 12px; }
+.inspector-callout strong { color: var(--ink-strong); }
+.action-stack { display: grid; gap: 7px; }
+.action-stack button { display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; }
+.action-stack button span { display: inline-flex; align-items: center; gap: 8px; }
+.action-stack kbd { padding: 2px 5px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted-2); font-family: var(--font-mono); font-size: 10px; }
+.pairing-stage { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 24px; align-items: stretch; padding: 24px; background: var(--canvas-raised); }
+.pairing-copy { display: grid; align-content: center; gap: 13px; padding: 10px 18px 10px 0; }
+.pairing-copy h3 { margin: 0; font-size: 24px; letter-spacing: -.025em; }
+.pairing-copy p { max-width: 510px; margin: 0; color: var(--muted); }
+.pairing-points { display: grid; gap: 9px; padding: 0; margin: 6px 0 0; list-style: none; }
+.pairing-points li { display: flex; gap: 8px; align-items: start; color: var(--muted); font-size: 13px; }
+.pairing-points .icon { color: var(--success); margin-top: 2px; }
+.dialog { display: grid; gap: 14px; padding: 20px; border: 1px solid var(--border-strong); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow); }
+.dialog-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.dialog-head h3 { margin: 0; font-size: 18px; }
+.dialog-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+.dialog-close { min-width: 44px; padding: 8px; border-color: var(--border); background: transparent; }
+.field { display: grid; gap: 6px; }
+.field label { color: var(--ink-strong); font-size: 13px; font-weight: 650; }
+.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid var(--border-strong); border-radius: 8px; color: var(--ink); background: var(--surface-2); }
+.field input::placeholder { color: var(--muted-2); }
+.field small { color: var(--muted); font-size: 11px; }
+.field.error input { border-color: var(--error); }
+.error-text { color: var(--error); font-size: 12px; }
+.dialog-status { display: flex; gap: 8px; align-items: start; padding: 10px; border-radius: 8px; color: var(--error); background: var(--danger-bg); font-size: 12px; }
+.dialog-status.success { color: var(--success); background: var(--success-bg); }
+.dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: end; }
+.note-strip { padding: 12px 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+.note-strip strong { color: var(--ink); }
+.component-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.specimen { display: grid; align-content: start; gap: 12px; min-width: 0; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.specimen h3 { margin: 0; font-size: 14px; }
+.specimen p { margin: 0; color: var(--muted); font-size: 12px; }
+.specimen-row { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.specimen-row button { min-height: 44px; }
+.mini-tab { display: inline-flex; align-items: center; gap: 6px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 7px; color: var(--muted); font-size: 12px; }
+.mini-tab.selected { color: var(--ink-strong); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.focus-demo { outline: 3px solid var(--focus); outline-offset: 3px; }
+.alert { display: flex; gap: 9px; align-items: start; padding: 11px 12px; border: 1px solid var(--border); border-left-width: 3px; border-radius: 8px; color: var(--muted); background: var(--surface-2); font-size: 12px; }
+.alert strong { display: block; color: var(--ink-strong); margin-bottom: 2px; }
+.alert.error { border-left-color: var(--error); background: var(--danger-bg); }
+.alert.warning { border-left-color: var(--warning); background: var(--warning-bg); }
+.alert.success { border-left-color: var(--success); background: var(--success-bg); }
+.empty-state { display: grid; justify-items: start; gap: 8px; padding: 14px; border: 1px dashed var(--border-strong); border-radius: 8px; }
+.empty-state h4 { margin: 0; font-size: 13px; }
+.empty-state p { margin: 0; }
+.skeleton { display: grid; gap: 8px; }
+.skeleton span { display: block; height: 12px; border-radius: 4px; background: var(--surface-3); }
+.skeleton span:nth-child(1) { width: 82%; }
+.skeleton span:nth-child(2) { width: 100%; }
+.skeleton span:nth-child(3) { width: 64%; }
+.recovery-card { display: grid; gap: 11px; padding: 14px; border: 1px solid color-mix(in srgb, var(--error) 50%, var(--border)); border-radius: 10px; background: var(--danger-bg); }
+.recovery-card h4 { margin: 0; color: var(--error); font-size: 14px; }
+.recovery-card p { margin: 0; color: var(--muted); font-size: 12px; }
+.recovery-card .recovery-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.states-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.swatch-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.swatch { overflow: hidden; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.swatch-sample { height: 56px; border-bottom: 1px solid var(--border); }
+.swatch-copy { padding: 10px; }
+.swatch-copy strong { display: block; color: var(--ink-strong); font-size: 12px; }
+.swatch-copy span { display: block; margin-top: 3px; color: var(--muted); font-family: var(--font-mono); font-size: 10px; }
+.swatch-copy em { display: block; margin-top: 5px; color: var(--muted); font-size: 10px; font-style: normal; }
+.type-space-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 14px; }
+.scale-card, .rule-card { padding: 18px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.scale-card { display: grid; gap: 11px; }
+.scale-line { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; border-bottom: 1px solid var(--border); padding-bottom: 9px; }
+.scale-line:last-child { border-bottom: 0; padding-bottom: 0; }
+.scale-line span { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.scale-12 { font-size: 12px; }.scale-14 { font-size: 14px; }.scale-16 { font-size: 16px; }.scale-20 { font-size: 20px; }.scale-28 { font-size: 28px; line-height: 1.1; }
+.rule-card { display: grid; align-content: start; gap: 12px; }
+.rule { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: 10px; align-items: center; font-size: 12px; }
+.rule-label { color: var(--muted); font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; }
+.space-bars { display: flex; align-items: end; gap: 5px; height: 32px; }
+.space-bars span { display: block; width: 10px; background: var(--accent); border-radius: 3px 3px 0 0; }
+.space-bars span:nth-child(1) { height: 4px; }.space-bars span:nth-child(2) { height: 8px; }.space-bars span:nth-child(3) { height: 12px; }.space-bars span:nth-child(4) { height: 16px; }.space-bars span:nth-child(5) { height: 24px; }.space-bars span:nth-child(6) { height: 32px; }
+.radius-demo { display: flex; gap: 7px; }
+.radius-demo span { width: 35px; height: 28px; border: 1px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.radius-demo span:nth-child(1) { border-radius: 4px; }.radius-demo span:nth-child(2) { border-radius: 8px; }.radius-demo span:nth-child(3) { border-radius: 12px; }.radius-demo span:nth-child(4) { border-radius: 16px; }
+.storyboard { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; counter-reset: story; }
+.story-frame { position: relative; display: grid; align-content: start; gap: 10px; min-height: 212px; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+.story-frame::before { counter-increment: story; content: "0" counter(story); color: var(--accent); font-family: var(--font-mono); font-size: 11px; }
+.story-frame h3 { margin: 0; font-size: 14px; }
+.story-frame p { margin: 0; color: var(--muted); font-size: 12px; }
+.story-detail { display: grid; gap: 5px; padding-top: 8px; border-top: 1px solid var(--border); }
+.story-detail strong { color: var(--ink); font-size: 11px; }
+.story-detail span { color: var(--muted); font-size: 11px; }
+.storyboard.failure .story-frame { border-color: color-mix(in srgb, var(--error) 32%, var(--border)); }
+.viewport-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.viewport-card { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.viewport-card h3 { margin: 0; font-size: 14px; }
+.viewport-card p { margin: 0; color: var(--muted); font-size: 12px; }
+.viewport-shell { display: grid; grid-template-columns: 72px 1fr; min-height: 180px; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 9px; background: var(--surface-2); }
+.viewport-mini-rail { padding: 10px 7px; border-right: 1px solid var(--border); }
+.viewport-mini-rail span { display: block; height: 8px; margin-bottom: 8px; border-radius: 3px; background: var(--surface-3); }
+.viewport-mini-main { display: grid; align-content: start; gap: 8px; padding: 10px; }
+.viewport-mini-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.viewport-mini-tabs span { min-height: 28px; padding: 5px 2px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); font-family: var(--font-mono); font-size: 8px; text-align: center; }
+.viewport-mini-tabs span:first-child { color: var(--accent); border-color: var(--accent); }
+.viewport-mini-card { min-height: 34px; padding: 8px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); }
+.viewport-mini-card span { display: block; width: 80%; height: 6px; border-radius: 3px; background: var(--surface-3); }
+.viewport-card.handheld .viewport-shell { grid-template-columns: 1fr; }
+.viewport-card.handheld .viewport-mini-rail { display: none; }
+.viewport-card.handheld .viewport-mini-main { padding: 8px; }
+.viewport-card.narrow .viewport-mini-tabs span { min-height: 34px; white-space: normal; }
+.board-footer { width: min(1440px, calc(100% - 32px)); margin: -24px auto 56px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+.board-footer strong { color: var(--ink); }
+@media (max-width: 1100px) {
+  .stage-body { grid-template-columns: minmax(0, 1fr); }
+  .inspector-sticky { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .inspector-sticky > .card:last-child { grid-column: 1 / -1; }
+  .storyboard { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .component-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .states-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .swatch-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  body { background-size: 24px 24px; }
+  .board-header { padding-top: 34px; }
+  .board-section, .board-header, .board-footer { width: min(100% - 20px, 680px); }
+  .window-meta { display: none; }
+  .app-shell { display: block; min-height: 0; }
+  .shell-rail { display: none; }
+  .stage-top { padding: 16px 14px 0; }
+  .stage-heading { display: grid; }
+  .stage-actions { justify-content: start; }
+  .tab-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 14px; }
+  .tab-strip button { min-height: 54px; padding: 7px 4px; font-size: 12px; text-align: center; }
+  .tab-strip button::after { right: 5px; left: 5px; }
+  .scope-bar { padding: 11px 14px; }
+  .scope-lock { margin-left: 0; }
+  .stage-body { padding: 14px; }
+  .signal-layout, .pairing-stage, .type-space-grid { grid-template-columns: 1fr; }
+  .pairing-copy { padding: 0; }
+  .component-grid, .states-grid, .swatch-grid { grid-template-columns: 1fr 1fr; }
+  .storyboard { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .viewport-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 470px) {
+  .board-header h1 { font-size: 38px; }
+  .board-header p { font-size: 16px; }
+  .window-bar { padding-inline: 11px; }
+  .window-title { font-size: 12px; }
+  .window-lights { display: none; }
+  .open-grid { grid-template-columns: 1fr 1fr; }
+  .open-grid .metric:last-child { grid-column: 1 / -1; }
+  .resource-head { display: grid; }
+  .component-grid, .states-grid, .swatch-grid, .storyboard { grid-template-columns: 1fr; }
+  .story-frame { min-height: 0; }
+  .activity-table th:nth-child(2), .activity-table td:nth-child(2) { display: none; }
+  .detail-row { grid-template-columns: 82px minmax(0, 1fr); }
+  .pairing-stage { padding: 16px; }
+}
+@media (max-width: 340px) {
+  .tab-strip button { font-size: 11px; }
+  .scope-values { display: grid; grid-template-columns: 1fr; width: 100%; }
+  .scope-values span { overflow-wrap: anywhere; }
+  .stage-actions, .resource-actions, .dialog-actions, .recovery-actions { display: grid; grid-template-columns: 1fr; }
+  .stage-actions button, .resource-actions button, .dialog-actions button, .recovery-actions button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+@media (forced-colors: active) {
+  * { box-shadow: none !important; }
+  .tab-strip button[aria-selected="true"], .rail-list a.active, .badge, .card, .specimen, .dialog, .viewport-card { border: 2px solid CanvasText; }
+  .dot, .legend-line, .legend-heartbeat { forced-color-adjust: none; background: CanvasText; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#board">Skip to board</a>
+<svg class="visually-hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 13.3c1.7-4.7 4.2-7 7.2-7 2.1 0 3.1 1.6 4.1 3.2.8 1.3 1.7 2.5 3.8 2.5"/><path d="M4.2 17.7c2.1-2.1 3.7-3.1 5.4-3.1 2.5 0 3.3 2.5 5.6 2.5 1.5 0 2.8-.9 4.6-2.9"/><circle cx="4" cy="13.3" r="1.1"/><circle cx="19.1" cy="13.9" r="1.1"/><circle cx="14.8" cy="9.5" r="1.1"/></symbol>
+  <symbol id="i-pipeline" viewBox="0 0 24 24"><circle cx="4" cy="12" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><circle cx="20" cy="12" r="2"/><path d="M6 11l4-3M6 13l4 3M14 6h4M14 18h4M14 7.4l4 3.2M14 16.6l4-3.2"/></symbol>
+  <symbol id="i-resource" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5z"/><path d="M8 8h8M8 12h8M8 16h4"/></symbol>
+  <symbol id="i-lineage" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M8 6h8M7.2 7.7l3.6 8.5M16.8 7.7l-3.6 8.5"/></symbol>
+  <symbol id="i-retry" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.7-4L3 9"/><path d="M3 4v5h5"/><path d="M4 13a8 8 0 0 0 14.7 4L21 15"/><path d="M21 20v-5h-5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 3 20h18z"/><path d="M12 9v5M12 17h.01"/></symbol>
+</svg>
+<header class="board-header">
+  <div class="kicker">Plan concept · signal-deck</div>
+  <h1>Signal Deck</h1>
+  <p>A quiet operations surface for seeing what NOESIS knows, what is moving, and what still needs a human decision.</p>
+  <div class="board-toolbar">
+    <button id="theme-toggle" type="button" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-signal"/></svg><span>Switch to light surface</span></button>
+    <span class="status-note"><span class="dot live" aria-hidden="true"></span>local concept board · no remote assets</span>
+  </div>
+</header>
+<main id="board">
+  <section class="board-section" aria-labelledby="hero-heading">
+    <div class="section-heading">
+      <div>
+        <div class="section-index">01 / representative shell</div>
+        <h2 id="hero-heading">Observatory · open work first</h2>
+      </div>
+      <p>One representative paired state. The selected context bar and inspector stay visible while the operator moves through Atlas, Lore, and Forge.</p>
+    </div>
+    <div class="concept-window" aria-label="Signal Deck Observatory concept screen">
+      <div class="window-bar">
+        <div class="window-lights" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="window-title"><span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#i-signal"/></svg></span> NOESIS / Observatory</div>
+        <div class="window-meta"><span>concept fixture</span><span>·</span><span class="mono">local</span></div>
+      </div>
+      <div class="app-shell">
+        <aside class="shell-rail" aria-label="Secondary navigation">
+          <div class="rail-brand"><span class="brand-mark"><svg class="icon-sm" aria-hidden="true"><use href="#i-signal"/></svg></span><span>NOESIS</span></div>
+          <div class="rail-label">Current work</div>
+          <ul class="rail-list">
+            <li><a class="active" href="#open-work" aria-current="page"><svg class="icon-sm" aria-hidden="true"><use href="#i-signal"/></svg><span>Open work</span><span class="rail-count">3</span></a></li>
+            <li><a href="#pipeline"><svg class="icon-sm" aria-hidden="true"><use href="#i-pipeline"/></svg><span>Pipeline</span><span class="rail-count">2</span></a></li>
+            <li><a href="#states"><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><span>Needs review</span><span class="rail-count">1</span></a></li>
+          </ul>
+          <div class="rail-label">Pinned context</div>
+          <ul class="rail-list">
+            <li><a href="#resource"><svg class="icon-sm" aria-hidden="true"><use href="#i-resource"/></svg><span>Threadloom MCP</span></a></li>
+            <li><a href="#provenance"><svg class="icon-sm" aria-hidden="true"><use href="#i-lineage"/></svg><span>Provenance</span></a></li>
+          </ul>
+          <div class="rail-context">
+            <div class="badge-row"><span class="badge success"><span class="dot live" aria-hidden="true"></span>paired</span></div>
+            <h3>Private surface unlocked</h3>
+            <p>Session is local and scoped. Pairing code is not stored in the view.</p>
+          </div>
+        </aside>
+        <section class="app-stage" aria-label="Observatory work surface">
+          <div class="stage-top">
+            <div class="stage-heading">
+              <div><h2>Observatory</h2><p>Since your last visit · <span class="mono">3</span> open items · updated 09:42 UTC</p></div>
+              <div class="stage-actions"><button class="btn-secondary" type="button">Command palette <span class="mono">⌘K</span></button><button class="btn-primary" type="button">Capture observation</button></div>
+            </div>
+            <nav class="tab-strip" role="tablist" aria-label="Primary Observatory areas">
+              <button type="button" role="tab" aria-selected="true" data-tab="observatory"><svg class="icon-sm" aria-hidden="true"><use href="#i-signal"/></svg><span>Observatory</span></button>
+              <button type="button" role="tab" aria-selected="false" data-tab="atlas"><svg class="icon-sm" aria-hidden="true"><use href="#i-resource"/></svg><span>Atlas</span></button>
+              <button type="button" role="tab" aria-selected="false" data-tab="lore"><span class="mono">L</span><span>Lore</span></button>
+              <button type="button" role="tab" aria-selected="false" data-tab="reverie"><svg class="icon-sm" aria-hidden="true"><use href="#i-pipeline"/></svg><span>Reverie</span></button>
+              <button type="button" role="tab" aria-selected="false" data-tab="forge"><span class="mono">F</span><span>Forge</span></button>
+            </nav>
+          </div>
+          <div class="scope-bar" aria-label="Selected resource context">
+            <div class="scope-heading"><svg class="icon-sm" aria-hidden="true"><use href="#i-lock"/></svg><span>Selected context</span></div>
+            <div class="scope-values"><span>Threadloom MCP</span><span>v2.4.1</span><span>local / project: noesis</span></div>
+            <div class="scope-lock"><span class="dot live" aria-hidden="true"></span>scope retained across tabs</div>
+          </div>
+          <div class="stage-body">
+            <div class="main-column">
+              <article id="open-work" class="card">
+                <div class="card-header"><div><h3>Open work</h3><p>Actual state, bounded counts, no invented completion.</p></div><span class="badge accent">3 active signals</span></div>
+                <div class="card-body"><div class="open-grid">
+                  <div class="metric"><span class="metric-value">2</span><span class="metric-label">active jobs</span><span class="metric-note">one focused on Threadloom</span></div>
+                  <div class="metric"><span class="metric-value">1</span><span class="metric-label">needs review</span><span class="metric-note">Atlas timeout can retry</span></div>
+                  <div class="metric"><span class="metric-value">18</span><span class="metric-label">records captured</span><span class="metric-note">14 extracted · 1 deferred</span></div>
+                </div></div>
+              </article>
+              <article class="card" aria-labelledby="brain-heading">
+                <div class="card-header"><div><h3 id="brain-heading">Brain activity</h3><p>Observed work pulses, not a cognition meter.</p></div><span class="badge violet">illustrative fixture</span></div>
+                <div class="card-body signal-layout">
+                  <figure class="brain-figure" aria-labelledby="brain-caption">
+                    <svg viewBox="0 0 360 150" role="img" aria-label="Static brain signal network with two active nodes and one heartbeat marker">
+                      <path class="brain-outline" d="M73 78c-16-25-3-54 24-59 8-18 33-17 45-5 16-12 40-4 43 15 22-2 35 19 26 37 18 16 9 42-11 47-6 22-35 28-48 12-20 11-46 3-49-18-23-1-35-18-30-29z"/>
+                      <path class="brain-network" d="M84 65 113 45l30 17 25-22 26 35-42 19-24-17-22 28 51 8 37-35"/>
+                      <path class="brain-network" d="m113 45 10 52m30-35 2 29m25-51-27 51m-47-26 84 8"/>
+                      <circle class="brain-node hot" cx="84" cy="65" r="4"/><circle class="brain-node" cx="113" cy="45" r="4"/><circle class="brain-node hot" cx="143" cy="62" r="4"/><circle class="brain-node" cx="168" cy="40" r="4"/><circle class="brain-node" cx="194" cy="75" r="4"/><circle class="brain-node" cx="173" cy="110" r="4"/><circle class="brain-node" cx="124" cy="97" r="4"/><circle class="brain-node" cx="102" cy="125" r="4"/>
+                      <path class="brain-pulse" d="M225 115h18l5-13 8 25 8-17 5 5h23" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <text x="245" y="136" fill="currentColor" font-family="ui-monospace,monospace" font-size="9">heartbeat · observed</text>
+                    </svg>
+                    <figcaption id="brain-caption" class="visually-hidden">Brain activity is a local, static representation of observed signals. It does not estimate hidden cognition or completion.</figcaption>
+                  </figure>
+                  <div class="signal-copy">
+                    <div><h4>What this signal means</h4><p>Two active queue nodes are emitting events. The purple heartbeat means an event arrived; it is not a percentage.</p></div>
+                    <div class="signal-key" aria-label="Signal legend"><div><span class="legend-line" aria-hidden="true"></span>observed relation</div><div><span class="legend-heartbeat" aria-hidden="true"></span>new event heartbeat</div><div><span class="dot warn" aria-hidden="true"></span>waiting or indeterminate</div></div>
+                  </div>
+                </div>
+              </article>
+              <article id="pipeline" class="card" aria-labelledby="pipeline-heading">
+                <div class="card-header"><div><h3 id="pipeline-heading">Pipeline activity</h3><p>Known denominators stay explicit. Waiting stages never fake a percent.</p></div><span class="badge warning">1 indeterminate</span></div>
+                <div class="card-body pipeline-wrap">
+                  <div class="pipeline-figure" aria-label="Pipeline stages: captured, extracting, waiting, and ready for review">
+                    <svg viewBox="0 0 460 96" role="img" aria-label="Pipeline graphic with captured and extracting stages active, provider wait indeterminate, and review stage pending">
+                      <path class="pipeline-line active" d="M52 30h104M198 30h104M344 30h64"/>
+                      <circle class="pipeline-node active" cx="52" cy="30" r="15"/><circle class="pipeline-node active" cx="198" cy="30" r="15"/><circle class="pipeline-node wait" cx="344" cy="30" r="15"/><circle class="pipeline-node" cx="420" cy="30" r="15"/>
+                      <path d="M45 30h14M52 23v14M191 30h14M198 23v14" stroke="var(--accent-ink)" stroke-width="1.5"/>
+                      <path d="M338 30h12" stroke="var(--warning)" stroke-width="1.5"/>
+                      <text class="pipeline-label" x="52" y="68">captured</text><text class="pipeline-label" x="198" y="68">extracting</text><text class="pipeline-label" x="344" y="68">provider wait</text><text class="pipeline-label" x="420" y="68">review</text>
+                    </svg>
+                  </div>
+                  <table class="activity-table"><caption class="visually-hidden">Pipeline activity with explicit stage state and bounded record counts</caption><thead><tr><th>Stage</th><th>State</th><th>Observed</th></tr></thead><tbody>
+                    <tr><td><span class="activity-name"><span class="dot live" aria-hidden="true"></span>Capture receipt</span></td><td class="activity-note">complete</td><td class="activity-result good">18 records</td></tr>
+                    <tr><td><span class="activity-name"><span class="dot accent" aria-hidden="true"></span>Extraction</span></td><td class="activity-note">processing</td><td class="activity-result">14 / 18 records</td></tr>
+                    <tr><td><span class="activity-name"><span class="dot warn" aria-hidden="true"></span>Provider lookup</span></td><td class="activity-note">waiting · indeterminate</td><td class="activity-result warn">heartbeat only</td></tr>
+                  </tbody></table>
+                </div>
+              </article>
+              <article id="reverie" class="card" aria-labelledby="reverie-heading">
+                <div class="card-header"><div><h3 id="reverie-heading">Reverie · durable job handle</h3><p>Reconnectable work stays inspectable after a reload or lost browser.</p></div><span class="badge accent"><span class="dot live" aria-hidden="true"></span>running</span></div>
+                <div class="card-body">
+                  <div class="detail-grid">
+                    <div class="detail-row"><dt>Job</dt><dd class="mono">job:threadloom:7f2a</dd></div>
+                    <div class="detail-row"><dt>Focus</dt><dd>Threadloom MCP · v2.4.1</dd></div>
+                    <div class="detail-row"><dt>Stage</dt><dd>Extraction · <span class="mono">14 / 18</span> records</dd></div>
+                    <div class="detail-row"><dt>Provider</dt><dd><span class="badge warning">waiting · indeterminate</span></dd></div>
+                  </div>
+                  <div class="alert warning" style="margin-top:12px"><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><div><strong>No percentage shown.</strong> The provider has emitted a heartbeat but no denominator. Review remains available without claiming completion.</div></div>
+                  <div class="resource-actions" style="margin-top:12px"><button class="btn-secondary" type="button">Reconnect job</button><button class="btn-quiet" type="button">Inspect output</button><button class="btn-danger" type="button">Cancel</button></div>
+                </div>
+              </article>
+              <article id="resource" class="card resource-card" aria-labelledby="resource-heading">
+                <div class="card-header"><div><h3 id="resource-heading">Selected resource</h3><p>Atlas selection remains the handoff source for Lore and Forge.</p></div><span class="badge success">version pinned</span></div>
+                <div class="card-body">
+                  <div class="resource-head"><div class="resource-title"><div class="resource-mark"><svg class="icon-lg" aria-hidden="true"><use href="#i-resource"/></svg></div><div><h3>Threadloom MCP</h3><p><span class="mono">MCP server</span> · local / managed · observed 2026-11-26</p></div></div><span class="badge accent">Atlas selection</span></div>
+                  <p class="resource-description">A synthetic local tool used to demonstrate resource identity, source snapshots, and scoped improvement handoff.</p>
+                  <div class="badge-row"><span class="badge">v2.4.1</span><span class="badge">snapshot verified</span><span class="badge">knowledge: examined</span><span class="badge warning">1 unresolved problem</span></div>
+                  <div class="resource-actions"><button class="btn-primary" type="button">Open Lore <svg class="icon-sm" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="btn-secondary" type="button">Improve in Forge</button><button class="btn-quiet" type="button">Inspect lineage</button></div>
+                </div>
+                <div class="note-strip"><strong>Handoff contract:</strong> resource ID, version, and local project scope follow every tab and return path.</div>
+              </article>
+            </div>
+            <aside class="inspector-column" id="provenance" aria-label="Resource provenance inspector">
+              <div class="inspector-sticky">
+                <article class="card">
+                  <div class="inspector-header"><h3>Provenance inspector</h3><span class="inspector-tag">selected</span></div>
+                  <div class="card-body">
+                    <div class="detail-grid">
+                      <div class="detail-row"><dt>Resource</dt><dd>Threadloom MCP</dd></div>
+                      <div class="detail-row"><dt>Version</dt><dd class="mono">v2.4.1</dd></div>
+                      <div class="detail-row"><dt>Scope</dt><dd class="mono">local / noesis</dd></div>
+                      <div class="detail-row"><dt>Snapshot</dt><dd class="mono">8a41…c2d7</dd></div>
+                      <div class="detail-row"><dt>Revision</dt><dd class="mono">resource@7</dd></div>
+                    </div>
+                  </div>
+                </article>
+                <article class="card">
+                  <div class="card-header"><div><h3>Evidence chain</h3><p>Meaning stays visible beside action.</p></div></div>
+                  <div class="card-body">
+                    <ol class="provenance-list">
+                      <li><span class="prov-dot" aria-hidden="true"></span><div><strong>Source snapshot</strong><span>Observed from local resource at 09:31 UTC.</span><span class="badge-row"><span class="badge success">source evidence</span></span></div></li>
+                      <li class="generated"><span class="prov-dot" aria-hidden="true"></span><div><strong>Generated Lore summary</strong><span>Derived text; depends on snapshot `resource@7`.</span><span class="badge-row"><span class="badge violet">generated · not independent proof</span></span></div></li>
+                      <li class="hypothesis"><span class="prov-dot" aria-hidden="true"></span><div><strong>Open improvement idea</strong><span>Hypothesis; not an executed experiment.</span><span class="badge-row"><span class="badge warning">hypothetical</span></span></div></li>
+                    </ol>
+                  </div>
+                </article>
+                <article class="card">
+                  <div class="card-header"><div><h3>Next safe action</h3><p>Keep context. Make consequence legible.</p></div></div>
+                  <div class="card-body">
+                    <div class="inspector-callout"><strong>Open Lore with pinned context.</strong><br>Generated and authored sections will remain separate. No remote resource is changed.</div>
+                    <div class="action-stack" style="margin-top:12px"><button class="btn-primary" type="button"><span><svg class="icon-sm" aria-hidden="true"><use href="#i-arrow"/></svg>Open Lore</span><kbd>Enter</kbd></button><button type="button"><span><svg class="icon-sm" aria-hidden="true"><use href="#i-lineage"/></svg>View lineage</span><kbd>L</kbd></button></div>
+                  </div>
+                </article>
+                <article class="card">
+                  <div class="card-header"><div><h3>Correction / export</h3><p>Derived views stay scoped and reviewable.</p></div></div>
+                  <div class="card-body">
+                    <div class="action-stack">
+                      <button type="button"><span><svg class="icon-sm" aria-hidden="true"><use href="#i-check"/></svg>Correct source-backed note</span><kbd>C</kbd></button>
+                      <button type="button"><span><svg class="icon-sm" aria-hidden="true"><use href="#i-arrow"/></svg>Preview scoped Blueprint</span><kbd>E</kbd></button>
+                    </div>
+                    <p style="margin:11px 0 0;color:var(--muted);font-size:11px">Exports include this version, scope, evidence, omissions, and limitations. They do not patch or publish Threadloom.</p>
+                  </div>
+                </article>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="board-section" aria-labelledby="pairing-heading">
+    <div class="section-heading"><div><div class="section-index">02 / safe entry</div><h2 id="pairing-heading">Pairing dialog and return path</h2></div><p>Pairing is a public, private-data-free entry step. Invalid code feedback stays local and the intended deep link remains safe.</p></div>
+    <div class="pairing-stage">
+      <div class="pairing-copy">
+        <span class="eyebrow">unpaired browser</span>
+        <h3>Unlock this local Observatory</h3>
+        <p>Use the one-use code printed by the local operator. This page contains no private memory before pairing.</p>
+        <ul class="pairing-points"><li><svg class="icon-sm" aria-hidden="true"><use href="#i-lock"/></svg><span>Code expires after one use and can be revoked.</span></li><li><svg class="icon-sm" aria-hidden="true"><use href="#i-check"/></svg><span>Success returns to the requested Observatory tab without exposing another scope.</span></li><li><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><span>Failure keeps the code field and explains whether retry is safe.</span></li></ul>
+      </div>
+      <form class="dialog" aria-label="Pair this browser example">
+        <div class="dialog-head"><div><h3>Pair this browser</h3><p>Requested destination: Observatory / open work</p></div><button class="dialog-close" type="button" aria-label="Close pairing dialog">×</button></div>
+        <div class="field"><label for="pair-code">One-use pairing code</label><input id="pair-code" inputmode="numeric" autocomplete="one-time-code" value="482 913 07" aria-describedby="pair-help"><small id="pair-help">Eight digits. Spaces are visual grouping only.</small></div>
+        <div class="dialog-status" role="status"><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><div><strong>Code not accepted.</strong><br>Check the operator display or request a new code. No private data was loaded.</div></div>
+        <div class="dialog-actions"><button class="btn-quiet" type="button">Request new code</button><button class="btn-primary" type="submit">Pair securely</button></div>
+        <div class="note-strip" style="margin:0 -20px -20px;padding-inline:20px">After success: <span class="badge success">paired</span> → return to <span class="mono">/observatory</span>.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="board-section" id="states" aria-labelledby="states-heading">
+    <div class="section-heading"><div><div class="section-index">03 / honest async states</div><h2 id="states-heading">Loading, empty, error, recovery</h2></div><p>Every async region explains what happened, preserves input, and avoids turning a blank panel into an ambiguous state.</p></div>
+    <div class="states-grid">
+      <article class="specimen"><h3>Loading · Atlas</h3><p role="status">Loading resources in local scope…</p><div class="skeleton" aria-hidden="true"><span></span><span></span><span></span></div><span class="badge">aria-busy=true</span></article>
+      <article class="specimen"><h3>Empty · filtered</h3><p>No examined resources match <span class="mono">project:noesis</span>.</p><div class="empty-state"><h4>Nothing hidden</h4><p>Broaden origin or include referenced-only records.</p><button class="btn-secondary" type="button">Clear filters</button></div></article>
+      <article class="specimen"><h3>Error · request failed</h3><div class="alert error" role="alert"><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><div><strong>Atlas request timed out.</strong>No records changed. Retry is safe.</div></div><button class="btn-secondary" type="button"><svg class="icon-sm" aria-hidden="true"><use href="#i-retry"/></svg> Retry Atlas</button></article>
+      <article class="specimen"><h3>Recovered · context retained</h3><div class="alert success" role="status"><svg class="icon-sm" aria-hidden="true"><use href="#i-check"/></svg><div><strong>Atlas restored.</strong>18 of 42 resources shown; more remain available.</div></div><div class="badge-row"><span class="badge success">Threadloom MCP</span><span class="badge">v2.4.1</span><span class="badge">local / noesis</span></div></article>
+    </div>
+    <div class="recovery-card" style="margin-top:14px"><h4>Failure storyboard anchor · request failed once</h4><p>At <span class="mono">09:42:18 UTC</span>, Atlas times out. The error is local to Atlas, not pairing. Retry preserves Threadloom MCP, version `v2.4.1`, and project scope; focus returns to the result heading after recovery.</p><div class="recovery-actions"><button class="btn-primary" type="button"><svg class="icon-sm" aria-hidden="true"><use href="#i-retry"/></svg> Retry Atlas</button><button class="btn-quiet" type="button">Keep selected context</button></div></div>
+  </section>
+
+  <section class="board-section" aria-labelledby="component-heading">
+    <div class="section-heading"><div><div class="section-index">04 / component language</div><h2 id="component-heading">Controls, labels, and evidence states</h2></div><p>One small vocabulary keeps the shell calm. Status combines colour with text, shape, and icon; selection and keyboard focus stay distinct.</p></div>
+    <div class="component-grid">
+      <article class="specimen"><h3>Tabs and focus</h3><p>Selected state uses a rule and text weight. Focus uses a violet outline.</p><div class="specimen-row"><span class="mini-tab selected"><svg class="icon-sm" aria-hidden="true"><use href="#i-signal"/></svg>Observatory</span><span class="mini-tab">Atlas</span><span class="mini-tab focus-demo">Lore</span></div></article>
+      <article class="specimen"><h3>Action hierarchy</h3><p>Primary moves the task. Secondary keeps context. Destructive waits for confirmation.</p><div class="specimen-row"><button class="btn-primary" type="button">Open Lore</button><button class="btn-secondary" type="button">Inspect</button><button class="btn-danger" type="button">Forget</button></div></article>
+      <article class="specimen"><h3>Field and validation</h3><div class="field error"><label for="field-example">Resource ID</label><input id="field-example" value="resource:threadloom" aria-describedby="field-error"><span id="field-error" class="error-text">Use a selected resource, not a copied title.</span></div></article>
+      <article class="specimen"><h3>Evidence badges</h3><p>Plain terms prevent generated text from masquerading as source evidence.</p><div class="badge-row"><span class="badge success">source</span><span class="badge violet">generated</span><span class="badge">authored</span><span class="badge accent">retrieved</span><span class="badge warning">hypothetical</span><span class="badge error">stale</span></div></article>
+      <article class="specimen"><h3>Alerts</h3><div class="alert success"><svg class="icon-sm" aria-hidden="true"><use href="#i-check"/></svg><div><strong>Saved as revision 8.</strong>Authored block preserved.</div></div><div class="alert warning"><svg class="icon-sm" aria-hidden="true"><use href="#i-alert"/></svg><div><strong>Provider wait.</strong>Progress is indeterminate.</div></div></article>
+      <article class="specimen"><h3>Compact table</h3><table class="activity-table"><caption class="visually-hidden">Mini status table</caption><thead><tr><th>Item</th><th>State</th><th>Count</th></tr></thead><tbody><tr><td>Capture</td><td class="activity-note">ready</td><td class="activity-result good">18</td></tr><tr><td>Extract</td><td class="activity-note">working</td><td class="activity-result">14 / 18</td></tr></tbody></table></article>
+    </div>
+  </section>
+
+  <section class="board-section" aria-labelledby="tokens-heading">
+    <div class="section-heading"><div><div class="section-index">05 / primitives</div><h2 id="tokens-heading">Semantic swatches, type, and space</h2></div><p>Actual pairs are documented in <a href="concept.md">concept.md</a>. The board shows both quiet surfaces and attention colours without relying on saturation.</p></div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-sample" style="background:#f2f5f7"></div><div class="swatch-copy"><strong>Canvas / light</strong><span>#F2F5F7</span><em>ink pair 16.52:1</em></div></div>
+      <div class="swatch"><div class="swatch-sample" style="background:#161e26"></div><div class="swatch-copy"><strong>Surface / dark</strong><span>#161E26</span><em>ink pair 14.59:1</em></div></div>
+      <div class="swatch"><div class="swatch-sample" style="background:#0b6f80"></div><div class="swatch-copy"><strong>Accent / active</strong><span>#0B6F80 → #74D5E5</span><em>light 5.83:1 · dark 9.93:1</em></div></div>
+      <div class="swatch"><div class="swatch-sample" style="background:#6b4fd5"></div><div class="swatch-copy"><strong>Focus / review</strong><span>#6B4FD5 → #B7A9FF</span><em>light 5.67:1 · dark 8.12:1</em></div></div>
+    </div>
+    <div class="type-space-grid" style="margin-top:14px">
+      <div class="scale-card"><h3 style="margin:0;font-size:14px">Type scale · local system stack</h3><div class="scale-line"><strong class="scale-12">Metadata / 12</strong><span>12 / 1.35</span></div><div class="scale-line"><strong class="scale-14">Label / 14</strong><span>14 / 1.4</span></div><div class="scale-line"><strong class="scale-16">Body / 16</strong><span>16 / 1.5</span></div><div class="scale-line"><strong class="scale-20">Card title / 20</strong><span>20 / 1.3</span></div><div class="scale-line"><strong class="scale-28">Page title / 28</strong><span>28 / 1.15</span></div></div>
+      <div class="rule-card"><h3 style="margin:0;font-size:14px">Space and shape</h3><div class="rule"><span class="rule-label">space</span><div class="space-bars" aria-label="4, 8, 12, 16, 24, and 32 pixel space steps"><span></span><span></span><span></span><span></span><span></span><span></span></div></div><div class="rule"><span class="rule-label">radius</span><div class="radius-demo" aria-label="4, 8, 12, and 16 pixel corner radii"><span></span><span></span><span></span><span></span></div></div><div class="rule"><span class="rule-label">elevation</span><span style="color:var(--muted)">1 low-contrast shell shadow; rules do most hierarchy work.</span></div></div>
+    </div>
+  </section>
+
+  <section class="board-section" aria-labelledby="story-heading">
+    <div class="section-heading"><div><div class="section-index">06 / task storyboards</div><h2 id="story-heading">Success path and failure recovery</h2></div><p>Every frame states intent, action, system response, and the next decision. Frames use the same synthetic resource and scope.</p></div>
+    <h3 style="margin:0 0 10px;font-size:16px">Common task · safe inspection</h3>
+    <div class="storyboard">
+      <article class="story-frame"><h3>Pair safely</h3><p>Operator enters the one-use code from the local terminal.</p><div class="story-detail"><strong>Response</strong><span>Session becomes paired; no private data was shown before success.</span><strong>Next</strong><span>Open Observatory / open work.</span></div></article>
+      <article class="story-frame"><h3>See open work</h3><p>Operator lands on Observatory with status and pipeline signals first.</p><div class="story-detail"><strong>Response</strong><span>2 active jobs, 1 review item, and honest indeterminate wait are visible.</span><strong>Next</strong><span>Select Atlas tab.</span></div></article>
+      <article class="story-frame"><h3>Select resource</h3><p>Operator chooses Threadloom MCP from bounded Atlas results.</p><div class="story-detail"><strong>Response</strong><span>Version `v2.4.1` and local project scope pin above the page.</span><strong>Next</strong><span>Open provenance inspector.</span></div></article>
+      <article class="story-frame"><h3>Inspect provenance</h3><p>Operator checks source snapshot, revision, and generated Lore dependency.</p><div class="story-detail"><strong>Response</strong><span>Source, derived, and hypothetical badges stay separate.</span><strong>Next</strong><span>Open Lore with context.</span></div></article>
+      <article class="story-frame"><h3>Continue in Lore</h3><p>Operator follows the selected-resource action instead of copying an ID.</p><div class="story-detail"><strong>Response</strong><span>Lore opens scoped to Threadloom; authored and generated sections remain distinct.</span><strong>Next</strong><span>Review, correct, or return to Atlas.</span></div></article>
+    </div>
+    <h3 style="margin:30px 0 10px;font-size:16px">Failure task · recover from one failed request</h3>
+    <div class="storyboard failure">
+      <article class="story-frame"><h3>Request starts</h3><p>Operator selects Threadloom in Atlas.</p><div class="story-detail"><strong>Response</strong><span>Loading region announces local request and retains filters.</span><strong>Next</strong><span>Wait for response.</span></div></article>
+      <article class="story-frame"><h3>Timeout appears</h3><p>Atlas request fails at 09:42:18 UTC.</p><div class="story-detail"><strong>Response</strong><span>Local error says no records changed; pairing status is untouched.</span><strong>Next</strong><span>Retry Atlas or keep context.</span></div></article>
+      <article class="story-frame"><h3>Retry stays scoped</h3><p>Operator chooses Retry Atlas.</p><div class="story-detail"><strong>Response</strong><span>Focus returns to the result region; Threadloom, version, and scope persist.</span><strong>Next</strong><span>Review recovered rows.</span></div></article>
+      <article class="story-frame"><h3>Coverage is honest</h3><p>Bounded results return.</p><div class="story-detail"><strong>Response</strong><span>18 of 42 resources shown; omission is explicit, not hidden.</span><strong>Next</strong><span>Inspect selected resource.</span></div></article>
+      <article class="story-frame"><h3>Resume task</h3><p>Operator opens Lore or Forge from the same selected context.</p><div class="story-detail"><strong>Response</strong><span>No duplicate mutation, no scope drift, no fabricated completion.</span><strong>Next</strong><span>Make a sourced decision.</span></div></article>
+    </div>
+  </section>
+
+  <section class="board-section" aria-labelledby="responsive-heading">
+    <div class="section-heading"><div><div class="section-index">07 / responsive behavior</div><h2 id="responsive-heading">Desktop, 390px, 320px</h2></div><p>Desktop gains a rail and inspector. Handheld stacks the same meaning. The selected scope and tab path never disappear.</p></div>
+    <div class="viewport-grid">
+      <article class="viewport-card"><h3>Desktop · 1440px · keyboard/pointer</h3><p>Three-pane shell; tab strip and selected scope are visible above open work. Inspector remains addressable and sticky.</p><div class="viewport-shell"><div class="viewport-mini-rail"><span></span><span></span><span></span><span></span></div><div class="viewport-mini-main"><div class="viewport-mini-tabs"><span>Obs.</span><span>Atlas</span><span>Lore</span></div><div class="viewport-mini-card"><span></span></div><div class="viewport-mini-card"><span style="width:58%"></span></div><div class="viewport-mini-card"><span style="width:72%"></span></div></div></div></article>
+      <article class="viewport-card handheld"><h3>Handheld · 390px · touch</h3><p>Rail hides; tabs wrap to a 3-column grid; actions stack only when needed. Important controls remain 44px.</p><div class="viewport-shell"><div class="viewport-mini-rail"></div><div class="viewport-mini-main"><div class="viewport-mini-tabs"><span>Observatory</span><span>Atlas</span><span>Lore</span><span>Reverie</span><span>Forge</span></div><div class="viewport-mini-card"><span></span></div><div class="viewport-mini-card"><span style="width:66%"></span></div></div></div></article>
+      <article class="viewport-card handheld narrow"><h3>Reflow · 320px · keyboard/zoom</h3><p>Scope chips become one column; tab labels wrap; destructive and primary actions use full-width rows. No horizontal overflow.</p><div class="viewport-shell"><div class="viewport-mini-rail"></div><div class="viewport-mini-main"><div class="viewport-mini-tabs"><span>Observatory</span><span>Atlas</span><span>Lore</span><span>Reverie</span><span>Forge</span></div><div class="viewport-mini-card"><span></span></div><div class="viewport-mini-card"><span style="width:50%"></span></div></div></div></article>
+    </div>
+  </section>
+</main>
+<footer class="board-footer"><strong>Signal Deck</strong> is a Plan concept, not a runtime Observatory. Visual inspection is possible from this local file; pairing, API recovery, accessibility tree, performance, and native/server behavior remain later verification work. See <a href="concept.md">concept.md</a> for rationale, contrast pairs, source labels, estimates, and limitations.</footer>
+<script>
+  const root = document.documentElement;
+  const requestedTheme = new URLSearchParams(location.search).get('theme');
+  if (requestedTheme === 'light') root.dataset.theme = 'light';
+  const toggle = document.querySelector('#theme-toggle');
+  toggle.addEventListener('click', () => {
+    const light = root.dataset.theme !== 'light';
+    root.dataset.theme = light ? 'light' : 'dark';
+    toggle.setAttribute('aria-pressed', String(light));
+    toggle.querySelector('span').textContent = light ? 'Switch to dark surface' : 'Switch to light surface';
+  });
+  document.querySelectorAll('[data-tab]').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('[data-tab]').forEach((other) => other.setAttribute('aria-selected', String(other === tab)));
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "findings": [
+    {
+      "id": "UI-001",
+      "title": "Single long page hides task structure",
+      "severity": "high",
+      "priority": "P0",
+      "evidence": ["src/server.mjs:35-45", "baseline/observatory-desktop.png", "baseline/observatory-handheld.png"],
+      "observation": "Pairing, capture, recall, Reverie, Atlas, Attunement, Ebb, Forge, and Lore are stacked as one continuous page. Navigation names only three anchors and does not expose all implemented areas.",
+      "impact": "Operators must scan a long page to find work and lose context between related views.",
+      "recommendation": "Design a responsive application shell with explicit primary navigation, active area, selected scope, and addressable panels while preserving the current route and API actions.",
+      "confidence": "high",
+      "acceptance": "Every discovered surface has an addressable navigation path and retains selected scope on desktop and handheld layouts."
+    },
+    {
+      "id": "UI-002",
+      "title": "Dense controls lack grouping and hierarchy",
+      "severity": "high",
+      "priority": "P0",
+      "evidence": ["src/server.mjs:37-45", "baseline/observatory-desktop.png", "baseline/observatory-handheld.png"],
+      "observation": "Forms use inline labels, native controls, and adjacent buttons with little separation between primary and destructive actions. Reverie, Ebb, Forge, and Lore controls become visually compressed on handheld width.",
+      "impact": "Task intent, required inputs, and recovery actions are difficult to parse. Touch targets are visibly smaller than the configured 44px preference.",
+      "recommendation": "Use semantic field groups, consistent control sizing, clear primary/secondary/destructive treatments, helper text, and explicit status regions.",
+      "confidence": "high",
+      "acceptance": "Representative forms meet touch-size policy, expose labels and errors, and preserve keyboard order and focus visibility."
+    },
+    {
+      "id": "UI-003",
+      "title": "Status feedback is inconsistently targeted",
+      "severity": "high",
+      "priority": "P0",
+      "evidence": ["src/server.mjs:48-69"],
+      "observation": "Several handlers write feedback to `pair-status`, including recall and Atlas failures, instead of the status region nearest the action. Results also lack structured empty, loading, and error presentation.",
+      "impact": "Screen-reader and sighted users can miss the result of the action they just invoked, especially after pairing succeeds.",
+      "recommendation": "Give each task region its own live status and result container. Preserve response semantics and make loading, empty, error, partial, and success states explicit.",
+      "confidence": "high",
+      "acceptance": "Each action announces its own result, retains user input on failure, and renders empty/error/recovery states without cross-region status leakage."
+    },
+    {
+      "id": "UI-004",
+      "title": "Evidence meaning is under-explained in the rendered UI",
+      "severity": "medium",
+      "priority": "P1",
+      "evidence": ["docs/07-DASHBOARD-AND-LORE.md:39-45", "docs/07-DASHBOARD-AND-LORE.md:67-81", "src/server.mjs:54-69"],
+      "observation": "The source contract requires distinctions among evidence, derivation, retrieval, inclusion, application, hypothetical output, authored Lore, and generated Lore. The current page exposes mostly raw text and IDs without a stable inspector or explanation of those meanings.",
+      "impact": "Users can mistake a generated summary, dream hypothesis, or retrieval hit for independently validated evidence.",
+      "recommendation": "Design a stable inspector and evidence badges with plain-language definitions, source/revision links, scope, uncertainty, and clear hypothetical/generated/authored distinctions.",
+      "confidence": "high",
+      "acceptance": "Representative Atlas, Reverie, Lore, and Forge states show source identity, revision, provenance, uncertainty, and action consequences."
+    },
+    {
+      "id": "UI-005",
+      "title": "Responsive behavior is stacking, not task reflow",
+      "severity": "medium",
+      "priority": "P1",
+      "evidence": ["baseline/observatory-handheld.png", "docs/07-DASHBOARD-AND-LORE.md:21", "docs/07-DASHBOARD-AND-LORE.md:89-100"],
+      "observation": "The handheld capture is a very tall stack with controls wrapping unpredictably. There is no persistent selected scope, back path, inspector strategy, or documented narrow-state behavior.",
+      "impact": "Long workflows require excessive scrolling and context is easy to lose on the QR-launched handheld path.",
+      "recommendation": "Define desktop multi-pane and handheld stacked navigation, persistent scope, back/deep-link behavior, and deliberate reflow for forms, lists, inspectors, and dialogs.",
+      "confidence": "high",
+      "acceptance": "Key journeys work at 320px reflow and 390px handheld width without horizontal overflow or loss of selected scope."
+    },
+    {
+      "id": "UI-006",
+      "title": "Theme and preference lifecycle is absent",
+      "severity": "medium",
+      "priority": "P1",
+      "evidence": ["src/server.mjs:25-31", "ui-design-studio.json:19-29", "docs/07-DASHBOARD-AND-LORE.md:5"],
+      "observation": "The page has inline light/dark color-scheme behavior but no versioned theme module, registry, settings surface, fallback, persistence, or rollback contract.",
+      "impact": "Visual changes cannot be safely selected, validated, persisted, or rolled back as a coherent system.",
+      "recommendation": "Freeze a small semantic token contract before implementation and add the host adapter only after guided direction approval. Preserve the current styling as fallback.",
+      "confidence": "high",
+      "acceptance": "Theme selection is local, validated against known modules, preserves route and state, falls back on invalid selection, and has rollback evidence."
+    },
+    {
+      "id": "UI-007",
+      "title": "Runtime and assistive technology coverage is incomplete",
+      "severity": "medium",
+      "priority": "P1",
+      "evidence": ["tools/ui-design doctor output", "playwright_fast capture receipts", "baseline/observatory-desktop.png", "baseline/observatory-handheld.png"],
+      "observation": "Desktop and handheld Chromium captures exist. Keyboard-only, screen-reader names, contrast across states, reduced motion, forced colors, and actual application interaction QA are not yet recorded.",
+      "impact": "The assessment cannot claim WCAG conformance or robust behavior from screenshots alone.",
+      "recommendation": "Run actual browser interaction and accessibility checks after design and implementation. Keep absent checks unverified, not passed.",
+      "confidence": "high",
+      "acceptance": "Browser evidence covers keyboard, focus, labels, status announcements, contrast, 320px reflow, reduced motion, errors, and representative state transitions."
+    }
+  ],
+  "workerFindings": [
+    {"id":"UX-001","title":"Primary navigation omits implemented and required work","severity":"high","priority":"P0","source":"worker-ux.md","evidence":["src/server.mjs:35-45","docs/07-DASHBOARD-AND-LORE.md:9-21"],"acceptance":"Every primary surface and Observatory status view is reachable by visible navigation at desktop and 320/390px widths."},
+    {"id":"UX-002","title":"Atlas does not carry selected context into Lore or Forge","severity":"high","priority":"P0","source":"worker-ux.md","evidence":["src/server.mjs:44,54,61,66","docs/07-DASHBOARD-AND-LORE.md:7,21,31"],"acceptance":"Atlas selection carries resource identity, scope, and version into Lore and Forge and survives return."},
+    {"id":"UX-003","title":"Async states lack local loading, empty, partial, and recovery presentation","severity":"high","priority":"P0","source":"worker-ux.md","evidence":["src/server.mjs:52-69","test/observatory.test.mjs:67-79"],"acceptance":"Each async region announces its own state, preserves input, explains partial coverage, and offers safe retry."},
+    {"id":"UX-004","title":"Dynamic preference controls lose labels and selection semantics","severity":"high","priority":"P1","source":"worker-ux.md","evidence":["src/server.mjs:55,61"],"acceptance":"Repeated correction inputs and selected resources have unique accessible names and current-state semantics."},
+    {"id":"UX-005","title":"Forgetting lacks confirmation, impact explanation, and recovery affordance","severity":"high","priority":"P1","source":"worker-ux.md","evidence":["src/server.mjs:43,60","docs/07-DASHBOARD-AND-LORE.md:39-45"],"acceptance":"Confirmation names target, scope, derivative impact, and external-copy limits before mutation."},
+    {"id":"UX-006","title":"Reverie loses visible job handle on reload","severity":"high","priority":"P1","source":"worker-ux.md","evidence":["src/server.mjs:53","test/observatory.test.mjs:153-179"],"acceptance":"A job deep link reloads with honest status, outputs, and only supported recovery actions."},
+    {"id":"UX-007","title":"Lore response diff is not rendered","severity":"medium","priority":"P1","source":"worker-ux.md","evidence":["src/server.mjs:62-65","docs/07-DASHBOARD-AND-LORE.md:67-73"],"acceptance":"Save and refresh show scoped diffs, ownership, stale/conflict status, and authored-block preservation."},
+    {"id":"PERF-001","title":"Shell is small but wire and field evidence is absent","severity":"low","priority":"P2","source":"worker-performance.md","evidence":["worker-performance.md:17-31"],"acceptance":"Future baseline records HAR, transfer sizes, request count, cache condition, and timing."},
+    {"id":"PERF-002","title":"Authenticated and recovery paths have no runtime budget evidence","severity":"high","priority":"P1","source":"worker-performance.md","evidence":["worker-performance.md:33-40"],"acceptance":"Representative paired actions have response bytes, p50/p95 latency, and network recovery evidence."},
+    {"id":"PERF-003","title":"Large data rendering has source-confirmed bounds risk","severity":"high","priority":"P1","source":"worker-performance.md","evidence":["worker-performance.md:42-52","src/server.mjs:61,175,196,220,225,264"],"acceptance":"Atlas, trace, Forge, Blueprint, Lore, and dream output have bounded pagination/rendering and visible omission semantics."}
+  ]
+}

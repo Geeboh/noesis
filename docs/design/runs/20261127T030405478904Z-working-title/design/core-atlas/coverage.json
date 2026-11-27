@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "1.0-local-handoff",
+  "status": "design-rendered-not-application-qa",
+  "contract": "design-contract-20261127.2",
+  "fixture": "synthetic-threadloom-mcp-v2.4.1",
+  "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"],
+  "surfaces": [
+    {
+      "id": "pairing",
+      "mockup": "pairing.html",
+      "states": ["code-entry", "invalid-code", "expired-code", "paired-return", "unavailable/error"],
+      "cases": [
+        {"state": "code-entry", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:pairing.html", "responsive-css:styles.css"]},
+        {"state": "invalid-code", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:pairing.html", "responsive-css:styles.css"]},
+        {"state": "expired-code", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:pairing.html", "responsive-css:styles.css"]},
+        {"state": "paired-return", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:pairing.html", "responsive-css:styles.css"]},
+        {"state": "unavailable/error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:pairing.html", "responsive-css:styles.css"]}
+      ]
+    },
+    {
+      "id": "observatory-shell-pulse",
+      "mockup": "observatory.html",
+      "states": ["paired-empty/no-open-work", "paired-populated/open-work", "loading", "known-activity", "indeterminate-wait", "partial", "error", "recovery"],
+      "cases": [
+        {"state": "paired-empty/no-open-work", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "responsive-css:styles.css"]},
+        {"state": "paired-populated/open-work", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "responsive-css:styles.css"]},
+        {"state": "loading", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "responsive-css:styles.css"]},
+        {"state": "known-activity", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "assets/brain-activity.svg", "assets/pipeline-activity.svg", "responsive-css:styles.css"]},
+        {"state": "indeterminate-wait", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "assets/pipeline-activity.svg", "responsive-css:styles.css"]},
+        {"state": "partial", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "responsive-css:styles.css"]},
+        {"state": "error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "responsive-css:styles.css"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:observatory.html", "mockup.js", "responsive-css:styles.css"]}
+      ]
+    },
+    {
+      "id": "atlas",
+      "mockup": "atlas.html",
+      "states": ["empty", "loading", "list", "selected", "relationship-field", "partial", "stale/disputed", "error", "recovery"],
+      "cases": [
+        {"state": "empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "loading", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "list", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "selected", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "relationship-field", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "relationship.html", "assets/relationship-field.svg", "responsive-css:styles.css"]},
+        {"state": "partial", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "stale/disputed", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "responsive-css:styles.css"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:atlas.html", "mockup.js", "responsive-css:styles.css"]}
+      ]
+    },
+    {
+      "id": "selected-inspector-lineage",
+      "mockup": "inspector.html",
+      "states": ["selected", "source-chain", "derived-chain", "hypothetical-chain", "stale/conflict", "partial/unknown", "unavailable/error", "recovery"],
+      "cases": [
+        {"state": "selected", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "source-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "derived-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "hypothetical-chain", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "stale/conflict", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "partial/unknown", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "unavailable/error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:inspector.html", "responsive-css:styles.css"]}
+      ]
+    },
+    {
+      "id": "relationship-field",
+      "mockup": "relationship.html",
+      "states": ["loading", "empty", "partial", "unavailable", "disputed", "recovery", "bounded-complete"],
+      "cases": [
+        {"state": "loading", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "partial", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "unavailable", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "disputed", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "responsive-css:styles.css"]},
+        {"state": "bounded-complete", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:relationship.html", "assets/relationship-field.svg", "responsive-css:styles.css"]}
+      ]
+    }
+  ],
+  "repairFindings": ["D-002", "D-004", "D-005", "D-006", "D-008", "D-009", "D-010", "D-012", "D-013", "D-014"],
+  "repairEvidence": {
+    "D-002": ["index.html", "observatory.html", "atlas.html", "relationship.html", "inspector.html", "../knowledge-ops/lore.html", "../knowledge-ops/reverie.html", "../knowledge-ops/forge.html", "README.md"],
+    "D-004": ["observatory.html#recovery", "atlas.html#atlas-recovery", "relationship.html#field-coverage-status", "inspector.html#stale-status", "inspector.html#conflict-status", "mockup.js"],
+    "D-005": ["styles.css:system", "styles.css:@media(prefers-color-scheme:light)", "styles.css:@media(forced-colors:active)", "README.md"],
+    "D-006": ["styles.css:90", "styles.css:200", "styles.css:@media(max-width:400px)", "pairing.html", "observatory.html", "atlas.html", "relationship.html", "inspector.html"],
+    "D-008": ["mockup.js:4-15", "index.html", "pairing.html", "observatory.html", "atlas.html", "relationship.html", "inspector.html"],
+    "D-009": ["atlas.html:66", "relationship.html:35", "assets/relationship-field.svg"],
+    "D-010": ["observatory.html:52-53", "atlas.html:57-67", "relationship.html:35", "inspector.html:39-43"],
+    "D-012": ["mockup.js:19-27", "index.html", "pairing.html", "observatory.html", "atlas.html", "inspector.html", "relationship.html"],
+    "D-013": ["pairing.html:23", "pairing.html:33-37"],
+    "D-014": ["../index.html", "../knowledge-ops/README.md"]
+  },
+  "interactiveVerification": "local-browser-spot-check-not-application-qa",
+  "desktop900_1260": "captured at 1024px for all six core pages; visual-only, no overflow metric",
+  "captureRevision": "design-contract-20261127.2",
+  "captureStatus": "complete-visual-only",
+  "captureEnvironment": {"tool": "playwright_fast capture + local Playwright forced-colors context", "browser": "Chromium 159.0.8154.6", "viewports": ["1440", "1024", "390", "320"], "forcedColors": ["observatory-390-forced-v6.png"], "pageErrors": [], "affectedOverflow": "not-measured-after-repair", "applicationQa": "not-run", "metricLimitation": "Managed browser evaluation exited before readiness because X server was unavailable; no overflow pass claimed."},
+  "captures": [
+    "captures/index-1440.png", "captures/index-1024.png", "captures/index-390.png", "captures/index-320.png",
+    "captures/pairing-1440.png", "captures/pairing-1024.png", "captures/pairing-390.png", "captures/pairing-320.png", "captures/pairing-1024-repair-v3.png",
+    "captures/observatory-1440.png", "captures/observatory-1024.png", "captures/observatory-390.png", "captures/observatory-320.png", "captures/observatory-1440-repair-v8.png", "captures/observatory-1024-repair-v9.png", "captures/observatory-390-repair-v8.png", "captures/observatory-320-repair-v8.png", "captures/observatory-390-forced-v6.png",
+    "captures/atlas-1440.png", "captures/atlas-1024.png", "captures/atlas-390.png", "captures/atlas-320.png",
+    "captures/inspector-1440.png", "captures/inspector-1024.png", "captures/inspector-390.png", "captures/inspector-320.png",
+    "captures/relationship-1440.png", "captures/relationship-1024.png", "captures/relationship-390.png", "captures/relationship-320.png"
+  ],
+  "refreshedCaptures": {
+    "core-index": ["captures/index-1440.png", "captures/index-1024.png", "captures/index-390.png", "captures/index-320.png"],
+    "pairing": ["captures/pairing-1440.png", "captures/pairing-1024.png", "captures/pairing-390.png", "captures/pairing-320.png", "captures/pairing-1024-repair-v3.png"],
+    "observatory-shell-pulse": ["captures/observatory-1440.png", "captures/observatory-1024.png", "captures/observatory-390.png", "captures/observatory-320.png", "captures/observatory-1440-repair-v8.png", "captures/observatory-1024-repair-v9.png", "captures/observatory-390-repair-v8.png", "captures/observatory-320-repair-v8.png", "captures/observatory-390-forced-v6.png"],
+    "atlas": ["captures/atlas-1440.png", "captures/atlas-1024.png", "captures/atlas-390.png", "captures/atlas-320.png"],
+    "selected-inspector-lineage": ["captures/inspector-1440.png", "captures/inspector-1024.png", "captures/inspector-390.png", "captures/inspector-320.png"],
+    "relationship-field": ["captures/relationship-1440.png", "captures/relationship-1024.png", "captures/relationship-390.png", "captures/relationship-320.png"]
+  },
+  "applicationImplementation": "unverified",
+  "limitations": ["Design artifacts do not prove pairing, authorization, API behavior, accessibility, performance, or second-device reachability.", "State specimens share one fixture board; production must bind each state to real service projections."]
+}

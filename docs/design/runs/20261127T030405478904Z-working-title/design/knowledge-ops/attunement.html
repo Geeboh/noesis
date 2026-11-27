@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system" data-mode="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Attunement correction · NOESIS mockup</title>
+<link rel="stylesheet" href="./styles.css">
+<style>
+.page-grid > .rail, .page-grid > .main, .page-grid > .inspector { min-width: 0; }
+.main { grid-template-columns: minmax(0, 1fr); }
+.main > .panel { min-width: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to Attunement</a>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Attunement · preference evidence and correction</p></div></div>
+  <div class="top-actions"><span class="badge synthetic">SYNTHETIC / PLANNED</span><a class="button quiet" href="./dialogs.html#correction-conflict">Correction help</a></div>
+</header>
+<nav class="tabs" aria-label="Primary navigation">
+  <a class="tab" aria-current="page" href="./index.html">Observatory</a>
+  <a class="tab" href="../core-atlas/atlas.html">Atlas</a>
+  <a class="tab" href="./lore.html">Lore</a>
+  <a class="tab" href="./reverie.html">Reverie</a>
+  <a class="tab" href="./forge.html">Forge</a>
+</nav>
+<div class="context"><div class="context-main"><strong>Threadloom MCP</strong><span class="meta">MCP server · local / managed · v2.4.1</span><span class="meta">snapshot sha256:8a41…c2d7</span></div><span class="badge synthetic">scope local / project: noesis</span></div>
+<main id="main-content" class="page-grid" tabindex="-1">
+  <aside class="rail" aria-label="Attunement sections">
+    <h2>Attunement sections</h2>
+    <nav><a aria-current="page" href="#preferences">Preferences <span class="meta">2</span></a><a href="#episodes">Episodes <span class="meta">3</span></a><a href="#correction">Correct <span class="meta">safe</span></a><a href="#states">State ledger <span class="meta">7</span></a><a href="#responsive">Responsive <span class="meta">3 widths</span></a></nav>
+  </aside>
+  <section class="main" aria-labelledby="page-title">
+    <section class="panel" id="preferences">
+      <p class="eyebrow">surface-id attunement · preference review</p>
+      <div class="panel-header"><div><h2 id="page-title">Correct what NOESIS should remember</h2><p class="lead">Stated preferences and inferred candidates remain separate. Independent episodes support a candidate; agent compliance and user silence do not create new confirmation. A current instruction always wins.</p></div><div class="actions"><button class="primary" type="button">Add explicit preference</button><button type="button">Open evidence</button></div></div>
+      <div class="state-strip" aria-label="Attunement state coverage"><span class="state-chip">Empty</span><span class="state-chip success">List</span><span class="state-chip waiting">Correcting</span><span class="state-chip success">Success</span><span class="state-chip error">Conflict</span><span class="state-chip error">Error</span><span class="state-chip success">Recovery</span></div>
+      <div class="status waiting" role="status"><div><strong>Override active: current instruction says quiet execution</strong><span class="helper">Stored preference remains visible with its history. It is not applied to this task and does not authorize spending or external actions.</span></div></div>
+      <div class="coverage"><span><strong>Visible</strong> 2 preferences</span><span><strong>Independent episodes</strong> 3</span><span><strong>Counterevidence</strong> 1</span><span><strong>Scope</strong> local / project: noesis</span><span class="mono">trace attunement-014</span></div>
+      <div class="grid-2">
+        <article class="card" id="episodes"><div class="card-title"><div><h3>Inferred candidate</h3><span class="badge derived">INFERRED</span></div><span class="badge waiting">REVIEW</span></div><p><strong>Offer a short progress update during substantial work.</strong></p><p class="helper">Candidate <span class="mono">pref-candidate-017</span> · last relevant use <span class="mono">2026-11-26 16:08 UTC</span></p><div class="divider"></div><h4>Independent supporting episodes</h4><ul><li><span class="mono">episode-031</span> · long Atlas inspection · user requested status.</li><li><span class="mono">episode-044</span> · bounded export · user asked where work waited.</li></ul><p class="helper">Two independent situations counted. Repeated turns inside one incident are not extra confirmation.</p><h4>Counterevidence and exceptions</h4><p class="helper">Short edits and explicit “no updates” instructions are exceptions. Silence after a message is not confirmation.</p><div class="actions"><button class="primary" type="button">This is right</button><button type="button">Only for this context</button><button class="quiet" type="button">Stop using this</button></div></article>
+        <article class="card authored"><div class="card-title"><div><h3>Stated preference</h3><span class="badge authored">EXPLICIT</span></div><span class="badge known">CURRENT</span></div><p><strong>Keep short tasks quiet unless a blocker needs attention.</strong></p><p class="helper">Preference <span class="mono">pref-explicit-004@rev-3</span> · stated by local operator · scope local / project: noesis</p><div class="divider"></div><p class="helper">Explicit instructions override inferred candidates. This preference is directly editable and does not need a confidence score.</p><div class="actions"><button class="primary" type="button">Edit statement</button><button class="quiet" type="button">View history</button></div></article>
+      </div>
+    </section>
+    <section class="panel" id="correction" aria-labelledby="correction-title">
+      <div class="panel-header"><div><p class="eyebrow">correction keeps context</p><h3 id="correction-title">Record a correction</h3></div><span class="badge synthetic">planned form</span></div>
+      <form class="stack"><div class="field-row"><label for="preference-id">Preference ID<input id="preference-id" value="pref-candidate-017" aria-describedby="preference-help"></label><label for="correction-kind">Correction<select id="correction-kind"><option selected>Only for this context</option><option>This is right</option><option>Not a preference</option><option>Stop using this</option></select></label></div><p class="helper" id="preference-help">The original candidate and supporting episodes remain in history. The correction creates a new revision; it does not rewrite source evidence.</p><label for="context-note">Context note<textarea id="context-note" placeholder="Explain project, task, or exception (optional)"></textarea></label><div class="actions"><button class="primary" type="button">Save correction</button><button type="button">Compare revisions</button><button class="quiet" type="button">Cancel</button></div></form>
+      <div class="status known" role="status"><div><strong>Saved: correction revision <span class="mono">rev-18</span></strong><span class="helper">Candidate now applies only to long-running work in this project. Evidence, counterevidence, and prior wording remain inspectable.</span></div></div>
+    </section>
+    <section class="panel" id="states" aria-labelledby="states-title">
+      <div class="panel-header"><div><p class="eyebrow">state specimens</p><h3 id="states-title">Empty, correcting, conflict, error, recovery</h3></div><span class="meta">Each status is local to Attunement</span></div>
+      <div class="grid-2">
+        <div class="card"><div class="card-title"><h4>Empty</h4><span class="badge">NO CANDIDATES</span></div><div class="status"><div><strong>No preferences in this scope</strong><span class="helper">Capture an explicit statement or inspect another project. Empty means none recorded; it does not mean unknown.</span></div></div></div>
+        <div class="card"><div class="card-title"><h4>Correcting</h4><span class="badge waiting">EDITING</span></div><div class="status waiting"><div><strong>Draft correction is local</strong><span class="helper">Input remains visible while episodes and current scope stay pinned.</span></div></div></div>
+        <div class="card"><div class="card-title"><h4>Conflict</h4><span class="badge error">REVISION MISMATCH</span></div><div class="status error" role="alert"><div><strong>Could not save correction</strong><span class="helper">Expected revision <span class="mono">17</span>; current revision <span class="mono">18</span>. Draft is preserved. Compare before retry.</span></div></div><div class="actions" style="margin-top:12px"><button type="button">Compare</button><button class="quiet" type="button">Keep draft</button></div></div>
+        <div class="card"><div class="card-title"><h4>Error / recovery</h4><span class="badge error">REQUEST FAILED</span></div><div class="status error" role="alert"><div><strong>Preference service unavailable</strong><span class="helper">No revision was written. Retry keeps preference ID, scope, and typed note.</span></div></div><div class="actions" style="margin-top:12px"><button class="primary" type="button">Retry save</button><span class="helper">Waiting: retry queued locally</span></div></div>
+      </div>
+    </section>
+    <section class="panel" id="responsive" aria-labelledby="responsive-title">
+      <div class="panel-header"><div><p class="eyebrow">interaction contract</p><h3 id="responsive-title">Focus, status, and responsive behavior</h3></div><span class="badge synthetic">mockup notes</span></div>
+      <div class="grid-3"><div class="card"><h4>1440px</h4><p>Rail, preference cards, and provenance inspector remain three columns. Evidence episodes stay adjacent to correction controls.</p></div><div class="card"><h4>390px</h4><p>Primary tabs scroll; selected context remains above stacked cards. The correction form keeps labels, input, helper, and status in reading order.</p></div><div class="card"><h4>320px</h4><p>Actions become full width, long preference IDs wrap, and the episode list stays readable without page-level horizontal overflow.</p></div></div>
+      <div class="focus-note"><strong>Keyboard / status / motion:</strong> skip link → tabs → context → rail → Attunement heading → preference actions → correction form → inspector. Repeated correction controls include the preference ID in their accessible name in implementation. Local success/error regions use <span class="mono">role=status</span>/<span class="mono">role=alert</span>; async updates do not steal focus. Reduced motion removes heartbeat/transitions while preserving state words and evidence lists. Handheld portrait/landscape keeps the same logical order; safe-area insets and browser text scaling are reserved, and an on-screen keyboard keeps the focused correction field visible without dropping the typed note.</div>
+    </section>
+  </section>
+  <aside class="inspector" aria-labelledby="inspector-title">
+    <div class="context-card"><h2 id="inspector-title">Preference inspector</h2><dl class="kv"><dt>Preference</dt><dd class="mono">pref-candidate-017</dd><dt>Origin</dt><dd><span class="badge derived">inferred candidate</span></dd><dt>Scope</dt><dd class="mono">local / project: noesis</dd><dt>Episodes</dt><dd>2 independent supports</dd><dt>Counterevidence</dt><dd>1 exception</dd><dt>Current instruction</dt><dd><span class="badge waiting">overrides</span></dd><dt>Revision</dt><dd class="mono">rev-18</dd></dl></div>
+    <div class="context-card"><h2>Evidence meaning</h2><p class="helper">Stated and inferred preferences are not interchangeable. Compliance, silence, and repeated turns in one incident are excluded as independent confirmation.</p></div>
+    <div class="context-card"><h2>Safe correction</h2><p class="helper">Correction is reversible through a compensating revision. It changes application scope, not source history. No correction grants permission for external actions.</p></div>
+  </aside>
+</main>
+<footer class="footer-note" style="max-width:1510px;margin:0 auto;padding:0 max(16px,3vw) 40px">Design-only mockup. Synthetic fixture; no preference was changed.</footer>
+</div>
+<script src="./mockup.js"></script>
+</body>
+</html>

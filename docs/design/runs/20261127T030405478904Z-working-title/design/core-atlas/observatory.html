@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Observatory / Pulse · NOESIS mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Understand what was retained, why, and what changed</p></div></div>
+    <div class="top-actions"><span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span><button class="icon-button" type="button" data-theme-toggle aria-label="Switch to light theme">☼</button></div>
+  </header>
+  <nav class="primary-tabs" aria-label="Primary workspaces">
+    <a class="tab" aria-current="page" href="observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+    <a class="tab" href="atlas.html"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+    <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+    <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+    <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">⬡</span><span>Forge<small>Scoped exports</small></span></a>
+  </nav>
+  <section class="context-bar" aria-label="Selected resource context">
+    <span class="context-icon" aria-hidden="true">T</span>
+    <div class="context-copy"><strong>Threadloom MCP <span class="badge source">MCP server</span></strong><span>Selected context · local / project: noesis · synthetic/planned</span></div>
+    <div class="context-values"><span class="code-chip">v2.4.1</span><span class="code-chip">sha256:8a41…c2d7</span><span class="code-chip">scope: local/project:noesis</span></div>
+    <a class="button small secondary" href="inspector.html" aria-label="Open selected Threadloom MCP details">Details</a>
+  </section>
+<main id="main-content" class="app-grid" tabindex="-1">
+    <aside class="rail" aria-label="Observatory sections">
+      <p class="rail-label">Current work</p>
+      <a class="rail-link current" href="#pulse" aria-current="page">◌ <span>Pulse</span><b>2</b></a>
+      <a class="rail-link" href="#pipeline">▱ <span>Pipeline</span><b>4</b></a>
+      <a class="rail-link" href="atlas.html">⌘ <span>Selected resource</span></a>
+      <div class="rail-rule"></div>
+      <p class="rail-label">Trace views</p>
+      <a class="rail-link" href="inspector.html">⟿ <span>Lineage</span></a>
+      <a class="rail-link" href="#coverage">▤ <span>Coverage</span></a>
+      <div class="rail-rule"></div>
+      <a class="rail-link" href="pairing.html">↪ <span>Pairing</span></a>
+    </aside>
+
+    <section class="main-pane" aria-label="Observatory Pulse content">
+      <header class="page-head" id="pulse">
+        <div><p class="eyebrow">OBSERVATORY / PULSE · SYNTHETIC / PLANNED</p><h2>Open work, without invented progress</h2><p class="lede">Pulse projects actual bounded facts from the service. Status words, units, and indeterminate waits remain separate from confidence or completion.</p></div>
+        <a class="button primary" href="atlas.html">Open Atlas</a>
+      </header>
+
+      <section class="panel" aria-labelledby="open-work-title">
+        <div class="panel-head"><div><h3 id="open-work-title">Open work</h3><p>Durable links remain addressable after reload or reconnect.</p></div><span class="badge review">2 active · 1 deferred</span></div>
+        <div class="panel-body open-work">
+          <article class="work-row" aria-labelledby="atlas-retry-title"><span class="work-mark" aria-hidden="true">↻</span><div><strong id="atlas-retry-title">Atlas retry · provider wait</strong><p>Timeout at <span class="mono">09:42:18 UTC</span>; selected resource and scope preserved.</p><div class="badges"><span class="badge review">Waiting</span><span class="badge source">source revision retained</span></div></div><button class="button small secondary" type="button" data-open-details="#recovery" aria-label="Inspect Atlas retry provider wait">Inspect</button></article>
+          <article class="work-row" aria-labelledby="deferred-extraction-title"><span class="work-mark warn" aria-hidden="true">!</span><div><strong id="deferred-extraction-title">Deferred extraction review</strong><p>One captured item is deferred. No denominator supplied for provider response.</p><div class="badges"><span class="badge review">Deferred</span><span class="badge">1 item</span></div></div><button class="button small secondary" type="button" data-open-details="#pipeline" aria-label="Inspect deferred extraction review">Inspect</button></article>
+        </div>
+      </section>
+
+      <section class="panel brain-activity-panel" aria-labelledby="activity-title">
+        <div class="panel-head"><div><p class="eyebrow">ACTIVITY SURFACE · BOUNDED FACTS</p><h3 id="activity-title">Brain activity</h3><p>Modules, nodes, typed edges, and connector hubs stay inside one bounded local surface. Facts come from this synthetic fixture only.</p></div><span class="badge source">2 active observations</span></div>
+        <div class="panel-body brain-activity-layout">
+          <figure class="graph-frame brain-frame">
+            <div class="surface-header"><span class="surface-kicker">HUD FRAME · MODULES / NODES / EDGES / HUBS</span><span class="badge source">4 modules · 4 nodes</span></div>
+            <img class="brain-surface" src="assets/brain-activity.svg" alt="" aria-hidden="true">
+            <figcaption class="graph-caption">Static local geometry carries the activity facts. The semantic legend and adjacent table remain the accessible alternative.</figcaption>
+          </figure>
+          <div class="brain-facts">
+            <div>
+              <div class="status success" id="activity-status" role="status" aria-labelledby="activity-status-title"><span class="status-icon" aria-hidden="true">✓</span><div><strong id="activity-status-title">Known activity · 18 captured</strong><p data-status-message>14 extracted, 2 active, 1 deferred. Provider wait remains indeterminate.</p></div></div>
+              <ul class="brain-legend" aria-label="Activity surface semantics">
+                <li><span class="legend-chip module">Module</span><span>bounded stage or source group</span></li>
+                <li><span class="legend-chip node">Node</span><span>named observed activity unit</span></li>
+                <li><span class="legend-chip edge">Edge</span><span>typed service relationship</span></li>
+                <li><span class="legend-chip hub">Hub</span><span>connector or waiting state</span></li>
+              </ul>
+            </div>
+            <div>
+              <p class="alt-note">List alternative to the graphic:</p>
+              <div class="table-wrap"><table class="data-table"><caption class="sr-only">Brain activity facts</caption><thead><tr><th>Fact</th><th>Value</th><th>State</th></tr></thead><tbody><tr><td>Captured records</td><td class="mono">18</td><td><span class="badge success">Known</span></td></tr><tr><td>Extracted records</td><td class="mono">14</td><td><span class="badge success">Known</span></td></tr><tr><td>Active observations</td><td class="mono">2</td><td><span class="badge source">Known</span></td></tr><tr><td>Provider response</td><td>—</td><td><span class="badge review">Indeterminate</span></td></tr></tbody></table></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="pipeline" aria-labelledby="pipeline-title">
+        <div class="panel-head"><div><h3 id="pipeline-title">Pipeline activity</h3><p>Known denominators only. Waiting never becomes a percentage.</p></div><span class="badge review">Provider wait · no denominator</span></div>
+        <div class="panel-body activity-grid">
+          <figure class="graph-frame"><img src="assets/pipeline-activity.svg" alt="" aria-hidden="true"><figcaption class="graph-caption">Static stage view; the adjacent table carries each named stage and state.</figcaption></figure>
+          <div class="table-wrap"><table class="data-table"><caption class="sr-only">Pipeline stages</caption><thead><tr><th>Stage</th><th>Units</th><th>State</th><th>Updated</th></tr></thead><tbody><tr><td>Captured</td><td class="mono">18 / 18</td><td><span class="badge success">Completed</span></td><td class="mono">09:40</td></tr><tr><td>Extracted</td><td class="mono">14 / 18</td><td><span class="badge source">Known</span></td><td class="mono">09:41</td></tr><tr><td>Provider response</td><td>no denominator</td><td><span class="badge review">Waiting</span></td><td class="mono">09:42</td></tr><tr><td>Deferred review</td><td class="mono">1 item</td><td><span class="badge review">Deferred</span></td><td class="mono">09:42</td></tr></tbody></table></div>
+        </div>
+        <div class="panel-foot" id="coverage"><span aria-hidden="true">▤</span><span><strong>Coverage:</strong> 18 captured; 14 extracted. Four captured records remain outside extraction; the fixture does not state why. This is not a zero-result.</span></div>
+      </section>
+
+      <section class="status error" id="recovery" role="alert" aria-labelledby="recovery-title"><span class="status-icon" aria-hidden="true">!</span><div><strong id="recovery-title">Atlas request timed out at 09:42:18 UTC</strong><p data-status-message>No record, revision, or scope changed. Retry uses the pinned Threadloom MCP context.</p><div class="badges" style="margin-block-start:7px"><button class="button small secondary" type="button" data-retry="#recovery" aria-label="Retry Atlas request">Retry Atlas</button><span class="badge error">Request failed</span></div></div></section>
+
+      <section class="panel" aria-labelledby="states-title">
+        <div class="panel-head"><div><h3 id="states-title">Pulse state specimens</h3><p>Each async region has local language and a recoverable next step.</p></div></div>
+        <div class="state-grid">
+          <article class="state-card"><h4>Loading</h4><strong>Reading activity facts…</strong><div class="skeleton" aria-hidden="true"><span></span><span></span></div><p>Keep selected scope and previous facts visible until response.</p></article>
+          <article class="state-card"><h4>No open work</h4><strong>Nothing needs attention</strong><p>Zero open work is distinct from unknown activity coverage.</p></article>
+          <article class="state-card"><h4>Known activity</h4><strong>18 captured · 14 extracted</strong><p>Show units supplied by service, never a made-up completion rate.</p></article>
+          <article class="state-card"><h4>Indeterminate wait</h4><strong><span class="badge review">Waiting</span> Provider response</strong><p>Heartbeat or text says waiting; no denominator or percent.</p></article>
+          <article class="state-card"><h4>Partial</h4><strong>14 of 18 extracted</strong><p>Name four records outside extraction and preserve continuation/reason when provided.</p></article>
+          <article class="state-card"><h4>Error / recovery</h4><strong><span class="badge error">Request failed</span> Retry queued</strong><p>Local retry preserves focus, resource, scope, and revision.</p></article>
+        </div>
+      </section>
+    </section>
+
+    <aside class="inspector" id="selected-inspector" aria-labelledby="inspector-title">
+      <div class="inspector-head"><div><p class="eyebrow">SELECTED INSPECTOR</p><h2 id="inspector-title">Threadloom MCP</h2></div><span class="badge source">Selected</span></div>
+      <div class="inspector-block"><div class="badges"><span class="badge source">source evidence</span><span class="badge">local / managed</span></div><dl class="fact-list"><div><dt>Version</dt><dd class="mono">v2.4.1</dd></div><div><dt>Snapshot</dt><dd class="mono">sha256:8a41…c2d7</dd></div><div><dt>Scope</dt><dd>local / project:noesis</dd></div><div><dt>Observed</dt><dd class="mono">2026-11-26</dd></div></dl></div>
+      <div class="inspector-block"><h3>Evidence meaning</h3><ul class="provenance"><li>Source snapshot · observed</li><li class="derived">Derived observation · extracted</li><li class="generated">Generated Lore · separate projection</li><li class="hypothetical">Hypothetical · not validated</li></ul><a class="button small secondary" href="inspector.html">Explain labels</a></div>
+      <div class="inspector-block"><h3>Retrieval facts</h3><dl class="fact-list"><div><dt>Retrieved</dt><dd>yes</dd></div><div><dt>Included</dt><dd>pending</dd></div><div><dt>Applied</dt><dd>not observed</dd></div><div><dt>Validated</dt><dd>unknown</dd></div></dl></div>
+      <div class="inspector-block"><h3>Safe next steps</h3><div class="inspector-links"><a class="button small quiet" href="atlas.html">Open Atlas relationships</a><a class="button small quiet" href="inspector.html">Open revision history</a></div></div>
+      <p class="small-copy">Synthetic fixture. Relation labels describe links; they do not prove truth or causality.</p>
+    </aside>
+  </main>
+  <p class="footer-note">Design mockup only. Cortex Tabs shell + Signal Deck discipline. No remote assets, particles.js, or application API calls.</p>
+  <script src="mockup.js"></script>
+</body>
+</html>

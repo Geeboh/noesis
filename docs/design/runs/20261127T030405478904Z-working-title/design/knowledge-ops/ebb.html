@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system" data-mode="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ebb activation controls · NOESIS mockup</title>
+<link rel="stylesheet" href="./styles.css">
+<style>
+.page-grid > .rail, .page-grid > .main, .page-grid > .inspector { min-width: 0; }
+.main { grid-template-columns: minmax(0, 1fr); }
+.main > .panel { min-width: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to Ebb controls</a>
+<div class="shell">
+<header class="topbar">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Ebb · reversible activation and explicit forgetting</p></div></div>
+  <div class="top-actions"><span class="badge synthetic">SYNTHETIC / PLANNED</span><a class="button quiet" href="./dialogs.html#forgetting">Forgetting rules</a></div>
+</header>
+<nav class="tabs" aria-label="Primary navigation">
+  <a class="tab" aria-current="page" href="./index.html">Observatory</a>
+  <a class="tab" href="../core-atlas/atlas.html">Atlas</a>
+  <a class="tab" href="./lore.html">Lore</a>
+  <a class="tab" href="./reverie.html">Reverie</a>
+  <a class="tab" href="./forge.html">Forge</a>
+</nav>
+<div class="context"><div class="context-main"><strong>Threadloom MCP</strong><span class="meta">MCP server · local / managed · v2.4.1</span><span class="meta">snapshot sha256:8a41…c2d7</span></div><span class="badge synthetic">scope local / project: noesis</span></div>
+ <main id="main-content" class="page-grid" tabindex="-1">
+  <aside class="rail" aria-label="Ebb sections">
+    <h2>Ebb sections</h2>
+    <nav><a aria-current="page" href="#overview">Overview <span class="meta">3 states</span></a><a href="#records">Records <span class="meta">bounded</span></a><a href="#evaluate">Evaluate / revive <span class="meta">safe</span></a><a href="#forgetting">Forget <span class="meta">confirm</span></a><a href="#states">State ledger <span class="meta">11</span></a><a href="#responsive">Responsive <span class="meta">3 widths</span></a></nav>
+  </aside>
+  <section class="main" aria-labelledby="page-title">
+    <section class="panel" id="overview">
+      <p class="eyebrow">surface-id ebb · activation review</p>
+      <div class="panel-header"><div><h2 id="page-title">Let useful records ebb, not disappear</h2><p class="lead">Ebb changes reversible activation and prominence. Evidence, confidence, temporal validity, and retention remain separate. Explicit constraints and open commitments are protected.</p></div><div class="actions"><button class="primary" type="button">Evaluate activation</button><button class="danger" type="button">Request explicit forgetting</button></div></div>
+      <div class="state-strip" aria-label="Ebb state coverage"><span class="state-chip">Empty</span><span class="state-chip success">List</span><span class="state-chip waiting">Evaluating</span><span class="state-chip success">Active</span><span class="state-chip waiting">Quiet</span><span class="state-chip">Dormant</span><span class="state-chip waiting">Reviving</span><span class="state-chip error">Forgetting confirm</span><span class="state-chip success">Success</span><span class="state-chip error">Conflict / error</span><span class="state-chip success">Recovery</span></div>
+      <div class="status waiting" role="status"><div><strong>Quiet: activation changed; evidence did not</strong><span class="helper">Record <span class="mono">fixture-record-derived-001</span> remains supported and valid. Ebb only affects ordinary recall prominence in this scope.</span></div></div>
+      <div class="coverage"><span><strong>Selected record</strong> <span class="mono">fixture-record-derived-001</span></span><span><strong>Activation</strong> quiet</span><span><strong>Evidence</strong> supported</span><span><strong>Validity</strong> current</span><span><strong>Retention</strong> policy-managed</span><span class="mono">trace ebb-009</span></div>
+    </section>
+    <section class="panel" id="records" aria-labelledby="records-title">
+      <div class="panel-header"><div><p class="eyebrow">same record, separate meanings</p><h3 id="records-title">Activation collection</h3></div><span class="badge synthetic">planned rows</span></div>
+      <div class="table-wrap"><table><caption class="meta" style="text-align:start;padding:10px 12px">Primary list alternative to any future activation visualization; values are synthetic and bounded.</caption><thead><tr><th scope="col">Record</th><th scope="col">Activation</th><th scope="col">Evidence</th><th scope="col">Validity</th><th scope="col">Retention</th><th scope="col">Action</th></tr></thead><tbody><tr><td><span class="mono">fixture-record-source-001</span><br>Source observation</td><td><span class="badge known">Active</span></td><td>source evidence</td><td>current</td><td>policy-managed</td><td><button type="button" aria-label="Inspect record fixture-record-source-001">Inspect</button></td></tr><tr><td><span class="mono">fixture-record-derived-001</span><br>Extracted lesson</td><td><span class="badge waiting">Quiet</span></td><td>supported</td><td>current</td><td>policy-managed</td><td><button type="button" aria-label="Revive record fixture-record-derived-001">Revive</button></td></tr><tr><td><span class="mono">fixture-record-hypothesis-001</span><br>Dream idea</td><td><span class="badge">Dormant</span></td><td>hypothetical</td><td>not validated</td><td>policy-managed</td><td><button type="button" aria-label="Inspect record fixture-record-hypothesis-001">Inspect</button></td></tr></tbody></table></div>
+      <div class="callout">Browsing, opening a detail panel, or viewing this table does not confirm a record and does not reverse fading. A dormant record can remain supported; an active record can remain disputed.</div>
+    </section>
+    <section class="panel" id="evaluate" aria-labelledby="evaluate-title">
+      <div class="panel-header"><div><p class="eyebrow">bounded maintenance / reversible</p><h3 id="evaluate-title">Evaluate or revive a record</h3></div><span class="badge waiting">no fabricated score</span></div>
+      <form class="stack"><div class="field-row"><label for="record-id">Record ID<input id="record-id" value="fixture-record-derived-001" aria-describedby="record-help"></label><label for="effective-time">Effective time<input id="effective-time" value="2026-11-27T09:42:18Z"><span class="helper">Use service time in implementation; this fixture is illustrative.</span></label></div><p class="helper" id="record-help">Evaluation explains policy version, elapsed time, relevant opportunities, and exemptions. It does not recalculate evidence or confidence.</p><div class="actions"><button class="primary" type="button">Evaluate activation</button><button type="button">Preview revival</button><button class="quiet" type="button">Cancel</button></div></form>
+      <div class="status waiting" role="status"><div><strong>Evaluating: policy v1.3 is checking relevant opportunities</strong><span class="helper">No denominator or score is displayed until the service returns one. Existing activation and evidence remain visible.</span></div><span class="heartbeat meta">heartbeat</span></div>
+      <div class="status known" role="status"><div><strong>Revival preview: reversible visibility change</strong><span class="helper">Pinned applicable guidance returns to ordinary recall. Source, validity, and counterevidence stay unchanged.</span></div><button type="button">Revive record</button></div>
+    </section>
+    <section class="panel" id="forgetting" aria-labelledby="forgetting-title">
+      <div class="panel-header"><div><p class="eyebrow">explicit deletion is distinct</p><h3 id="forgetting-title">Request explicit forgetting</h3></div><span class="badge error">confirm before mutation</span></div>
+      <form class="stack"><div class="field-row"><label for="forget-id">Target record ID<input id="forget-id" value="fixture-record-derived-001"></label><label for="forget-scope">Controlled scope<select id="forget-scope"><option selected>Current project scope</option><option>All authorized local scopes</option></select></label></div><label for="forget-reason">Reason<textarea id="forget-reason">Remove this derived record from controlled storage.</textarea><span class="helper">Reason becomes part of the deletion receipt; it does not retain removed content.</span></label><div class="actions"><button class="danger" type="button">Open forgetting confirmation</button><button class="quiet" type="button">Cancel</button></div></form>
+      <div class="status error" role="alert"><div><strong>Confirmation required: controlled derivatives may be affected</strong><span class="helper">Review source artifacts, records, revisions, indexes, Lore derivatives, caches, and service-controlled exports. Copies already delivered outside NOESIS cannot be recalled.</span></div></div>
+    </section>
+    <section class="panel" id="states" aria-labelledby="states-title">
+      <div class="panel-header"><div><p class="eyebrow">state specimens</p><h3 id="states-title">Empty, dormant, success, conflict, recovery</h3></div><span class="meta">Each status is local to Ebb</span></div>
+      <div class="grid-2">
+        <div class="card"><div class="card-title"><h4>Empty</h4><span class="badge">NO RECORDS</span></div><div class="status"><div><strong>No active, quiet, or dormant records in scope</strong><span class="helper">Empty means the service returned no rows. It does not mean the scope was not computed.</span></div></div></div>
+        <div class="card"><div class="card-title"><h4>Dormant but supported</h4><span class="badge waiting">DORMANT</span></div><div class="status waiting"><div><strong>Activation is low; evidence remains supported</strong><span class="helper">Revival is reversible and does not strengthen confidence or erase counterevidence.</span></div><button class="quiet" type="button">Preview revive</button></div></div>
+        <div class="card"><div class="card-title"><h4>Conflict / error</h4><span class="badge error">REVISION MISMATCH</span></div><div class="status error" role="alert"><div><strong>Could not revive record</strong><span class="helper">Record revision changed while this panel was open. Refresh the row before retry; no overwrite occurred.</span></div></div></div>
+        <div class="card"><div class="card-title"><h4>Success / recovery</h4><span class="badge known">REVIVED</span></div><div class="status known"><div><strong>Revival recorded as revision <span class="mono">rev-22</span></strong><span class="helper">Activation is visible again. Evidence, validity, retention, and source chain remain unchanged.</span></div></div><div class="actions" style="margin-top:12px"><button type="button">Undo via revision</button><span class="helper">Waiting: index refresh may lag</span></div></div>
+      </div>
+    </section>
+    <section class="panel" id="responsive" aria-labelledby="responsive-title">
+      <div class="panel-header"><div><p class="eyebrow">interaction contract</p><h3 id="responsive-title">Focus, status, and responsive behavior</h3></div><span class="badge synthetic">mockup notes</span></div>
+      <div class="grid-3"><div class="card"><h4>1440px</h4><p>Rail, bounded record table, forms, and provenance inspector use three columns. Destructive action remains visually separated.</p></div><div class="card"><h4>390px</h4><p>Table scrolls inside its own region; evaluate and forgetting forms stack; inspector follows content and keeps scope visible.</p></div><div class="card"><h4>320px</h4><p>Actions fill the width, IDs and reason text wrap, and the confirm entry point remains reachable without page overflow.</p></div></div>
+      <div class="focus-note"><strong>Keyboard / status / motion:</strong> skip link → tabs → context → rail → Ebb heading → record table → evaluate form → forgetting action → inspector. Tables remain the primary keyboard/list path; no hover or graph gesture is required. Confirmation dialog initially focuses Cancel and returns focus to its opener. Local errors use <span class="mono">role=alert</span>; reduced motion removes heartbeat/transitions while retaining “evaluating”, “quiet”, and “dormant” words. Handheld portrait/landscape keeps the same logical order; safe-area insets and browser text scaling are reserved, and an on-screen keyboard keeps the focused reason field visible without dropping the deletion context.</div>
+    </section>
+  </section>
+  <aside class="inspector" aria-labelledby="inspector-title">
+    <div class="context-card"><h2 id="inspector-title">Record inspector</h2><dl class="kv"><dt>Record</dt><dd class="mono">fixture-record-derived-001</dd><dt>Origin</dt><dd><span class="badge derived">derived observation</span></dd><dt>Activation</dt><dd><span class="badge waiting">quiet</span></dd><dt>Evidence</dt><dd>supported</dd><dt>Validity</dt><dd>current</dd><dt>Retention</dt><dd>policy-managed</dd><dt>Revision</dt><dd class="mono">rev-21</dd><dt>Deletion</dt><dd>not requested</dd></dl></div>
+    <div class="context-card"><h2>Meaning boundaries</h2><p class="helper">Ebb is reversible visibility management. It does not change truth, confidence, validity, retention, or source evidence. Explicit forgetting is a separate mutation.</p></div>
+    <div class="context-card"><h2>Protected guidance</h2><p class="helper">Applicable explicit constraints, open commitments, and manually pinned records are protected from ordinary fading. Revival preserves counterevidence.</p></div>
+  </aside>
+</main>
+<footer class="footer-note" style="max-width:1510px;margin:0 auto;padding:0 max(16px,3vw) 40px">Design-only mockup. Synthetic fixture; no activation or forgetting mutation ran.</footer>
+</div>
+<script src="./mockup.js"></script>
+</body>
+</html>

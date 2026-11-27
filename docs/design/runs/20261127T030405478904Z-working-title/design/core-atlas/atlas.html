@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Atlas · NOESIS mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Atlas · resources I know about</p></div></div>
+    <div class="top-actions"><span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span><button class="icon-button" type="button" data-theme-toggle aria-label="Switch to light theme">☼</button></div>
+  </header>
+  <nav class="primary-tabs" aria-label="Primary workspaces">
+    <a class="tab" href="observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+    <a class="tab" aria-current="page" href="atlas.html"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+    <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+    <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+    <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">⬡</span><span>Forge<small>Scoped exports</small></span></a>
+  </nav>
+  <section class="context-bar" aria-label="Selected resource context">
+    <span class="context-icon" aria-hidden="true">T</span>
+    <div class="context-copy"><strong>Threadloom MCP <span class="badge source">MCP server</span></strong><span>Selected context · local / project: noesis · synthetic/planned</span></div>
+    <div class="context-values"><span class="code-chip">v2.4.1</span><span class="code-chip">sha256:8a41…c2d7</span><span class="code-chip">scope: local/project:noesis</span></div>
+    <a class="button small secondary" href="inspector.html" aria-label="Open selected Threadloom MCP inspector">Inspector</a>
+  </section>
+  <main id="main-content" class="app-grid" tabindex="-1">
+    <aside class="rail" aria-label="Atlas sections">
+      <p class="rail-label">Atlas views</p>
+      <a class="rail-link current" href="#resources" aria-current="page">⌘ <span>Resources</span><b>3</b></a>
+      <a class="rail-link" href="#relationships">⌁ <span>Relationships</span><b>5</b></a>
+      <a class="rail-link" href="inspector.html">⟿ <span>Selected inspector</span></a>
+      <div class="rail-rule"></div>
+      <p class="rail-label">Filters</p>
+      <a class="rail-link" href="#facets">▤ <span>Facets</span></a>
+      <a class="rail-link" href="#history">↺ <span>History</span></a>
+      <div class="rail-rule"></div>
+      <a class="rail-link" href="observatory.html">◌ <span>Back to Pulse</span></a>
+    </aside>
+
+    <section class="main-pane" aria-label="Atlas resource content">
+      <header class="page-head" id="resources">
+        <div><p class="eyebrow">ATLAS · SYNTHETIC / PLANNED</p><h2>Resources I know about</h2><p class="lede">Search and inspect stable identities without merging similar titles. Selected resource, version, snapshot, and scope stay pinned into every handoff.</p></div>
+        <a class="button primary" href="inspector.html" aria-label="Open selected Threadloom MCP inspector">Open selected inspector</a>
+      </header>
+
+      <section class="panel" id="facets" aria-labelledby="filter-title">
+        <div class="panel-head"><div><h3 id="filter-title">Search and scope</h3><p>Filters are illustrative service projections; unknown counts stay unknown.</p></div><span class="badge">3 rows shown</span></div>
+        <div class="panel-body"><div class="form-row"><div class="field"><label for="atlas-search">Search resources</label><input id="atlas-search" value="Threadloom" aria-describedby="atlas-search-help"><small id="atlas-search-help">Names are not identity. Exact resource IDs and snapshots remain inspectable.</small></div><button class="button primary" type="button">Search</button></div><div class="badges" style="margin-block-start:12px"><span class="badge source">kind: all</span><span class="badge source">origin: local / managed</span><span class="badge">project: noesis</span><span class="badge review">include dormant</span></div></div>
+      </section>
+
+      <section class="panel" aria-labelledby="resource-list-title">
+        <div class="panel-head"><div><h3 id="resource-list-title">Bounded resource list</h3><p>List/table is the primary navigation path for keyboard and assistive technology.</p></div><span class="badge source">Matched 3 · included 3</span></div>
+        <div class="panel-body table-wrap"><table class="data-table"><caption class="sr-only">Synthetic resource results</caption><thead><tr><th>Resource</th><th>Kind / origin</th><th>Version / snapshot</th><th>Facets</th><th>Activity</th></tr></thead><tbody>
+          <tr aria-selected="true" aria-label="Selected Threadloom MCP, MCP server, version v2.4.1, 18 captured, 1 deferred"><td><strong>Threadloom MCP</strong><br><code>fixture-resource-threadloom-mcp</code><div class="badges" style="margin-block-start:5px"><span class="badge source">Selected</span></div></td><td>MCP server<br><span class="small-copy">local / managed</span></td><td><span class="mono">v2.4.1</span><br><code>8a41…c2d7</code></td><td><span class="badge source">examined</span><br><span class="badge">referenced</span></td><td><span class="mono">18</span> captured<br><span class="badge review">1 deferred</span></td></tr>
+          <tr aria-label="Threadloom docs, documentation, external and referenced, version unknown"><td><strong>Threadloom docs</strong><br><code>fixture-resource-threadloom-docs</code></td><td>Documentation<br><span class="small-copy">external / referenced</span></td><td>unknown version<br><span class="small-copy">snapshot not examined</span></td><td><span class="badge">referenced only</span></td><td>unknown</td></tr>
+          <tr aria-label="NOESIS project, project, local and managed, 2 active"><td><strong>NOESIS project</strong><br><code>fixture-resource-noesis-project</code></td><td>Project<br><span class="small-copy">local / managed</span></td><td>current revision<br><span class="small-copy">digest unavailable</span></td><td><span class="badge source">used</span></td><td><span class="mono">2</span> active</td></tr>
+        </tbody></table></div>
+        <div class="panel-foot"><span aria-hidden="true">▤</span><span><strong>Coverage:</strong> 3 matched and 3 included in this bounded fixture. Pagination/continuation belongs to the service projection.</span><button class="button small secondary" type="button" aria-label="Load next Atlas resource page">Next page</button></div>
+      </section>
+
+      <section class="panel" id="relationships" aria-labelledby="relationship-title">
+        <div class="panel-head"><div><h3 id="relationship-title">Relationship field</h3><p>Static local HUD over actual bounded records: one relationship module, five named nodes, four typed edges, and one center hub. No ambient particles or force simulation.</p></div><span class="badge source">Module · 5 nodes · 4 edges</span></div>
+        <div class="panel-body relationship-grid"><div><img class="relationship-svg" src="assets/relationship-field.svg" alt="" aria-hidden="true"><p class="alt-note">Module framing groups the bounded field; every node and edge maps to an ID and relation label. Geometry has no semantic distance.</p></div><div><p class="eyebrow">LIST / TABLE ALTERNATIVE</p><ul class="relationship-list" aria-label="Relationship records"><li aria-label="Threadloom MCP to Threadloom snapshot; derived from; source revision 8a41 c2d7"><div><strong>Threadloom MCP → Threadloom snapshot</strong><span>source revision <code>8a41…c2d7</code></span></div><span class="edge-label">derived from</span></li><li aria-label="Threadloom MCP to NOESIS project; used by; scope local project noesis"><div><strong>Threadloom MCP → NOESIS project</strong><span>scope <code>local/project:noesis</code></span></div><span class="edge-label">used by</span></li><li aria-label="Derived observation to Threadloom MCP; applies to; fixture record derived 001"><div><strong>Derived observation → Threadloom MCP</strong><span><code>fixture-record-derived-001</code></span></div><span class="edge-label">applies to</span></li><li aria-label="Hypothesis to Threadloom MCP; hypothetical association; fixture record hypothesis 001; unvalidated"><div><strong>Hypothesis → Threadloom MCP</strong><span><code>fixture-record-hypothesis-001</code> · unvalidated</span></div><span class="edge-label">hypothetical association</span></li></ul></div></div>
+        <div class="panel-foot"><span aria-hidden="true">⌁</span><span><strong>Field rule:</strong> relationships describe links, not truth. If authorization or data is absent, show unavailable/empty text instead of decorative stand-ins.</span><a class="button small secondary" href="relationship.html" aria-label="Open Atlas relationship field detail">Open field detail</a></div>
+      </section>
+
+      <section class="status error" id="atlas-recovery" role="alert" aria-labelledby="atlas-recovery-title"><span class="status-icon" aria-hidden="true">!</span><div><strong id="atlas-recovery-title">Atlas request timed out at 09:42:18 UTC</strong><p data-status-message>The selected Threadloom MCP context remains pinned. No data or revision changed.</p><div class="badges" style="margin-block-start:7px"><button class="button small secondary" type="button" data-retry="#atlas-recovery" aria-label="Retry Atlas request">Retry Atlas</button><span class="badge error">Request failed</span></div></div></section>
+
+      <section class="panel" id="history" aria-labelledby="atlas-states-title"><div class="panel-head"><div><h3 id="atlas-states-title">Atlas state specimens</h3><p>State words distinguish zero, unknown, partial, stale, and unavailable.</p></div></div><div class="state-grid">
+        <article class="state-card"><h4>Empty</h4><strong>No matching resources</strong><p>Explain zero results and keep filters available.</p></article>
+        <article class="state-card"><h4>Loading</h4><strong>Reading resource catalog…</strong><div class="skeleton" aria-hidden="true"><span></span><span></span></div><p>Preserve entered search and selected scope.</p></article>
+        <article class="state-card"><h4>Selected</h4><strong>Threadloom MCP pinned</strong><p>Identity, version, snapshot, and scope persist across handoffs.</p></article>
+        <article class="state-card"><h4>Partial</h4><strong>3 included · omissions reported</strong><p>Show omitted count and continuation when supplied; never imply exhaustive review.</p></article>
+        <article class="state-card"><h4>Stale / disputed</h4><strong><span class="badge review">Stale</span> Snapshot needs review</strong><p>Keep prior evidence and offer inspect/refresh; never overwrite silently.</p></article>
+        <article class="state-card"><h4>Unavailable / recovery</h4><strong><span class="badge error">Unavailable</span> Relationship data blocked</strong><p>Offer retry or list-safe empty state. Never render fake nodes.</p></article>
+      </div></section>
+    </section>
+
+    <aside class="inspector" aria-labelledby="inspector-title">
+      <div class="inspector-head"><div><p class="eyebrow">SELECTED RESOURCE</p><h2 id="inspector-title">Threadloom MCP</h2></div><span class="badge source">Selected</span></div>
+      <div class="inspector-block"><div class="badges"><span class="badge source">MCP server</span><span class="badge">local / managed</span></div><dl class="fact-list"><div><dt>Resource ID</dt><dd class="mono">fixture-resource-threadloom-mcp</dd></div><div><dt>Version</dt><dd class="mono">v2.4.1</dd></div><div><dt>Snapshot</dt><dd class="mono">sha256:8a41…c2d7</dd></div><div><dt>Scope</dt><dd>local / project:noesis</dd></div></dl></div>
+      <div class="inspector-block"><h3>Evidence facets</h3><div class="badges"><span class="badge">referenced</span><span class="badge source">examined</span><span class="badge review">used: unknown</span><span class="badge">evaluated: unknown</span></div><p class="small-copy">No overall knowledge percentage. Empty and unknown counts stay distinct.</p></div>
+      <div class="inspector-block"><h3>Handoff</h3><div class="inspector-links"><a class="button small quiet" href="inspector.html">Inspect provenance</a><a class="button small quiet" href="#relationships">Explore relationships</a><a class="button small quiet" href="observatory.html">Return to Pulse</a></div></div>
+      <p class="small-copy">Synthetic fixture. Selecting a resource does not confirm, reinforce, or mutate memory.</p>
+    </aside>
+  </main>
+  <p class="footer-note">Design mockup only. Graph is optional visual layer; bounded list/table remains primary. No remote assets or runtime dependencies.</p>
+  <script src="mockup.js"></script>
+</body>
+</html>

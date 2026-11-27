@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Command palette · NOESIS design mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="command-page">
+  <div class="command-background" inert>
+    <a class="skip-link" href="#main-content">Skip to command palette notes</a>
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">N</span><div><h1>NOESIS Observatory</h1><p>Search authorized actions and records without losing selected context</p></div></div>
+      <div class="top-actions"><span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span><button class="theme-button" type="button" aria-label="Switch to light mode">☼ <span>Theme: dark</span></button></div>
+    </header>
+    <nav class="primary-tabs" aria-label="Primary workspaces">
+      <a class="tab" href="../core-atlas/observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+      <a class="tab" href="../core-atlas/atlas.html" aria-current="page"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+      <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+      <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+      <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">◆</span><span>Forge<small>Scoped exports</small></span></a>
+    </nav>
+    <section class="context-bar" aria-label="Selected resource context">
+      <span class="context-icon" aria-hidden="true">T</span>
+      <div class="context-copy"><strong>Threadloom MCP <span class="badge source">MCP server</span></strong><span>Selected context · local / project: noesis · synthetic/planned</span></div>
+      <div class="context-values"><span class="code-chip">v2.4.1</span><span class="code-chip">sha256:8a41…c2d7</span><span class="code-chip">scope: local/project:noesis</span></div>
+      <a class="button" href="../core-atlas/atlas.html">Return to Atlas</a>
+    </section>
+    <main id="main-content" class="app-grid command-stage" tabindex="-1">
+      <aside class="rail" aria-label="Command palette sections">
+        <p class="rail-label">Actions</p>
+        <a class="rail-link" href="command-palette.html" aria-current="page">⌘ <span>Command palette</span></a>
+        <a class="rail-link" href="chronicle.html">↺ <span>Chronicle</span></a>
+        <a class="rail-link" href="lineage.html">⟿ <span>Lineage</span></a>
+        <div class="rail-rule"></div>
+        <a class="rail-link" href="../core-atlas/atlas.html">⌂ <span>Back to Atlas</span></a>
+      </aside>
+      <section class="main-pane" aria-label="Command palette state coverage">
+        <header class="page-head"><div><p class="eyebrow">COMMAND PALETTE · SYNTHETIC / PLANNED</p><h2>One active modal, clear recovery</h2><p class="lede">The active specimen is a native dialog with an inert background. It searches only authorized actions and records returned by the service.</p></div><a class="button" href="chronicle.html">Open Chronicle</a></header>
+        <button class="button" type="button" id="palette-trigger" data-dialog-open="#command-dialog">Open command palette</button>
+        <section class="status" role="status" aria-live="polite"><span class="status-icon" aria-hidden="true">⌘</span><div><strong>Open / no-results specimen active</strong><p>Background content is inert. Escape closes without mutation and returns focus to the invoking command trigger.</p></div></section>
+        <section class="panel" aria-labelledby="palette-contract-title"><div class="panel-head"><div><h3 id="palette-contract-title">Interaction contract</h3><p>State words, result count, and safe focus behavior remain visible.</p></div><span class="badge source">native dialog pattern</span></div><div class="panel-body"><div class="focus-note"><strong>Focus order:</strong> search input → result list (when present) → close. Arrow keys move the active result, Enter invokes it, Escape closes, and Backspace clears a no-results query.</div><div class="coverage" style="margin-block-start:12px"><span><strong>Scope</strong> selected resource/version/scope retained</span><span><strong>Modal</strong> one active dialog</span><span><strong>Background</strong> inert</span></div></div></section>
+        <section class="panel" aria-labelledby="cases-title"><div class="panel-head"><div><h3 id="cases-title">State specimens</h3><p>Inactive examples are ordinary cards, not additional modal dialogs.</p></div><span class="badge">5 cases</span></div><div class="state-grid command-cases">
+          <article class="state-card command-case"><h4>Closed</h4><strong>Return to invoking control</strong><p>Dialog absent; route and selected context remain unchanged. Trigger exposes “Open command palette”.</p></article>
+          <article class="state-card command-case"><h4>Open / empty</h4><strong>Search actions and records</strong><p>Input receives initial focus. Result count announces zero when no query is entered.</p></article>
+          <article class="state-card command-case"><h4>Results</h4><strong>3 authorized matches</strong><p>Selected row is distinct from focus. Arrow movement and Enter invocation are explicit.</p></article>
+          <article class="state-card command-case"><h4>No-results</h4><strong>No matches for “not-a-command”</strong><p>Query stays editable. Backspace clears; Escape closes and restores focus.</p></article>
+          <article class="state-card command-case" role="alert"><h4>Action error</h4><strong>Refresh failed · no mutation</strong><p>Local alert names command, reason, and trace ID. Palette stays open with query retained.</p></article>
+          <article class="state-card command-case" role="status"><h4>Recovery</h4><strong>Retry queued</strong><p>Retry preserves selected resource/version/scope and says waiting when no denominator exists.</p></article>
+        </div></section>
+        <div class="focus-note"><strong>Reduced motion and forced colors:</strong> no animation is needed to understand results. Reduced motion keeps list/status text. Forced colors replace surfaces with system colors and retain borders, status words, and focus.</div>
+      </section>
+      <aside class="inspector" aria-labelledby="inspector-title"><div><p class="eyebrow">PINNED CONTEXT</p><div class="inspector-head"><h2 id="inspector-title">Threadloom MCP</h2><span class="badge source">scope retained</span></div></div><div><h3>Invocation boundary</h3><dl class="small-copy"><dt>Query</dt><dd class="mono">not-a-command</dd><dt>Authorized scope</dt><dd>local / project:noesis</dd><dt>Selected version</dt><dd class="mono">v2.4.1</dd><dt>Source revision</dt><dd class="mono">s-22</dd></dl></div><div><h3>Safe failure</h3><p class="small-copy">An action error never becomes success or empty. Keep query and context; offer Retry or Return.</p></div><div><h3>Keyboard return</h3><p class="small-copy">Escape and close return focus to the exact invoking control. Destructive actions use a separate confirm dialog.</p></div></aside>
+    </main>
+    <p class="footer-note">Design mockup only. Synthetic Threadloom MCP fixture; the command palette is not wired to service actions or authorization.</p>
+  </div>
+  <dialog class="command-dialog" id="command-dialog" data-active-dialog data-opener="#palette-trigger" open aria-modal="true" aria-labelledby="palette-title" aria-describedby="palette-description">
+    <div class="dialog-inner">
+      <div class="dialog-title"><div><p class="eyebrow">ACTIVE SPECIMEN · OPEN / NO-RESULTS</p><h2 id="palette-title">Command palette</h2><p id="palette-description" class="small-copy">Search authorized actions and records. No private data is exposed outside the paired selected scope.</p></div><button class="button quiet" type="button" data-dialog-close aria-label="Close command palette">Close</button></div>
+      <div class="command-input"><label for="command-query">Search actions and records</label><input id="command-query" type="search" value="not-a-command" autofocus aria-describedby="command-help command-count" aria-controls="command-results"><span id="command-help" class="small-copy">Arrow keys move results · Enter invokes · Escape closes · Backspace clears.</span></div>
+      <div id="command-count" class="status command-status" role="status" aria-live="polite"><span class="status-icon" aria-hidden="true">0</span><div><strong>0 authorized results</strong><p>Query retained. Try “open Chronicle” or clear the query.</p></div></div>
+      <div id="command-results" class="command-empty" role="listbox" aria-label="Command results"><strong>No matching actions or records</strong><span>Nothing was changed. Clear the query to browse authorized commands within this scope.</span></div>
+      <div class="dialog-actions"><button class="button" type="button" data-dialog-clear>Clear query</button><button class="button primary" type="button" data-dialog-close>Close palette</button></div>
+    </div>
+  </dialog>
+<script src="./mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0-local-handoff",
+  "status": "design-rendered-not-application-qa",
+  "contract": "design-contract-20261127.2",
+  "fixture": "synthetic-threadloom-mcp-v2.4.1",
+  "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"],
+  "surfaces": [
+    {
+      "id": "lore",
+      "mockup": "lore.html",
+      "states": ["empty", "loaded", "generated", "editing-authored", "stale", "diff", "refresh-success", "conflict", "error", "recovery", "long-content"],
+      "cases": [
+        {"state": "empty", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html", "responsive-css:styles.css"]},
+        {"state": "loaded", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html", "captures/lore-1440-repair-v2.png", "captures/lore-390-repair-v2.png", "captures/lore-320-repair-v2.png"]},
+        {"state": "generated", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "editing-authored", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "stale", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html", "captures/lore-1440-repair-v2.png"]},
+        {"state": "diff", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "refresh-success", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "conflict", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "error", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "recovery", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]},
+        {"state": "long-content", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:lore.html"]}
+      ]
+    },
+    {
+      "id": "reverie",
+      "mockup": "reverie.html",
+      "states": ["form", "validation", "queued", "running-known", "waiting-indeterminate", "reconnecting", "cancelled", "completed", "budget-exhausted", "failed", "output-tabs"],
+      "cases": [
+        {"state": "form", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:reverie.html"]},
+        {"state": "waiting-indeterminate", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:reverie.html", "captures/reverie-1024-repair-v4.png", "captures/reverie-390-forced-v4.png"]},
+        {"state": "output-tabs", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:reverie.html", "mockup.js", "captures/reverie-1024-repair-v4.png"]}
+      ]
+    },
+    {
+      "id": "shared-dialogs",
+      "mockup": "dialogs.html",
+      "states": ["closed", "open", "empty", "no-results", "action-error", "recovery", "pairing-feedback", "destructive-confirm"],
+      "cases": [
+        {"state": "open", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:dialogs.html", "mockup.js", "captures/dialogs-1024-repair-v4.png"]},
+        {"state": "destructive-confirm", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:dialogs.html", "mockup.js", "captures/dialogs-1024-repair-v4.png"]},
+        {"state": "pairing-feedback", "viewports": ["desktop-1440", "desktop-900-1260", "narrow-390", "reflow-320"], "implementation": "unverified", "qaEvidence": ["design-artifact:dialogs.html"]}
+      ]
+    }
+  ],
+  "interactionVerification": {
+    "status": "local-browser-spot-check-not-application-qa",
+    "evidence": ["mockup.js", "captures/reverie-1024-repair-v4.png", "captures/dialogs-1024-repair-v4.png", "captures/reverie-390-forced-v4.png"],
+    "observed": ["pointer tab activation", "ArrowLeft/ArrowRight/Home/End focus movement", "Enter/Space tab activation", "destructive Escape/backdrop protection", "Cancel close and focus restoration", "no page errors"]
+  },
+  "applicationImplementation": "unverified",
+  "limitations": ["Mockups do not prove service behavior, authorization, durable jobs, WCAG conformance, screen-reader output, browser compatibility, performance, network recovery, or second-device LAN reachability.", "Synthetic fixtures and local harness behavior do not establish application routes or API semantics."]
+}

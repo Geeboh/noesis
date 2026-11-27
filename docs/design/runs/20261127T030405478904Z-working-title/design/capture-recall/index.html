@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en" data-ui-color-mode="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111e">
+  <title>Capture &amp; recall · NOESIS design mockup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to capture and recall</a>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <div>
+        <h1>NOESIS Observatory</h1>
+        <p>Capture observations and recall evidence without losing scope</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="connection"><span class="dot success" aria-hidden="true"></span>Paired · local</span>
+      <span class="badge planned">SYNTHETIC / PLANNED</span>
+      <button class="button small secondary mode-control" id="mode-toggle" type="button" aria-describedby="mode-preview">Color mode: system</button>
+      <span class="mode-preview" id="mode-preview" role="status">Preview only · follows system preference</span>
+    </div>
+  </header>
+
+  <nav class="primary-tabs" aria-label="Primary workspaces">
+    <a class="tab" aria-current="page" href="../core-atlas/observatory.html"><span class="tab-symbol" aria-hidden="true">◌</span><span>Observatory<small>Status and open work</small></span></a>
+    <a class="tab" href="../core-atlas/atlas.html"><span class="tab-symbol" aria-hidden="true">⌘</span><span>Atlas<small>Resources and relations</small></span></a>
+    <a class="tab" href="../knowledge-ops/lore.html"><span class="tab-symbol" aria-hidden="true">✦</span><span>Lore<small>Generated and authored</small></span></a>
+    <a class="tab" href="../knowledge-ops/reverie.html"><span class="tab-symbol" aria-hidden="true">↻</span><span>Reverie<small>Durable jobs</small></span></a>
+    <a class="tab" href="../knowledge-ops/forge.html"><span class="tab-symbol" aria-hidden="true">⬡</span><span>Forge<small>Scoped exports</small></span></a>
+  </nav>
+
+  <section class="context-bar" aria-label="Selected resource context">
+    <span class="context-icon" aria-hidden="true">T</span>
+    <div class="context-copy">
+      <strong>Threadloom MCP <span class="badge source">MCP server</span></strong>
+      <span>Selected context · local / project:noesis · synthetic/planned</span>
+    </div>
+    <div class="context-values">
+      <span class="code-chip">v2.4.1</span>
+      <span class="code-chip">sha256:8a41…c2d7</span>
+      <span class="code-chip">scope: local/project:noesis</span>
+    </div>
+    <a class="button small secondary" href="../core-atlas/inspector.html" aria-label="Open selected Threadloom MCP inspector">Details</a>
+  </section>
+
+  <main id="main-content" class="app-grid" tabindex="-1">
+    <aside class="rail" aria-label="Capture and recall sections">
+      <p class="rail-label">This surface</p>
+      <a class="rail-link current" href="#capture-form" aria-current="page">✎ <span>Capture</span><b>4</b></a>
+      <a class="rail-link" href="#recall-form">⌕ <span>Recall</span><b>4</b></a>
+      <a class="rail-link" href="#coverage">▤ <span>Coverage</span></a>
+      <a class="rail-link" href="#states">◈ <span>State ledger</span></a>
+      <div class="rail-rule"></div>
+      <p class="rail-label">Handoffs</p>
+      <a class="rail-link" href="../core-atlas/atlas.html">⌘ <span>Selected resource</span></a>
+      <a class="rail-link" href="../extra-surfaces/chronicle.html">↺ <span>Chronicle</span></a>
+      <a class="rail-link" href="../extra-surfaces/lineage.html">⟿ <span>Lineage</span></a>
+    </aside>
+
+    <section class="main-pane" aria-label="Capture and recall content">
+      <header class="page-head">
+        <div>
+          <p class="eyebrow">SURFACE-ID CAPTURE-RECALL · DESIGN CONTRACT design-contract-20261127.2</p>
+          <h2>Capture an observation. Recall its evidence.</h2>
+          <p class="lede">Keep the note, query, selected scope, source locator, and coverage facts visible across local status changes. Captured evidence is not the same as a derived observation or a generated page.</p>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="#capture-form">New capture</a>
+          <a class="button secondary" href="#recall-form">Recall evidence</a>
+        </div>
+      </header>
+
+      <section class="status success" role="status" aria-labelledby="surface-status-title">
+        <span class="status-icon" aria-hidden="true">✓</span>
+        <div>
+          <strong id="surface-status-title">Local capture and recall are ready</strong>
+          <p>Design-only fixture. No private record was written or read; application implementation remains unverified.</p>
+        </div>
+      </section>
+
+      <section class="panel" id="capture-form" aria-labelledby="capture-title">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">CAPTURE · SOURCE EVIDENCE</p>
+            <h3 id="capture-title">Record a bounded observation</h3>
+            <p>Input stays local until the operator submits. Source locator and scope travel with the observation.</p>
+          </div>
+          <span class="badge source">Draft scope pinned</span>
+        </div>
+        <div class="panel-body">
+          <form class="capture-form" aria-describedby="capture-help">
+            <div class="field-grid">
+              <div class="field">
+                <label for="capture-note">Observation note</label>
+                <textarea id="capture-note" name="capture-note" rows="5">Provider response waited without a known denominator; keep waiting explicit and offer a scoped retry.</textarea>
+                <small id="capture-help">Synthetic draft · 94 characters · required. Do not include credentials or unrelated preferences.</small>
+              </div>
+              <div class="field-stack">
+                <div class="field">
+                  <label for="capture-source">Source locator</label>
+                  <input id="capture-source" name="capture-source" value="threadloom://events/evt-118" aria-describedby="source-help">
+                  <small id="source-help">Copyable locator retained for later inspection.</small>
+                </div>
+                <div class="field">
+                  <label for="capture-kind">Observation kind</label>
+                  <select id="capture-kind" name="capture-kind">
+                    <option selected>Provider behavior</option>
+                    <option>Task outcome</option>
+                    <option>Operator correction</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="scope-line" aria-label="Capture scope and provenance">
+              <span><strong>Scope</strong> local / project:noesis</span>
+              <span><strong>Resource</strong> Threadloom MCP · <span class="mono">v2.4.1</span></span>
+              <span><strong>Provenance</strong> source evidence · <span class="mono">evt-118</span></span>
+            </div>
+            <div class="actions action-row">
+              <button class="button primary" type="button">Capture observation</button>
+              <button class="button quiet" type="button">Clear draft</button>
+              <span class="helper">Draft is preserved on validation or request failure.</span>
+            </div>
+          </form>
+
+          <div class="status-grid" aria-label="Capture state specimens">
+            <article class="state-card" id="capture-empty">
+              <h4>Empty</h4>
+              <strong>No observation draft</strong>
+              <p>Zero draft text is distinct from an unavailable capture service. Start a note or return to the selected resource.</p>
+            </article>
+            <article class="state-card active-state" id="capture-editing">
+              <h4>Editing</h4>
+              <strong>Draft retained locally</strong>
+              <p>Note, locator, resource, version, and scope remain visible while the operator edits.</p>
+            </article>
+            <article class="state-card" id="capture-submitting">
+              <h4>Submitting</h4>
+              <strong><span class="badge review">Queued</span> Capture request pending</strong>
+              <p>Disable duplicate submit; keep the draft and say queued, not captured.</p>
+            </article>
+            <article class="state-card" id="capture-success">
+              <h4>Success</h4>
+              <strong><span class="badge success">Captured</span> Evidence revision recorded</strong>
+              <p>Show durable ID <span class="mono">obs-2048</span>, source locator, scope, and next recall action.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="recall-form" aria-labelledby="recall-title">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">RECALL · BOUNDED SEARCH</p>
+            <h3 id="recall-title">Recall applicable evidence</h3>
+            <p>Search is scoped to the selected resource and project. Returned, included, and omitted facts stay separate.</p>
+          </div>
+          <span class="badge derived">Read-only inspection</span>
+        </div>
+        <div class="panel-body">
+          <form class="recall-form" aria-describedby="recall-help">
+            <div class="field recall-query">
+              <label for="recall-query">Recall query</label>
+              <input id="recall-query" name="recall-query" value="provider wait without denominator" aria-describedby="recall-help">
+              <small id="recall-help">Synthetic query · selected scope remains pinned through retry and handoff.</small>
+            </div>
+            <div class="field recall-filter">
+              <label for="recall-filter">Evidence facet</label>
+              <select id="recall-filter" name="recall-filter">
+                <option selected>All applicable evidence</option>
+                <option>Source evidence only</option>
+                <option>Derived observations</option>
+                <option>Validated outcomes</option>
+              </select>
+            </div>
+            <button class="button primary" type="button">Recall evidence</button>
+          </form>
+
+          <div class="scope-line" aria-label="Recall scope and coverage">
+            <span><strong>Scope</strong> local / project:noesis</span>
+            <span><strong>Snapshot</strong> <span class="mono">sha256:8a41…c2d7</span></span>
+            <span><strong>Cutoff</strong> <span class="mono">2026-11-27 09:42 UTC</span></span>
+          </div>
+
+          <div class="status partial" role="status" aria-labelledby="partial-title">
+            <span class="status-icon" aria-hidden="true">~</span>
+            <div>
+              <strong id="partial-title">Partial recall · 3 returned · 2 omitted</strong>
+              <p>Provider returned a bounded page. Omitted records are not treated as absent; continuation remains available from the service.</p>
+            </div>
+            <span class="badge review">Coverage 3 / 5</span>
+          </div>
+
+          <div class="result-list" aria-label="Bounded recall results">
+            <article class="result-row">
+              <div class="result-marker source" aria-hidden="true">S</div>
+              <div class="result-copy">
+                <strong>Provider wait had no known denominator</strong>
+                <span class="mono">obs-2048 · source evidence · evt-118</span>
+                <p>Observed response remained waiting; no percentage was inferred.</p>
+              </div>
+              <div class="result-meta"><span class="badge source">source</span><span>scope matched</span></div>
+              <button class="button small secondary" type="button" aria-label="Inspect evidence observation obs-2048">Inspect</button>
+            </article>
+            <article class="result-row">
+              <div class="result-marker derived" aria-hidden="true">D</div>
+              <div class="result-copy">
+                <strong>Retry preserves selected context</strong>
+                <span class="mono">obs-2041 · derived observation · rev-17</span>
+                <p>Scoped retry retains resource, version, snapshot, and query input.</p>
+              </div>
+              <div class="result-meta"><span class="badge derived">derived</span><span>revision linked</span></div>
+              <button class="button small secondary" type="button" aria-label="Inspect evidence observation obs-2041">Inspect</button>
+            </article>
+            <article class="result-row">
+              <div class="result-marker review" aria-hidden="true">R</div>
+              <div class="result-copy">
+                <strong>Waiting must not become fabricated progress</strong>
+                <span class="mono">obs-2033 · operator note · noesis</span>
+                <p>Explicit waiting language remains separate from completed work.</p>
+              </div>
+              <div class="result-meta"><span class="badge review">review</span><span>authored context</span></div>
+              <button class="button small secondary" type="button" aria-label="Inspect evidence observation obs-2033">Inspect</button>
+            </article>
+          </div>
+
+          <div class="result-footer">
+            <span><strong>Bounded result page:</strong> 3 included · 2 omitted · no overall knowledge percentage.</span>
+            <button class="button small secondary" type="button">Load continuation</button>
+          </div>
+
+          <div class="status error" role="alert" aria-labelledby="recall-error-title">
+            <span class="status-icon" aria-hidden="true">!</span>
+            <div>
+              <strong id="recall-error-title">Recall request failed at 09:42:18 UTC</strong>
+              <p>Provider unavailable. Query, selected scope, snapshot, and capture draft remain unchanged; no empty result is shown.</p>
+              <div class="actions status-actions">
+                <button class="button secondary" type="button">Retry recall</button>
+                <span class="badge error">No data changed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="status recovery" role="status" aria-labelledby="recovery-title">
+            <span class="status-icon" aria-hidden="true">↻</span>
+            <div>
+              <strong id="recovery-title">Retry queued · waiting for provider</strong>
+              <p>Input and scope are preserved. If the service returns no denominator, show waiting and coverage rather than a percent.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="coverage" aria-labelledby="coverage-title">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">PROVENANCE / COVERAGE</p>
+            <h3 id="coverage-title">What this view can claim</h3>
+            <p>Coverage describes this response page, not the whole corpus or the quality of a source.</p>
+          </div>
+          <span class="badge planned">Implementation unverified</span>
+        </div>
+        <div class="panel-body coverage-grid">
+          <div>
+            <h4>Provenance chain</h4>
+            <ol class="provenance-list">
+              <li><span class="chain-dot source" aria-hidden="true"></span><div><strong>Source evidence</strong><span><span class="mono">evt-118</span> observed from Threadloom MCP.</span></div></li>
+              <li><span class="chain-dot derived" aria-hidden="true"></span><div><strong>Derived observation</strong><span><span class="mono">obs-2041</span> retains source revision; not a second source.</span></div></li>
+              <li><span class="chain-dot review" aria-hidden="true"></span><div><strong>Authored context</strong><span>Operator note is separate from generated Lore.</span></div></li>
+              <li><span class="chain-dot hypothetical" aria-hidden="true"></span><div><strong>Hypothetical</strong><span>Dream proposals are not executed experiments or validation.</span></div></li>
+            </ol>
+          </div>
+          <div>
+            <h4>Coverage facts</h4>
+            <dl class="facts">
+              <div><dt>Matched</dt><dd>5 records</dd></div>
+              <div><dt>Included</dt><dd>3 records</dd></div>
+              <div><dt>Omitted</dt><dd>2 records</dd></div>
+              <div><dt>Continuation</dt><dd>available</dd></div>
+              <div><dt>Read state</dt><dd>inspection only</dd></div>
+              <div><dt>Application</dt><dd>not performed</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="states" aria-labelledby="states-title">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">STATE LEDGER · CR-001—CR-008</p>
+            <h3 id="states-title">Complete capture and recall state coverage</h3>
+            <p>State words remain explicit so failure, partial coverage, and recovery cannot look like empty or successful work.</p>
+          </div>
+          <span class="badge source">8 required states</span>
+        </div>
+        <div class="ledger-grid">
+          <article class="state-card"><h4>CR-001 · Empty</h4><strong>No draft or no matches</strong><p>Explain zero versus unavailable and keep the next action visible.</p></article>
+          <article class="state-card"><h4>CR-002 · Editing</h4><strong>Draft input retained</strong><p>Labels, helper text, scope, and source locator stay attached to the note.</p></article>
+          <article class="state-card"><h4>CR-003 · Submitting</h4><strong>Request queued</strong><p>Disable duplicate submit and preserve input; queued is not captured.</p></article>
+          <article class="state-card"><h4>CR-004 · Success</h4><strong>Evidence revision recorded</strong><p>Show durable observation ID, source, scope, and a recall handoff.</p></article>
+          <article class="state-card"><h4>CR-005 · Results</h4><strong>Bounded evidence returned</strong><p>Each row names origin, revision, scope match, and inspect action.</p></article>
+          <article class="state-card"><h4>CR-006 · Partial</h4><strong>Returned and omitted counts</strong><p>Show continuation and never imply exhaustive review.</p></article>
+          <article class="state-card"><h4>CR-007 · Error</h4><strong>Local request alert</strong><p>Name operation and reason; preserve query, draft, scope, and revision.</p></article>
+          <article class="state-card"><h4>CR-008 · Recovery</h4><strong>Retry queued / waiting</strong><p>Keep input and selected context; do not invent progress or completion.</p></article>
+        </div>
+      </section>
+
+      <section class="panel notes-panel" aria-labelledby="notes-title">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">INTERACTION / RESPONSIVE NOTES</p>
+            <h3 id="notes-title">Keyboard, motion, and narrow reflow contract</h3>
+          </div>
+          <span class="badge planned">Design evidence only</span>
+        </div>
+        <div class="notes-grid">
+          <div><h4>Focus and keyboard</h4><p>Skip link focuses <span class="mono">#main-content</span> with <span class="mono">tabindex=-1</span>. Logical order is header → primary links → selected context → rail → capture → recall → inspector. Native fields and buttons keep visible focus; retry does not steal focus. A real dialog, if added for discard, must use contained focus, Escape/backdrop rules, and restore focus to its opener.</p></div>
+          <div><h4>Status and recovery</h4><p>Capture statuses are local to Capture. Recall partial, error, and recovery statuses are local to Recall with <span class="mono">role=status</span>/<span class="mono">role=alert</span>. Retry preserves note, query, locator, scope, selected version, and current revision. No application behavior is claimed.</p></div>
+          <div><h4>Responsive and keyboard input</h4><p>At 1440px use rail + task canvas + inspector. At 1024px inspector moves below the canvas. At 390px and 320px tabs scroll, forms stack, result rows stack, IDs wrap, and action groups stay full width. Production should apply safe-area insets and keep the focused field visible while the on-screen keyboard resizes the viewport.</p></div>
+          <div><h4>44px, reduced motion, forced colors</h4><p>Important controls, fields, links, and buttons are at least 44px. <span class="mono">prefers-reduced-motion: reduce</span> removes transitions and heartbeat intent while retaining labels and coverage. <span class="mono">forced-colors: active</span> switches to system colors, keeps borders/focus/status words, and does not rely on color alone. Light/dark/system share semantic tokens through the root attribute.</p></div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="inspector" aria-labelledby="inspector-title">
+      <div class="inspector-head">
+        <div><p class="eyebrow">PINNED CONTEXT</p><h2 id="inspector-title">Threadloom MCP</h2></div>
+        <span class="badge source">Selected</span>
+      </div>
+      <div class="inspector-block">
+        <h3>Identity and scope</h3>
+        <dl class="facts">
+          <div><dt>Resource ID</dt><dd class="mono">fixture-resource-threadloom-mcp</dd></div>
+          <div><dt>Version</dt><dd class="mono">v2.4.1</dd></div>
+          <div><dt>Snapshot</dt><dd class="mono">sha256:8a41…c2d7</dd></div>
+          <div><dt>Scope</dt><dd>local / project:noesis</dd></div>
+          <div><dt>Fixture</dt><dd>synthetic / planned</dd></div>
+        </dl>
+      </div>
+      <div class="inspector-block">
+        <h3>Capture ledger</h3>
+        <dl class="facts">
+          <div><dt>Draft</dt><dd>editing</dd></div>
+          <div><dt>Source locator</dt><dd class="mono">evt-118</dd></div>
+          <div><dt>Input preserved</dt><dd>on retry</dd></div>
+          <div><dt>Revision</dt><dd class="mono">pending</dd></div>
+        </dl>
+      </div>
+      <div class="inspector-block">
+        <h3>Recall ledger</h3>
+        <dl class="facts">
+          <div><dt>Matched</dt><dd>5</dd></div>
+          <div><dt>Returned</dt><dd>3</dd></div>
+          <div><dt>Omitted</dt><dd>2</dd></div>
+          <div><dt>Continuation</dt><dd>available</dd></div>
+          <div><dt>Validated</dt><dd>unknown</dd></div>
+        </dl>
+      </div>
+      <div class="inspector-block">
+        <h3>Safe handoffs</h3>
+        <div class="inspector-links">
+          <a class="button quiet" href="../core-atlas/inspector.html">Inspect provenance</a>
+          <a class="button quiet" href="../extra-surfaces/chronicle.html">Open revision history</a>
+          <a class="button quiet" href="../extra-surfaces/lineage.html">Trace lineage</a>
+        </div>
+      </div>
+      <p class="small-copy">Selecting, recalling, or inspecting does not confirm, reinforce, apply, delete, or publish memory. External copies cannot be recalled by this view.</p>
+    </aside>
+  </main>
+
+  <p class="footer-note">Design mockup only. Capture/recall service behavior, authorization, browser compatibility, WCAG conformance, network recovery, and application integration remain unverified.</p>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const control = document.getElementById('mode-toggle');
+      const preview = document.getElementById('mode-preview');
+      const modes = ['system', 'light', 'dark'];
+      const descriptions = {
+        system: 'follows system preference',
+        light: 'light semantic tokens',
+        dark: 'dark semantic tokens'
+      };
+      const requested = new URLSearchParams(window.location.search).get('mode');
+      let mode = modes.includes(requested) ? requested : (root.dataset.uiColorMode || 'system');
+
+      const renderMode = (nextMode) => {
+        mode = nextMode;
+        root.dataset.uiColorMode = mode;
+        control.textContent = `Color mode: ${mode}`;
+        control.setAttribute('aria-label', `Color mode preview: ${mode}. Activate to switch.`);
+        preview.textContent = `Preview only · ${descriptions[mode]}`;
+      };
+
+      renderMode(mode);
+      control.addEventListener('click', () => {
+        renderMode(modes[(modes.indexOf(mode) + 1) % modes.length]);
+      });
+    })();
+  </script>
+</body>
+</html>
